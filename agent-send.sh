@@ -70,8 +70,8 @@ send_message() {
     
     # メッセージ送信
     tmux send-keys -t "$target" "$message"
-    sleep 0.1
-    
+    sleep 2
+
     # エンター押下
     tmux send-keys -t "$target" C-m
     sleep 0.5
