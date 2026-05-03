@@ -8,6 +8,9 @@ tmp/
 *.tmp
 *_done.txt
 
+# Scratch / notes (GUI_kit と同様の慣例)
+workspace/
+
 # OS固有
 .DS_Store
 Thumbs.db
