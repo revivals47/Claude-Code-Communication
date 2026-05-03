@@ -11,6 +11,9 @@ tmp/
 # Scratch / notes (GUI_kit と同様の慣例)
 workspace/
 
+# ScheduleWakeup / Cron lock files
+.claude/*.lock
+
 # OS固有
 .DS_Store
 Thumbs.db
