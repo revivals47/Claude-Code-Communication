@@ -8,7 +8,7 @@
 - **ルート**: `/workspace/`
 - **プロジェクトディレクトリ**: `/workspace/[プロジェクト名]`
 - **命名規則**: 英数字とハイフン（例: `ecommerce-site`, `todo-app`）
-- **重要**: 全workerが同じディレクトリで作業することで、ファイルの共有と統合が容易になります
+- **共有: ドキュメント / 仕様 / マスタータスクのみ**。コード編集は次節の worktree 隔離プロトコルに従う。
 
 ### ディレクトリ構造例
 ```
@@ -20,6 +20,35 @@
 ├── docs/          # 共通: ドキュメント
 └── README.md      # プロジェクト概要
 ```
+
+### 🔒 worktree 隔離プロトコル（複数 worker 並走時は必須）
+**禁止事項**: 複数 worker が同一 git working tree を共有してコード編集することは禁止。WIP ファイルが互いに混入し、誤ブランチへの commit / cargo build 失敗 / stash 復元コストが発生する。
+
+**標準運用**: git リポジトリ（例: `~/Documents/[project]/`）に対し、各 worker は git worktree で別ディレクトリに隔離する。
+
+```bash
+# プロジェクト初期化時（boss1 が事前に切るか、各 worker に切らせる）
+cd ~/Documents/[project]
+git worktree add ../[project]-track1 track1/[topic]
+git worktree add ../[project]-track2 track2/[topic]
+git worktree add ../[project]-track3 track3/[topic]
+```
+
+各 worker は `~/Documents/[project]-track{N}/` で `cargo test` / `commit` / `stash` をすべて完結させる。共有 `~/Documents/[project]/` には触らない。
+
+**ブランチ命名規則**: `track{N}/[topic]`（例: `track1/clip-audit`, `track3/text-area-split`）。boss1 は worker 割り当て時にトラック番号とブランチ名を明示する。
+
+**並走 worker への boss1 からの初期指示テンプレート**:
+```
+【作業 worktree】~/Documents/[project]-track{N}（事前に git worktree add 済み）
+【ブランチ】track{N}/[topic]
+※ 共有 ~/Documents/[project] には触らない
+```
+
+**事故発生時のリカバリ手順**（worker2 の 2026-04-28 実例より）:
+1. 他 worker の WIP は `git stash push -m "stray-[内容]-from-worker{N}-[track]"` で名前付き退避（番号ではなく名前で帰属判別可能に）
+2. 誤ブランチへの commit は `git cherry-pick` で正しいブランチに移し替え、誤ブランチは `git reset --hard origin/main` で巻き戻す
+3. `cargo test` 緑確認まで実施してから boss1 に報告
 
 ## 継続的タスク管理とゼロ待機時間の原則
 ### 重要：PRESIDENTの要求が100%実現されるまで、全workerを稼働させ続ける
