@@ -552,4 +552,94 @@ done
 ### 重要な心構え
 - **Worker待機時間ゼロが目標**
 - **PRESIDENTの要求実現まで手を止めない**
+- **常に全体進捗を意識し、完了に向けて推進**
+
+---
+
+## dispatch design workflow patterns (2026-05-08 確立、Stage 4 phase 4 + Phase 1 で実証済)
+
+GUI_kit text_core migration の 2 連続 dispatch series (Stage 4 phase 4 = 10 commits / Phase 1 = 11 commits、各 ~30 min-2 hour) で確立した運用 pattern。複雑 dispatch + 共有 working tree + cargo j1 規範 + プラットフォーム原則 4 制約遵守の組み合わせで再現可能な template 化。
+
+### Pattern 1: sequential rename pattern (file structure 変更時)
+
+**問題**: 共有 working tree で file structure 変更 (例: 1-file 500 行原則 over の split refactor) を行う時、中間状態で build broken になると並行作業中の他 worker を block する。
+
+**解決**:
+1. 新 file を新名で先に作成 + 内容 embed (workspace doc または別 path)
+2. atomic mod.rs swap で旧 file → 新 file への切替 (1 commit)
+3. 各 step で `cargo build` 緑を確認、broken 中間状態ゼロ
+4. small commits で bisect 容易性確保
+
+**実証**: e555fde (W3.2 split refactor、code_editor/mod.rs 694 → 261 行 + delegation.rs 233 + tests.rs 239)
+
+### Pattern 2: option C = 実装並行 + cargo verify sequential
+
+**問題**: cargo j1 規範 (memory feedback_cargo_j1_rule.md) で並行 cargo 起動禁止 + GNOME / dock 応答悪化回避が必要だが、worker 待機時間最小化も求められる。
+
+**解決**:
+1. 実装作業 (file edit / commit message draft / spec read-through) は並行可
+2. `cargo build` / `cargo test` の起動は sequential、boss1 が serialization 制御
+3. workerA cargo 中 = workerB は workspace doc / spec 編集 / next step 設計
+4. worker 間 cargo busy 通知は boss1 経由 (直接 worker→worker 禁止)
+
+**実証**: Stage 4 phase 4 dispatch series (worker1 + worker3 並行、cargo verify は順次)、Phase 1 (Track A + B 並行)
+
+### Pattern 3: workspace doc embed → cargo-free 後 atomic 反映
+
+**問題**: 大型実装変更 (例: 514 行 module 追加) を 1 step で commit すると review / rollback 困難、また並行 worker の cargo verify と衝突 risk。
+
+**解決**:
+1. 実装 draft を `workspace/<worker>-notes/wX_Y_<topic>_draft.md` に embed (cargo 起動なし、tree への影響ゼロ)
+2. boss1 から cargo-free 信号 (= 他 worker の cargo verify 完了) 受領後に atomic 反映
+3. draft doc は workflow pattern 4 物理 evidence として後で commit 化可
+
+**実証**: workspace/worker3-notes/w3_3_search_draft.md (W3.3 SearchEngine 514 行実装、cargo-free 後 atomic 反映、後で 119fc20 で commit 化)
+
+### Pattern 4: push-back v0.1 → v0.2 revision 履歴 doc 化
+
+**問題**: boss1 push-back / PRESIDENT 確定で実装方針が変更された場合、後世が「なぜこの設計になったか」を re-discover できない。
+
+**解決**:
+1. push-back 受領時、worker draft doc に v0.1 → v0.2 revision history を embed
+2. revision 各版の差分 + 採用理由 + 棄却理由を明文化
+3. 後で commit 化、git log + doc 両方に判断追跡可能性確保
+
+**実証**: workspace/worker3-notes/w3_3_search_draft.md (W3.3 v0.1 = silent no-match → v0.2 = eager last_error tracking、PRESIDENT 原則 #4 反映で boss1 push-back 採用)
+
+### Pattern 5: pre-existing fail triage 共有
+
+**問題**: 別 dispatch 起因の test fail が main HEAD に存在する時、新 dispatch 内で「自分の起因か」判定に時間消費 + 起因切り分け不能で誤った fix 試行 risk。
+
+**解決**:
+1. dispatch 着手前に baseline cargo test --no-fail-fast で pre-existing fail listing
+2. dispatch 完了時、pre-existing fail が bit-exact 維持されていることを worker 報告で confirm
+3. dispatch 起因否定 finding は exit review doc に embed (起因切り分け証跡)
+4. pre-existing fail の root cause triage は別 dispatch で対応 (本 dispatch scope 外として明示)
+
+**実証**: golden_widgets 5 fail (button/label/vstack/window_frame_default_win10 + window_frame_default_win95)、Stage 4 phase 4 + Phase 1 で起因否定 + popup chain commits 4 件特定 (bf8e7db / 6e0d242 / 5034fb6 / 4665adf) → Phase 2 dispatch で triage
+
+### 適用判断 framework
+
+dispatch 設計時、以下 4 軸で適用 pattern 選定:
+
+| 軸 | 質問 | pattern |
+|----|------|---------|
+| file structure 変更含む？ | 1-file 500 行原則 over や module 分離発生する？ | → Pattern 1 (sequential rename) |
+| 並行 worker？ | 2 worker 以上に独立 scope task？ | → Pattern 2 (option C) |
+| 大型実装 step？ | 1 step で 200+ 行 file 追加 / 修正？ | → Pattern 3 (workspace embed → atomic) |
+| 設計 push-back？ | boss1 / PRESIDENT 確定で方針変更発生？ | → Pattern 4 (revision 履歴 doc 化) |
+| pre-existing fail？ | main HEAD に既知 fail 存在？ | → Pattern 5 (起因切り分け + 別 dispatch flag) |
+
+複数 pattern が同時適用可、Stage 4 phase 4 では Pattern 1 + 2 + 3 + 4 + 5 全 5 件適用済。
+
+### プラットフォーム原則との整合
+
+各 pattern は最上位制約と整合:
+- Pattern 1 = 抜本解決 (broken state ゼロ) + 負債先送り禁止
+- Pattern 2 = cargo j1 規範遵守 (assumption-based 禁止) + 時間効率
+- Pattern 3 = API 境界 defensive (workspace tree への broken state risk ゼロ) + 抜本解決
+- Pattern 4 = 負債先送り禁止 (設計判断 trail 永続化、後世が re-discover 可)
+- Pattern 5 = 負債先送り禁止 (pre-existing fail 起因切り分け + triage trigger)
+
+新 dispatch 設計時、本 5 pattern を base に dispatch design template として活用すること。
 - **常に全体進捗を意識し、完了に向けて推進** 
