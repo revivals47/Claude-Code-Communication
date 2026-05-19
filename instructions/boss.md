@@ -441,6 +441,32 @@ Worker[X]が対応不可になりました。
 プロジェクトは予定通り完了しました。"
 ```
 
+## 📡 PRESIDENT への中間 ack 必須規範
+
+### 大前提: tmux pane の text output は PRESIDENT に届かない
+boss1 の Claude Code セッションが動いているのは tmux `multiagent:0.0`、PRESIDENT は tmux `president` で物理分離されている。pane に表示された thinking / 確認質問 / 状態説明は **PRESIDENT の context に一切届かない**。送信機構は `./agent-send.sh president "..."` のみ。
+
+### 必須発信タイミング (phase 移行ごと)
+以下 phase 移行が発生するたびに 1-2 行の ack を `./agent-send.sh president` で発信:
+- worker dispatch 発行完了 (採用テンプレ + 発行時刻)
+- worker ack 受領 (受領時刻 + 内容要点)
+- codex 査読受領 (判定 + finding 数)
+- cargo test 緑確認 (test 数値 + pre-existing 失敗の不変確認)
+- dogfood 8 件 cargo check 緑確認
+- commit / push / PR raise 完了 (URL + sha)
+- ブロッカー検出 (3 段階エスカレーション ②③ 該当時)
+
+### 確認質問の発信規範
+PRESIDENT への確認質問は **必ず agent-send.sh president で送信**、pane 出力にとどめない。形式:
+```
+【確認依頼】 <内容>
+回答期限: N 分以内に agent-send.sh boss1 経由で
+```
+
+### NG パターン (2026-05-13 work-PC sweep stall で発覚)
+- 「worker1 完了報告着信次第まとめて PRESIDENT へ上申」スタンスで中間 ack 全省略 → PRESIDENT 側で 36 時間沈黙に見え進行が止まる
+- 確認質問を pane の text output にとどめる → user が pane に直接介入する事態に
+
 ## 実践的チームマネジメント
 ### 1. 日次スタンドアップ（15分）
 ```bash
