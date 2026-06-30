@@ -7,6 +7,16 @@ testruct (hayate-kit-testruct) を dogfood に、GUI_kit の cool-light house de
 - **GUI_kit main = `97467a5`** (PR #308 cool theme / #309 SplitView divider SSOT / #310 固定幅API / #311 SurfaceTheme re-export+wash / #312 surface primitive 3種)
 - **testruct main = `cd2673b`** (PR #69 theme注入 / #70 canvas accent / #71 panel token / #72 Mac UX レイアウト)
 
+## ★home-PC 再開手順 (この handoff を受けて)
+1. **repo 同期 (revivals47 から pull)**:
+   - `~/Documents/GUI_kit` → `git pull` → main `97467a5` を確認。
+   - `~/Documents/hayate-kit-testruct` → `git pull` → main `cd2673b` を確認。
+   - `~/Documents/Claude-Code-Communication` (本 handoff) → ★**revivals47 fork から pull** (`git@github.com:revivals47/Claude-Code-Communication.git`、home-PC では origin かもしれない)、HEAD `9fd4146`。**Akira-Papa の上流 (HTTPS) からではない** (push-remote 注意は下記 memory mirror #3 参照)。
+2. **memory mirror**: 下記 memory mirror 節の 3 ファイル分を home-PC の `~/.claude/projects/-home-tlcr-Documents-Claude-Code-Communication/memory/` へ反映 + MEMORY.md 索引行を追加 (memory は local-only、git 外、本 doc が唯一の channel)。
+3. **env-drift baseline 再確認**: home-PC は別 fontconfig (RTX4070)。golden は work-PC canonical ゆえ home-PC で font drift fail が出ても regression でなく env-drift ([[feedback_golden_env_drift]])。**home-PC で golden を盲目 bless しない**。cargo test の非 golden fail のみ regression signal。
+4. **状態**: イニシアチブは完全クローズ・全 merge 済・全 idle。続行するなら backlog (a)-(d) (下記) が着手可。home-PC は PRESIDENT/boss1/worker を fresh spawn (work-PC の tmux session は別、context は本 doc + memory で引継ぎ)。
+5. **設計レビュー画像** (`~/Documents/testruct-design-review/`) は work-PC ローカル・git 外。home-PC で要れば `HAYATE_SCREENSHOT=... cargo run -p testruct-ui -- --answer-sheet fukuoka` で再生成可。
+
 ## 段別サマリ
 - **P1** ✅ cool light theme 確立: GUI_kit に `app_theme_hayate_light` + `titlebar_theme_hayate_light` + `auto_app_theme_for(&HAYATE_LIGHT)→Some` (PR#308)、testruct へ dual-channel 注入 (`with_app_theme` + `with_theme(&HAYATE_LIGHT)`、両方必須) + light titlebar (PR#69)。実アプリで chrome dark→cool white 転換、8 割効果実証。house accent **#1482DC**。
 - **P2** ✅ 脱ハードコード + 単一 source 収束: SplitView divider の framework SSOT fix (PR#309、live-verify finding) + canvas/overlay/math の accent 収束 (PR#70) + パネル 6+RulerCorner の surface token 化 (PR#71)。2 種 blue → surface.accent 単一化。page 白維持。画素整合不変。idiom = `surface: SurfaceTheme` 直接 cache。
@@ -32,9 +42,15 @@ container の children() を flatten 公開すると、その container の boun
 
 ---
 
-## memory mirror (home-PC 向け verbatim、本 session の更新 2 件)
+## memory mirror (home-PC 向け verbatim、本 session の更新 3 件)
 
-canonical 整理メモ: boss1 が closeout 時に重複作成した `project_testruct_light_design_system.md` は no-duplicate 規範で削除済 (固有の forward-gap 学びは下記 canonical へ統合済)。home-PC は下記 2 ファイル + MEMORY.md 索引 2 行を mirror すれば最新。
+canonical 整理メモ: boss1 が closeout 時に重複作成した `project_testruct_light_design_system.md` は no-duplicate 規範で削除済 (固有の forward-gap 学びは下記 canonical へ統合済)。home-PC は下記更新を mirror すれば最新。更新 = (1) 新規 `feedback_primitives_additive_option_not_mandate.md` (2) `project_testruct_design_system_initiative.md` 最新化 (3) ★`reference_dual_pc_setup.md` への追補 (push-remote、下記 #3)。
+
+### ★3. reference_dual_pc_setup.md への追補 (push 後に PRESIDENT 追加、handoff/comms repo の push 先)
+既存 `reference_dual_pc_setup.md` の sync channel section に下記 1 文を追補済 (home-PC も同一文を local memory に反映):
+```
+- **★handoff/comms repo の push 先注意 (2026-06-30 実証)**: `Claude-Code-Communication` (handoff doc + agent-comms repo) は `origin` = `https://github.com/Akira-Papa/Claude-Code-Communication.git` (テンプレ上流・HTTPS・push 不可 read-only)、別に `userfork` = `git@github.com:revivals47/Claude-Code-Communication.git` (SSH 認証済) が dual-PC sync remote。handoff push は `git push userfork main` が正 (origin は read-only 上流)。boss1 が `git push origin main` を試行し `could not read Username for https://github.com` で失敗したのが今回の真因 = remote 取違え。home-PC も userfork から fetch。GUI_kit / 新世代 app repos は origin=revivals47 直ゆえこの注意は不要 (comms repo 固有)。dual-PC 枝分かれ時は別 handoff doc = 別ファイルゆえ conflict なし rebase → userfork ff push。
+```
 
 ### MEMORY.md 索引 2 行 (既存、確認用)
 ```
