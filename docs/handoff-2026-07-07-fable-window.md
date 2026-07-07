@@ -6,7 +6,7 @@
 
 ## §A. 本日 land 済み PR / sha 一覧
 
-### worker1 (track1: multiline-text-edit → micro-PR → live-verify finding 1)
+### worker1 (track1: multiline-text-edit → micro-PR → live-verify finding 1 + 3)
 | # | repo / PR | merge 後 main | 内容 |
 |---|---|---|---|
 | 1 | testruct branch commit `14d1e04` | (#88 に同梱) | RFC-multiline-text-edit (Phase A、432 行)。Mac 正典 ee5f49a + Rust 13e4392 + kit の 3 面 grounding。PRESIDENT 裁定 4 件 = 案a TextAreaWidget / 方式(i) 中央 modal / B-1・B-2 受容 / 縦書き IN (横書き編集面) |
@@ -15,8 +15,11 @@
 | 4 | GUI_kit **#325** | `f009af6` | vector_icon.rs:471 never_loop root-fix (while→get(i)?+if、bit-exact、net -2 行)。**workspace clippy blocker 解消** — 以後 clippy に -A/-p 回避不要 |
 | 5 | GUI_kit **#328** | `85da719` | **finding 1 kit 分**: `RichTextAlign` を layout_rich (CPU/GPU 共通 choke point) に通す = 複数行の per-line 揃え (cosmic native)。Leading→cosmic None で golden 27/27 bit-exact。**K-g (Justified) の非編集描画分を無償 closure** (編集面 Justified = K-g 本体は依然 follow-up)。recording は RichCmd align field + replay 追随。codex LGTM High/Med 0 |
 | 6 | testruct **#97** | `76d34e8` | **finding 1 配線**: Inspector の複数行揃えが canvas 反映されない bug の root-fix。screen_painter draw_text を単一行 (既存 align_offset 経路 bit-exact 温存) / 複数行 (`draw_rich_rgba_aligned` に委譲) で分岐、装飾は `rich_line_extents_aligned` 追従。壊れ挙動 assert の旧 test を正 3 本に置換。test 405/0 緑。PDF/SVG 経路の複数行揃えは positioned-glyph 別サブシステムで follow-up 起票済 |
+| 7 | GUI_kit **#329** | `3cc13c0` | **finding 3 kit 分**: 縦書き回転字形。`needs_vertical_rotation` (ー30FC/〜301C/～FF5E/—2014/–2013/―2015/─2500) を分類し rotate flag を伝播、`draw_glyph_image` に 90° CW 回転を追加 (`draw_glyph_image_maybe_rot`、rotate=false ビット同一=golden 27/27) + セル中心の幅高入替配置。`positioned_glyphs` が rotate expose。案A (vert/vrt2 置換) follow-up trigger を doc comment に明記。codex LGTM High/Med 0 |
+| 8 | testruct **#98** | `ffe308b` | **finding 3 配線**: PDF の複数行縦書き回転。`emit_text_glyphs` が rotate glyph の text matrix を 90° CW `[0,1,1,0]` に組む (通常字 bit-exact)。fixture `vertical_glyph_rotation.testruct` 新設。test 409/0 緑。**visual gate は非対称字 〜 で方向確認** (対称字 ー は CW/CCW/鏡映を区別できず偽陰性、boss1 指摘)。REMAINING に案A + 禁則・約物 spacing 紐付け |
 
 > **finding 1 (Inspector 文字揃えが複数行で canvas 非反映) = kit #328 + testruct #97 の 2-repo chain で closure**。断線点は発行経路でなく screen_painter の single-line-only 揃え適用 (#88 で複数行常態化して表面化した pre-existing gap)。
+> **finding 3 (縦書き ー 等が横向き) = kit #329 + testruct #98 で screen/PDF 両経路 closure**。cosmic-text 0.18 が vert/vrt2 を引けないため描画時 90° 回転 (案B)。screen/PDF 共有の shape_vertical_glyphs 単一 choke point ゆえ 1 kit fix で両経路。方向 gate は非対称字 〜 で偽陰性を回避。
 
 ### worker2 (K4 gradient チェーン → K8/K9)
 | # | repo / PR | merge 後 main | 内容 |
@@ -39,7 +42,7 @@
 
 > **finding 2 (縦書きトグル) = testruct #96 で closure** (worker3 実装)。finding 1 (#97) と同 session 並走、区画調整で inspector.rs / screen_painter.rs を分けて conflict ゼロ。
 
-**repo HEAD 記録 (worker1 更新 17:53、finding 1/2 land 反映)**: GUI_kit main = `85da719` (#328 RichTextAlign) / testruct main = `76d34e8` (#97 複数行揃え配線、= #96 縦書きトグル + #95 K9 の上) / testruct-v3 master = `ee5f49a` (behind 47 を ff 済、Win 1.0.9 まで取込)。
+**repo HEAD 記録 (worker1 更新 20:08、finding 3 land 反映)**: GUI_kit main = `3cc13c0` (#329 縦書き回転字形) / testruct main = `ffe308b` (#98 縦書き回転 PDF 配線、= #97 finding1 + #96 縦書きトグル + #95 K9 の上) / testruct-v3 master = `ee5f49a` (behind 47 を ff 済、Win 1.0.9 まで取込)。
 
 ## §B. user live-verify 残項目 (集約 — user 在席時にまとめて実施)
 
@@ -51,11 +54,12 @@
 5. **modal UI の user 実機確認 = 実質 veto 機会** (中央パネル+暗転+Enter 契約変更 B-1。違和感は v2 調整、方式 veto は PRESIDENT ③)
 - 回帰スモーク: 表セル Enter=確定不変 / 数式エディタ従来どおり / Esc・click-away・Delete gate
 
-### B-1b. finding 1/2 の再検証 (本 session live-verify 中に検出→修正済、再確認用)
-> user の live-verify Part A 中に 2 件検出し同 session で root-fix land。**修正の再確認**を上記 B-1 と同枠で:
+### B-1b. finding 1/2/3 の再検証 (本 session live-verify 中に検出→修正済、再確認用)
+> user の live-verify Part A 中に 3 件検出し同 session で root-fix land。**修正の再確認**を上記 B-1 と同枠で:
 1. **finding 1 (複数行テキストの横揃え)** — 複数行 TextElement を選択 → Inspector で 中央/右 揃え → **canvas 上で per-line に揃うこと** (kit #328 + testruct #97、以前は Start へ fallback して無反応だった)。Justified も描画反映される (画面のみ、PDF/SVG は follow-up)。単一行の揃えは従来どおり不変。
 2. **finding 2 (縦書きトグル)** — テキスト要素選択 → Inspector で 縦書き ⇔ 横書き トグル → 表示が切り替わること (testruct #96、Mac parity)。
-- 補足: finding 1 の GPU 実機反映は B-1 の live 目視で確認可能 (cosmic per-line 揃えは CPU/Vulkan 共通 layout 経由ゆえ両 backend で効く設計、実機初目視)。
+3. **finding 3 (縦書き ー/〜/— 回転)** — fixture `crates/testruct-core/tests/fixtures/vertical_glyph_rotation.testruct` を開く → 縦書きの **長音符 ー・波ダッシュ 〜・ダッシュ — が縦向きに正立回転**していること (screen)。同 fixture を PDF export → **PDF でも同じく回転**していること (kit #329 + testruct #98、screen/PDF 両経路)。★特に **〜 の波の向き**が正しいか (対称な ー でなく非対称な 〜 が方向確認の要)。括弧類は従来どおり縦書き字形。
+- 補足: finding 1 の GPU 実機反映は B-1 の live 目視で兼ねられる (cosmic per-line 揃えは CPU/Vulkan 共通 layout ゆえ両 backend で効く、実機初目視)。finding 3 も screen は GPU、PDF は positioned-glyph の別経路だが kit の単一 shape choke point 共有ゆえ整合。
 
 ### B-2. AppImage (worker3 track) — user live-verify 残 4 項 + screenshot 撮影
 checklist 本体 = testruct `packaging/appimage/smoke-checklist.md` (main 耐久化済)。headless 可能分 (#2 フォント / #6 PDF / #8 %f / #1 近似) は worker3 実施済 PASS — 残りは GUI 実操作が要る 4 項:
