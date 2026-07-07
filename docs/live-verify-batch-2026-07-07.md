@@ -64,13 +64,14 @@ HAYATE_LINEAR_BLEND=1 cargo run -p testruct-ui -j1 -- --answer-sheet fukuoka   #
 ## Part B — packaging + fidelity + screenshot (≈20 分、次 session 回し可)
 
 ### B-1. AppImage 実操作 4 項 【所要 9 分】
-> ✅ **AppImage 最終再生成済** (worker3 2026-07-07 18:05): 下記 path の実体は
-> **main `ffe308b` のビルド** (kit `3cc13c0`) — finding 1 (複数行揃え #97) +
-> finding 2 (縦書きトグル #96) + **finding 3 (縦書き回転字形 PDF #98)** /
-> K4→K9 描画 (#90,#94,#95) / 白紙起動 + 未保存確認 dialog (#93) の
+> ✅ **AppImage 最終再生成済** (worker3 2026-07-07 20:15、finding 4 反映):
+> 下記 path の実体は **testruct main `ffe308b` + kit `0e5e2b0` (#330 PDF
+> baseline pivot 補正 = finding 4) のビルド** — finding 1 (複数行揃え #97) +
+> finding 2 (縦書きトグル #96) + finding 3 (縦書き回転字形 PDF #98) +
+> **finding 4 (kit #330)** / K4→K9 描画 / 白紙起動 + 未保存確認 dialog の
 > **本日全 land 分収束の単一 artifact**。full headless smoke 5 項は 76d34e8
-> 時点で PASS 済 + 差分 (描画系のみ) 後の白紙起動 smoke 再 PASS (全px白)。
-> そのまま B-1 に着手可。
+> 時点で PASS 済 + 以後の差分 (描画/PDF 系のみ) 毎に白紙起動 smoke 再 PASS
+> (全px白)。そのまま B-1 に着手可。
 
 checklist 本体 = `packaging/appimage/smoke-checklist.md`。AppImage 実体:
 ```
