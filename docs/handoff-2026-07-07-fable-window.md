@@ -6,13 +6,17 @@
 
 ## §A. 本日 land 済み PR / sha 一覧
 
-### worker1 (track1: multiline-text-edit → micro-PR)
+### worker1 (track1: multiline-text-edit → micro-PR → live-verify finding 1)
 | # | repo / PR | merge 後 main | 内容 |
 |---|---|---|---|
 | 1 | testruct branch commit `14d1e04` | (#88 に同梱) | RFC-multiline-text-edit (Phase A、432 行)。Mac 正典 ee5f49a + Rust 13e4392 + kit の 3 面 grounding。PRESIDENT 裁定 4 件 = 案a TextAreaWidget / 方式(i) 中央 modal / B-1・B-2 受容 / 縦書き IN (横書き編集面) |
 | 2 | GUI_kit **#323** | `5189ac1` | TextAreaWidget overlay-host 3 gap (K-a prelude export + FontFamilyOwned / K-b ImePreedit→ImeRect、paint anchor と式 lockstep / K-c pub set_focused、Blur parity)。codex LGTM (informational 1 のみ) |
 | 3 | testruct **#88** | `094bb1c` | TextElement 複数行編集の中央 modal 化 (text_editor_dialog + wire 4 hook + text_edit.rs 表セル専用縮退)。test 380/0 緑、edit 系 19 本。codex High/Med finding 0 |
 | 4 | GUI_kit **#325** | `f009af6` | vector_icon.rs:471 never_loop root-fix (while→get(i)?+if、bit-exact、net -2 行)。**workspace clippy blocker 解消** — 以後 clippy に -A/-p 回避不要 |
+| 5 | GUI_kit **#328** | `85da719` | **finding 1 kit 分**: `RichTextAlign` を layout_rich (CPU/GPU 共通 choke point) に通す = 複数行の per-line 揃え (cosmic native)。Leading→cosmic None で golden 27/27 bit-exact。**K-g (Justified) の非編集描画分を無償 closure** (編集面 Justified = K-g 本体は依然 follow-up)。recording は RichCmd align field + replay 追随。codex LGTM High/Med 0 |
+| 6 | testruct **#97** | `76d34e8` | **finding 1 配線**: Inspector の複数行揃えが canvas 反映されない bug の root-fix。screen_painter draw_text を単一行 (既存 align_offset 経路 bit-exact 温存) / 複数行 (`draw_rich_rgba_aligned` に委譲) で分岐、装飾は `rich_line_extents_aligned` 追従。壊れ挙動 assert の旧 test を正 3 本に置換。test 405/0 緑。PDF/SVG 経路の複数行揃えは positioned-glyph 別サブシステムで follow-up 起票済 |
+
+> **finding 1 (Inspector 文字揃えが複数行で canvas 非反映) = kit #328 + testruct #97 の 2-repo chain で closure**。断線点は発行経路でなく screen_painter の single-line-only 揃え適用 (#88 で複数行常態化して表面化した pre-existing gap)。
 
 ### worker2 (K4 gradient チェーン → K8/K9)
 | # | repo / PR | merge 後 main | 内容 |
@@ -23,7 +27,7 @@
 | 7b | GUI_kit **#327** | `d826caa` | K9 kit 側: text alpha 貫通 (IR rgba 化 + `*_rgba` variant、旧名 a=255 委譲 = golden で bit-exact 機械確認) + shadow Gaussian blur (LayerParams additive、CPU separable + VK は vk_blur 再利用)。**副次 root-fix**: vk_blur の h/v params UBO aliasing (全画面 blur が縦二重になる pre-existing 潜在バグ) を BlurRecordSet pool 化で根治 |
 | 7c | testruct **#95** | `9b37287` | K9 配線: 影の Gaussian blur (`SHADOW_BLUR_TO_SIGMA = 0.5` 初期較正) + render_element generic wrap で全 leaf node 種 opacity layer 化 (Scene 経路 parity) + text 色 alpha 貫通。**K4→K8→K9 描画 fidelity トラック完遂** (worker2 全 7 PR 一発 LGTM) |
 
-### worker3 (track3: 設計 doc → 公開 blocker チェーン、全 5 PR merge 済)
+### worker3 (track3: 設計 doc → 公開 blocker チェーン → live-verify finding 2)
 | # | repo / PR | merge 後 main | 内容 |
 |---|---|---|---|
 | 8 | testruct **#86** | `0449b44` | track3 設計 doc 3 本 (p0-2-format-compat-ci / release-quality-gaps / zoom-absolute-model)。zoom 二重構造 finding (fit 相対 user_scale + Ctrl+0 意味逆転) は boss1 → PRESIDENT 上申済 |
@@ -31,8 +35,11 @@
 | 10 | testruct **#89** | `97dfa4f` | P0-2a: format_version (欠損0・lenient・writer 単一チョークポイント stamp) + Fill::Unknown (最狭境界 raw 保持、WireFill 委譲でワイヤ形 bit 不変、表示は白 degrade)。codex LGTM High/Med 0、239/0 緑 |
 | 11 | testruct **#91** | `e62af2c` | P0-2e 縮退版: roundtrip_harness bin (emit basic/future/legacy + recode + dump) + cross-impl-roundtrip.sh (10 PASS/0 FAIL/2 SKIP、Swift/C# は SKIP 縮退) + disabled workflow (dispatch only) |
 | 12 | testruct **#92** | `6bb34eb` | R-2 README 全面刷新 (教員向け冒頭 + AppImage 手順最上部 + 現コード grep 裏取り機能表 + 制限節の正直記載 + screenshot placeholder 3 枠) |
+| 13 | testruct **#96** | `54d7309` | **finding 2**: 縦書き ⇔ 横書きトグルを Inspector に追加 (Mac parity、wire 変更なし = TextStyle.vertical は既存 field)。ShellAction::ToggleVertical 1 個、新 command 型なし (既存 TextStyleCommand 経由で undo 自動)。worker3 実装、worker1 finding 1 (#97) と inspector 系 file 区画分離で無競合 land |
 
-**repo HEAD 記録 (worker2 更新 17:05、K9 land 反映)**: GUI_kit main = `d826caa` (#327 K9) / testruct main = `9b37287` (#95 K9 配線) / testruct-v3 master = `ee5f49a` (behind 47 を ff 済、Win 1.0.9 まで取込)。
+> **finding 2 (縦書きトグル) = testruct #96 で closure** (worker3 実装)。finding 1 (#97) と同 session 並走、区画調整で inspector.rs / screen_painter.rs を分けて conflict ゼロ。
+
+**repo HEAD 記録 (worker1 更新 17:53、finding 1/2 land 反映)**: GUI_kit main = `85da719` (#328 RichTextAlign) / testruct main = `76d34e8` (#97 複数行揃え配線、= #96 縦書きトグル + #95 K9 の上) / testruct-v3 master = `ee5f49a` (behind 47 を ff 済、Win 1.0.9 まで取込)。
 
 ## §B. user live-verify 残項目 (集約 — user 在席時にまとめて実施)
 
@@ -43,6 +50,12 @@
 4. **縦書き往復** — 縦書き要素を編集→改行→Ctrl+Enter→縦書き複数 column 再描画
 5. **modal UI の user 実機確認 = 実質 veto 機会** (中央パネル+暗転+Enter 契約変更 B-1。違和感は v2 調整、方式 veto は PRESIDENT ③)
 - 回帰スモーク: 表セル Enter=確定不変 / 数式エディタ従来どおり / Esc・click-away・Delete gate
+
+### B-1b. finding 1/2 の再検証 (本 session live-verify 中に検出→修正済、再確認用)
+> user の live-verify Part A 中に 2 件検出し同 session で root-fix land。**修正の再確認**を上記 B-1 と同枠で:
+1. **finding 1 (複数行テキストの横揃え)** — 複数行 TextElement を選択 → Inspector で 中央/右 揃え → **canvas 上で per-line に揃うこと** (kit #328 + testruct #97、以前は Start へ fallback して無反応だった)。Justified も描画反映される (画面のみ、PDF/SVG は follow-up)。単一行の揃えは従来どおり不変。
+2. **finding 2 (縦書きトグル)** — テキスト要素選択 → Inspector で 縦書き ⇔ 横書き トグル → 表示が切り替わること (testruct #96、Mac parity)。
+- 補足: finding 1 の GPU 実機反映は B-1 の live 目視で確認可能 (cosmic per-line 揃えは CPU/Vulkan 共通 layout 経由ゆえ両 backend で効く設計、実機初目視)。
 
 ### B-2. AppImage (worker3 track) — user live-verify 残 4 項 + screenshot 撮影
 checklist 本体 = testruct `packaging/appimage/smoke-checklist.md` (main 耐久化済)。headless 可能分 (#2 フォント / #6 PDF / #8 %f / #1 近似) は worker3 実施済 PASS — 残りは GUI 実操作が要る 4 項:
