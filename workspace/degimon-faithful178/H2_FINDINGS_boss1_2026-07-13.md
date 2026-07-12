@@ -242,6 +242,20 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
   **未解決棚 = 0x6D + 0x6A@144**（いずれも共有仮定産・0x18 RE 待ち）。49×2 conflict 帰属 = denoise queue（claim 非依存・低優先）。
 - text=Y の裁定確定分: 0x6E@71 / 0x6F@14 = execution-proven phantom 棄却。0x6A@113 / 0x73@6 / 0x6F@33×2 = 候補のまま。
 
+### ★09:40-09:45 の反転（上記⑤棚は 2 点 stale — こちらが最新）★
+
+- **0x6A@144:0x112a = 完全決着（census から phantom として除外）**。両者が**別々の層**で正誤:
+  到達層 = worker2 正（worker1 の body-only は自 tool の **Len[0x55]=2 bug**、emulator 実測 8）/
+  code-vs-operand 層 = **site は op `0x10`（選択肢 jump table、count+u16×3）の table 内 pointer `0x116a` の低 byte** —
+  worker2 が実行 anchor で証明（実機が 0x1A@0x10f8 → router op 0x10@0x1128 → target 0x116a を実行）。
+  worker2 の walk は**制御 code 混在 text run** 内で desync していた（sjis_run_len が制御 code で打ち切られ残り text を op として歩行）。
+- **0x6F = 係争依存に逆戻り**: witness 0x6F@50×2 は **executed first_pc（0x132）起点 walk で死亡**（body_start 起点でのみ到達）。
+  成立は 0x6F@49×2（conflict=Y）の帰属に依存 → 優先度を claim 直結に昇格。v3 regen の自己重複判定が第一関門。
+- ★**新盲点 class**: 制御 code 混在 text run は SJIS-pair overlay に写らない ⇒ **『5 op 成立』は v3 exec-anchor 掃引までの【暫定】に降格**★。
+  exec-anchor flag（実行された連続 fetch 区間の内側 = operand 域 = phantom 証明）を全 op の witness に適用して再確定する。
+  op `0x10` の意味論は新 RE finding として 0x18 RE に同梱。
+- 監査体制の evidence: worker1 所感「H5 で自 tool の誤り 3 回 surface（entry_done 境界 / CTX 欠落 / Len[0x55]）、全て cross-check・自己監査が catch」。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
