@@ -368,6 +368,33 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
   (b) tmux アクセスを持つ別 script（launch-agents.sh 等）の誤発火。
   **どちらも次回 quarantine 発火 1 回で判別可能** — 再発を待ち構える方が今推測で掘るより安い（PRESIDENT 裁定）。
 
+### ②+②b 真の完走と verdict（13:20-13:40、blind 収束+新 caveat 2 件）
+
+- **完走 = 3 点規則で判定**（run file 30/30 実計数 + pane + `cc3802b` 直読）。worker2 も独立に件数 evidence（30/30 entry_done grep）で確認。
+- **数値: full-60 flip 0/6、②b (4,51) 0/4 値。N=9 下限不変**。prereg `f5c37c0` 採点: #1 HIT / **#2 MISS（worker3 の 3D9 FLIP 予測も
+  worker2 の静的 label も不支持 = H4）** / #3 HIT（tcnt 60/60・120-790 回/launch・偏在なし → consumer 側仮説残存）/ #4 PARTIAL。
+- ★**headline: 0x8016B0B9 を NOT-SHOWN 台帳から降格 = UNMEASURED-by-method**★ — DGSTORE が 3865 store（writer 2 本、窓内 201、
+  val 1/0 連続再書込）を捕捉。注入は即上書き = no-flip は測定でない。**分類 = derived/maintained state（C# は capture でなく model すべき class）**。
+- **worker2 の blind 独立 verdict = worker3 と一致**（PC-diff 0 / STATE-diff 0、分母明示 675-843 record/run、struct_w 1583/run = positive control）。
+- ★**新 caveat #A: POST（窓外）次元はこの batch に構造的に不在**★（entry_done 後の record 0 件）⇒ **0x8016B441 の out-of-window
+  finding はこの batch で再検証不能。『0 flips』は B441 と矛盾しない（見えない次元）**。worker2 prereg P2 = BLOCKED（外れでなく未測定）。
+  POST 不在の帰属（DGEXIT 由来か harness 設計一般か）は worker3 に確認中（A/B off 側も tail 0 行だった事実は後者を示唆）。
+- ★**新 caveat #B（worker2 の遡及開示）**: 彼の初版 loader は『t なし record』を silent drop（602-843 record/run）→ **過去 P2 x-check の
+  『PC 差 0/15』は空 vs 空の可能性が高い = P2 の PC 次元は worker3 comparator 単独立脚に降格。x-check claim 自体に次元限定が要る**★。
+  今回は schema 直読で再構築+分母一致検証してから報告（positive control で自己捕捉）。
+- ★**入力表面の taxonomy（PRESIDENT 指定、close パッケージに明記）**: true live-in（capture すべき）/ 定数 / derived-maintained
+  （C# が model すべき）/ VM scratch（どちらでもない）。**『閉じる』= 全部 capture ではなく class ごとに正しい扱い**★。
+
+### codex fix evidence 4 件 + full 1278 rbw 発進（13:40、rebuild `d9bf9c9`）
+
+- **#1 幅盲**: 3-entry A/B（66308 addr 突合）→ 偽 live-in 1 件除去（rbw 1→0）、0→1 ゼロ。実規模は full 1278 で判明。
+- **#3 reload**: 機能実証 — 不在 savestate で 3/3 が『RELOAD FAILED…SKIPPED as INVALID』+ entry_done 0 件（残渣 trial 不記録）。
+- **#4 checkpoint**: 構造実証（flush/fclose/rename 全検査、失敗時 .tmp 除去+final_done 非設定）。機能 trigger は破壊的につき code 直読で確認。
+- **#6 二重帰属**: 稼働 — **E104 行が実演: vmw=1(ra)/vmw_win=0(窓外)= 予告どおりの ra-only 方向**。
+- ③ = early_01 witness で前提充足済。④ 本走は per-target DGDUMP 生存 evidence 同乗。
+- **full 1278 rbw 発進**（fixed binary、`-frames 1200000` = 旧 1020 切れの真因〔250000 不足〕解消、DGIDLE=40 で旧条件一致、
+  versioned → `rbw_tally.jsonl-3`）。boss1 が実 process 確認済。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
