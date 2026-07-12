@@ -321,6 +321,16 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - ★**⑤棚 確定値（見込み label 解除）: 4 op 成立（0x6A = 敵対検証済）/ 0x6F・0x6D = 反証【確定】/ 未解決ゼロ = H5 census 側 close 完了**★
 - 残る close 前提: ②batch 完走（件数 evidence 30/30）→ w60 verdict + prereg 採点 / codex #1 fix evidence + full 1278 rbw 再測 / #6 検討。
 
+### #6 採用（11:30、PRESIDENT 承認済）
+
+- **発見**: 現 rbw write-set = ra-direct（depth1）のみ ⇒ depth2 以深の write が構造的に不可視（実例 chain: 0x66→`0x800AECA8`→depth2 helper 3 件。実在は未測定）。
+- **採用設計**（worker2 `7aa7150` docs/H6_rbw_writeset_design.md）: ★**二重帰属 = vmw_ra（under-approx）+ vmw_win（over-approx）を両方出力、
+  不一致 address list を audit 対象化**★ — 真値を上下限で挟み、不一致 triage が depth2 実在測定を兼ねる。PC whitelist 拡大（手引き線）は棄却。
+  **silent 置換禁止（両方出す）**。clean-core と同型の挟み撃ち設計。
+- **実装 slot = #1 幅盲 fix と同じ rebuild に同乗**（worker3。full 1278 rbw 再測を 1 回で両方 land = 高価な再測の正しい batching）。
+- close の最終前提 2 系統: ①batch 完走[件数 30/30]→ w60 verdict + prereg `f5c37c0` 採点 ②#1+#6 fix evidence → full 1278 rbw 再測。
+  worker2 = H5/H6 成果物 index（close パッケージ部品）作成中。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
