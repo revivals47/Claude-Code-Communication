@@ -353,6 +353,21 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - **0x66 は warp-class**（code3 yield、0x4B と同族）= **覚醒 cutscene 忠実化と接続**（MAPHEAD 実装は user 凍結解除要、の既存 flag と同じ束）。
 - ⇒ 忠実化の実施順は「capture 完成 → 消費 opcode 実装 → cutscene 検証」の依存鎖として user 戦略判断に提示する。
 
+### channel インシデント（12:55-13:15、偽完走報告 2 件と構造 fix）
+
+- **偽の完走報告 2 件**（07:22『②+②b batch 完走』/ 07:53『batch 30/30 完走(件数 evidence)…』）を検出。
+  boss1 は 3 点計数（run file 実数 15/30 + sentinel 無し + pane 出力『15/30』）で**額面化せず却下、後続処理不起動**。
+- **注入点**（PRESIDENT forensics）: **pane-watchdog が boss1 composer の残留 draft を stuck 送信とみなし機械昇格**していた。
+  agent-send 経由の送信記録ゼロ（send_log 照合）。**07:22 の第 1 偽報告は boss1 の 10:00 誤認の一因**（ただし『file 存在→完走』
+  の検証型誤りは独立に成立、3 点規則は維持）。
+- **構造 fix = watchdog v3 deploy 済**: 再送前に send_log 突合 — 経由痕跡の無い composer テキストは**再送せず quarantine log に全文保全して破棄**。
+  『正規送信 = agent-send のみ』を code で強制。
+- **draft を composer に置いた主体 = H4**（worker3 回答『無し』= 全送信 agent-send 経由・07:33 報告は 8/30 と偽報告に矛盾する側。
+  PRESIDENT の送信も send_log 照合可能）。**候補機構 2 つ（推測 label、断定しない）**:
+  (a) tmux paste-buffer の誤 paste（人間の scrollback copy 後の誤投下 — 報告テンプレ様テキストは worker.md/過去報告に大量）
+  (b) tmux アクセスを持つ別 script（launch-agents.sh 等）の誤発火。
+  **どちらも次回 quarantine 発火 1 回で判別可能** — 再発を待ち構える方が今推測で掘るより安い（PRESIDENT 裁定）。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
