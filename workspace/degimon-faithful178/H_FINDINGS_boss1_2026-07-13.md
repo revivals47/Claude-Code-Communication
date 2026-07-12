@@ -140,7 +140,15 @@ sub2 の偽 GREEN を潰した capture 再構成（46-capture → 3 ブロック
 2. **値指定注入（DGPERTURB_VALUE）** — 現行は XOR 0xFF 固定で **threshold gate を跨げない**
 3. **1 address につき複数値の注入**（最低 2 値 = XOR 0xFF + gate 一致値）
 
-## 8. ★★確定 VERDICT（per-target control 16/16、初差 launch 基準）★★
+## 8. ★★PROVISIONAL VERDICT（下限）— per-target control 16/16、初差 launch 基準★★
+
+★**「確定」ではない**（PRESIDENT 裁定 2026-07-13）★:
+- **N = 9 は【下限】**（`orig XOR 0xFF` 単一値で挙動が動いた = 確実に入力、の下限）。**点推定ではない。**
+- **cross-check がまだ 1 方法しかない**。fixed-harness（button-phase reset 後）の clean data で再測し、
+  **2 方法が収束した時が「確定」**。
+- **dimension が「測定のみ・初差 1 本」の 2 件は provisional**:
+  `0x8016B169`(STATE-only) / `0x8016B084`(RNG-only) = **構造の裏付け未提示** ⇒ **INPUT は確定、次元は保留**。
+  収束済み（測定＋構造の 2 独立方法）は `0x8013E2DE` / `0x8013E2E0` / `0x80145E5A` / `0x8013E104`。
 
 対照の変遷: baseline(DGLOADS ON) → union control(sweep 不一致) → **per-target control（sweep/frames/env すべて一致、DGPERTURB のみ差）**。前二者の verdict は破棄。
 
@@ -159,9 +167,14 @@ sub2 の偽 GREEN を潰した capture 再構成（46-capture → 3 ブロック
 
 **★N = 9 / 16、NOT-SHOWN-INPUT = 7、INVALID = 0★**
 
-### 8.1 ★headline: state-only が 3 件、実測確定★
-`0x8013E2DE` / `0x8013E2E0` / `0x8016B169` — **初差の次元が STATE のみ（PC は 1 bit も動かない）**。
-⇒ **「PC 列だけを見る metric では原理的に検出できない入力」が実機に存在する**（`state 0/469` の根拠が実測で立った）。
+### 8.1 ★headline: state-only class の【存在】が確定（2 独立方法の収束）★
+- **収束済み**: `0x8013E2DE` / `0x8013E2E0` — **測定**（初差の次元が STATE のみ、PC は 1 bit も動かない）＋
+  **構造**（opcode `0x25` handler が値を分岐ゼロで `SetVar` に渡す、EXE 直読）の **2 独立方法が一致**。
+- **provisional**: `0x8016B169`(STATE-only) — **構造の裏付けなし・初差 1 本のみ** ⇒ 次元は保留。
+
+⇒ **「PC 列だけを見る metric では原理的に検出できない入力」が実機に存在する**。
+★ただし `state 0/469` は**別測定**である。ここで言えるのは「`0/469` と**整合する class の存在を実証した**」であって
+  「`0/469` の根拠が立った/再証明された」ではない★（which-dimension 規律）。
 機構（worker2、EXE 直読）= **opcode `0x25` の handler `0x800EC9BC` が値を `jal SetVar` にそのまま渡す** = 分岐ゼロで state だけ変わる。
 **★state-only に gate は要らない★** — 値がデータとして state に流れるだけでよい。
 **第 4 の class**: `0x8016B084` = 初差が **RNG 列のみ**（PC も state も動かない）。
