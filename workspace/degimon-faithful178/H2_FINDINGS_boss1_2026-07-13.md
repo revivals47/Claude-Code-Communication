@@ -193,3 +193,21 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - E104 の①決着（worker3）: **copy 0x800F021C は毎 launch 無条件実行、source=DF70 実証、配達 4 値 inert = 両 prereg 外れ（H4）**。
   **二重訂正**（DF70 非-source 説の撤回が dump-timing artifact で誤り、元 disasm が正しかった）を⑤材料に記録。
   versioned tally は実 ls で確認（`/tmp/claude-1000/dgtrace/rbw_tally.jsonl` + `-2` 並存）。
+
+### 帰属の反転と共有仮定の掃引（08:20-08:55、PRESIDENT check 2 連の的中）
+
+- **0x6D 復活 → 三たび動揺**: worker2 の撤回は自分の list 生成の **seed 欠落バグ**（trace は body_start+全 section、list 関数は
+  section のみ）で誤り。3 site は per-offset 2 実装一致で byte-存在復活（`all1559` scope のみ、sweep-seed 両者 0）。
+  **ただし** conflict 次元では 3 site とも二重 decode span 内 = **生存根拠は per-offset 一致のみ、worker1 の 0x18 も heuristic なら共有仮定**。
+- **SJIS 掃引（PRESIDENT check『一致こそ症状』）= 的中**: 一致 161 の中に **raw SJIS-run 内 4 site**（0x6A@113 / 0x6E@71 / 0x6F@14 / 0x73@6、`d0823f0`）。
+  **『2 実装一致は共有仮定 phantom を防がない』の実測実証**。textflag は decode 非依存 raw 検査 = 検査系の独立性確保。
+  2 系統目 = worker1 の実行 trace 由来 text overlay（作成中）、diff は boss1。
+- **conflict flag のより大きい影**: 0x6E=107/116、0x73=24/25 が二重 decode 関与。ただし worker2 自己開示 —
+  主因は自 tool の 0x18 clampMax heuristic の可能性 = **flag は『本物の衝突』と『自 tool の 0x18 誤り』を区別できない（候補 marker）**。
+- ★**clean-core 裁定（PRESIDENT 承認）**★: ⑤の定性 claim は **guard=N ∧ conflict=N ∧ text=N の積集合上でのみ主張**（保守的下限）。
+  集計結果: **4 op 成立**（0x53 core2 / 0x6A ≥3 / 0x6E 9 / 0x73 1、両 seed 変種で非零）/
+  **0x6F = 条件付き**（body+sections のみ core2 = seed 定義裁定待ち、label 必須）/ **0x6D = 両変種 core0 = 未解決**。
+  clean-core は seed 間**非単調**（multi-seed 自己重複で conflict 自己誘発）ゆえ下限としてのみ使用。
+- **0x18 table 長 ground truth RE を条件発動で dispatch**（worker2、read-only・意味論のみ。突合 = worker1 機構開示 + fetch trace 実消費）。
+- seed 定義（sweep-seed に body_start を含むか）は **fiat でなく実行 evidence**（worker1 が fetch trace で body-prologue 実行有無を測定中）。
+- boss1 tool bug 第 2 の未遂: worker2 も space-pad 罠を踏みかけ、boss1 の開示済み是正で回避（開示の効用）。
