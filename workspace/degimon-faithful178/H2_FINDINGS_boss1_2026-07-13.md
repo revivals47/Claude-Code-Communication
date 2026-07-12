@@ -270,6 +270,21 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - **codex 外部査読**（PRESIDENT 発注、dg_vmtrace.cpp 敵対的監査）走行中 — findings は PRESIDENT triage 後に relay。
 - 進行中: worker2 = 0x18 RE（49×2 帰属最優先、0x10 意味論同梱）/ worker1 = Len diff + json 更新 + full-60 独立集計待機。
 
+### 10:20-10:35 の確定事項（snapshot 続き）
+
+- **0x6F = 反証確定**: 49×2 は phantom 実行証明（3 点 anchor: 実飛先 = branch target byte 列 e8 04 / len 18 fall-through 実証 /
+  decode 一致）。★site byte 0x6F の正体 = 実行された 0x19 条件式の flag-index operand（`!flag[0x6f]` の 0x6f）★。
+  worker1 も自 tracer で独立確認・異議なし。**⑤棚確定値 = 4 op 成立（J caveat 付き）+ 0x6D 未解決 + 0x6F 反証**。
+- **execanchor v2（validated-span: fall-through 証明 or target 証明 → span 内 = operand 証明 Y）承認** — v3.1 で J 80 site の相当数が判定可能に。
+- **Len workstream close**（worker1 `4fe8bf5`/`bec8261`）: 確定 stale 5 件（0x26/0x55/0x71/0x75/0x7C、worker2 と独立 2 経路一致）、
+  json re-baseline 済。★新教訓: 初版 audit は emu-len を ground truth に据え 6/11 誤検出（len = next_fetch_pc−pc は制御流 op で jump 距離）
+  → blast-radius sanity（census 166→19 崩壊）で commit 前に自己 catch。**権威 label は op class を跨いで transfer しない**★。
+- **codex 監査 triage**（PRESIDENT、7 findings 中 3 verify）: **#1 rbw アクセス幅盲**（write/read とも start 1 byte のみ =
+  closure 偽 GREEN 方向、**fix + rbw 再測を close 前提に追加**）/ #2 DGPERTURB_VALUE の XOR-on-equal（label 是正のみ、worker2 が記録掃引）/
+  #3 LoadState 戻り値無視（fix + INVALID skip）。#4 checkpoint flush（worker3 verify+fix）/ #5 TOCTOU（低優先）/
+  #6 write-provenance が IsVmPc のみ（worker2 検討、jal 27 件 finding と直結）/ #7 SW_RELOAD 境界 1 frame（P1 不一致時の第一容疑）。
+  full 出力 = PRESIDENT session scratchpad `codex_dgvmtrace_audit.out`（boss1 実在確認済）。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
