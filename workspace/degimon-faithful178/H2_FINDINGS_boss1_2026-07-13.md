@@ -312,6 +312,15 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - **0x18 RE 総括**: 発端の table 長 ground truth は**どの係争 site にも不要**だった（scope 絞り 2 例目の的中）。
   副産物 RE 4 件確定: op 0x10 = choice table(count+u16×N) / 0x6F = flag-index / 0x6D = var-index / 0x6A = 引数形式。
 
+### 0x6D 反証【確定】= H5 census 完全 close（11:20、worker1 の Len[0x4B] 測定）
+
+- **0x4B は execution で 158/158 terminal（fall-through 事例ゼロ）** ⇒ `Len[0x4B]=4` は**静的 RE（handler 0x800ED774）のみ・
+  execution 実証不能**の claim に降格。worker2 の 0x4B-chain 帰属は静的 walk が停止 op を跨いだ artifact（機構 label 訂正）。
+- ★**しかし verdict はより直接の証拠で確定**: byte@0x34 は【実行された】`0x19@0x30`（raw `19 00 08 00 6d 02` =
+  `var[0x6d]==0x2 BR_IF_FALSE→0x42`）の **var-index operand そのもの** — 依存 link が死んでも別 route で立て直した★。
+- ★**⑤棚 確定値（見込み label 解除）: 4 op 成立（0x6A = 敵対検証済）/ 0x6F・0x6D = 反証【確定】/ 未解決ゼロ = H5 census 側 close 完了**★
+- 残る close 前提: ②batch 完走（件数 evidence 30/30）→ w60 verdict + prereg 採点 / codex #1 fix evidence + full 1278 rbw 再測 / #6 検討。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
