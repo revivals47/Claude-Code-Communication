@@ -140,6 +140,53 @@ sub2 の偽 GREEN を潰した capture 再構成（46-capture → 3 ブロック
 2. **値指定注入（DGPERTURB_VALUE）** — 現行は XOR 0xFF 固定で **threshold gate を跨げない**
 3. **1 address につき複数値の注入**（最低 2 値 = XOR 0xFF + gate 一致値）
 
-## 8. 規範
+## 8. ★★確定 VERDICT（per-target control 16/16、初差 launch 基準）★★
+
+対照の変遷: baseline(DGLOADS ON) → union control(sweep 不一致) → **per-target control（sweep/frames/env すべて一致、DGPERTURB のみ差）**。前二者の verdict は破棄。
+
+| addr | 初差 launch | 次元（初差＝非汚染） | 判定 |
+|---|---|---|---|
+| `0x80145E5A` | #0 | **PC** | INPUT |
+| `0x8013E2E0` | #0 | **STATE のみ** | INPUT |
+| `0x8016B084` | #0 | **RNG のみ** | INPUT |
+| `0x8013E114` | #1 | PC | INPUT |
+| `0x8013E2DE` | #1 | **STATE のみ** | INPUT |
+| `0x8016B139` | #5 | PC | INPUT |
+| `0x8016B3A9` | #5 | PC | INPUT |
+| `0x8016B169` | #14 | **STATE のみ** | INPUT |
+| `0x8016B411` | #34 | PC | INPUT |
+| `0x8013E104` / `0x8016B07C` / `07D` / `0B8` / `0B9` / `3D9` / `441` | — | 差分ゼロ | **NOT-SHOWN-INPUT**（7 件） |
+
+**★N = 9 / 16、NOT-SHOWN-INPUT = 7、INVALID = 0★**
+
+### 8.1 ★headline: state-only が 3 件、実測確定★
+`0x8013E2DE` / `0x8013E2E0` / `0x8016B169` — **初差の次元が STATE のみ（PC は 1 bit も動かない）**。
+⇒ **「PC 列だけを見る metric では原理的に検出できない入力」が実機に存在する**（`state 0/469` の根拠が実測で立った）。
+機構（worker2、EXE 直読）= **opcode `0x25` の handler `0x800EC9BC` が値を `jal SetVar` にそのまま渡す** = 分岐ゼロで state だけ変わる。
+**★state-only に gate は要らない★** — 値がデータとして state に流れるだけでよい。
+**第 4 の class**: `0x8016B084` = 初差が **RNG 列のみ**（PC も state も動かない）。
+
+### 8.2 ★★N=9 を「7 件は入力でない」と読んではならない★★
+注入値は **`orig XOR 0xFF` 固定**（`dg_vmtrace.cpp:592` 実読）。worker2 が特定した**等値 gate（`==1`/`==2`/`==3`/`==0xA`）を一つも跨いでいない**。
+⇒ **NOT-SHOWN-INPUT = 「この 1 つの値では差が出なかった」という下限主張。非入力の証明ではない。**
+⇒ 予測 14/15 に対し実測 9 が低い理由は **harness の感度不足**が最有力。**「7 件は定数だった」と結論すれば、それが最後の偽 GREEN になる。**
+
+### 8.3 予測の採点
+- boss1 N=14 → **外し** / worker2 N=15 → **外し** / worker2 の CONST 候補 `0x8013E104` → **的中**
+- worker2 の state-only 予測 4 件のうち `0x8013E2DE` / `0x8013E2E0` が実測 state-only
+
+## 9. ★harness の根本欠陥: host 側ボタン位相（source 直読で確定）★
+
+`Heartbeat` の `static u32 n` → `DriveInput(n)`、auto = `(frame % 12) < 6` で CIRCLE（台詞送り）を周期的に押す。
+**この `n` は savestate reload でも launch 跨ぎでもリセットされない** ⇒ **ボタン位相が絶対フレームに固定**。
+savestate はゲームを戻すが **host 側の入力位相は戻らない**。
+
+- **発覚経路**: control 同士（union vs per-target）が食い違った。**rng_seed / eventBank / ram_inputs 3 ブロックは全て bit 一致**していたのに trace が違った。
+- **カスケード汚染**: 注入が entry の実行長を変える → 以降の全 launch の絶対フレームがずれる → ボタン位相がずれる → **注入と無関係に trace が変わる**。⇒ **差分の【件数】は信用できない**。
+- **verdict の救済**: **初差 launch はカスケード前**（それ以前は位相が完全に揃っている）⇒ **dimension は初差 launch からのみ読む**。**閾値（`aba590e`）は不変** — カスケードは差の**有無**を偽造できない。
+- **「決定性テスト PASS（bit-identical）」が測っていたもの**: 同一 sweep を 2 回 = **ボタン位相も同一** ⇒ **位相非依存性を一度も試していない**。再現性は検証したが、**入力充足性（同一捕捉入力なら同一挙動）は未検証**だった。
+- **修正後は完全性 oracle になる**: button-phase を launch 相対にすれば control 同士は bit 一致するはず。**それでも残差が出れば、それは本物の未捕捉 state**。
+
+## 10. 規範
 
 閾値 `aba590e` 不動 / 実装ゼロ（計装は可）/ push ゼロ / frozen `09fde5a` 不触 / cutscene 不触。
