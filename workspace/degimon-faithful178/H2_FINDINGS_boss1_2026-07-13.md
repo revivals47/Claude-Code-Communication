@@ -122,3 +122,30 @@
 
 **閾値 `aba590e` / `dc3600e` 不動 / game code 実装ゼロ / push ゼロ（user 専権）/ frozen `09fde5a` 不触 / cutscene 不触。**
 **★N は常に下限。「最終確定値」とは、この phase の後も言えない。★**
+
+---
+
+## 11. 追記（07-13 06:40-07:00、boss1 crash 再起動後の照合と裁定）
+
+### §9 の P2 は実施済 → ★which-dimension 監査で降格★
+
+- **P2 = 0/7 flip**（boss1 予測 5 / worker3 予測 4 とも外れ = H4）。**N = 9 据置・下限不変**。
+  worker1 x-check per-item 収束済（f1a `fe722fe`）。verdict = f1c `workspace/f1c/P2_VERDICT.md`（`6fd4fe9`）。
+- ★**降格（PRESIDENT 確認課題 → boss1 が env 直読で確定）**★: `pt_p2_run.sh:13` / `pt_p2_followup.sh` より、
+  **非 E104 の 6 target は DGWATCH 無しで走行 = struct 次元【未計装】**（positive-assert により **BLOCKED**、silent 0 ではない）。
+  **正確な claim = 「旧次元で 0/7 ＋ E104 のみ struct 込み 0/15」**。gate 値の効果が `0x80141Dxx` struct 次元に
+  落ちていた可能性は 6 target で開いたまま ⇒ **full-60 retest は全 target DGWATCH 付き**（PRESIDENT 承認）。
+- **NOT-SHOWN 7 の分解**（rbw + fwpc、P2_VERDICT FINAL 節）: `0x8013E104` = rbw0・fwpc=`0x800F021C`（VM 内部 scratch）/
+  `0x8016B441` = out-of-window **field 入力** / 残 5 = rbw1 read-first（sweep-miss 未決）。
+  ★E104 の身分は**決着テスト待ちで未確定**: worker3 の DGPERTURB_EARLY で DF70→E104 copy 物語は反証済（`db59cde` / f1c `22795cd`、
+  worker2 は自分の cross-check claim を撤回 = 恒等式は証拠でない）。仮説 (a) source 別 vs (b) savestate 残渣、
+  worker2 予測固定 = store 0★。
+
+### 承認済み実行順序（PRESIDENT 07:00 裁定）
+
+① E104 store instrument 決着テスト → ② 残 5+B441 full-60 retest（**全 target DGWATCH 付き**）→
+③ DGPERTURB_EARLY の **launch-marker 時点 readback 実証**（reload 時点 applied でも boot 上書きなら偽 NOT-SHOWN 製造機）→
+④ dia=0 盲点 21 件本走（`LIVEIN_BLINDSPOT_21.md`）→ ⑤ 測定器修理 close 判定 → user 戦略判断。
+
+worker 配置: worker3 = ①〜④ 実行 / worker1 = x-check tooling の struct_w 次元対応（着手 ack 06:40）/
+worker2 = 残 5 の gate reader exercise 条件の静的特定（候補ラベル厳守）。
