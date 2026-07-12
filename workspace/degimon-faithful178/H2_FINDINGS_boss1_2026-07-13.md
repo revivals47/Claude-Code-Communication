@@ -378,7 +378,10 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - **worker2 の blind 独立 verdict = worker3 と一致**（PC-diff 0 / STATE-diff 0、分母明示 675-843 record/run、struct_w 1583/run = positive control）。
 - ★**新 caveat #A: POST（窓外）次元はこの batch に構造的に不在**★（entry_done 後の record 0 件）⇒ **0x8016B441 の out-of-window
   finding はこの batch で再検証不能。『0 flips』は B441 と矛盾しない（見えない次元）**。worker2 prereg P2 = BLOCKED（外れでなく未測定）。
-  POST 不在の帰属（DGEXIT 由来か harness 設計一般か）は worker3 に確認中（A/B off 側も tail 0 行だった事実は後者を示唆）。
+  POST 不在の帰属 = **harness 設計一般で確定**（worker3 実装者確認 13:50）: fetch = router BP 発火時のみ / var_w・flag_w = ra-gate /
+  struct_w = s_vm_executing gate — **全 trace channel が構造的に窓内 only。DGEXIT は無罪**（ab_off tail 0 行と整合）。
+  **唯一の ungated channel = store_t（DGSTORE）**（0B9 の dia=0 store 3664 件が現に窓外 record）。
+  ⇒ **B441 の POST 再検証は DGSTORE=0x8016B441 同乗で可能** — ④ run への任意同乗とし（追加 run ゼロ、worker3 判断）、close blocker にしない。
 - ★**新 caveat #B（worker2 の遡及開示）**: 彼の初版 loader は『t なし record』を silent drop（602-843 record/run）→ **過去 P2 x-check の
   『PC 差 0/15』は空 vs 空の可能性が高い = P2 の PC 次元は worker3 comparator 単独立脚に降格。x-check claim 自体に次元限定が要る**★。
   今回は schema 直読で再構築+分母一致検証してから報告（positive control で自己捕捉）。
