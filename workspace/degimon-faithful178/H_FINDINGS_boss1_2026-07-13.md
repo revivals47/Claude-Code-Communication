@@ -200,6 +200,55 @@ savestate はゲームを戻すが **host 側の入力位相は戻らない**。
 - **「決定性テスト PASS（bit-identical）」が測っていたもの**: 同一 sweep を 2 回 = **ボタン位相も同一** ⇒ **位相非依存性を一度も試していない**。再現性は検証したが、**入力充足性（同一捕捉入力なら同一挙動）は未検証**だった。
 - **修正後は完全性 oracle になる**: button-phase を launch 相対にすれば control 同士は bit 一致するはず。**それでも残差が出れば、それは本物の未捕捉 state**。
 
-## 10. 規範
+## 10. ★観測者効果 = ZERO（実測、全 1278 launch）★
+
+対照 = **full 1278 sweep・DGLOADS OFF**。baseline の launch 列を **artifact から順序・重複ごと復元**（`pt_sweep_full.txt`）して
+**sweep 構成を bit 一致**させ、env は `DGLOADS` だけを外した。（union control は sweep 構成が違い交絡するので使わない）
+
+| 次元 | 差分 |
+|---|---|
+| PC | **0 / 1278** |
+| STATE | **0 / 1278** |
+| RNG | **0 / 1278** |
+| DONE | **0 / 1278** |
+
+⇒ **DGLOADS の read hook は guest 挙動を一切変えていない（実測）。**
+⇒ **frozen read 側 authority `09fde5a` の採取条件は、この次元では validity 問題なし。**
+「read hook だから guest を変えない」という**推論を額面にせず、0 を測って確定させた**。
+
+## 11. ★`n` 持続の直接観測 — カスケード機構は「推論」でなく「実測」★
+
+PRESIDENT 指摘（「source 読みだけで済ませるな。cascade 物語と fix 設計の load-bearing 前提なのに `n` を観測していない」）を実行。
+観測手段 = **LAUNCH の stderr 行が `frame` を出力**していた（従来 run は stderr を捨てていた）。
+
+**① `n` は launch/reload を跨いで持続する**
+Run X（sweep_04）の launch ごとの frame = **12 → 124 → 221 → 315 → 424 → 665 …**（**単調増加＝リセットされない**）
+
+**② 先行 launch 列が違うと、同じ launch の位相が変わる**
+Run Y = sweep_01（4 本）を prefix した同一 60 launch:
+
+| launch | Run X | Run Y | ずれ |
+|---|---|---|---|
+| scn=1,key=5 | frame 12（位相 0） | frame 394（位相 10） | **+382** |
+| scn=2,key=9 | frame 124（位相 4） | frame 497（位相 5） | **+373** |
+
+⇒ **frame 一致 = 0 / 60、ボタン位相（`frame % 12`）が違う launch = 60 / 60**
+⇒ **「`n` が持続 → 同じ launch でもボタン位相が変わる → 注入と無関係に trace が変わる」が全段実測。**
+
+## 12. ★comparator の次元集合が足りないと、汚染前サンプルを取り逃がす★
+
+worker3 との per-item 突合で **1 件だけ食い違った**（`0x8016B084`: 私 = RNG-only / worker3 = PC）。
+
+実測（`pt_pert_07` vs `pt_ctl_07` を launch 順に直読）:
+- `#0` scn=1,key=254 → **差 = RNG のみ**（RNG 抽選数 ctl=6 → pert=5、**PC/state は完全一致**）
+- `#1` scn=3,key=9 → 差 = PC
+
+**worker3 の comparator は RNG 列を持たないので `#0` が見えず、`#1` の PC 差を「初差」と誤認していた。**
+そして **`#1` は既にカスケード汚染下**（`#0` で挙動が変わっているので位相がずれている）。
+
+⇒ **次元集合が足りない comparator は、汚染前のサンプルを取り逃がし、汚染後を初差と誤認する。**
+（worker2 の「分類のカテゴリ集合そのものが盲点」と同型。**「PC か state か」の 2 択で考えていると RNG-only class は存在しないことになる**）
+
+## 13. 規範
 
 閾値 `aba590e` 不動 / 実装ゼロ（計装は可）/ push ゼロ / frozen `09fde5a` 不触 / cutscene 不触。
