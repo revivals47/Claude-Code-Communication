@@ -180,3 +180,16 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - **定量 = 未収束**: 単位（entry vs 箇所）も seed 集合（sweep 1278 起点 vs 全 corpus）も未整列。
   **`0x6D` が最鮮明: worker2=38 entry vs worker1=3 箇所（1559 seed）**。方向も op ごとに逆転（`0x6E` は worker1=115 > worker2=85）。
   ⇒ unblind して per-item（entry-id 集合の diff）突合へ。各自、diff は**自分の道具から先に疑う**。
+
+### 突合の決着（08:05、boss1 が per-site diff 実施）
+
+- ★**2 実装収束 = 成立**★: sweep1278 seed で **161/170 site 一致**（w1 166 vs w2 165。per-op: 0x53 6v5 / 6A 15v16 / **6D 0v0** / 6E 115v116 / 6F 5v3 / 73 25v25）。
+- 乖離の正体 = **① seed 差（corpus vs sweep）② 単位差（entry vs site）③ GUARD 汚染**の複合。
+  **worker2 は自己監査で 0x6D を撤回**（corpus 72 site が 100% GUARD entry 内 = runaway walk の phantom。**撤回 census の中に誤り = 『撤回も claim』の実例**）。
+- ★**boss1 自身の tool bug 1 件（開示済）**★: 位置ベース awk が worker2 list の可変 field（`entry=  7` の space-pad）を誤読し、
+  **偽の食い違い（37 vs 165）を一度出した**。名前ベース parse で解消。**diff を取る者の道具も監査対象。**
+- 残差 9 site（only-w1: 0x53@146 / 0x6E@111,190 / 0x6F@33×2、only-w2: 0x6A@144 / 0x6E@87×3）は相互帰属に割当済。
+  **0x6D の byte-存在は worker1 の 1559-seed 3 site（85:0x0034/0x0176, 191:0x0014）のみが候補**として残存、両側から監査中。
+- E104 の①決着（worker3）: **copy 0x800F021C は毎 launch 無条件実行、source=DF70 実証、配達 4 値 inert = 両 prereg 外れ（H4）**。
+  **二重訂正**（DF70 非-source 説の撤回が dump-timing artifact で誤り、元 disasm が正しかった）を⑤材料に記録。
+  versioned tally は実 ls で確認（`/tmp/claude-1000/dgtrace/rbw_tally.jsonl` + `-2` 並存）。
