@@ -149,3 +149,34 @@
 
 worker 配置: worker3 = ①〜④ 実行 / worker1 = x-check tooling の struct_w 次元対応（着手 ack 06:40）/
 worker2 = 残 5 の gate reader exercise 条件の静的特定（候補ラベル厳守）。
+
+## 12. 追記（07-13 07:30-07:50、順序改訂と which-domain 第 3 実例）
+
+### 順序改訂（PRESIDENT 承認済）
+
+**① E104 store test（走行中、prereg `09dc890` = worker3: stores PRESENT val=8 vs worker2: 0 store で正面対立）
+→ ②+②b full-60 retest（全 target DGWATCH + per-launch dia 集計同乗 + (4,51) 狙い撃ち、prereg `d26adb0`）
+→ ③ EARLY launch-marker readback 実証 → ★full 1278 rbw union 完走（新規挿入）★ → ④ scope 再切りは full tally 後に 1 回だけ → ⑤ close 判定。**
+
+挿入理由 = worker3 開示: **rbw_tally は 1020/1278 の途中 checkpoint（80% prefix）**。全 rbw/wcount claim は
+prefix-scoped に降格（rbw0→rbw1 の片方向でのみ転び得る）。dia=0 盲点母集団は 21 でなく **166**（checkpoint-scoped、
+新 145 はほぼ連続 array `0x8015F788-0x8015F9C4`）。**checkpoint 書き出しは versioned/append-only 化を full run 前に必須**
+（126891-addr 版が短い checkpoint に上書き消失 = silent data loss、PRESIDENT 指示）。
+
+### ★which-domain 第 3 実例 + 4 件目の metric-外 gap（PRESIDENT 裁定の記録）★
+
+worker2 の「`0x53/6A/6D/6E/6F/73` は全 1275 section に不在 = 閉じられる」は**撤回**（`a5082b5`）:
+**実行 trace domain の測定（本 harness の 1278 launch で実行ゼロ）を byte domain の言葉（script が存在しない）で報告した domain 混同**。
+branch-following 再測で 6 op とも byte-reachable に 38〜85 entry 実在。
+
+⇒ **metric-外 gap は 4 件に**: MAPHEAD / `0x46`・`0x79` / stat struct `0x80141Dxx` / **6 op（停止 op の先の resume 経路 live code【候補】）**。
+⇒ ★**共通構造（⑤ close と user 戦略判断の材料）**: 4 件とも「isolation sweep の authority 窓が踏まない場所に実在の game content がある」。
+**我々の authority は【1 回の isolation 実行で到達できる範囲】の authority であって、game の authority ではない。**★
+resume 経路 authority の要否は close 後の user 戦略判断へ（本 phase scope 不拡大）。
+
+### 2 実装 blind 突合（worker1 `e5d3b48` vs worker2 `a5082b5`）
+
+- **定性 = 収束**: 実行 domain 6/6 不在（両者独立に一致、worker1 は 7686 fetch 全走査 = Len 非依存）/ 静的 domain に存在（両者）。
+- **定量 = 未収束**: 単位（entry vs 箇所）も seed 集合（sweep 1278 起点 vs 全 corpus）も未整列。
+  **`0x6D` が最鮮明: worker2=38 entry vs worker1=3 箇所（1559 seed）**。方向も op ごとに逆転（`0x6E` は worker1=115 > worker2=85）。
+  ⇒ unblind して per-item（entry-id 集合の diff）突合へ。各自、diff は**自分の道具から先に疑う**。
