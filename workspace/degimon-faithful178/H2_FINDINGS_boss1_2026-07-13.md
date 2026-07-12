@@ -324,12 +324,27 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 ### #6 採用（11:30、PRESIDENT 承認済）
 
 - **発見**: 現 rbw write-set = ra-direct（depth1）のみ ⇒ depth2 以深の write が構造的に不可視（実例 chain: 0x66→`0x800AECA8`→depth2 helper 3 件。実在は未測定）。
-- **採用設計**（worker2 `7aa7150` docs/H6_rbw_writeset_design.md）: ★**二重帰属 = vmw_ra（under-approx）+ vmw_win（over-approx）を両方出力、
-  不一致 address list を audit 対象化**★ — 真値を上下限で挟み、不一致 triage が depth2 実在測定を兼ねる。PC whitelist 拡大（手引き線）は棄却。
-  **silent 置換禁止（両方出す）**。clean-core と同型の挟み撃ち設計。
+- **採用設計**（worker2 `7aa7150`、★framing は `4034185` で訂正済★）: ★**二重帰属 = vmw_ra + vmw_win の【2 独立帰属法】を両方出力、
+  【両方向】の不一致 address list を audit 対象化**★。当初の『under/over 挟み撃ち』は worker3 の実装時指摘で訂正 —
+  **ra ⊄ win**（実証 = E104 copy: VM-PC ∧ wdia=0 = 窓外）ゆえ win は純 over-approx でない。
+  方向別の意味: ra-only = 窓外 VM write / win-only = 窓内 non-ra write（depth2 候補）。
+  PC whitelist 拡大（手引き線）は棄却。**silent 置換禁止（両方出す）**。
 - **実装 slot = #1 幅盲 fix と同じ rebuild に同乗**（worker3。full 1278 rbw 再測を 1 回で両方 land = 高価な再測の正しい batching）。
 - close の最終前提 2 系統: ①batch 完走[件数 30/30]→ w60 verdict + prereg `f5c37c0` 採点 ②#1+#6 fix evidence → full 1278 rbw 再測。
-  worker2 = H5/H6 成果物 index（close パッケージ部品）作成中。
+  worker2 = H5/H6 成果物 index **完成**（`9cd5a06`。claim 文言冒頭固定 + 全 16 artifact に status label + 教訓 pointer）。
+
+### draft 突合による是正（12:10、worker2 の index×draft 突合 6 件を反映）
+
+- **codex #2 = 掃引完了**（予定形から更新）: 全 435 perturb record で真の XOR-fallback **0 件** = P2 caveat 追記不要（`d94e6f4`）。
+- **rbw 再測 prereg = `PREREG_rbw_full1278_remeasure.md`**（`ea3b54f`→`4034185` で両方向化済）を close 条項の部品として引用:
+  **P-b0（ra-only 非空 = E104 実証済 class の確定予測）が再測 harness の positive control を内蔵** — ra-only=0 なら窓定義ずれを先に疑う。
+- ★**§7 訂正: C# の実装欠落は 2 件でなく【3 件】**★ — **opcode `0x66` 未実装**が欠落していた
+  （DialogueRuntime.cs に case 0x66 なし / 実機で 443 section の last-op として実行 / complete 0/443 /
+  ★**DF70 を capture しても 0x66 が無ければ値の行き先が無い = capture と実装の 2 層 gap**★）。
+- **LIVE_VS_IMAGE_21 の decision 収載**（worker3 `a443261`）: 21 候補 → **20 = EXE 定数 / 1 = 真の未捕捉 live-in（DF70）**。
+  worker2 予測採点: 13 fn-ptr HIT / 8 mismatch 外れ。
+- 突合の網羅性（worker2 の honest note）: worker2 の artifact は draft 引用と全一致。**逆方向（worker1/worker3 側）は
+  worker2 から検査不能** → worker1 に f1a index 作成を割当（worker3 は再測後に）。
 
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
