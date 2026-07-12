@@ -99,6 +99,47 @@ sub2 の偽 GREEN を潰した capture 再構成（46-capture → 3 ブロック
   (a) perturb を control 基準で再判定 (b) **control vs baseline で観測者効果を定量（期待 0 差分）**。
   **非ゼロなら DGLOADS の read hook が guest 挙動を変えている = frozen read 側 authority `09fde5a` の validity 再検討。**
 
-## 7. 規範
+## 7. ★注入テストの verdict と、決定的テストで判明した測定設計の欠陥★
+
+### 7.1 verdict（perturb vs matched control）
+- **N = 15 / 16 INPUT、NOT-SHOWN-INPUT = 1（`0x8013E104`）、INVALID = 0**
+- boss1 独立 comparator と worker3 の comparator が **独立に同じ N=15/1** に到達（二重集計一致）。
+- 事前登録（`aba590e`）: boss1 N=14（**1 件外し**）/ worker2 N=15（**的中**）/ worker2 の CONST≤1 候補 `0x8013E104` = **完全一致**。
+
+### 7.2 ★事前登録の地雷が鳴った: state-only = 0★
+事前登録に「**state-only が 0 件で出たら、それ自体を疑う**」と測る前に書いていた。0 件で出た。
+さらに `0x80145E5A` は worker2 が EXE 直読で **merge-point gate = PC は構造的に不変**と証明した address なのに **60/60 で PC 変化**。
+**構造の証明と測定が矛盾 ⇒ 疑うのは測定。**
+
+### 7.3 boss1 の汚染仮説 = ★棄却★（H4）
+「control の sweep 構成が perturb と違う（union 397 vs per-target 60）から汚染」と考え、**per-target control**（sweep ファイル・frames・env すべて一致、DGPERTURB のみ外す）を 1 本走らせた。
+**結果: PC 差分 59/60**（union control では 60/60）。**⇒ sweep 構成差は主因ではない。私の仮説は外れ。**
+
+### 7.4 ★★真因（実測 2 本）★★
+
+**(1) 注入値が worker2 の gate を一度も跨いでいない**
+- gate = `beq v0, 1`（値が **1** なら書込 skip）
+- **実注入 = orig 0 → new 255**（DGPERTURB は `new = orig XOR 0xFF` 固定）
+- **0 も 255 も「1」ではない ⇒ gate は一度も反転していない**
+- ⇒ **worker2 の state-only 予測は「外れた」のではなく「一度もテストされていない」。**
+  **予測を、その予測を exercise しない test で採点していた。**
+
+**(2) `0x80145E5A` の reader は 1 個ではなく 6 個**（tally `dpcs` 直読、64-cap 未飽和 = 全列挙）
+`0x800CB0C8` / `0x800CBD10` / `0x800CBD20`（field/engine）/ **`0x800EC7A4`（worker2 が解析した 0x1B handler）** / `0x800F3064` / `0x800F308C`（window/textbox 系）
+- ⇒ worker2 の構造証明は **6 reader のうち 1 個についての証明として正しい**。PC が動いたのは別 consumer 経由。
+- ⇒ **「PC 変化 か state-only か」は【address ごと】ではなく【reader ごと】の属性だった。**
+  単一 reader の構造から address 全体の次元を予測したのが誤り。**構造解析も測定も、どちらも健全。**
+
+### 7.5 verdict の射程（どの次元で見たかを明記）
+- **INPUT / NOT-SHOWN-INPUT の判定 = 頑健**（byte-flip で挙動が変わる = 入力）
+- **「PC か state-only か」の次元 = 摂動値依存 ⇒ 現設計では判定不能・保留**
+- **NOT-SHOWN-INPUT（`0x8013E104`）も「非入力の証明」ではない** — 別の値なら効くかもしれない
+
+### 7.6 次の instrument 変更（verdict 確定後に一括投入、staleness guard の order 制約に従う）
+1. **read-before-write**（first_touch + first-writer-PC、全 launch 和集合、SCN 由来は fwpc 実測で差引）
+2. **値指定注入（DGPERTURB_VALUE）** — 現行は XOR 0xFF 固定で **threshold gate を跨げない**
+3. **1 address につき複数値の注入**（最低 2 値 = XOR 0xFF + gate 一致値）
+
+## 8. 規範
 
 閾値 `aba590e` 不動 / 実装ゼロ（計装は可）/ push ゼロ / frozen `09fde5a` 不触 / cutscene 不触。
