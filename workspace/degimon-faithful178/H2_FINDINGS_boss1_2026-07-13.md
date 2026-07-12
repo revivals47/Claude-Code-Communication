@@ -297,6 +297,21 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - v3.1 頑健性 signal（⑤記録）: phantom kill を 42→90 に強化しても clean-core 不変 = **検査を強めても witness が死なない = 本物の claim の挙動**。
 - legacy artifact 消費規則 発効（10:55）: 旧 artifact を読む時は名前ベース parse + 件数 assert 必須（parse 罠 4 例目への遡及処置、tool 改修 project 化はせず）。
 
+### 0x18 RE 完了 = H5 census 側 close（11:10-11:15、⑤棚 fix）
+
+- **0x6D 3 site = 全 phantom**（0x6F と完全対称: flag-index 0x6f / var-index 0x6d）。191 = 実行証明（0x4E operand）、
+  85×2 = 候補強（Len[0x4B] fall-through link を worker1 が測定中 — 締まるまで『反証確定』とは書かない）。
+- **0x6A stride-4 witness 8 site = 実 code 生存**（worker2 `e87f96b`）: ★**敵対 phase 法** — 『site が operand なら』の
+  否定仮説 decode を明示的に立て、その span が実行済み pc（0x44/0x68）を内部に飲み込む = 実行 evidence と矛盾 = 否定仮説の反証★。
+  実体 = op 0x6A + u16 引数の連続実行列。**0x64 停止 op の先の unexercised 実 code = ⑤棚主張の実例そのもの**。
+- ★**⑤棚 fix: 4 op 成立（0x53:2 / 0x6A:10 = 敵対検証済 / 0x6E:7 / 0x73:1）、0x6F = 反証確定、0x6D = 反証（候補強・link 待ち）**★
+- ★**方法論 2 点（PRESIDENT 指定で close パッケージに明記）**★:
+  1. **敵対 phase 法** = 存在 witness の最強の立て方（否定を実行 evidence で殺す）。
+  2. **振り子の対称性** = 0x6F/0x6D は phantom へ、0x6A は敵対検証を生き延びて実 code へ —
+     **検査が殺す方向にも生かす方向にも equally 働いた = bias した検査ではない**、が process 健全性の evidence。
+- **0x18 RE 総括**: 発端の table 長 ground truth は**どの係争 site にも不要**だった（scope 絞り 2 例目の的中）。
+  副産物 RE 4 件確定: op 0x10 = choice table(count+u16×N) / 0x6F = flag-index / 0x6D = var-index / 0x6A = 引数形式。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
