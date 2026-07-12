@@ -232,7 +232,17 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 根拠 = worker1 実測: 1272/1278 launch は section 直行。fiat でなく測定で決めた。
 ⑤棚の byte-存在 claim には**必ず seed convention label を付す**。0x6F（body+sections でのみ core 2）は 6-entry 判定待ち。
 
+### 0x6F の決着（09:15、6-entry 判定 → 係争非依存 witness で成立）
+
+- worker1 実測: body-prefix 実行 evidence entry = **{4, 50, 98}**（`0326ff3`。1272/1278 は section 直行）。
+- worker1 framing『0x6F@49×2 = core』は額面にせず（worker2 v2 flag で 49×2 = conflict=Y の係争 site）。
+- ★boss1 が両 artifact 突合で発見: **0x6F@50:0x068c/0x06cc = guard=N ∧ conflict=N ∧ text=N かつ entry 50 ∈ {4,50,98}**★
+  ⇒ **compliant-seed(hybrid) 上の全 flag クリーン witness 2 件 = 0x6F は係争の解決を待たず成立**。
+- ⑤棚更新: **5 op 全て成立**（0x53/0x6A/0x6E/0x73 = sections-only core witness / 0x6F = compliant-seed(hybrid) witness 50×2）。
+  **未解決棚 = 0x6D + 0x6A@144**（いずれも共有仮定産・0x18 RE 待ち）。49×2 conflict 帰属 = denoise queue（claim 非依存・低優先）。
+- text=Y の裁定確定分: 0x6E@71 / 0x6F@14 = execution-proven phantom 棄却。0x6A@113 / 0x73@6 / 0x6F@33×2 = 候補のまま。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
-残り 4 件（②+②b 完走 / 0x18 RE / 6-entry 判定 / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
+残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
 **確定 claim 一覧 + BLOCKED/保留一覧 + 棚（metric-外 gap 4 件 + 窓の外 live code）+ 規範遵守 evidence。**
