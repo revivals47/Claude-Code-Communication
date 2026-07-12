@@ -346,6 +346,13 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - 突合の網羅性（worker2 の honest note）: worker2 の artifact は draft 引用と全一致。**逆方向（worker1/worker3 側）は
   worker2 から検査不能** → worker1 に f1a index 作成を割当（worker3 は再測後に）。
 
+### ★戦略判断材料（PRESIDENT 指定、close パッケージに転記）★
+
+**C# 実装欠落 3 件（MAPHEAD / opcode 0x46・0x79 / opcode 0x66）は独立の穴ではなく【依存関係】を持つ: capture → 消費。**
+- DF70 を capture する計装を完成させても、**消費側の 0x66 が C# に無ければ値の行き先が無い**（capture と実装の 2 層 gap）。
+- **0x66 は warp-class**（code3 yield、0x4B と同族）= **覚醒 cutscene 忠実化と接続**（MAPHEAD 実装は user 凍結解除要、の既存 flag と同じ束）。
+- ⇒ 忠実化の実施順は「capture 完成 → 消費 opcode 実装 → cutscene 検証」の依存鎖として user 戦略判断に提示する。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
