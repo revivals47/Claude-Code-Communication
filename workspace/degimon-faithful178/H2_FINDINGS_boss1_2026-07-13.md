@@ -256,6 +256,20 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
   op `0x10` の意味論は新 RE finding として 0x18 RE に同梱。
 - 監査体制の evidence: worker1 所感「H5 で自 tool の誤り 3 回 surface（entry_done 境界 / CTX 欠落 / Len[0x55]）、全て cross-check・自己監査が catch」。
 
+### v3 掃引後の現在値（10:00-10:10、crash 復帰用 snapshot）
+
+- **worker3**: ②+②b batch **完走**（dgtrace に w60 系 file 07:22 まで、pane+実 file で確認）。w60 verdict comparator（`d4ab23b`、新交換規範準拠）で再走中。**prereg `f5c37c0` の採点は数値到着後**。
+- **worker2 v3**（`1b70572`、strict TSV+round-trip PASS）: **exec-anchor 掃引で 0x6E の 42/116 を phantom 証明**。
+  clean-core v3 = 0x53:2 / 0x6A:10 / 0x6E:7 / **0x6F:0** / 0x73:1。
+  **execanchor legend 確定**: Y=phantom 証明（実行 fetch 区間内 ∧ 先頭 op 線形。0x10 は RE 済 operand span 内なら Y）/
+  J=判定不能 caveat（先頭 op jump 可能 = 飛び越しあり得る）/ -=実行 cover なし。**core は証明済み Y のみ kill（過小側に倒す保守設計）**。
+  per-site(hybrid) = Y45 / J80 / -40（boss1 の初出 Y94/J165/-90 は両 seed 変種込み行数 = 単位訂正済）。
+- **0x6F@49×2**: 自己重複説**反証**（hybrid でも conflict=Y、padpre=Y + execanchor=J 点灯）⇒ **0x6F claim は 0x18 RE に完全依存で死亡中**。
+- **pre-flight の発見**: worker2 tracer の Len stale = 0、**逆に参照 doc `opcode_lengths_exe.json` が 5 件 stale**
+  （0x26/0x55/0x71/0x75/0x7C の land 済 fix 未反映）→ worker1 の Len workstream で更新（権威序列: runtime Len[] > json、明記指示済）。
+- **codex 外部査読**（PRESIDENT 発注、dg_vmtrace.cpp 敵対的監査）走行中 — findings は PRESIDENT triage 後に relay。
+- 進行中: worker2 = 0x18 RE（49×2 帰属最優先、0x10 意味論同梱）/ worker1 = Len diff + json 更新 + full-60 独立集計待機。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
