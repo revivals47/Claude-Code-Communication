@@ -285,6 +285,18 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
   #6 write-provenance が IsVmPc のみ（worker2 検討、jal 27 件 finding と直結）/ #7 SW_RELOAD 境界 1 frame（P1 不一致時の第一容疑）。
   full 出力 = PRESIDENT session scratchpad `codex_dgvmtrace_audit.out`（boss1 実在確認済）。
 
+### 11:00 訂正と新規則（boss1+PRESIDENT 双方の誤り）
+
+- ★**boss1 の誤報告（自己訂正済）**: 10:00 の『②+②b batch 完走を確認』は誤り — 実際は **8/30 run 走行中**。
+  dgtrace の w60 file 存在（run 05-06 分）を完走と誤読 = **file の存在は進行の証拠であって完走の証拠でない**。
+  PRESIDENT も user へそのまま relay しており双方訂正★。
+- ★**新規則**: 完走 claim は【件数 evidence】（manifest の 30/30、exit sentinel）でのみ主張可。file 存在・生成継続 = 『進行中』★。
+- worker3 の確定順序: batch 完走 → w60 verdict 数値 → rebuild（mid-run binary swap 防止）→ codex fix evidence。
+  #1 fix 設計承認済（covered byte range [lo,hi] write-set 全登録 + read 全 byte check + tmask/tcnt covered-match、cpu_core 不触）。
+- 0x6D の Len[0x4B] fall-through link = worker1 測定中（締まるまで⑤棚の『未解決ゼロ』は**見込み label 厳守**）。
+- v3.1 頑健性 signal（⑤記録）: phantom kill を 42→90 に強化しても clean-core 不変 = **検査を強めても witness が死なない = 本物の claim の挙動**。
+- legacy artifact 消費規則 発効（10:55）: 旧 artifact を読む時は名前ベース parse + 件数 assert 必須（parse 罠 4 例目への遡及処置、tool 改修 project 化はせず）。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
