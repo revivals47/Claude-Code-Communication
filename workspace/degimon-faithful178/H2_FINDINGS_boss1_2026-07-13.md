@@ -211,3 +211,28 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - **0x18 table 長 ground truth RE を条件発動で dispatch**（worker2、read-only・意味論のみ。突合 = worker1 機構開示 + fetch trace 実消費）。
 - seed 定義（sweep-seed に body_start を含むか）は **fiat でなく実行 evidence**（worker1 が fetch trace で body-prologue 実行有無を測定中）。
 - boss1 tool bug 第 2 の未遂: worker2 も space-pad 罠を踏みかけ、boss1 の開示済み是正で回避（開示の効用）。
+
+### ★per-layer 独立性監査（PRESIDENT 指示の一般化、⑤材料）★
+
+**『2 実装が独立か』は yes/no の結論ではなく、【どの層が独立でどの層が共有か】の per-layer 監査である。**
+
+0x6D の実例（09:05 決着 — 4 度目の振れ）:
+- **独立だった層**: 0x18 table 長の導出（worker1 = `u16@(pc+2)` 直読 data-driven / worker2 = clampMax 発見的）
+- **共有だった層**: ①**全 slot enqueue**（over-cover）②**body_start seed convention**
+- 0x6D 3 site の per-offset 一致は**共有層の産物**と実測で判明（launched-section から到達不能 / body_start 経由のみ /
+  e85 2 site は 0x18 over-cover 経由 / **corpus 実行で 3 site とも fetch ゼロ**）⇒ **一致は独立 evidence でなかった。保留**。
+- 同型の先行例: 0x6F@33×2（両 tool が『text 領域を code として歩ける』仮定を共有 → 同じ phantom で一致）、
+  うち execution-proven 2 件（0x6E@71 / 0x6F@14）は実行 overlay で棄却確定。
+- **運用規範**: 2 実装収束を根拠に使う時は、収束 claim に「独立な層 / 共有する層」の列挙を添える。
+  共有層に依存する一致は【候補】どまり。決着は共有層の外の evidence（実行 trace / ground truth RE）でのみ。
+
+### seed 定義（実行 evidence による裁定、確定）
+
+**sweep-seed = sections + 『body-prefix 実行が観測された 6/1278 launch の entry』の body_start のみ（ハイブリッド）。**
+根拠 = worker1 実測: 1272/1278 launch は section 直行。fiat でなく測定で決めた。
+⑤棚の byte-存在 claim には**必ず seed convention label を付す**。0x6F（body+sections でのみ core 2）は 6-entry 判定待ち。
+
+### close 判定パッケージの条項（PRESIDENT 指定）
+
+残り 4 件（②+②b 完走 / 0x18 RE / 6-entry 判定 / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
+**確定 claim 一覧 + BLOCKED/保留一覧 + 棚（metric-外 gap 4 件 + 窓の外 live code）+ 規範遵守 evidence。**
