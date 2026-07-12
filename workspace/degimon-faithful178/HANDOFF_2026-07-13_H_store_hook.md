@@ -120,11 +120,28 @@ boss1 と worker3 の **独立 2 実装が per-item まで完全一致**。
 ⇒ **「PC 列だけを見る metric では原理的に検出できない入力」が実機に存在する。**
 ★ただし `state 0/469` は**別測定**。言えるのは「`0/469` と**整合する class の存在を実証**」であって「`0/469` の根拠が立った」ではない（which-dimension）。★
 
-### state-only の発生経路は 3 つ（worker2、実測と整合）
-1. **WGATE** — VM code が分岐して書込を skip、両枝合流（`0x1B`）
-2. **DATA** — 値がそのまま store / SetVar に流れる（`0x25` → SetVar）**← 実測済**
-3. **FIELD-CF** — **field code が分岐して state を書く（VM router の opcode PC 列は動かない）** **← 新規**
-⇒ **我々が「PC」と呼んでいるのは【VM router の opcode PC 列】であって field code の制御流ではない。**
+### ★入力の 4 クラスと 2 軸判定則（worker2 `8592eda`、実測と整合）★
+
+**大前提（この 1 行が分類の全てを決める）: 我々が測る「PC 次元」＝ VM router の opcode 列。**
+
+| クラス | 値の行き先 | VM-PC | state |
+|---|---|---|---|
+| **VM-CF** | VM code が分岐 → 経路が分かれる | 変わる | 変わり得る |
+| **WGATE** | VM code が分岐 → 書込を skip、両枝合流 | **不変** | **変わる** |
+| **DATA** | store / SetVar に**そのまま流れる** | **不変** | **変わる** |
+| **FIELD-CF** | **field code（VM の外）が分岐 → state を書く** | **不変** | **変わる** |
+
+**state-only を生む経路は 3 つ**:
+1. **WGATE** — `0x1B` @ `0x80145E5A`（**まだ未 exercise**）
+2. **DATA** — `0x25` が SetVar に直渡し @ `0x8013E2DE` / `0x8013E2E0` **← 実測済**
+3. **FIELD-CF** — `0x8016B169`（reader = `0x800AF75C` / `0x800BD468` / `0x800BD518` = **VM の外**）**← 実測済**
+
+★**次の担当が最も誤りやすい 2 点**★:
+- **「その値で分岐しないから PC は動かない」も誤り** — DATA でも state は変わる
+- **「VM が分岐するから PC は動く」も誤り** — FIELD-CF は VM router の PC 列を動かさない
+
+⇒ **判定は【reader が VM code か field code か】×【値の sink が何か】の 2 軸で決まる。**
+⇒ **静的分類は【候補】。perturbation が【判定】。**
 
 ## 6. ★次 batch の pre-register（着手していない）★
 
