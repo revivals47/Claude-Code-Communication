@@ -142,6 +142,18 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
   現行 audit = h3_baseline_audit.py（非 vacuity assert 付き）。
 - ★新教訓（methodology 節へ）: **label は first-divergence の標本でなく per-launch 全件集計から書く** — 『表 vs 自 tool 出力』整合 check の根本原因が同定された形★。
 
+### 汚染 audit の独立検証（07:0x、worker1 `2f4322a`）—(1)(3) 完了
+
+- **(1) clustering = bit-exact 再現**（cluster A {d18,d3a,d42,d54} 相互 0/80・非 vacuity / cluster B {e0f0,cdbc,df8c} 80/80）。
+  dim 精密化: 発散は **STATE 80 + RNG 68 主導、PC 系 6**（『全次元』は count 正・dim 主導は STATE）。
+- **(3) ★時系列境界の独立訂正: 02:54（qt 起動時刻の proxy）でなく実測 (02:55:49, 03:01:30)★** — init snapshot による per-run 直接判定。
+  ★**d54_v00（02:55:49）= CLEAN** / 初 DRIFT = d54_vFF（03:01:30）★。時刻 proxy より測定が 3〜6 分細かい。
+- ★**d54 nuance**: 100% 汚染ではない — **v00（STATE 5/80、first-div (47,82)）は clean baseline 上で有効**。
+  vFF（75/80）+ v51（73/80 = 真分岐 evidence）のみ drift 交絡 = 強 evidence 側が交絡、弱 evidence 側が clean★。
+- rider-invariance = 1 pair → **4 構成（cluster A 相互）に拡張**。ただし全て 0x80141Dxx family（境界前）— 0x8013xxxx family は未証明。
+- init 差分 byte は**全て mutable 領域**（E104/E204 marker・item bitset・E5A）、stable savestate byte 差ゼロ =
+  『別 savestate』か『mutable drift』かは init だけでは未確定 → h3b 弁別（(2)、defer）に同意。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
