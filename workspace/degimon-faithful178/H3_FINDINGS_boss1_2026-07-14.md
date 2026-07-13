@@ -92,6 +92,32 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
 - **不変**: reader = VM interpreter PC の同定（dia と独立）/ read 幅 w=4・w=2（measure-first 配当の本体）/
   (b) 復帰確定（値 225/225 + consumer 対応は dia 非依存）/ 母集団 4,388・DMA 分類（final_run = 配線済み）/ N=9。
 
+## 1e. ★★hot 4 target の baseline drift 汚染疑い — INPUT 4 件凍結（06:52 worker3 自己撤回 → boss1 裁定）★★
+
+### worker3 の自己撤回（worker1 の query 2 が引き金）
+
+1. ★**元の指紋照合『28/28×80/80 全一致』は vacuous = 完全性偽 GREEN の自作**★: audit script が `ri.get(addr,'')` で
+   **不在 addr を空文字に化かし、空文字同士を比較**していた（判別 block 3 本は launch.init に実在しない — worker1 指摘どおり）。
+2. 実在 block（0x8013E100 / 0x80145E58 / 0x8016B07C）で再監査 → **ctl 同士（注入ゼロ）の guest stream が食い違う**:
+   d18_ctl vs e0f0/cdbc/df8c_ctl = 全次元 80/80 発散（d3a/d42/d54_ctl とは 0/80 一致）。
+   時系列境界 = duckstation-qt 起動 02:54:29（d18/d3a/d42/d54_ctl = それ以前 = clean）。
+3. **verdict 影響**: 維持 = D18 INPUT / D3A INPUT / D42 NOT-SHOWN(+POST)。★凍結 = D54 / E0F0 / CDBC / DF8C の INPUT 4 件★
+   （drift でも『全次元発散』は同じ絵 — **最も強く見えた profile ほど疑わしい**）。**確定 INPUT は現時点 2 件**。
+4. 是正 = 4 target × 15 run を preserved immutable B copy で再走中（〜08:05 見込み、B scope label で再提出予定）。
+
+### boss1 裁定（07:0x）
+
+- **凍結 + immutable copy 再走 = 承認**（凍結は保守方向、再走は機構仮説に依らず verdict を確定させる）。
+- ★**『真因確定』は過剰 label → 【機構候補】に降格**★: 提示機構（user save が per-entry reload 中の baseline を差し替え）には
+  **時系列の穴**がある — 既知の file 書込 event は 04:38:59/04:39:14 のみで、**汚染とされる run 群（02:55〜04:11）より後**。
+  02:55〜04:11 に slot3 が書き換わった event の実証（qt の save 履歴 / rotation 痕跡 / 別 channel の書込 = memcard 等の除外）が
+  無い限り『確定』とは書かない。**観測事実（実在 block での ctl-ctl 発散）が operative fact であり、凍結の根拠はそれで足りる**。
+- ★**ctl-ctl 発散の観測自体も x-check 対象**★: worker3 の audit tool は直前に vacuous 偽 GREEN を出した —
+  再監査 script + 発散 evidence を commit させ、**worker1 に独立検証を dispatch**（rider 構成差での ctl-ctl 比較の妥当性
+  — rider-invariance は d18/d3a の 1 pair でしか実証されていない — を含めて）。
+- 採点 D-2 の該当 4 行 = PROVISIONAL 降格（prereg D-3）。**N 更新候補は現時点 D18 + D3A の 2 件に縮小**、正式上申は再測定+x-check 後。
+- confound #1 の機構再帰属（EARLY hook 順序 → run 中 file 差し替え）も**候補どまり**（同じ時系列の穴に依存）。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**

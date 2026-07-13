@@ -136,3 +136,10 @@ user 裁定 = 推奨順序（①因果 sprint → ②capture 仕様 → ③実�
 - prereg A-5 の追加予測『D18 が UNMEASURED 転落 risk 最大』= **外れ**（D18 は生存 clean。squash は CPU store でなく
   **per-entry DMA reload** が E7C/FBC で発現 — 転落機構の予測も種類も外れ、を記録）。
 - **予測の実質独立の追認**: 差分 3 addr（D54/E0F0/640A4）で明暗が分かれた（D54 は worker3 正、E0F0 は boss1 正、640A4 は boss1 正）。
+
+### D-3. ★採点の部分凍結（2026-07-14 06:5x、baseline drift 汚染疑いによる）★
+
+worker3 の自己撤回（指紋 audit が vacuous だった → 実在 block 再監査で ctl-ctl 発散検出）により、
+**D54 / E0F0 / CDBC / DF8C の INPUT 4 件は凍結・再測定中（preserved B copy）**。
+⇒ D-2 の採点のうちこの 4 addr に依存する行（boss1: D54✗・DF8C✗・E0F0✓ / worker3: D54✓・E0F0✗・DF8C✗）は
+**PROVISIONAL に降格**。再測定の確定 verdict で D-4 として再採点する。維持: D18✓✓ / D3A✓✓ / D42✗✗ / 640A4（boss1✓/worker3✗）。
