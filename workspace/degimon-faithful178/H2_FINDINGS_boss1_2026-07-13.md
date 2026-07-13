@@ -704,3 +704,8 @@ boot-built(DG.SCN table 225 + 0x8015Fxxx) = builder RE **or** capture（C# 等�
   **数字は同じ 3,780 でも claim の強度が別物**★。evidence = H3_FINDINGS `51bd0ae` / worker2 確定稿 `5646286` / worker3 live dump `5823909`。
 - BLOCKED/保留一覧 #1（DG.SCN 225）= 解消。#8 の denoise queue に 0x80163F60+ の未同定 3 点（buffer 中身 / BIOS write / 偏在理由）を追加
   （45 件自体は rbw=0 で **scratch 確定** = worker2 `221ddaf`、10 件に影響なし）。
+- ★**§15 訂正（2026-07-14、worker3 instrument 自己捕捉 → boss1 拡張実測）**★: 「DGLOADT 全 268 read が dia=0（窓外）」は誤り —
+  **loadt_run は dia 非配線（構造強制 0）**だった（dia は DGLOADS/DGWATCH 併設時のみ配線、`dg_vmtrace.cpp:1060`）。
+  tally-3（dia live 証明済み）の実測 = **table 225 word 中 205 = 窓外のみ / 20 = 窓内でも read**。
+  ★その 20 = live 基準から欠けていた 20 件と完全一致 = ④ blind list の dia==0 criteria が落とした機構まで閉じた★。
+  幅 w=4/w=2・reader=VM PC・(b) 復帰・母集団/DMA 分類・N=9 は**全て不変**。詳細 = H3_FINDINGS §1c。

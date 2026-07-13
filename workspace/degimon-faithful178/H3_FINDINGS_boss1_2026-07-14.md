@@ -58,6 +58,32 @@ worker3 短 run `5823909`（`B_DUMP_225_LIVE.tsv`、3 点 evidence + 狭義昇�
   writer PC 68 種 + **BIOS ROM 域 `0xBFC03408` も writer に出現**。
 - ★未同定のまま台帳（推測 label なし）: buffer の中身 / BIOS write の実体 / 45 件が末尾側に偏る理由★。
 
+## 1c. ★instrument の dia-gating finding（worker3 自己捕捉）→ boss1 拡張で closed claim 1 件を訂正★（00:4x-00:5x）
+
+### worker3 の finding（`dg_vmtrace.cpp:1060`）
+
+`s_vm_executing=true` は `s_g6_active || s_watch_lo` が条件 = **dia 次元は DGLOADS/DGWATCH 併設時のみ配線**。
+- (1) A-0 hot 短 run（両者非設定）の全 record dia=0 = **構造強制であって測定でない**（幅次元は有効、ただし再走まで参考値扱い = worker3 の保守判断を承認）。
+- (2) 同型の疑いが close 済 claim に波及: loadt_run（09:32）は companion tally 不在（boss1 実査: 08:59 rbw_tally-3 と 09:56 final_tally の間に tally なし）= 非配線の可能性高。
+- (3) final_run（09:56）は dia>0 多数 = 配線済み → 母集団/dia 分類は無傷。
+- memory の control-toggle 配線教訓（[[feedback_control_toggle_must_be_wired]]）の同型を**自分の instrument で自己捕捉**。
+
+### boss1 の裁定 + 拡張実測（rbw_tally-3 直読）
+
+- tally-3 は dia 次元 live の実測証明あり（159,941 行中 **dia>0 = 62,836 行**。分母は doc 記載と bit 一致）。
+- ★**当該 table 域 0x8015F788..0x8015FB08 を tally-3 で直読: 225 word 中 dia>0 = 20**★ —
+  「全 read が dia=0（窓外）」は**誤り**。正 = **205 word は窓外 read のみ / 20 word は窓内でも読まれている**。
+- ★★**決定的: dia>0 の 20 index = live 基準から欠けていた 20 件と【完全一致】**（153,154,176-184,201-203,212,213,220,221,223,224）★★
+  ⇒ 機構が端から端まで閉じた: **④ blind list の dia==0 criteria が、窓内で読まれる 20 word を構造的に落とした → live 基準が 205 になった**。
+  = criteria 射影（H2 §13-14 で捕捉済みの型）の**具体的 witness 3 例目**。（覚醒 entry 178 の offset を含む 176-184 が窓内 read = 台帳 note、意味論は掘らない）
+
+### 訂正の scope（正確に）
+
+- **訂正対象**: H2 §15 と worker3 PHASE_CLOSE_PACKAGE の「全 268 read が dia=0（窓外）」→
+  「loadt_run の dia=0 は構造強制（その run では dia 非測定）。tally-3 実測 = 205 窓外のみ / 20 窓内あり」。
+- **不変**: reader = VM interpreter PC の同定（dia と独立）/ read 幅 w=4・w=2（measure-first 配当の本体）/
+  (b) 復帰確定（値 225/225 + consumer 対応は dia 非依存）/ 母集団 4,388・DMA 分類（final_run = 配線済み）/ N=9。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
