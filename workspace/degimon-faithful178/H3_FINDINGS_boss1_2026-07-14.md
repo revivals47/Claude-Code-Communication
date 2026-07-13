@@ -50,6 +50,14 @@ worker3 短 run `5823909`（`B_DUMP_225_LIVE.tsv`、3 点 evidence + 狭義昇�
 - 4,388 分類の更新: **(b) = 3,555 + 225 = 3,780**（H2 §17(0b) の保留が解けて、結果として当初の 3,780 に実測で戻った —
   ★ただし今回は「C# が file を持つ」proxy でなく「値+consumer の実測一致」で立っている = 同じ数字でも根拠の等級が違う★）。
 
+## 1d. (c) self-modify 疑い annex 最終化（worker2 `7654661`、s0 未確定のまま据置）
+
+3 事実の並置: ① 静的 RE（0x800AF6AC の 0xFD→0 機構 = 構造事実 / 0x800BB940 = sb zero,0x34(s0)）
+② A scope（tally-3）で fwpc=BB940 を E7C/FBC に観測 ③ rare B で BB940 store 非再現 + **per-entry script DMA reload 実証**。
+台帳文言: 『CPU write は A で観測・B で非再現。buffer は per-entry reload される（実測）。**s0 実体は未確定 = self-modify とも無いとも言えない**』。
+★未回答 3 点を明示: s0 実体 / **同一 entry 内書換の可否（per-entry reload は entry 跨ぎ持続のみ否定）** / 0xFD→0 の実適用（機構の存在≠適用）★。
+E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in 候補としては保留。**worker2 の H3 タスク全完了**。
+
 ## 1b. 手隙タスク（worker2 `221ddaf`）: 0x80163F60..FFC の 45 件 = scratch 確定
 
 - **45/45 が rbw=0（write-first）∧ dia=0 ∧ dpcs 空** = boot 値を消費していない = **live-in ではない**（0x8013E0FC と同 class）。
