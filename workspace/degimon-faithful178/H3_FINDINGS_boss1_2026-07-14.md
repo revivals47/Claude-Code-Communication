@@ -178,6 +178,8 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
   (2) ★**drift 機構候補の強い支持**: 『file が変わらなければ末尾 4 件の発散は起きない』が実測。rider は両 run 同一 = rider 説では説明不能な差★。
   rider 不活性の直接証明は h3b_e0f0_ctl 待ち（維持）。
 - ★粒度の教訓の一般化（PRESIDENT 採録指示）: **集計粒度も次元の一つ** — run 単位・時刻 proxy は粗い粒度での射影だった。5→4→2 の射影連鎖と同族★。
+- worker1 が per-launch を独立再測で確認（`c39c990`、CLEAN 75 + 末尾 DRIFT 5 = 一致）→ **凍結集合 = {E0F0, CDBC, DF8C} に縮小確定**。
+  A 有効 = INPUT 3（D18/D3A/D54）+ NOT-SHOWN 1（D42）。worker1 も『どの粒度で見たか』教訓を自台帳化。
 
 ## 2. A 系（注入 batch）— 進行
 
