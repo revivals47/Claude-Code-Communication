@@ -104,4 +104,16 @@ user 裁定 = 推奨順序（①因果 sprint → ②capture 仕様 → ③実�
   実際の予測件数は 8 ≠ 7 = 件数アンカーの実効は観測されず。予測の差分 3 addr（w3 は D54/640A4 を IN・E0F0 を UNMEASURED 側）= 実質的独立の evidence。
 - 教訓（様式へ）: ★blind を要求する値は commit message にも書かない★（本文固着 + message は中身に言及しない、が正しい運用）。
 
+### D-1. 執行解釈 note（2026-07-14 01:2x、boss1 裁定。値・閾値は不変、解釈のみ）
+
+1. **注入の物理単位 = byte（instrument の DGPERTURB_VALUE は byte 粒度）**。A-0 の幅実測は「注入 byte が全 reader の消費 unit に乗るか」の
+   保証に使う（12/12 で access==taddr = LSB に乗る、を実測済み）。§A-0 の「注入幅 = 実測 read 幅」はこの意味で充足
+   （multi-byte 注入を要求する読みは採らない — 注入 byte が消費されることが実測保証されている）。
+2. **CDBC の値表現は LSB**: 『別 slot 実測値』= 0x84（別 slot の LSB）/『0x00』= word が 0x8016B1xx→0x8016B100 になる
+   = **null deref ではなく同域内の pointer 摂動**。prereg §A-1 の「0x00 = null」根拠行は word 注入前提の誤りとして無効化、
+   which-values-tested に執行意味を明記（値自体は不変）。
+3. **A-3 の「writer 0x800BB940 の store 先集合」= 完全記録は不能**（DGSTORE は per-addr で per-pc でない）。
+   E7C/FBC への store（BB940 含む）は記録可 = その範囲で執行。★channel gap として台帳へ、instrument 追加は本 batch ではしない
+   （mid-batch rebuild 禁止則とも整合）。s0 の全域同定は次 phase の instrument 候補★。
+
 （採点本体 = 未記入 — 固着）
