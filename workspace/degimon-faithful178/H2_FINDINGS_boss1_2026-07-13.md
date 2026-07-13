@@ -695,3 +695,12 @@ boot-built(DG.SCN table 225 + 0x8015Fxxx) = builder RE **or** capture（C# 等�
   watchdog v2 はこれを正規送信と誤認して機械確定させていた（偽完走報告 2 件の注入機構と同一）。
 - **v3 の send_log 突合 gate がこの経路を恒久封鎖済み**（初実戦 = 2026-07-13 09:35〜、submit ゼロで封じ込め）。quarantine 台帳に経路確定を記録済み。
 - key 入力（Escape/C-c/C-u/BSpace）で消えなかった観測とも整合（AI 提案文は composer buffer 外の表示層）。**agent-send の C-c + 上書きで消える = 手動クリア不要**（user 裁定）。
+
+### §17 台帳更新（2026-07-14、H3 の結果を close パッケージへ反映。§17 本文は不変、本節が上書き）
+
+- **確定 claim 表 #9 / (0b)-3 の更新**: ★**DG.SCN offset table 225 = 保留解除 → (b) 復帰確定**★（4,388 分類: (b) = 3,555 + 225 = **3,780**）。
+  ★**等級差の記録（PRESIDENT 指定）**: 当初の (b) 3,780 は『C# が同 file を持つ』という **proxy** の上にあった。
+  一度保留に落とし、**値 225/225（3 系統: HW live / C# 逐語再現 / file 直読）+ consumer 対応 + 独立 2 capture の bit 一致（control 同士テスト内蔵）で earn し直した** —
+  **数字は同じ 3,780 でも claim の強度が別物**★。evidence = H3_FINDINGS `51bd0ae` / worker2 確定稿 `5646286` / worker3 live dump `5823909`。
+- BLOCKED/保留一覧 #1（DG.SCN 225）= 解消。#8 の denoise queue に 0x80163F60+ の未同定 3 点（buffer 中身 / BIOS write / 偏在理由）を追加
+  （45 件自体は rbw=0 で **scratch 確定** = worker2 `221ddaf`、10 件に影響なし）。
