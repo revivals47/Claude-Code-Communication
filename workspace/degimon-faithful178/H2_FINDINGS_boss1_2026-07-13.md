@@ -688,3 +688,10 @@ boot-built(DG.SCN table 225 + 0x8015Fxxx) = builder RE **or** capture（C# 等�
   全て診断・是正 or 宣言し、入力表面を**名前付きの記述**（live-in 候補 10 / 実装欠落 7 / 保留 9 / 非入力 3,555）に変換。**ゲーム実装 0 行**で次 phase の assumption-free 設計土台を構築。
 - **(6) 単一推奨 = PRESIDENT も妥当と判断、user への推奨として上げる**。
 - **現況（user 回答待ち）**: 全 worker 待機（worker2/3 composer の quarantine 済み stale text は user 手動クリア待ち）/ 新規 dispatch なし / push ゼロ維持。
+
+### channel インシデント = close（2026-07-14、user 実査で経路確定）
+
+- ★**混入経路の H4 解決: stale composer text = AI 提案文（composer autocomplete 様）の残留 = 第 3 経路**★（12:55 節の候補 (a) 誤 paste / (b) 別 script はともに外れ）。
+  watchdog v2 はこれを正規送信と誤認して機械確定させていた（偽完走報告 2 件の注入機構と同一）。
+- **v3 の send_log 突合 gate がこの経路を恒久封鎖済み**（初実戦 = 2026-07-13 09:35〜、submit ゼロで封じ込め）。quarantine 台帳に経路確定を記録済み。
+- key 入力（Escape/C-c/C-u/BSpace）で消えなかった観測とも整合（AI 提案文は composer buffer 外の表示層）。**agent-send の C-c + 上書きで消える = 手動クリア不要**（user 裁定）。
