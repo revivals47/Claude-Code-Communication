@@ -134,3 +134,27 @@ worker3 短 run `5823909`（`B_DUMP_225_LIVE.tsv`、3 点 evidence + 狭義昇�
 5. **lesson（台帳固定）**: (a) 待機 guard の検証対象は『パターンが自分に当たるか』でなく**『同じ argv に含まれる全 literal』**
    (b) **恒久策 = pid file / flock**（cmdline match は書いた瞬間に self-match 候補。president 指示、次の harness 修正時に実装）
    (c) `pgrep -x`（comm 15 字・cmdline 非参照）は self-match 原理的に不能 = 外部 shell からの idle 判定に使える。
+
+### ★canonical savestate 上書き incident（user play 起因、05:45 worker3 報告 → boss1 裁定）★
+
+**事実（worker3 全実査 + boss1 が preserved copy 実在を確認）**:
+- `SLPS-01797_3.sav` が **04:38:59 / 04:39:14 の user save（duckstation-qt、02:54〜稼働中の user play）で上書き**。
+  原本（baseline A = H2〜H3 の canonical）は rotation で消失、.bak も probe 4/12 addr 不一致で A でない。
+  新 2 版は hash 付き即時保全済（`preserved_slot3_{bak,sav}_*`、boss1 実在確認）。
+- ★**hot batch 28 run = 無傷の証明**★: 全 run per-launch init snapshot が 80/80 launch とも A に一致 + mtime 整合
+  （batch 終了 04:11 < 初回 save 04:38）⇒ **hot verdict（INPUT 6 / NOT-SHOWN 1）は有効**。
+- anchor1/2 は **baseline B（新 save）を load** — rare2(A) との 640A4 read 数不一致の真因。
+  ★**coverage assert 163 が捕捉**（assert 無しなら誤った mini sweep で silent 進行していた = prereg 様式の配当）★。
+- cdbc_v00 追加所見: launch record 15/80（entry_done 80）= **pointer 摂動で 65 entry が launch marker 未到達 = DONE 級の強い INPUT 証拠**
+  （comparator の divergent 数は undercount、verdict 不変・数字は正式表で是正）。
+- ★未解決 confound（束で台帳）: EARLY orig の run 内 block 変動（file 変更で説明不能）= EARLY hook × per-entry LoadState の順序/同期疑い。
+  df8c pair 非一致も同束。**機構推論は 2 敗で停止（規範遵守）→ replicate 実験 1 対で決着**★。
+
+**boss1 裁定（05:5x）**:
+1. **replicate 実験 1 対 = GO（rare の前、~12 分）** — 不変 copy 上で同 env 2 run → bit 比較。EARLY confound 束の切り分けに直結。
+2. **rare batch = `DGSTATE=preserved B copy`（不変・user save 免疫）で実施、全 verdict に scope label『savestate B』**。
+   hot（=A）と分離報告。anchor1/2 は B 素材として有効（04:39:14 以降不変確認済）。merge assert は 163 前提を撤廃し内部整合へ = 承認。
+3. **N の scope 案（PRESIDENT へ上申）**: N（savestate A scope）の更新は **hot INPUT 6 のみ**（A 走行・無傷証明済、worker1 x-check 後）。
+   rare の INPUT は **『B-scoped causal witness』として別立て** — 存在 claim（この addr は因果入力になり得る engine state）は transfer、
+   count/population claim は non-transfer。close パッケージは両 scope 並記。
+4. **予防**: 以後の全 run は preserved copy を DGSTATE に（user play は制限しない — 免疫側で解決）。
