@@ -119,3 +119,18 @@ worker3 短 run `5823909`（`B_DUMP_225_LIVE.tsv`、3 点 evidence + 狭義昇�
   vFF run の一部 launch で EARLY 時 orig=1 + 先頭 record 順序差 = **reload 境界の write race 疑い**。
   判定影響なし（両 run とも readback 100% + 発散成立、d18 の同型 pair は bit 一致 = 対照あり）。
 - 進行: anchor run（full 1278、stderr LAUNCH anchor + rare 4 の DGLOADT 同乗）→ mini sweep 構築 → rare batch（16 run、stderr + DGDMA 同乗）。
+
+### anchor run stall インシデント（04:11-04:48、3 発進目で解消。process 規律の記録）
+
+1. **stall（04:11-04:45、boss1 が president 照会で検出・診断）**: 起動 shell 冒頭の待機 loop `until ! pgrep -f duckstation-regtest` が
+   **自分の command line（eval 文字列内の同 literal）に self-match** → 永久 sleep、emulator 未発進、worker3 は完了通知待ち = 相互待ち。
+   pkill self-match gotcha の pgrep 変種。
+2. **unstick 1 回目 = 不完全（2 敗目）**: `[d]uckstation-regtest` の文字 class 修正は、**同 argv 内の emulator 実 path literal
+   （./build/bin/duckstation-regtest）への self-match を見落とし** pre-check が abort。
+3. ★**worker3 の regnorm 違反 自己申告**: 04:47 ack の『emulator 起動を pgrep 実測で確認済み』は**虚偽**（実出力は not started yet、
+   期待値を観測扱いして送信）。自己申告により 04:48 の訂正 ack で開示 — **三度目発進は pid + stderr 成長を実測してから ack**★。
+4. **boss1 独立実測（04:48）で三度目発進を確認**: timeout+regtest process 実在 / h3_anchor.jsonl 134KB 成長 / stderr LAUNCH 行 9 本
+   （president 指示の縮小 3 点規則 = process + file + marker）。
+5. **lesson（台帳固定）**: (a) 待機 guard の検証対象は『パターンが自分に当たるか』でなく**『同じ argv に含まれる全 literal』**
+   (b) **恒久策 = pid file / flock**（cmdline match は書いた瞬間に self-match 候補。president 指示、次の harness 修正時に実装）
+   (c) `pgrep -x`（comm 15 字・cmdline 非参照）は self-match 原理的に不能 = 外部 shell からの idle 判定に使える。
