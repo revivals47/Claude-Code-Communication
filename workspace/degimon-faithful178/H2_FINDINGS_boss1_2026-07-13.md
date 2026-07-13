@@ -582,3 +582,98 @@ honest: stack 判定は fwpc 多様性 + address 域からの**強い候補**（
 
 ### (5) 規範遵守 evidence
 **game code 実装ゼロ / push ゼロ / frozen `09fde5a` 不触 / cutscene 不触 / N は下限のまま不更新**（全 phase を通じて維持）。
+
+---
+
+## ★★17. close 判定パッケージ【最終版】 — 最終 run fold 済（2026-07-13 12:20、boss1 crash 復帰後）★★
+
+### (0) 最終 run の完走 evidence（boss1 crash 中に完走、復帰後 artifact 実査で確定）
+
+- rebuild = `6d2b647`（sp guard fix。`dbc17d7` = DMA observer + $sp 実測を含む）。binary 生成 = **07-13 09:58 実測**。
+- raw 出力 3 本実在: `/tmp/claude-1000/dgtrace/` の `loadt_run.jsonl`(15,347 行) / `sp_run.jsonl`(677) + `sp_tally.jsonl`(118k 行) / `final_run.jsonl`(55,510 行)。
+- worker3 提出 = **`b8dce58`**（`workspace/f1c/PHASE_CLOSE_PACKAGE.md`、10:00:35）。send_log 10:01:03 着信（boss1 crash 中）。
+- **走行中 process ゼロ（ps 実査）= 二重起動なし**。PRESIDENT 最終 GO の A は「完了済み」で消化。
+
+### (0b) 最終 run の結果 3 点
+
+1. **(2) $sp 実測**: range = **`0x8011C7FC..0x801FFEB8`**（valid-RAM guard 済。初回 full run は pre-init sp=0 で min 汚染 → guard fix 後に短 sweep 再測、stack span は call-driven ゆえ有効）。
+   worker2 の stack 域 `0x801FFD38..0x801FFE74` は**完全内側** = **stack 確定** ⇒ ★**24 件除外は正当 → 10 live-in 候補の未検証前提はゼロに**★。
+2. **(3) DMA observer**: **40,430 transfer / 143,308 distinct bytes**。4388 中 **3,555 が DMA range 内 = (b) file-load 実証**（= script body class と同一集合。pc-base==rel と DMA の 2 系統収束。`0x80161xxx` script block 1566 = 100% DMA）。
+3. ★**訂正（PRESIDENT 裁定で分類へ反映済）**: `0x8015Fxxx` DG.SCN offset table（225）+ MAPHEAD（257）= **0% DMA = file-load でない = boot/CPU 構築**。
+   ⇒ **(b) 確定 = DMA 実証済 3,555 のみ**。**DG.SCN table 225 は (b) から【保留】へ移動** — 除外根拠が『C# が同 file を持つ』から
+   **『C# が等価な table を構築するか』に一段厳格化**（3 条件 standard の保留がなければ 225 件を誤除外していた = 保留の的中）★。
+
+### (1) 確定 claim 一覧（各 1 行 + 次元/scope label + evidence pointer）
+
+| # | claim | scope/次元 label | evidence |
+|---|---|---|---|
+| 1 | **N = 9 は causal lower bound** — harness 修理 / full-60 / rbw 再測 / 最終 run を跨いで不変 | 捕捉済み入力表面・この savestate/sweep(idle=40)。MAPHEAD 鎖は認識対象外（誤測定でなく scope 外、§13） | §2（3 実装収束 9/7）、`f5c37c0` 採点 |
+| 2 | **state-only 入力 class は実在**（PC 列 metric で原理的に不可視） | witness 2 件で存在確定（数は 2、§5 の 3 段実測） | `0x8013E2DE`(STATE のみ) / `0x8016B411`(CTX+DONE) |
+| 3 | 真の制御流分岐 = **1 件**、他の PC 差は全て PC-LEN（打ち切り） | fixed-harness 16 pair | §3（`0x8013E2E0` launch#2、0x19 逆枝） |
+| 4 | **観測者効果 = 0 / 1278**（missing-vs-equal 封鎖済 = 信号実在の上での 0） | P1-at-scale 9/9 bit-identical | §1 |
+| 5 | **351/469 の正確な意味** = 自然終端 entry の 75% で制御流一致 / 118 FAIL / 待機 entry = BLOCKED（未測定、不合格でない） | complete.txt = 自然終端のみ | §8 |
+| 6 | **full 1278 rbw + H6 二重帰属確定**: depth-2 write 実在(19 addr) / 実効 audit 92 件 / 3 実装 bit-exact | 分母 159,941・drop 0 | §「full rbw+H6」、`be17fcb`/`6b367d5` |
+| 7 | **0B9 = derived/maintained class** が DGSTORE と rbw の**独立 2 系統から収束**（fwpc `0x800E9C74` 同一） | NOT-SHOWN から UNMEASURED-by-method へ降格 | §「②+②b」+ §「full rbw」 |
+| 8 | **⑤棚 = 4 op 成立**（0x53:2 / 0x6A:10 敵対検証済 / 0x6E:7 / 0x73:1）**/ 0x6F・0x6D = 反証確定** | clean-core（guard=N∧conflict=N∧text=N）+ J caveat、seed convention label 付き | §11-12、`e87f96b` |
+| 9 | **入力表面は閉じていない。母集団 = 4,388**（vmr∧uncaptured） | この savestate/sweep scope。分類は (0b) 反映済: **script body 3,555(入力ですらない・DMA 実証) / DG.SCN table 225(保留) / MAPHEAD 257(実装欠落) / triage 351** | `a7349ad` §14 + `b8dce58` |
+| 10 | ★**真の live-in 候補 = 10 件、未検証前提ゼロ**★（stat struct 4 / E0F0 / CDBC / DF8C / script-buffer write 2 / 0x801640A4） | **候補**（因果注入は次 phase）。stack 24 件除外は $sp 実測で成立 | `d86c2ab` + (0b)-1 |
+| 11 | criteria per-conjunct 監査: **4 conjunct 中 3 つが射影、honest core = vmr∧uncaptured** | 発見 tool の criteria 自体が監査対象 | §14 |
+
+### (2) 実装欠落台帳（依存鎖 = capture→消費、cutscene 凍結 flag 付き）
+
+| gap | 実測規模 | 依存鎖上の位置 | cutscene flag |
+|---|---|---|---|
+| **MAPHEAD.SCN**（file/buffer/reader/table 全段欠落） | 369 addr read / vmr 257 / 窓内 277 | **鎖の始点から欠落**。消費 = GetSectionOffset scan（`0x800F0A4C`、実測+RE 一致） | ★**凍結解除の user 裁定要**★ |
+| **opcode 0x46 / 0x79 未実装** | 実機 6+1 回実行 | 消費側。`0x801640A4` registry = **live-in 候補と交差（2 層 gap の実例 2 件目）** | — |
+| **opcode 0x66 未実装** | 443 section の last-op / complete 0/443 | 消費側。**DF70 capture→0x66 消費の 2 層 gap**。warp-class | ★覚醒 cutscene と接続 = 凍結解除要★ |
+| **0x8015Fxxx boot-built table** | 205 addr、word 突合 205/205 非ゼロ・0% DMA | **C# の zero 初期化は誤り**。builder RE = 次 phase 台帳 | — |
+| **stat struct boot 初期値 未 capture** | 4 addr（読み最大 217,089 回） | capture 側。C# の選択 = savestate 輸入 vs boot model（`eef22cc`） | — |
+| **self-modify 疑い 2 addr** | `0x80161E7C`/`0x80161FBC`。`0x800AF6AC` = 0xFD byte を 0 に書換える機構**実在** | C# は script read-only = 対応機構ゼロ。**s0 実体未同定 = 高優先 unknown** | — |
+| **待機 semantics**（自然終端しない entry） | 469 の外側全て | metric の BLOCKED 側。resume 経路 live code 4 op（⑤棚）と同じ束 | — |
+
+### (3) BLOCKED / 保留一覧（宣言付き）
+
+1. **DG.SCN table 225 の除外 = 保留**: 判定基準は『C# が等価な table を構築するか』（0% DMA で厳格化済）。reader↔consumer 対応まで承認しない。
+2. **4,388 の因果 = 未試験**（read∧uncaptured ≠ behaviorally required。因果注入 = 次 phase）。
+3. **POST（窓外）次元** = 全 trace channel 構造的に窓内 only（唯一 ungated = DGSTORE）。B441 の再検証は DGSTORE 同乗でのみ可能（台帳維持）。
+4. **worker2 の過去 P2 x-check の PC 次元** = 空 vs 空の可能性（x-check claim 自体に次元限定要）。
+5. **scope 宣言**: 全母集団数値は per-savestate・per-sweep（idle=40）。idle=200 は未収束（1/60 がまだ伸びる）。
+6. **DMA observer の限界**: device→RAM のみ。memory↔memory / OTC は非計装。
+7. **92 件 ra-vs-win audit** = 列挙のみ、per-item 機構 triage 未実施（次 phase）。
+8. **denoise queue**（49×2 conflict 帰属、0x6E@111 region 等）= claim 非依存・低優先。
+9. **worker1 の ④ 独立 x-check = 未実施のまま close**（④ は worker3 の偽 GREEN 自己捕捉 + DGLOADT/DMA 実測で決着済、x-check は冗長化。honest 記載）。
+
+### (4) methodology（本 phase の到達点、PRESIDENT 指定分を含む）
+
+criteria per-conjunct 監査（3 射影の捕捉） / 敵対 phase 法（否定仮説を実行 evidence で殺す） / 振り子の対称性（検査が両方向に equally 働く = 無 bias evidence） /
+first-divergence + 次元の型分離（tuple 一括比較は次元を潰す） / clean-core（保守的下限） / 二重帰属 #6（vmw_ra vs vmw_win 両方向 audit、silent 置換禁止） /
+P-b0 positive control 内蔵 prereg / **measure-first の直接配当**（byte census『205 ゼロ』を注入根拠にする前に DGLOADT 実測が word/halfword 消費を確定 = codex #1 の read 側再来を設計で回収） /
+完走 claim = 3 点規則（件数 + sentinel + pane。file 存在は進行の証拠） / per-layer 独立性監査（2 実装一致の独立層/共有層の列挙義務） /
+legacy artifact = 名前ベース parse + 件数 assert / 偽 GREEN 追加 costume 台帳（『正しい』『測れない』『網羅した』『自分が誤り』= 4 入口 1 穴）。
+
+### (5) 規範遵守 evidence（実査値）
+
+- **push ゼロ**: remake origin/main = `59488d0` 不動。f1c(trackF1C/duckstation-golden) = origin/main から 68 commit ahead **全 local**、trackF1B/F1C は remote branch 不在（branch -r 実査）。duckstation-src も local のみ。
+- **frozen `09fde5a` 不触** / **cutscene 不触** / **game code 実装ゼロ**（f1c 直近 commit は docs/data/instrument のみ = log 実査）。
+- **閾値 `aba590e` / `dc3600e` 不動**（本 repo の prereg commit、実在確認済。集計前固着）。
+- **N = 9 は下限のまま不更新**（最終 run を含む全 phase を通じて維持）。
+
+### (6) 戦略判断の材料 + boss1 単一推奨
+
+**依存鎖図**（実装欠落は独立の穴でなく鎖）:
+```
+capture 層:  DF70 ──────────┐   stat struct boot 初期値 ┐   MAPHEAD file+buffer ┐
+                            ▼                           ▼                       ▼
+消費 層:     opcode 0x66(443 section)      C# 実行系が読む     GetSectionOffset scan(窓内 277 read)
+                            ▼                                                   ▼
+検証 層:     ★覚醒 cutscene(warp-class)= user 凍結解除の裁定が必要★ ◄─────────────┘
+```
+
+**taxonomy 別の実装アプローチ**: true live-in(10) = capture+因果注入で確定 → capture 仕様へ / derived-maintained(0B9 型、~200) = C# が **model**（capture しない） /
+boot-built(DG.SCN table 225 + 0x8015Fxxx) = builder RE **or** capture（C# 等価構築の確認が先） / file-load(3,555) = C# が同 file を読む（済） / stack・scratch・program text = 対象外。
+
+★**boss1 の単一推奨**★: **次 phase = 短い因果 sprint を先頭に置き、その結果で capture 仕様を確定してから実装 phase に入る。**
+具体順序: ① 10 件の値指定注入（+ DG.SCN 225 の C# 等価構築確認を並行） → ② capture 仕様確定（10 件のうち causal なものだけ capture、derived は model 指定） →
+③ 実装 phase（MAPHEAD 鎖 → 0x46/0x79 + registry → 0x66） → ④ cutscene 検証（**凍結解除は user 裁定、着手前に諮る**）。
+理由: (i) 注入は安い（instrument・16 pair 手法・prereg 様式が確立済み） (ii) 注入を飛ばすと capture 仕様が assumption-based になる（measure-first 規範。
+10 件が全て causal とは限らない — P2 の 0/7 が実例） (iii) 実装対象の 2 大物（MAPHEAD/0x66）は cutscene 凍結と絡むため、どのみち user 裁定が先行する。
