@@ -235,6 +235,21 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
 - **暫定統合 verdict（B/A）**: INPUT 3（D18/D3A/D54）/ UNMEASURED 4（E0F0/E7C/FBC/E0FC）/ NOT-SHOWN 2（D42 = 補走 anchor 再判定へ・640A4）/
   **BLOCKED[injection-fragile] 1（CDBC）** / 未確定 = DF8C（B 再走中）+ 真分岐 claim（0x23 補走待ち）。
 
+### ★B dump（08:19）: cdbc 0x84 は『構造由来』ですらなかった — 注入物理制約下の値表現 slip（worker3 自己申告）★
+
+- B ptr table 実測: CDBC(target)=0x8016B104、隣接 slot = 0x8016B048 / B084 / **B1D4**。
+  ★『別 slot の LSB を借りる』は byte 注入(下位 1 byte のみ変更)では **0x8016B184 = どの slot にも無い捏造 pointer** を作る —
+  **LSB 借用と pointer alias の混同**。prereg §A-1 の意図（別の valid pointer）は A 期の設計時点から満たされていなかった。
+  CDBC の no_launch = 機械を自分で壊しただけ、と確定★。
+- ★**正値 = 0xD4**（→0x8016B1D4 = 上位 3 byte が一致する唯一の slot = byte 注入で alias 可能な唯一値）— 補走で実施中★。
+  registry の B 実在値 = 0x75/0x1E も同時確定。
+- ★教訓（which-values 規律に追加）: **『構造由来値』は instrument の注入物理（byte 粒度）で表現可能かまで検査** —
+  値の意味論は『何を入れたいか』でなく『何が実際に guest に見えるか』で書く★。
+- **DF8C = NOT-SHOWN（B、3 値・値意味論 OK・★厳密生存 51/80 SURVIVED = 生存証明付き下限主張★）**。
+  A の『全次元 80/80 = 両 blind 集合外の H4 実例』は **drift artifact と確定・撤回（H4 実例の座も消える）**。
+  副産物: **confound #2（df8c pair bit 非一致）も drift artifact と確定**（B では bit 一致）。
+- 補走 5 run 発進（immutable B、〜30 分）: d54=0x23（真分岐可否）/ d42 ctl+2 値（anchor 付き厳密生存）/ cdbc=0xD4。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
