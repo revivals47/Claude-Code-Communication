@@ -116,4 +116,23 @@ user 裁定 = 推奨順序（①因果 sprint → ②capture 仕様 → ③実�
    E7C/FBC への store（BB940 含む）は記録可 = その範囲で執行。★channel gap として台帳へ、instrument 追加は本 batch ではしない
    （mid-batch rebuild 禁止則とも整合）。s0 の全域同定は次 phase の instrument 候補★。
 
-（採点本体 = 未記入 — 固着）
+### D-2. 採点（2026-07-14 06:4x、boss1。対象 = H3A_VERDICT_TABLE.md `9254978`）
+
+**採点規則（ここで確定）**: UNMEASURED-by-method の outcome（E7C/FBC/E0FC）は**採点対象外**（§A-4 で INPUT とも NOT-SHOWN とも
+峻別した class — 予測は反証も実証もされていない。worker3 は自己採点で ✗ に倒していたが、boss1 裁定で UNSCORED に統一）。
+採点可能 = 8 addr（D18/D3A/D42/D54/E0F0/CDBC/DF8C/640A4）。
+
+| | boss1（予測 7 IN） | worker3（予測 8 IN、D-0 caveat 付き blind） |
+|---|---|---|
+| 的中 | **5/8**（D18✓ D3A✓ E0F0✓ CDBC✓ + 640A4 OUT✓） | **4/8**（D18✓ D3A✓ D54✓ CDBC✓） |
+| 外れ | D42（IN 予測→窓内 NOT-SHOWN）/ D54（OUT→IN）/ DF8C（OUT→IN） | D42（IN→NOT-SHOWN）/ 640A4（IN→NOT-SHOWN）/ E0F0（UNMEASURED 予測→IN）/ DF8C（OUT→IN） |
+| UNSCORED | E7C / FBC（IN 予測、outcome UNMEASURED） | 同左 |
+
+- **caveat**: 640A4 の的中/外れは B-scope + 実効 2 値（0xFF は orig==0xFF で試験不能）の which-values 限定付き。
+  E0FC（−ctl、boss1 NOT-SHOWN 予測）は『発散なし』の意味では合致したが厳密 label は UNMEASURED = UNSCORED。
+- ★**共通の外れ 2 件が本 phase の収穫**★: **DF8C = 両者の blind 集合の外から INPUT が出た（H4 実例）** /
+  **D42 = 両者 IN 予測 → 窓内 NOT-SHOWN + POST（BLOCKED）次元に効果 witness** = 予測は『効果がある』方向では
+  正しかった可能性を残すが、測れる窓では示されなかった — per-dim 峻別がなければ偽の的中/外れどちらにも化けた件。
+- prereg A-5 の追加予測『D18 が UNMEASURED 転落 risk 最大』= **外れ**（D18 は生存 clean。squash は CPU store でなく
+  **per-entry DMA reload** が E7C/FBC で発現 — 転落機構の予測も種類も外れ、を記録）。
+- **予測の実質独立の追認**: 差分 3 addr（D54/E0F0/640A4）で明暗が分かれた（D54 は worker3 正、E0F0 は boss1 正、640A4 は boss1 正）。
