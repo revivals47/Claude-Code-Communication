@@ -88,4 +88,15 @@ worker3 短 run `5823909`（`B_DUMP_225_LIVE.tsv`、3 点 evidence + 狭義昇�
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
   （D18/D3A/D42/D54/CDBC/E7C/FBC/640A4。boss1 7 件との差分 3 addr。件数のみ露出 caveat = prereg D-0）。
-- 次 = A-0 幅表 → positive control → batch。
+- A-0 幅表 = 12/12 実測（`338fec7`、承認済）。positive control = **INPUT 確定**（0x80145E5A=255、readback 60/60 + 生存実測 +
+  60/60 発散、H2 profile 整合）= abort 規則クリア、batch 本走 GO（01:2x）。
+- **中間（02:32、11/28 run）— 早期 verdict 2 件（正式表は batch 完了後）**:
+  - `0x80141D18` = **INPUT**（実効 3 値全発散: 0xFF STATE+RNG 50/80 / 0x01 STATE+RNG 43/80 / 0x80 STATE 25/80、
+    first-div 全て先頭 launch、readback 80/80。**PC 次元なし = state-only 型**。orig=0x00 ゆえ v00 は規則で 0xFF に bump、記録済）。
+  - `0x80141D3A` = **INPUT**（0xFF のみ STATE 25/80。0x00/orig+1 は**生存実測付き NOT-SHOWN 値**（store 0 件・22,445 read）
+    = 閾値 gate 型 profile — 記述のみ、掘らない）。
+- ★無料 control 2 件（methodology へ）: (1) d18 v00/vFF = 同一実効注入の jsonl bit 一致（P1 replica）
+  (2) ctl 同士で rider 構成のみ違う 2 run の guest 全次元 80/80 bit 一致 = **rider-invariance の実測**（DGSTORE/DGLOADT 同乗は guest を変えない）★。
+- 運用 note: hot runner は stderr（LAUNCH frame anchor）非保存 → hot target の **NOT-SHOWN 最終判定に限り** per-launch 生存 bracket の
+  補助 run を許可（INPUT 判定は決定論 argument で充足）。rare batch は stderr 保存 + **DGDMA 同乗**（script block の DMA 上書きは store_t 不可視のため）設計済。
+- ETA 改定: 1 run ≈ 6 分実測 → hot 完了 ≈ 04:15（+75 分）、rare はその後。
