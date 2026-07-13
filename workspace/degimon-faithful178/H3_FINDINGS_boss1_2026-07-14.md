@@ -210,6 +210,20 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
 - ⇒ **交絡解消**: A 期 ctl-ctl 発散は rider で説明不能 → **savestate drift が唯一残る説明**（d54 末尾 4 件の immutable 消滅と合わせ 2 系統実測支持）。
   『user が該当時刻に save した』の直接 event evidence は未取得 = **機構は候補のまま**（規範維持）。
 
+### ★E0F0 = INPUT 撤回 → UNMEASURED-by-method(B)★ + 生存基準の厳格化（07:44）
+
+- **E0F0（immutable B、3 値・値妥当性 slip なし〔B-orig=0x01=A と同一〕）: 発散 0/80** —
+  A の『最強 profile（3 値全次元 14/76/80）』は **全て drift artifact と確定**（A の e0f0 run は全て汚染域 03:12-03:30）。
+  ★『最強に見えた profile ほど疑わしい』が 3 値まるごと具現した実例★。
+- ★**生存基準の是正（worker3 自己申告）**: 初版は『注入値と**異なる値**の store』のみ計上 — game が偶然同値を書くと
+  『生存』に誤判定（注入の因果的役割ゼロ）。**正 = 『first read 前にいかなる store も無いこと』**。
+  e0f0 は緩基準 52/80 → 厳密 0/80 で反転 → **verdict = UNMEASURED-by-method（0B9 型 derived/maintained）**★。
+- **遡及適用（承認）**: NOT-SHOWN 判定全件（d42×3 値 / d3a の 0x00・0x07 / 640A4）を厳密基準で再判定 —
+  NOT-SHOWN → UNMEASURED への降格があり得る。**INPUT 判定は影響なし**（発散が出た時点で因果は立つ）。
+- **N 候補 = D18 / D3A / D54 の 3 件で不変**（D3A の INPUT 根拠 = 0xFF 発散 25/80 は生存基準と独立に成立）。
+- 採点への note（D-4 で正式化）: worker3 の blind 予測『E0F0 = UNMEASURED（0B9 型 fwpc 隣接）』が **B 実測でそのまま的中** —
+  D-2 で ✗ とされた行が反転する見込み（boss1 の E0F0 IN 予測は UNSCORED 化）。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
