@@ -154,6 +154,21 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
 - init 差分 byte は**全て mutable 領域**（E104/E204 marker・item bitset・E5A）、stable savestate byte 差ゼロ =
   『別 savestate』か『mutable drift』かは init だけでは未確定 → h3b 弁別（(2)、defer）に同意。
 
+### ★D54 = INPUT（A scope）復帰確定（07:0x、per-launch 粒度で両 worker 収束 → boss1 裁定）★
+
+- worker3 の per-launch 実測（非 vacuity audit）: d54_v00 は**一律 CLEAN ではない** — init 相違 = **末尾 5 launch のみ**
+  （(200,6)(207,5)(213,81)(217,51)(220,81)、run 02:49:52〜02:55:50 の末尾で file 差し替わり = worker1 境界 02:55:49 と整合）。
+  ★**first-divergence launch (47,82,0)（sweep index 20）は init が ctl と bit 一致 = baseline 同一を実測**★。
+- ★**粒度の教訓**: worker1 の run 単位判定（v00=CLEAN）は末尾 5 launch を丸め、worker3 の時刻 proxy（02:54 以降全汚染）は粗すぎた —
+  **正しい粒度は per-launch**。食い違いは粒度を上げたら消えた★。
+- **boss1 裁定: D54 = INPUT（A scope）復帰**。採用 evidence = ★**launch (47,82,0) の 1 件のみ**★（init bit 一致 + readback PASS +
+  STATE 発散 + 生存 clean）。末尾 4 launch の発散は drift 交絡で除外。**閾値 aba590e の正規適用（1 launch でも clean 発散 = INPUT）であって緩和ではない**。
+  vFF/v51（真分岐 = headline 級）は凍結維持 → h3b 再検。**N 更新候補 = 3（D18/D3A/D54）**。
+- ★時系列の穴の部分充填: d54_v00 run 末尾の init 相違 = **02:55:49 頃に load される file 内容が実際に変わった直接痕跡**
+  （per-entry reload 前提。rotation で mtime 痕跡が残らない save の実在を示唆）— 機構はなお候補（rider 弁別待ち）だが、
+  『02:55〜04:11 に書込 event の evidence が無い』という反論は弱まった★。
+- per-launch 救済手法は e0f0/cdbc/df8c にも適用可（汚染 run 内の clean launch）→ worker3 の 1 commit（h3b 突合込み）で実施予定。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
