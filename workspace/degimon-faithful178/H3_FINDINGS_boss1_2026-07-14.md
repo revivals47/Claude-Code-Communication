@@ -193,6 +193,15 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
   registry の 0x93 等）について『その値の意味論的根拠（orig+1・実在値）が **B の実測**から算出されているか』を 1 件ずつ監査
   （見つけた 1 instance を直すだけでは同 class の残りが素通りする）。★『orig+1』等の相対指定値は **baseline ごとに再計算** = which-values 規律に追加★。
 
+### 全数監査の結果（07:20、worker3 `93168d0`）— class の中身が確定
+
+- **SLIP 確定 1**（d54 0x51）/ ★**B 値確定待ち 4**: e0f0・df8c の orig+1 / cdbc 0x84 / **a4 0x93 = A 期 registry の slot[0] 値と特定**
+  （= B の実測でない ⇒ **640A4 NOT-SHOWN(B) の which-values 注記も『任意値 2 点』へ訂正対象** — verdict は下限主張ゆえ不変）★ /
+  ✅ **baseline 非依存 3**: 0xFD = engine 定数（0x800AF6AC の比較値、再走不要）/ 絶対境界値（実効値は perturb record の new から読む規律を明記）/
+  e0fc 0x02（B orig=0x01 を perturb record で実測済 = B でも orig+1 として正当）。
+- 補走計画承認: **B dump 1 本（〜30 秒）で ptr table + registry + 3 addr の orig を実測 → 全相対値・参照値を B から再算出** → 補走各 1 run
+  （d54=0x23 が真分岐 claim の可否を決める run）。close 前に含める（boss1 判断済み）。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
