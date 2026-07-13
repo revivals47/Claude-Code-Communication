@@ -398,6 +398,35 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - **full 1278 rbw 発進**（fixed binary、`-frames 1200000` = 旧 1020 切れの真因〔250000 不足〕解消、DGIDLE=40 で旧条件一致、
   versioned → `rbw_tally.jsonl-3`）。boss1 が実 process 確認済。
 
+### full 1278 rbw + H6 = 確定（14:25-14:50、3 実装収束）
+
+- **完走**: 1278/1278（boss1 が entry_done を grep 計数、tally-3 生成 + 既存 2 file 不変 = versioning 本番動作）。旧 1020 prefix-scoped claim は全 supersede。
+- **H6 二重帰属**（worker3 `be17fcb` / worker1 独立検算 `6b367d5` = **全 10 項目 bit-exact・assert 全 PASS**）:
+  vmw 不一致 50590（win-only 50537 + **ra-only 53** = E104 型）/ **実効 audit list = rbw≠rbw_win の VM-read 92 件**（13+79）/
+  **depth-2 write 実在 = YES**（win-only-written ∧ VM-read **19 件**、headline `0x8013E2E6` の fwpc=`0x800AECC4` = worker2 が traced した
+  0x66 chain の helper 内 = **構造予測と実測の収束**）/ blind 母集団 **231 addr・18 block**。分母 159,941・drop 0。
+- ★**cross-consistency（close パッケージの柱）**: depth-2 の 19 addr に **`0x8016B0B9`（fwpc=`0x800E9C74`）** — w60 で 0B9 を demote した
+  連続書込 writer と**同一**。⇒ **derived/maintained class が別 batch・別 channel（DGSTORE vs rbw）・別 tool の 2 系統から独立に裏付けられた**★
+- **worker2 の rbw 再測 prereg = 6/6 HIT**（P-b0 positive control PASS / P-b1 depth-2 実在 / P-b2 chain 的中 / P-a1 は sign HIT・規模帰属は自制 /
+  P-a2 rbw label 変動 0 / P-c1 N=9 不変）。
+
+### ④ = 偽 GREEN を寸前で自己捕捉（15:05、which-dimension の最終盤）
+
+- IN_IMAGE 26: **25/26 一致**（定数）。唯一の不一致 = `0x8013DF70`（既知の非 image state、因果 4 値 inert 済）= 新情報なし。
+- ★**OOI 205 の反転**: byte census では **205/205 がゼロ** → worker3 は『constant-zero、注入集合は空』と書きかけた。
+  **word 突合で 205/205 が非ゼロ**（`0x00006800, 0x00007000...` の昇順 table）。真因 = **blind list は read の start addr であり、
+  read 幅を測っていない = byte 値はその射影**。そのまま出せば **盲点母集団 205 件を silent に落とす偽 GREEN** だった★
+- ★**PRESIDENT 指定の記録: これは codex #1（rbw 幅盲）の【read 側再来】**。write-set の幅盲は fix したが、
+  **blind list census 自身が read 幅を持たない同族の穴**を持っていた — **『幅は次元である』は write 側 fix では read 側 tool に自動伝播しない**★
+- ★**finding の実質**: `0x8015F788-0x8015FB08` は **loader-zero BSS ではなく boot 構築の昇順 table = 実 boot-written state
+  ⇒ C# の zero 初期化は誤り**（実装 phase の具体的 gap。taxonomy 上 true live-in か derived かは DGLOADT + 静的 RE で確定）★
+  worker2 の『不在 ≠ 0x00』警告が現物で成立した 2 例目。
+- **裁定**: **DGLOADT**（read 幅と reader PC を実測する load 版 instrument）承認・実装 GO — **注入の前に「何 byte がどこから読まれるか」を測る**。
+  代表注入はその後（選定規則は `d75f242` に事前固定: block 先頭/中央/末尾 + live word 値の多様性 + **flip したら密 sampling に格上げ** + no silent caps）。
+  worker2 に同 table の静的 RE を並行発注（**静的 RE と実測 reader の収束が判定**）。
+- B441 rider = benign（store 1 件・val=orig・決定論的再現。本 run は DGLOADS 無しで dia flag 無意味 = honest note）。POST finding は台帳維持。
+- **close は 1 段延長**（④ の中で新測定が必要になった）。N=9 下限不変。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
