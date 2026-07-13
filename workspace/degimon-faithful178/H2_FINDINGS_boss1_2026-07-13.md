@@ -488,3 +488,49 @@ worker3 の blind criteria = `vmr && wcount==0 && **dia==0** && uncaptured` — 
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
 **確定 claim 一覧 + BLOCKED/保留一覧 + 棚（metric-外 gap 4 件 + 窓の外 live code）+ 規範遵守 evidence。**
+
+## ★★14. criteria の per-conjunct 監査 — 4 conjunct 中 3 つが射影だった（16:35-17:20、本 phase の到達点）★★
+
+旧 blind criteria = `vmr ∧ wcount==0 ∧ dia==0 ∧ uncaptured`。**全成分を監査した結果:**
+
+| conjunct | 判定 | 何を落としていたか |
+|---|---|---|
+| `vmr` / `uncaptured` | ★**honest core（生存）**★ | — （ただし capture 定義自体に bug があった → 下記） |
+| **`dia==0`** | **射影 #1** | **窓との混同** — 窓内 read（MAPHEAD 369 addr / dia>0 277）を構造的に除外。blind-to-window を測っていたが、要るのは blind-to-capture |
+| **`wcount==0`** | **射影 #2 + #3** | **#2 DMA 不可視**（CD-DMA write は BP 素通り =「CPU store 非観測」≠「未書込」）/ **#3 derived state 除外**（VM が読む・未捕捉・CPU-written な 200 件 = 0B9 と同型。**「CPU-written だから入力でない」は 0B9 で既に反証済**） |
+| **母集団定義** | **射影 #4** | **instruction fetch 混入** — VM が自分の命令列を fetch する byte 3,555 件を「未捕捉の入力候補」として数えていた（`pc - base == rel` 3/3 で実証） |
+
+⇒ ★**生き残った honest core = `vmr ∧ uncaptured`。他は全て分類 label に降格**★
+
+### 母集団の確定（boss1 が per-addr diff = 件数比較でなく集合比較）
+
+- **worker3 の 4188 は worker2 の 4388 の【厳密な部分集合】（w3-only = 0 件）** ⇒ **測定の食い違いゼロ、純粋に criteria 差**。
+  差 = **200 件**（うち **193 件が wcount>0**）。★**母集団 = 4388 を正とする**★（worker3 も受理）。
+- **eventBank 137 件 = worker2 の capture 定義 bug**（bank_block = **実測 601B** を数えていなかった）= **捕捉漏れではない = frozen capture 前提は無傷**。
+  さらに **未 capture の尾 67B の VM-read を assume せず実測 → 0 件**（二重に clean）。
+
+### 4388 の最終分類
+
+| class | 件数 | 扱い |
+|---|---|---|
+| script body（VM の命令列そのもの） | **3,555** | ★**「入力」ですらない**★ |
+| DG.SCN offset table（C# が同 file を parse 済） | 225 | 注入不要（消費経路の一致は DGLOADT 収束待ちで保留） |
+| ★**MAPHEAD**（file だが C# に file が無い）★ | **257** | ★**注入も再現も不能 = 実装欠落そのもの**★ |
+| buffer 外 + gp-0x6ce8 buf | **351** | 本 phase の最終的な triage 対象 |
+| eventBank | 0 | 捕捉済（bug 修正で落ちた） |
+
+### ★★真の live-in 候補 = 10 件（351 の最優先、worker2 17:20）★★
+
+`rbw=1 ∧ wcount>0` の生の 34 件から ★**stack 24 件を除外**★（`0x801FFD38..0x801FFE74` = RAM 上端直下。**同域 457 addr の fwpc が 198 種 = 多数の無関係関数が同じ slot を書く = stack frame の署名**。
+stack の rbw=1 は「前の関数の frame を読んだ」だけで意味を持たない ⇒ **除外しないと 3.4 倍に膨れる**）。
+
+★**残る 10 件（全て dia>0 = 窓内で読まれている）**★:
+- ★**stat struct 4 件**: `0x80141D18`（count 217,089 / fwpc `0x800A988C` = sub3 bitfield）/ `0x80141D3A` / `0x80141D42` / `0x80141D54`★
+  ⇒ ★★**worker2 が「state 次元の穴」として報告した struct そのもの。DGWATCH で書込は測れるようになったが、boot 由来の初期値は capture されていない**★★
+- `0x8013E0F0`（count 126,853）/ `0x8013CDBC`（readerB の ptr table 域）/ `0x8013DF8C`
+- `0x80161E7C` / `0x80161FBC`（**script buffer への CPU write** = self-modify か loader か**未同定**）
+- ★`0x801640A4` = **0x46/0x79 registry 域** = **未実装 opcode の state も live-in**★
+
+**boss1 指名 addr の判定**: `0x80141D18` / `0x8013E0F0` / `0x80141D3A` / `0x80141D42` = **全て rbw=1 = live-in 候補**（「CPU-written だから入力でない」は誤りと確定）。
+`0x8013E0FC` = rbw=0（write-first）= scratch。
+honest: stack 判定は fwpc 多様性 + address 域からの**強い候補**（`$sp` 実測で確定可）。
