@@ -100,3 +100,22 @@ worker3 短 run `5823909`（`B_DUMP_225_LIVE.tsv`、3 点 evidence + 狭義昇�
 - 運用 note: hot runner は stderr（LAUNCH frame anchor）非保存 → hot target の **NOT-SHOWN 最終判定に限り** per-launch 生存 bracket の
   補助 run を許可（INPUT 判定は決定論 argument で充足）。rare batch は stderr 保存 + **DGDMA 同乗**（script block の DMA 上書きは store_t 不可視のため）設計済。
 - ETA 改定: 1 run ≈ 6 分実測 → hot 完了 ≈ 04:15（+75 分）、rare はその後。
+
+### hot batch 完了（04:12、28/28 run・CAP HIT ゼロ・readback 全 run 100%）— hot 7 target の verdict
+
+| addr | verdict | profile（発散 launch 数/80） |
+|---|---|---|
+| `0x80141D18` | **INPUT** | 0xFF: STATE+RNG 50 / 0x01: 43 / 0x80: STATE 25。**PC なし = state-only 型** |
+| `0x80141D3A` | **INPUT** | 0xFF: STATE 25。0x00/0x07 = 生存 clean の NOT-SHOWN 値。**閾値 gate 型** |
+| `0x80141D42` | **NOT-SHOWN（窓内 5 次元）** | 全 launch 差ゼロ。★併記: v00 のみ**窓外 read +162** = **POST 次元（H2 BLOCKED 宣言済）に効果の実測 witness** — 窓内 verdict と別次元、per-dim label で峻別★ |
+| `0x80141D54` | **INPUT** | 0x00: STATE 5 / 0xFF: STATE+RNG 75 / ★**0x51(orig+1): PC-PATH+CTX+RAW+STATE+RNG+DONE 73 = 真の制御流分岐、H2 以来 2 例目**★ |
+| `0x8013E0F0` | **INPUT** | 3 値とも全次元発散（14/76/80）。最強 profile |
+| `0x8013CDBC` | **INPUT** | 0x84(→ptr 0x8016B184): CTX+STATE+RNG 75 / 0x00(→0x8016B100): 15。crash なし（null 未試験 = D-1(a)） |
+| `0x8013DF8C` | **INPUT** | 実効 0xFF: 全次元 80/79 / 0x01: 全次元 80 |
+
+- **hot 小計: INPUT 6 / NOT-SHOWN 1**。予測採点は正式表（rare 完了）後に prereg §D で実施
+  （速報レベル: DF8C は両者外し / D42 も両予測 IN で外れ / D54・E0F0 は片方ずつ的中 — 数字は採点時に確定）。
+- ★新 confound 1 件（掘らず台帳、次 phase 候補）★: df8c の同一実効値 pair（v00/vFF）が bit 非一致 —
+  vFF run の一部 launch で EARLY 時 orig=1 + 先頭 record 順序差 = **reload 境界の write race 疑い**。
+  判定影響なし（両 run とも readback 100% + 発散成立、d18 の同型 pair は bit 一致 = 対照あり）。
+- 進行: anchor run（full 1278、stderr LAUNCH anchor + rare 4 の DGLOADT 同乗）→ mini sweep 構築 → rare batch（16 run、stderr + DGDMA 同乗）。
