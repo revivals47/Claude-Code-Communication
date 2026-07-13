@@ -158,3 +158,18 @@ worker3 短 run `5823909`（`B_DUMP_225_LIVE.tsv`、3 点 evidence + 狭義昇�
    rare の INPUT は **『B-scoped causal witness』として別立て** — 存在 claim（この addr は因果入力になり得る engine state）は transfer、
    count/population claim は non-transfer。close パッケージは両 scope 並記。
 4. **予防**: 以後の全 run は preserved copy を DGSTATE に（user play は制限しない — 免疫側で解決）。
+
+**PRESIDENT 裁定（06:0x）= boss1 案承認 + 追加 2 点（両方実施済）**:
+- ★N scope 承認★: N（savestate A scope）更新 = hot INPUT 6 のみ（worker1 x-check 後）/ rare = B-scoped causal witness 別立て
+  （existence は transfer / count・population は non-transfer）。
+- **追加 (1) 実施済 — preserved copy の filesystem 強制免疫**（boss1、06:0x）:
+  - `preserved_slot3_bak_20260714_0438.sav` sha256 = `44a9b1e24081e34e9d663ccf707102e5b8cf45b52a0d4d6ced3a875225c66e74`
+  - `preserved_slot3_sav_20260714_0439.sav`（= baseline B、現 slot3 と同一）sha256 = `4aa92a9f9cf6c63078cf010e0dbb6c8b7c01dabb58f347f89409f2090d15b6d7`
+  - 両 file とも `chmod a-w` 済（perm 400 実測）。
+- **追加 (2) 実施 — baseline A の指紋台帳（復元不能・同定可能）**:
+  A の原本 savestate は失われたが、以下が A の部分指紋として disk に残る（将来「これは A か？」の照合に使える）:
+  1. `h3_origs_dump.jsonl`（01:24、A 上で取得。sha256 = `42cbbfac26d7f310534e591c5a18e1ef24524e1006537d961bab2d0a5860bbb9`）
+     — 12 注入 addr の orig 値 + launch(1,254) の init snapshot（bank_block 601B / flags / vars の全 hex）。
+  2. hot 28 run の per-launch init snapshot（80/80 launch × 28、ram_inputs 判別 block）— A 一致の証明に使った当のデータ。
+  3. 04:38 以前の A 走行 artifact 群: `final_run` / `sp_run` / `loadt_run` / `rbw_tally.jsonl-3` / `B_DUMP_225_LIVE.tsv`（00:35）。
+  4. **A vs B の判別子（probe 実測）: 12 注入 addr 中 4 addr が不一致 = D3A / D54 / CDBC / E7C**（B で値が変わった = user play の進行分）。
