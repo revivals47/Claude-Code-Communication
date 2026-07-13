@@ -118,6 +118,19 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
 - 採点 D-2 の該当 4 行 = PROVISIONAL 降格（prereg D-3）。**N 更新候補は現時点 D18 + D3A の 2 件に縮小**、正式上申は再測定+x-check 後。
 - confound #1 の機構再帰属（EARLY hook 順序 → run 中 file 差し替え）も**候補どまり**（同じ時系列の穴に依存）。
 
+### worker3 の裁定反映 + 追加開示（06:56、`e3d2aef` = 監査 script + evidence + 再走 script）
+
+- 機構候補への降格 = 受諾。補足: **mtime rotation は直近 2 版のみ保持 → 02:55〜04:11 の save の不在は証明不能**
+  （『痕跡が無い』はどちらの証拠にもならない — 打ち切られた list の不在は否定でない、の実例）。
+- ★**追加交絡の自己開示**: 一致 4 ctl = **全て同一 DGWATCH 領域（STATW）** / 発散 3 ctl = **各々別 watch 領域** =
+  **時刻と rider 構成が完全交絡**。rider-invariance 実証は同一 watch の 1 pair のみ = 『rider 不活性』は未証明
+  （静的には観測のみの実装 = 期待は不活性、だが期待は観測でない）★。
+- ★**弁別の事前設計（再走に内蔵）**: 同一 immutable file 上で h3b_d54_ctl（STATW）vs h3b_e0f0_ctl(別 watch) —
+  **bit 一致 → rider 不活性 = drift 候補支持 / 発散 → rider observer effect（savestate drift 不要）**。どちらでも凍結判断は不変★。
+- 監査 evidence: 非 vacuity assert（block 実在強制）導入済。発散 3 ctl は **init snapshot が 80/80 launch で相違** =
+  launch 時点 RAM が違う直接痕跡（drift 寄りだが rider 経路排除まで断定しない）。
+- 再走 06:51 START（〜08:20）。h3b ctl 群で ①rider 弁別 ②4 target 再判定 ③d18 label 訂正 + state-only witness 確定を 1 commit 予定。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
