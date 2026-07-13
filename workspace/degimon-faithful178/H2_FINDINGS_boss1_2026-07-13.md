@@ -534,3 +534,51 @@ stack の rbw=1 は「前の関数の frame を読んだ」だけで意味を持
 **boss1 指名 addr の判定**: `0x80141D18` / `0x8013E0F0` / `0x80141D3A` / `0x80141D42` = **全て rbw=1 = live-in 候補**（「CPU-written だから入力でない」は誤りと確定）。
 `0x8013E0FC` = rbw=0（write-first）= scratch。
 honest: stack 判定は fwpc 多様性 + address 域からの**強い候補**（`$sp` 実測で確定可）。
+
+## 15. DGLOADT 完走（17:50）— measure-first の直接配当
+
+- **read 幅 = 実測で確定**: `0x8015Fxxx` table = **w=4（lw）**（reader pc `0x800F09E0`/`09F0`/`09FC`）/ `0x80161788` = **w=2（lhu）**（pc `0x800F0A78`、225 回）。
+  full 1278 完走、load_t 268 records、cap 未達。全 read が dia=0（窓外）。
+- ★**word/halfword で読む = 非ゼロ内容（+1 byte の昇順値）を実際に消費している** ⇒ **byte census の「205 ゼロ」を注入根拠にしていたら実測で否定されていた**★
+  = **measure-first の直接配当**（今回は「走らせる前の設計」で回収された）。
+- reader は全て **VM interpreter 範囲**（`0x800F09xx-0Axx` の単一 routine 群）= **VM 自身が窓外で table を引いている**（E104 copy と同型）。
+- ★**DG.SCN 205 の「注入不要」判定は保留**（boss1/PRESIDENT 一致）— 除外に要る 3 条件 = **file 由来 ∧ C# が同 file から同 table を parse ∧
+  reader = VM の offset 解決**、＋ **DMA 判別**。**値の一致ではなく消費経路の一致**を最後まで要求する★。
+
+## 16. ⑤ close パッケージの骨子（残 1 run の結果を差し込んで確定）
+
+**本 phase = 記述 phase**（PRESIDENT 裁定）。成果は「**どこまで測ったか・何が測定外か・各々なぜか**」の宣言であって、入力表面を閉じ切ることではない。
+**10 件の因果確認（perturb）は次 phase。**
+
+### (1) 確定 claim
+- **N = 9（causal lower bound）** — harness 修理・full-60・rbw 再測を跨いで不変。
+- **② full-60 = flip 0/6**（3 実装収束: worker3 / worker2 blind / worker1）。**0x8016B0B9 は NOT-SHOWN 台帳から降格 = UNMEASURED-by-method**
+  （3865 store で注入即上書き。**derived/maintained state** = C# は capture でなく model すべき class。rbw 側からも独立裏付け = **2 系統収束**）。
+- **H6 二重帰属**（3 実装 bit-exact）: **depth-2 write 実在**、実効 audit 92 件。
+- **H5 census**: unexercised live code の静的存在 = **4 op**（0x53 / **0x6A = 敵対 phase 反証済** / 0x6E / 0x73）。**0x6F・0x6D = 反証確定**（operand-collision phantom）。
+- **入力表面の母集団 = 4,388**（`vmr ∧ uncaptured`）→ script body 3,555（**「入力」ですらない**）/ DG.SCN table 225 / **MAPHEAD 257** / **triage 対象 351**。
+- ★**真の live-in 候補 = 10 件**（stack 24 件除外後。**stat struct 4 件 = boot 初期値が未 capture**、0x801640A4 = 0x46/0x79 registry、script buffer への CPU write 2 件）★
+
+### (2) BLOCKED / 保留
+- **POST（窓外）次元** = 全 trace channel が構造的に窓内 only（DGEXIT 無罪、唯一の ungated = DGSTORE）⇒ **B441 の out-of-window finding はこの batch で再検証不能**。
+- **DG.SCN 205 の除外** = 消費経路の一致（reader↔consumer 対応）が立つまで保留。
+- **worker2 の過去 P2 x-check の PC 次元** = 空 vs 空の可能性（**「x-check した」claim 自体に次元限定が要る**）。
+- **stack 24 件の除外** = `$sp` 実測待ち（fwpc 多様性からの強い候補どまり）。
+
+### (3) 棚（metric-外 gap と実装欠落）
+- **C# 実装欠落 3 件**（MAPHEAD / opcode 0x46・0x79 / opcode 0x66）は**独立でなく依存鎖を持つ: capture → 消費**。
+  **0x66 は warp-class = 覚醒 cutscene と接続**。**MAPHEAD は鎖が始点から欠落**（file / buffer / reader / 探索対象 table すべて無い）。
+- **窓の外 live code = 4 op**（停止 op の先の unexercised 実 code）。
+- **入力表面の taxonomy**: true live-in（capture）/ 定数 / **derived-maintained（model）** / VM scratch / **program text（そもそも入力でない）**。
+  **「閉じる」= 全部 capture ではなく class ごとに正しい扱い。**
+
+### (4) methodology（本 phase の到達点）
+- ★**criteria の per-conjunct 監査**: 旧 blind criteria の 4 成分中 **3 つが射影**（dia==0 / wcount==0 ×2 / 母集団定義）。生存 core = `vmr ∧ uncaptured`★
+- **per-layer 独立性監査**（2 実装収束は「どの層が独立でどの層が共有か」の監査であって yes/no ではない）
+- **敵対 phase 法**（否定仮説を実行 evidence で殺す）/ **execution-anchor**（operand 域の phantom 証明）
+- **振り子の対称性**（検査が殺す方向にも生かす方向にも equally 働いた = 無 bias の evidence）
+- **measure-first**（byte census のゼロを注入根拠にしていたら実測が否定していた）
+- **完走 claim は件数 evidence でのみ**（file 存在は進行の証拠）/ **legacy artifact は名前ベース parse + 件数 assert**
+
+### (5) 規範遵守 evidence
+**game code 実装ゼロ / push ゼロ / frozen `09fde5a` 不触 / cutscene 不触 / N は下限のまま不更新**（全 phase を通じて維持）。
