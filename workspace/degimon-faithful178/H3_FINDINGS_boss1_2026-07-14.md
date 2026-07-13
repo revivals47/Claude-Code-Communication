@@ -109,6 +109,16 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
   補助 run を許可（INPUT 判定は決定論 argument で充足）。rare batch は stderr 保存 + **DGDMA 同乗**（script block の DMA 上書きは store_t 不可視のため）設計済。
 - ETA 改定: 1 run ≈ 6 分実測 → hot 完了 ≈ 04:15（+75 分）、rare はその後。
 
+### x-check 決着（06:5x、worker1 `6353050` + unblind 突合 `ec02042`）— 2 実装が count・dim 両層で完全収束
+
+- **発散数 22/22 bit-exact（独立実装同士、初回から）+ unblind 後 dim-level も全 22 pair 不一致 0**。readback 22/22 / survival = before-first-read bracket で厳密確認。
+- ★**d18 dim 相違の決着**: worker1 tool の過剰ラベル（PC-PATH を full-list 比較 = 長さ差を混同）。**正しい内訳（両 tool 収束値）= PC-PATH:1（真分岐）+ PC-LEN:13（return_fe→idle_stop の実行長差）+ DONE:14**★。
+- **boss1 裁定 (A)**: worker3 verdict 表の d18 一言『PC 次元に一切出ない』は**自 tool 出力と不整合の過小記述** → doc 訂正指示。
+  ★**d18 の label = multi-dimensional に変更**（state 主体 + PC-LEN 13 + 真分岐 1 + DONE 14。0x8013E2E0 と同型）。
+  『因果 state-only』の witness は **dim-level 収束データで PC 系ゼロが立つ value-run**（d3a_vFF / d18_v80 が候補、worker3 が自 tool 出力で確定）に移す★。
+- worker1 の tool 自己捕捉 3 件（segment 境界 = 一致**前**に捕捉 / PC-PATH full-list / RAW skip）= 台帳化。count は全て不変、dim 正確性の是正のみ。
+- 残 reconcile = A 指紋 block 所在（worker3 回答待ち、documentation のみ。hot=A は mtime 時系列で独立成立）。
+
 ### hot batch 完了（04:12、28/28 run・CAP HIT ゼロ・readback 全 run 100%）— hot 7 target の verdict
 
 | addr | verdict | profile（発散 launch 数/80） |
