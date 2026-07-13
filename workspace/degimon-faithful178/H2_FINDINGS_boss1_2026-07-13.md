@@ -427,6 +427,63 @@ resume 経路 authority の要否は close 後の user 戦略判断へ（本 pha
 - B441 rider = benign（store 1 件・val=orig・決定論的再現。本 run は DGLOADS 無しで dia flag 無意味 = honest note）。POST finding は台帳維持。
 - **close は 1 段延長**（④ の中で新測定が必要になった）。N=9 下限不変。
 
+## ★★13. criteria 自体が射影だった — close の前提が壊れた（15:45-16:00、本 phase 最大の finding）★★
+
+### 実測（worker2 `f64ac1e`、rbw_tally.jsonl-3 = full 1278）
+
+- **盲点 205 件の正体 = DG.SCN という file の中身**: VM buffer 初期化 routine `0x800F0010` が 5 pointer を gp に置き file を load。
+  `gp-0x6cf4 = 0x8015F784 ← DG.SCN 先頭`。205 addr = **DG.SCN の entry offset table（index 1..225、224 要素、昇順）**。
+  live 観測値と DG.SCN 実 file が **byte-exact 一致**。**C# は既に同じ file から同じ table を parse 済**。
+- ★**同じ routine が load する MAPHEAD buffer（`0x80159784`、23,094B）は C# に無い**★:
+  実測 = 読まれた **369 addr / vmr 257 / dia>0（＝ dialogue 窓の【内側】）277 / wcount 0**。
+  **reader = `GetSectionOffset(0x800F0A4C)` の scan loop**（実測 dpcs 上位 3 件が全て同一関数内: `0x800F0A64`=256 addr /
+  `0x800F0A8C`=255 / `0x800F0A78`=1）。逆アセンブルで機構確定 = **(id:u16, offset:u16) stride-4 の線形探索 + 0xFFFF 番兵**
+  （worker2 の既報 RE と byte 単位で一致）。**MAPHEAD の 277 addr は「section table を舐める探索」として窓内で消費されている**。
+- **C# grep evidence**: Scripts の maphead 参照 **0 件**（唯一のヒットは data json のコメント文字列）。原盤 file は手元にある（23,094B）
+  = **入れられるのに入っていない**。**依存鎖の全段（file / buffer / reader / 探索対象 table）が C# に欠落**。
+
+### ★criteria の射影（完全性偽 GREEN #10 = PC whitelist 循環 filter の再来）★
+
+worker3 の blind criteria = `vmr && wcount==0 && **dia==0** && uncaptured` — この **`dia==0` が射影**だった。
+- **MAPHEAD の読みは dia>0 ゆえ構造的に除外されていた** ⇒ ★**「blind spot 母集団 231」は【窓外 read の母集団】であって
+  【未捕捉 input の母集団】ではなかった**★。**census は blind-to-window を測っていたが、我々が要るのは blind-to-capture**。
+- **『blind』が【何に対して盲目か】を宣言していなかった = 発見のための道具の criteria 自体が射影**。
+- MAPHEAD 369 addr（dia>0 かつ未捕捉）は **構造的にどの census にも載れなかった**（blind list は dia で除外 / ram_inputs 3 block にも非該当）。
+
+### ★帰結の正確な言い方（close パッケージ用に固定、PRESIDENT 指定）★
+
+**『state 0/469』『N=9』は MAPHEAD 鎖を一度も測定対象にしていない（誤測定ではなく認識対象外）。**
+⇒ **両数字は不変のまま、適用範囲の宣言が 1 行増える**:
+> 「**捕捉済み入力表面についての数字であり、MAPHEAD 鎖（369 addr、C# は file/buffer/reader とも欠く）はその外**」
+
+### ★『file 由来だから安全』は proxy だった★
+
+同じ criterion が **DG.SCN（C# に出所あり = 除外根拠が立つ）と MAPHEAD（出所なし = 除外不能かつ未 capture）で正反対の結論**。
+⇒ **除外根拠は『file 由来』ではなく『C# に対応する出所 + consumer があるか』**。DG.SCN 205 の除外判定にも同基準を適用
+（**reader↔consumer 対応表を見るまで承認しない** — boss1/PRESIDENT の保留一致。値の一致は挙動の一致でない: E104 = 配達されて inert、0B9 = 注入即上書き）。
+
+### 処置と close 判定への影響
+
+- worker3 に ★**dia 条件抜きの再走査**（`vmr && wcount==0 && uncaptured` のみ、**dia は filter から分類 label へ降格**）★を発注。
+  **新母集団が「入力表面が閉じていない」の新しい下限**。no silent caps（dia>0 で落としていた件数を明記）。
+- ★**⑤ close はこの再走査を待つ** — 旧 criteria の上で closure を宣言すれば、**criteria の射影に閉じる宣言**をすることになる★。
+- **N=9 下限不変（下限性はむしろ強化された）**。
+
+### 再走査の結果（worker3 `40be99d`、16:05）— 母集団 231 → ★4188★
+
+- **新母集団 = 4188**（`vmr && wcount==0 && uncaptured`）= dia==0 の **231**（旧 class、再現 assert PASS）
+  + ★**dia>0 の 3957 件（旧 criteria が落としていた分。全件 rbw=1 = read-first）**★。182 連続 block。
+  支配 = `0x80161786..0x80161E4A`（1736B / 1566 件）、**MAPHEAD `0x80159786..0x80159B84`（257 件）**、`0x80161E66..0x8016208A`（408 件）他。
+- **worker2 突合 = 完全一致**（MAPHEAD 域: 369 read / 257 vmr / 277 dia>0 / 369 wcount==0）。
+- ★★**第 2 の criteria 射影（worker3 の自己提示）**: `wcount==0` は **「CPU store 非観測」であって「未書込」ではない** —
+  **CD-DMA write は MemoryBreakpointCheck を素通り**するため、.SCN/MAPHEAD の file-load 内容は wcount==0 のまま任意時点で書き換わり得る★★
+- ⇒ **4188 の 3 分割 triage が必要**:
+  **(a) savestate 常駐 boot state**（capture/inject class）/ **(b) DMA-load file 内容**（C# が同じ file を読む = **model class、注入対象でない**）/
+  **(c) 真の未捕捉 live-in**。`0x8015Fxxx` table（dia==0 側）も (b) の可能性。
+  **走行中の DGLOADT reader-PC が triage に直結。(b) の判別は worker2 の MAPHEAD/DG.SCN domain 知識が discriminator。**
+- **位置づけ: 『入力表面は閉じていない』の新しい上限母集団 = 4188**（この savestate/sweep scope）。
+  **N=9 causal lower bound は不変**（因果確認された新入力はゼロ）。
+
 ### close 判定パッケージの条項（PRESIDENT 指定）
 
 残り 3 件（②+②b 完走 / 0x18 RE / worker2 帰属認否）が揃い次第、boss1 総括 1 通で:
