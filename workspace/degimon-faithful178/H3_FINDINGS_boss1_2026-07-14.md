@@ -181,6 +181,18 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
 - worker1 が per-launch を独立再測で確認（`c39c990`、CLEAN 75 + 末尾 DRIFT 5 = 一致）→ **凍結集合 = {E0F0, CDBC, DF8C} に縮小確定**。
   A 有効 = INPUT 3（D18/D3A/D54）+ NOT-SHOWN 1（D42）。worker1 も『どの粒度で見たか』教訓を自台帳化。
 
+### ★which-values slip（07:18 worker3 自己検出）: B での『orig+1』が A の値の hard-code だった★
+
+- h3b_d54_v51 は **B の最小摂動でなかった**: B の D54 orig = 0x22（A は 0x50）→ B の orig+1 = **0x23**。0x51 は『B では別の試験』。
+  ⇒ ★**真の制御流分岐 claim は『反証』でなく【B 未試験】のまま凍結継続**★（h3b v51 の 1/80 STATE は分岐 claim に触れない）。
+  A 側の当該 evidence（v51 run 03:06）は drift 交絡域ゆえ採れない。**真分岐 headline は『H3 未確立』として close から外す**（0x23 run で復活可否）。
+- h3b の他の実測値: vFF は B 上で 1/80 STATE のみ = **A の 75/80 の誇張分は drift 由来と確定**。
+- ★**confound #1 = 決着**: B では EARLY orig 80/80 一様（0x22）/ A 汚染 run は {56,72,80} の 3 block =
+  **orig 残滓 = file 差し替えの直接痕跡**。worker3 の『hook 順序』仮説は誤りと確定★。
+- **boss1 裁定**: 是正 3 点承認 + ★**slip class の全数監査を追加指示**★ — B 再走で使った**全値**（e0f0 の orig+1 / cdbc の『別 slot 実測値』0x84 /
+  registry の 0x93 等）について『その値の意味論的根拠（orig+1・実在値）が **B の実測**から算出されているか』を 1 件ずつ監査
+  （見つけた 1 instance を直すだけでは同 class の残りが素通りする）。★『orig+1』等の相対指定値は **baseline ごとに再計算** = which-values 規律に追加★。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
