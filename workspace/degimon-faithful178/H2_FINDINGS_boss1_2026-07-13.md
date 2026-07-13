@@ -677,3 +677,14 @@ boot-built(DG.SCN table 225 + 0x8015Fxxx) = builder RE **or** capture（C# 等�
 ③ 実装 phase（MAPHEAD 鎖 → 0x46/0x79 + registry → 0x66） → ④ cutscene 検証（**凍結解除は user 裁定、着手前に諮る**）。
 理由: (i) 注入は安い（instrument・16 pair 手法・prereg 様式が確立済み） (ii) 注入を飛ばすと capture 仕様が assumption-based になる（measure-first 規範。
 10 件が全て causal とは限らない — P2 の 0/7 が実例） (iii) 実装対象の 2 大物（MAPHEAD/0x66）は cutscene 凍結と絡むため、どのみち user 裁定が先行する。
+
+---
+
+## 18. close 裁定 = ★APPROVE★（PRESIDENT、2026-07-13 12:3x）— H2 測定器修理 phase 正式 close
+
+- **承認理由（PRESIDENT 文言の記録）**: (0)-(5) 全条項充足。確定 claim 11 件が全て scope label 付き / BLOCKED 9 件が宣言付き（worker1 ④ x-check 未実施の honest 記載含む）/
+  規範遵守が実査値で証明。**『閉じたか』でなく『どこまで測り、何が測定外で、各々なぜか』を宣言し切った = 本 phase の定義した成功条件を満たす**。
+- **phase 総括（PRESIDENT 記録）**: 測定器の 5+ 重の汚染（sweep 構成 / button-phase / idle 境界 / 幅盲 / criteria 3 射影 / DMA 不可視 / channel 偽報告）を
+  全て診断・是正 or 宣言し、入力表面を**名前付きの記述**（live-in 候補 10 / 実装欠落 7 / 保留 9 / 非入力 3,555）に変換。**ゲーム実装 0 行**で次 phase の assumption-free 設計土台を構築。
+- **(6) 単一推奨 = PRESIDENT も妥当と判断、user への推奨として上げる**。
+- **現況（user 回答待ち）**: 全 worker 待機（worker2/3 composer の quarantine 済み stale text は user 手動クリア待ち）/ 新規 dispatch なし / push ゼロ維持。
