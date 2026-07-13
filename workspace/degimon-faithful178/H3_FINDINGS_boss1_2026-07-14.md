@@ -224,6 +224,17 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
 - 採点への note（D-4 で正式化）: worker3 の blind 予測『E0F0 = UNMEASURED（0B9 型 fwpc 隣接）』が **B 実測でそのまま的中** —
   D-2 で ✗ とされた行が反転する見込み（boss1 の E0F0 IN 予測は UNSCORED 化）。
 
+### ★CDBC = BLOCKED[injection-fragile]（07:56）— prereg 保守条項の発動★
+
+- B（immutable・readback PASS）: v0x84 / v0x00 とも **80/80 no_launch（launch 0・vmop 0・DMA 転送 0 = script を一切 load しない）**。
+  ctl は 80/80 正常 launch。⇒ ★**pointer LSB 摂動は alignment を壊し table 走査ごと殺す — 『入力を変えた』と『機械を壊した』を区別できない**
+  = prereg §A-4 の『全値 crash なら BLOCKED[injection-fragile]』が発動、INPUT と呼ばない★。
+- **A の『CDBC = INPUT（CTX+STATE+RNG 75/80）』は撤回**（汚染域 03:36-03:41 + B で挙動不再現）。
+- 分離策（補走組込み済）: B dump から **alignment を保つ実在 slot 値**（§A-1 の本来の意図 = 構造由来 gate 値）を算出して注入 —
+  正常完走しつつ挙動が変われば INPUT を clean に立証、変わらなければ NOT-SHOWN。
+- **暫定統合 verdict（B/A）**: INPUT 3（D18/D3A/D54）/ UNMEASURED 4（E0F0/E7C/FBC/E0FC）/ NOT-SHOWN 2（D42 = 補走 anchor 再判定へ・640A4）/
+  **BLOCKED[injection-fragile] 1（CDBC）** / 未確定 = DF8C（B 再走中）+ 真分岐 claim（0x23 補走待ち）。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
