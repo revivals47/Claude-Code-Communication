@@ -169,6 +169,16 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
   『02:55〜04:11 に書込 event の evidence が無い』という反論は弱まった★。
 - per-launch 救済手法は e0f0/cdbc/df8c にも適用可（汚染 run 内の clean launch）→ worker3 の 1 commit（h3b 突合込み）で実施予定。
 
+### h3b で D54 が immutable B 上に完全再現（07:05）— drift 機構候補が一段強化
+
+- h3b_d54_ctl/v00（preserved immutable copy・同 rider 構成）: ★**first-div = (47,82,0)・dims=STATE — A の clean launch と同一 launch・同一次元で再現**★。
+  発散 = **1/80**（A の 5/80 との差分 4 件 = 末尾 init 相違 launch と完全一致、**immutable file 上では消滅**）。
+  readback 80/80 / store 2 件 / dma_w cover 0/17,964（squash なし）。
+- 含意: (1) ★**D54 = INPUT は A（clean launch）と B（immutable）の 2 baseline で独立再現** — existence transfer 自明★
+  (2) ★**drift 機構候補の強い支持**: 『file が変わらなければ末尾 4 件の発散は起きない』が実測。rider は両 run 同一 = rider 説では説明不能な差★。
+  rider 不活性の直接証明は h3b_e0f0_ctl 待ち（維持）。
+- ★粒度の教訓の一般化（PRESIDENT 採録指示）: **集計粒度も次元の一つ** — run 単位・時刻 proxy は粗い粒度での射影だった。5→4→2 の射影連鎖と同族★。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
