@@ -131,6 +131,17 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
   launch 時点 RAM が違う直接痕跡（drift 寄りだが rider 経路排除まで断定しない）。
 - 再走 06:51 START（〜08:20）。h3b ctl 群で ①rider 弁別 ②4 target 再判定 ③d18 label 訂正 + state-only witness 確定を 1 commit 予定。
 
+### query 2 件の決着（06:59、worker3 `bc32434`）
+
+- **Q1（d18）**: h3_compare.py に正規化・除外は**無し**（実物確認）。過小記述の出所 = ★**first-divergence の dims 文字列 1 件だけ見て
+  label を書いた（per-launch 出力の全件集計をしなかった）**★。全件集計の正: d18 v00/vFF = STATE 50 + RNG 43 + PC-LEN 13 + DONE 14 + PC-PATH 1。
+  訂正済: **d18 = multi-dimensional（0x8013E2E0 と同型）**。
+  ★**因果 state-only witness の確定（自 tool 全件集計で PC 系ゼロ）: `0x80141D18 v0x80`（STATE のみ 25/80）+ `0x80141D3A v0xFF`（STATE のみ 25/80）**
+  — 両方 clean baseline A・汚染 target 非依存 = close headline に使用可★。（d18 の PC-LEN 13 は「pert 側延長」型、内容分岐は 1 launch のみ）
+- **Q2（A 指紋）**: worker1 が正。実在判別 block = 0x8013E100(488B) / 0x80145E58(8B) / 0x8016B07C(984B)。
+  現行 audit = h3_baseline_audit.py（非 vacuity assert 付き）。
+- ★新教訓（methodology 節へ）: **label は first-divergence の標本でなく per-launch 全件集計から書く** — 『表 vs 自 tool 出力』整合 check の根本原因が同定された形★。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
