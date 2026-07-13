@@ -202,6 +202,14 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
 - 補走計画承認: **B dump 1 本（〜30 秒）で ptr table + registry + 3 addr の orig を実測 → 全相対値・参照値を B から再算出** → 補走各 1 run
   （d54=0x23 が真分岐 claim の可否を決める run）。close 前に含める（boss1 判断済み）。
 
+### ★rider 弁別 = 決着（07:24）: rider 不活性を実測確立 → drift が唯一残る説明★
+
+- 同一 immutable file・**watch 領域だけが違う** 2 ctl（STATW vs 0x8013E000-E1FF）: **guest 全次元 bit 一致（pc/varflag/rng/done 0/80）+
+  init snapshot 0/80 相違**。差 = struct_w のみ（watch 出力そのもの）。
+- ⇒ ★**rider（DGWATCH/DGSTORE）は guest に不活性 — 静的読解を実物で裏取り、watch 領域を変えた対照でも成立**★。
+- ⇒ **交絡解消**: A 期 ctl-ctl 発散は rider で説明不能 → **savestate drift が唯一残る説明**（d54 末尾 4 件の immutable 消滅と合わせ 2 系統実測支持）。
+  『user が該当時刻に save した』の直接 event evidence は未取得 = **機構は候補のまま**（規範維持）。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
