@@ -96,4 +96,12 @@ user 裁定 = 推奨順序（①因果 sprint → ②capture 仕様 → ③実�
 
 ## D. 採点（結果到着後にこの節の下へ追記。上の本文は不変）
 
-（未記入 — 固着）
+### D-0. 採点前 caveat（2026-07-14 00:3x、worker3 の honest 開示を記録）
+
+- worker3 の blind 予測（`e4a6884`、INPUT 8 件 = D18/D3A/D42/D54/CDBC/E7C/FBC/640A4）は
+  **「boss1 予測 = INPUT 7 件」という【件数】が dispatch 文面/commit 4cd2c9f のメッセージ経由で露出した状態**で固定された。
+  ⇒ worker3 blind の有効範囲 = **集合の中身 + per-addr 根拠のみ**（件数はアンカーされ得た）。採点時はこの限定を付す。
+  実際の予測件数は 8 ≠ 7 = 件数アンカーの実効は観測されず。予測の差分 3 addr（w3 は D54/640A4 を IN・E0F0 を UNMEASURED 側）= 実質的独立の evidence。
+- 教訓（様式へ）: ★blind を要求する値は commit message にも書かない★（本文固着 + message は中身に言及しない、が正しい運用）。
+
+（採点本体 = 未記入 — 固着）
