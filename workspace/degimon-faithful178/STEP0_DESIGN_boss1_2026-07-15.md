@@ -184,3 +184,16 @@ worker2 preflight `c63b14f` / W-A `6a78786` / worker1 x-check `27f3fa7` / docs/R
   = SetDateTime(時計)と CareBulkAdvance(care)の責務分離が原盤構造から直接導かれた。
 - **oracle 化**: care_bulk_golden_vectors.json(9c6b6de)を単一 oracle と宣言。worker1 の bulk_model_worker1.py は
   独立検算器として保存。→ ★実装解禁(worker2、3 commit + 3 系統 gate)★。
+
+## ★step0-B 実装完了(3 commit 全 land、2026-07-15 06:3x boss1 検収済)★
+
+- A=aa68ad0 CareBulkAdvance / B=c327988 SET_DATETIME+Month / C=f08090b 0x36 tail。全 commit boss1 diff 直読 PASS。
+- ★commit C の全長 RE finding = design (3) 要約の訂正(部分 RE 誤り 4 例目を【恒久条件が実装前に阻止】)★:
+  tail の bit2 clear + 0x800a6954 + D58=0 は『無条件』でなく **(bit2 set ∧ Fullness>=HungerThreshold) の回復時のみ一括**。
+  無条件実装なら毎回誤 clear の誤実装だった。上限 clamp のみ unconditional(floor なし)。
+  新規 declared-gap: 0x800a6954(per-form table 0x8013A924 stride52 + hour、未同定)= conditional loud-log。
+  副産物: vestigial 保持していた HungerThreshold(formTable[+9])が実用途を得た(『保持』判断の配当)。
+- gate 最終値: tail_verify 9/9 / datetime 16/16 / bulk 89/89 / care golden 37/37 / caretick PASS /
+  CutsceneVerify178 GREEN(3 commit 全てで baseline scalar 一致)。tail omitted log = 除去済(grep 0 実測)。
+- 完成 claim 凍結継続: 0x36/0x37 発火時の care 挙動の実視覚 = user 凍結解除後。差分テストの D54/D18/D58 追跡 signal は
+  0x800a6954 gap 分が残(既知・宣言済)。
