@@ -17,7 +17,7 @@ status: ★**FIXED（固着、2026-07-15 02:2x）**★ — (c) 完了（worker3 
 
 | step | 内容 | 依存 | 充足する N/台帳 |
 |---|---|---|---|
-| 0 | **設計裁定 2 件**（コード前）: (0a) two-tier care のどちらに script 0x36 経路を入れるか (0b) E2E0『日カウンタ』vs『0x37 copy 先』二重意味の整合検証（C# コメント帰属 vs W-A RE の統合） | なし | (b) の DIVERGENT 芽 2 件の設計決着 |
+| 0 | **設計裁定 2 件**（コード前）: (0a) two-tier care のどちらに script 0x36 経路を入れるか (0b) E2E0『日カウンタ』vs『0x37 copy 先』二重意味の整合検証（C# コメント帰属 vs W-A RE の統合）。★GO 微調整 2: **boss1 起案（単一推奨+理由の設計判断 doc 1 通）→ PRESIDENT 承認を gate**（実装前の設計判断 = PRESIDENT 裁定事項）★ | なし | (b) の DIVERGENT 芽 2 件の設計決着 |
 | 1 | **baseline C 生成 + stat struct 一括輸入**（§3 手順）+ transfer 確認 run | (c) 完了（fresh boot 経路は run⑦ で実証済み） | N の 3 件（D18/D3A/D54）+ D42 |
 | 2 | **(i) 初期値 capture 残 8 addr**（E2DE/E2E0/145E5A/B084/B169/B139/B3A9/B411）を baseline C から台帳付き輸入 | step1（同じ dump から採取） | N の 8 件 |
 | 3 | **MAPHEAD 鎖**: file 導入 + reader + GetSectionOffset 対応（★flag opt-in・既定 OFF★） | step1-2 と独立可 | 台帳 #1 + **N の 1 件（E114 = pointer slot の C# 対応）** |
@@ -39,9 +39,10 @@ status: ★**FIXED（固着、2026-07-15 02:2x）**★ — (c) 完了（worker3 
 
 ## 3. baseline C 生成手順（v0.2 §1b 条項の実装、step1 冒頭）
 
-1. fresh boot（実イメージ直指定 — ★run⑦ の phantom BIN path fix で経路実証済み★）→ New Game 直後相当の時点で savestate 生成。
-   「どの時点を『初期』とするか」= boot 直後 vs New Game 開始直後 — ★New Game 開始直後を正とする（製品の再現対象 = 新規プレイ）。
-   異論があれば GO 裁定時に PRESIDENT 修正★。
+1. fresh boot（実イメージ直指定 — ★run⑦ の phantom BIN path fix で経路実証済み★）→ New Game 直後の時点で savestate 生成。
+   ★GO 微調整 1（PRESIDENT 承認済）: 正典時点 = **New Game 直後**。かつ**捕捉時点を 1 frame 単位で定義して記録**する —
+   定義 = 『NewGame init 完了後、scene 204 field 制御が開始する初 frame』を基準候補とし、生成時に実測 frame 番号・
+   その時点の判別 evidence（scene id / 制御状態）を台帳に残す★。
 2. 生成した瞬間に sha256 記録 + chmod a-w（perm 400）→ 指紋台帳へ **baseline C として命名登録**（probe 判別子 = 12 注入 addr の orig 値）。
 3. RAM dump 採取（DGDUMP or 外部 RE 文書の savestate decode recipe — ★recipe 使用時は §1 の 1 回検証を先に実施★）。
 4. **transfer 確認 run（1 対）**: stat struct への注入で INPUT が baseline C 上でも成立するかを確認してから capture 値を採用。
