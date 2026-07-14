@@ -377,3 +377,86 @@ boss1 が cross-validated comparator（h3_compare.py、22/22 検証済）+ 自�
   2. hot 28 run の per-launch init snapshot（80/80 launch × 28、ram_inputs 判別 block）— A 一致の証明に使った当のデータ。
   3. 04:38 以前の A 走行 artifact 群: `final_run` / `sp_run` / `loadt_run` / `rbw_tally.jsonl-3` / `B_DUMP_225_LIVE.tsv`（00:35）。
   4. **A vs B の判別子（probe 実測）: 12 注入 addr 中 4 addr が不一致 = D3A / D54 / CDBC / E7C**（B で値が変わった = user play の進行分）。
+
+## 3. ★H3 close パッケージ（boss1、2026-07-14 12:2x。crash 再起動後、全項 artifact spot-check 済で作成）★
+
+前提の再検証（boss1 crash → PRESIDENT re-brief 12:1x → 鵜呑みにせず artifact 検証、規律遵守）:
+- worker 生存実査 = worker1/2/3 + PRESIDENT 全 pane 生存（tmux 実査）。
+- re-brief 7 項目中 6 項目 = artifact 一致（worker3 `b159b06` / worker1 `0d1bc23` / h3s_* + h3_supp.log / 32069a3 突合と整合）。
+- ★食い違い 1 件（良性、artifact 側が新しい）★: 「a4 欠落説明は未着」→ 実際は worker3 が `b159b06`（12:04）で
+  原因開示（df8c 行削除時の編集ミス = script 編集事故）+ **追走実施済**（h3s_a4_v75、12:01、sweep 2/2 実在を boss1 stderr 実査、
+  生存 1/1）→ **640A4 = NOT-SHOWN(B、B registry 実在値 0x75 で試験済) に更新**。据置でなく更新側が正。
+- ★新規 commit 1 件（re-brief に無し）★: worker3 `31e853f` = per-launch 救済の実施可能性を実測 —
+  d54 = 救済実施済（ctl 80/80 clean）/ d42・d3a = 救済不要 / **e0f0・cdbc・df8c = 構造的に不可能**
+  （ctl 自体が 0/80 clean = 同一 baseline の比較基準が存在しない）→ この 3 件の verdict は B 再走のみが根拠、
+  「実施せず」でなく「不可能」と明記。§(1)(3) を強化する材料として採録。
+
+### (1) 6→4 精錬表（hot 速報 INPUT 6 → 最終 INPUT 4、各件の理由）
+
+| addr | hot 速報(A) | 最終 | 精錬の理由 |
+|---|---|---|---|
+| 0x80141D18 | INPUT | ★INPUT (A clean)★ | ctl clean 域・3 値発散(50/43/25)。label は multi-dimensional に訂正（PC-PATH 1 + PC-LEN 13 + DONE 14 + STATE + RNG、x-check 収束値）。v0x80 = STATE のみ = 因果 state-only witness |
+| 0x80141D3A | INPUT | ★INPUT (A clean)★ | vFF: STATE 25/80 のみ = 因果 state-only witness。0x00/0x07 は生存証明付き NOT-SHOWN 値（閾値 gate 型） |
+| 0x80141D54 | INPUT | ★INPUT (A clean launch + B 再現)★ | A は per-launch 救済（(47,82,0) init bit 一致の 1 launch のみ採用）+ B で 3 値（00/FF/0x23=B 正値 orig+1）が同一 launch・同一次元 STATE・1/80 に一貫 = 4 値×2 baseline で最堅 |
+| 0x8013CDBC | INPUT | ★INPUT (B scope へ移動)★ | A 期 run は汚染域で撤回。B で §A-1 正実装（0xD4 = 唯一 alignment 保持で alias 可能な実在 pointer 0x8016B1D4）が一発 clean: 80/80 正常完走のまま STATE 51/80 発散 = BLOCKED[injection-fragile] 解消 |
+| 0x8013E0F0 | INPUT | **UNMEASURED-by-method (B)** | 「最強 profile」は 3 値まるごと drift artifact。B で 0/80 かつ厳密生存 0/80（全 entry で read 前に store）= 0B9 型 derived/maintained class。A 側救済は構造的に不可能（ctl 0/80 clean） |
+| 0x8013DF8C | INPUT | **NOT-SHOWN (B)** | drift artifact。B で 3 値（B 正値 0x01 含む）0/80、厳密生存 51/80 = 生存証明付き下限主張。H4 実例の座も消滅。A 側救済は構造的に不可能 |
+
+### (2) 撤回 7 件と役割巻き取り
+
+1. **E0F0 = INPUT（最強 profile）** → B 実測で UNMEASURED。worker3 の blind 予測（E0F0=UNMEASURED）が的中していた側。
+2. **DF8C = INPUT（両 blind の集合外 = H4 実例）** → NOT-SHOWN。★H4 実例としての引用は以後禁止（座が消滅）★。
+3. **CDBC = INPUT(A)** → A 撤回、ただし B 0xD4 で INPUT 再確立（撤回と再確立は別 evidence、混同しない）。
+4. **D54 0x51 = 真の制御流分岐（H2 以来 2 例目）** → H3 では立証されない（A 汚染 + B 正値 0x23 で PC-PATH 出ず = STATE のみ）。
+   「H2 の PC-PATH 例に続く 2 例目」という叙述は close から除去。
+5. **confound #1（EARLY hook 順序問題）** → run 中 savestate 差し替えの直接痕跡で説明、機構推論は撤回。
+6. **confound #2（同一実効注入で bit 非一致）** → B で bit 一致 = drift artifact。
+7. **「baseline A 指紋照合 28/28×80/80」** → vacuous audit（不在 addr の空文字比較 = 自作の完全性偽 GREEN）。
+   非 vacuity assert 付き監査に置換済。hot 28 run の A 無傷証明は per-launch init snapshot + mtime 整合という別 evidence で成立（巻き添え無し）。
+
+### (3) methodology 新規 8 項（H3 で確立、以後の標準）
+
+1. **per-launch 粒度が正しい判定単位** — 汚染判定も clean 救済も run 単位/時刻単位では誤る（d54_v00 = 75 clean + 末尾 5 drift）。集計粒度も「次元」。
+2. **注入物理での値表現可能性検査** — 構造由来値でも byte 注入で表現可能かまで検査（cdbc 0x84 = LSB 借用と pointer alias の混同 = 捏造 pointer）。
+3. **生存基準の厳格化** — 「異なる値の store のみ」→「read 前にいかなる store も無し」（偶然同値 write の偽生存封じ）。NOT-SHOWN 全件へ遡及適用済。
+4. **which-values class の全数監査** — 相対指定値（orig+N）・参照値（別 slot）は baseline ごとに再算出（B 再走の orig+1 が A 値 hard-code だった slip から）。
+5. **banner/RUN_DONE 突合** — script の宣言と実行 log の突合で silent drop を機械捕捉（a4=0x75 の欠落を検出→追走で是正）。
+6. **非 vacuity assert** — 監査は「照合対象が実在する」ことを assert してから照合（空集合照合 = 偽 GREEN 製造機）。
+7. **rider-invariance / ctl-ctl 一致テスト** — control 同士の bit 一致テストを常設（rider 不活性の実測確立 + ctl-ctl 発散が汚染の完全性 oracle として機能した）。
+8. **no-silent-caps 開示 → 突合** — cap 開示（LOADT 100k HIT）があったから生存分母の膨張（61 vs 51、cap 後 entry の load 非記録）を突合で捕捉できた。打ち切られた list の不在は否定でない。
+
+（補: replicate 対 = immutable copy 上で同 env 2 run BIT-IDENTICAL = 決定性の直接実証、も §(5) の基盤として常設化。）
+
+### (4) A・B 両 scope の verdict 全表 + N=12 の根拠
+
+確定 verdict 全表 = worker3 `b159b06` H3A_FINAL_VERDICTS.md（boss1 突合済、差分 1 件 = cdbc 生存 61 vs 51 は worker3 の 51 が保守側で正 = LOADT CAP、verdict 不変）:
+
+- **INPUT 4**: D18(A) / D3A(A) / D54(A clean launch + B 再現) / CDBC(B)
+- **NOT-SHOWN 3**: D42(A/B、6 次元。★BLOCKED 次元に因果 witness 2 件併記 = 窓外 read +162 / 注入時のみ target へ 80 件書込(ctl 0)、boss1 spot 実測済★) / DF8C(B、生存 51/80) / 640A4(B、実在値 0x75 試験済)
+- **UNMEASURED-by-method 4**: E0F0(derived/maintained) / E7C・FBC(per-entry DMA squash 12/12・8/8) / E0FC(write-first 17/17 = rbw=0 分類の注入実験による直接観測、負 control 成立)
+- **controls**: positive 0x80145E5A = 60/60(pipeline 健全) / P1 replica 3 対 / rider-invariance / replicate 対 BIT-IDENTICAL
+
+★**N（savestate A scope）= 9 → 12**★（PRESIDENT 承認済、12:1x re-brief で再確認）:
+- 追加 3 件 = **D18**（multi-dim、A clean）/ **D3A**（state-only witness、A clean）/ **D54**（4 値×2 baseline、per-launch 救済 evidence）。
+- いずれも per-launch init snapshot で A 無傷 or clean launch 限定 evidence + worker1 x-check（22/22 bit-exact + 補走 4 pair 独立一致 `0d1bc23`）を通過。
+- **CDBC = B-scoped causal witness 1 件**（existence transfer / count non-transfer、PRESIDENT 裁定 06:0x）= N(A) には入れない。
+  存在 claim「このアドレスは挙動入力」は成立、population count は baseline B の別台帳。
+
+### (5) 規範遵守 evidence（全て boss1 実測、2026-07-14 12:1x）
+
+- **push ゼロ**: origin/main = `59488d0` 不変（phase 開始前 sha のまま）。f1c = 82 commits / f1a = 69 commits 全て local、両 worktree working tree clean。
+- **frozen 不触**: preserved 2 file = perm 400 実測 + baseline B sha256 `4aa92a9f…` 再計算一致（台帳値と bit 一致）。
+- **game code ゼロ**: H3 window（prereg 4cd2c9f = 07-13 12:15 以降）の f1c/f1a 全 commit の変更 path = workspace/ + docs/ のみ（unity/ 変更ゼロ、git log --name-only 実査）。
+- **prereg 固着**: `4cd2c9f` 以後の H3_PREREG diff = 承認済 caveat 追記 47 行 + placeholder 1 行置換のみ（本文の書き換えゼロ）。
+
+### (6) 次 phase 材料 + 単一推奨
+
+材料（優先順）:
+1. ★**D42 write-back witness = 第一級 target**★ — 「注入値に機械が反応して書き戻す」因果反応が宣言済 BLOCKED 次元にのみ出る。
+   測定窓の拡張（POST 次元の capture 化）で INPUT 判定可能になる見込みが最も高い。boss1 spot 実測済（ctl 0 / vFF 80、A/B 再現）。
+2. UNMEASURED 4 件の測定法: E7C/FBC = DGDMA 同乗で first-read 前 squash を可視化 / E0FC・E0F0 = derived class の上流 writer 特定（0B9 型の既存手法流用可）。
+3. capture 仕様の未決部分: MAPHEAD→0x46/0x79→0x66 実装欠落台帳 7 件（H2 §17-18）+ 真 live-in 候補残（10 件中 H3 で 12 addr 処理済、突合要）。
+4. 汚染防御の恒久化は完了済（immutable copy + chmod 400 + 全 run DGSTATE 固定）= 次 phase はこの上で走る。
+
+★**単一推奨: capture 仕様確定 → 実装へ進む**★（user 裁定済の推奨順序どおり。因果 sprint は本パッケージで close、
+次 dispatch = capture 仕様 draft を boss1 が worker RE 材料から起案 → PRESIDENT 査読）。D42 の POST 次元 capture 化を仕様に含める。
