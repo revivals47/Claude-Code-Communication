@@ -75,6 +75,11 @@ boss1 検算: 全 EA 算術 8/8 一致 + ★gp = 0x80144E0C が独立 4 claim（
 全 14 行に「初期値の供給元 = baseline C」が通底（全件 rbw=1 の帰結）。維持機構が VM opcode（0x36/0x37）である 4 件は、
 ★C# の当該 opcode 実装有無の確認が ③ の preflight★（未実装なら台帳 #2/#3 と同じ「消費側実装」に合流）。
 
+★**脚注 = (i) 判定 8 件の前提を守る一般則（E114 事案から、PRESIDENT 指定で恒久化）**★:
+**『窓内 write ゼロ』は【writer がいない】ではなく【writer が窓の外にいる】**。よって (i) 判定は「初期値 capture で足りる」
+の意味であって「維持機構が存在しない」の主張ではない — 各行の ③ 実装時、初期値だけ供給して差分テストが FAIL するなら
+窓外 writer（boot/イベント条件付き）を第一仮説にせよ。
+
 ### 2c. v0.1 → v0.2 の判定変更記録（Pattern 4: 撤回と理由を残す）
 
 - ★**E114: 「(i) 値 capture 最有力」→ 「(ii) model」に撤回・訂正**★。
@@ -166,6 +171,20 @@ v0.2 を PRESIDENT 査読に出す**★。新規 run ゼロ〜最小（DGSTORE r
   （disasm 直読、2 実装収束の通常規律。v0.2 提出をこれで block はしない — ③ GO の前提に置く）。
   (b) C# の opcode 0x36/0x37 実装有無の確認（未実装なら台帳 #2/#3 と同じ消費側実装に合流）。
   (c) ⑥⑦ の分離策 = 各 1 本の実測（DGSTORE watch）を ③ 冒頭 or 直前に（新規 run につき個別承認）。
+
+## 11. 手隙タスク成果（worker2 `f43cf88`、caller 静的列挙）+ v0.2 承認記録
+
+- **DF70 writer の caller**: writer1 関数 0x800AE3DC = caller 3 件（うち 0x800E3DA0 = worker2 の過去 RE で warp routine と同定
+  — ★本タスクでは未再検証、自過去 claim を裏付けに使わない caveat 付き★。正しければ「DF70 = map 遷移経路で書かれる =
+  play 進行由来」候補だが未確定）/ writer2 関数 0x800BBEA8 = caller 1 件。★jalr（間接呼出）未探索 = caller 一覧は下限★。
+- ★**構造 finding: writer2 の関数 0x800BBEA8 は W-A #7（B139/B3A9/B411 の +0x35 writer）と同一関数**★
+  = 同じ機構が DF70 と record +0x35 の両方を書く ⇒ ③ で一方を model 化すれば他方も同実装で覆える可能性
+  （★『同一関数内』=『同じ意味』ではない — 意味の同一性は未確認、と worker2 が自ら caveat★）。
+- **v0.2 = PRESIDENT 承認（確定版採択、2026-07-14 14:0x）**。③着手前提 3 点承認、**(c) DGSTORE watch 2 run = 個別承認 GO**。
+- ★**③実装 phase の規範（PRESIDENT 予告、prereg 前に固定）**★: ① worktree 隔離必須（複数 worker が unity repo に入るなら track 分離）
+  ② MAPHEAD/0x66 = flag opt-in 既定 OFF land ③ small commits + 各 step で既存 headless verify（CutsceneVerify178 等）非退行
+  ④ **完成 claim は user 実視覚まで凍結**（headless 緑は根拠にならない） ⑤ push ゼロ不変。
+  GO 条件 = (a)(b)(c) 完了 + ③ prereg 固着の確認。
 
 ## 9. PRESIDENT 査読結果（2026-07-14 13:0x 受領、v0.1 = 方向承認）
 
