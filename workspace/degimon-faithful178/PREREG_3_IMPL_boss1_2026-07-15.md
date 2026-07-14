@@ -201,3 +201,15 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
   Condition50)= **確定的に乖離(0≠50)** ⇒ pre-design の規律『一致 assert or 停止上申』の**上申側が必ず発火**。
   実機は NewGame-init 時点でゼロ、seed(0x800A63A4=0x32)は partner 生成時 = **C# は seed 適用時点が実機より早い**
   という timing 忠実度問題。step2 は実装前にこの reconciliation 設計(worker2 起案 → boss1 → PRESIDENT)を先行させる。
+
+## 13. step2 recon 設計 = (A) 承認(PRESIDENT、2026-07-15 08:4x)
+
+- ★**(A) seed/form 確立を hatch へ移送 + NewGame zero-init = APPROVE**★。
+  最強根拠 = **三重の権威一致**(実機 C 実測全ゼロ / remake 自身の宣言済み設計 = NameInputState comment /
+  輸入 assert)— 実機が code comment を裏取りした。現状 = live 経路が hatch で form 確立済み = NewGame seed は
+  冗長な前倒し placeholder ⇒ ★(A) は『変更』でなく『設計の完成』(重複除去)★。
+- 非 vacuous 化承認(現 seed50 で FAIL・(A) 後 PASS = finding2 の恒久 guard)。
+- **承認条件 5(標準 gate)**: ①care 機構関数 diff 0-hit の実測 gate(step0-A 同型) ②T1 分割の新 assert の正しさ +
+  post-hatch T1 の bit 保存を各々検証 ③small commits + 3 系統 gate + CutsceneVerify178 全緑
+  ④★care 可視面の完成 claim = user 実視覚まで凍結(land 済 care への変更ゆえ再確認)★
+  ⑤open items 3 件は推論で埋めない(D40 = step2 測定で裏取り / B084 deferred / D18 非対象)。
