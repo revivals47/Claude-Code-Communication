@@ -35,3 +35,17 @@ worker3(instrument)・worker1(検証 doc)との交差なし。
 - OFF: 全 gate 緑(care 19/19+golden 37+bulk 89+datetime 16+tail 9+baseline_c_verify 12+CutsceneVerify178 baseline 一致)。
 - ON: 4-hop trace log = data 直読地図と一致 + OFF↔ON 切替の log 実測(配線証明)。
 - land は gate ②(PRESIDENT go)を経る。cutscene 実走検証はしない(user 凍結解除後の別 phase)。
+
+## 承認記録(PRESIDENT、2026-07-15 09:5x)= ★設計 APPROVE + gate ② の測定条件 3(land 前)★
+
+1. ★**OFF-inert を実測 bit-identical で証明(宣言でなく)**★: 『load しないから不変』は仮説 —
+   **A/B: parent commit vs MAPHEAD-commit を flag OFF で走らせ、scenario-0 解決経路の trace が byte 一致**を実証。
+   provision+dispatch code の追加が OFF 経路を 1 bit も変えないことを測る(control-toggle の裏返し = OFF が真に
+   inert である配線確認)。★user PASS 済 cutscene 保護の load-bearing 証明 = 最優先 commit として単独 gate★。
+2. ★**GetEntryBase の配線 end-to-end 実測**★: dispatch 定義だけで caller が旧値 hardcode なら未達
+   (forward-infra 教訓)。ON 時に scenario-0 経路が**実際に GetEntryBase を通る**ことを log で確認。
+3. ★**ON 側 trace 検証は per-hop**★: endpoint(§0x37 着地)でなく **1 hop ずつ** data 直読地図と突合
+   (0x4B push → warp → MAPHEAD 0xFB → 0xFE pop → resolve → 0x17 の各段)。
+- gate② = 上記 3 条件 + PRESIDENT go を land 前に。★ON 経路の live・視覚実走は user 凍結解除まで禁止
+  (headless trace は可)★ — 視覚忠実度の完成 claim は user 実視覚まで凍結。
+- 実装順序 = step2 close → step3 dispatch → **OFF-inert 証明 commit(単独)** → ON 配線 → per-hop trace → gate② 上申。
