@@ -171,3 +171,16 @@ worker2 preflight `c63b14f` / W-A `6a78786` / worker1 x-check `27f3fa7` / docs/R
 ### (5) 残 unknown(宣言)
 - bit2 の意味 / D56・D6A・D38・D50・D4E の semantics(disposition table で宣言処理)。RE は実装ノート段階で
   worker2 が per-field に判定、未同定は raw-slot or declared-gap(発明ゼロ原則)。
+
+## ★bulk golden vector = 単一 oracle 確定(boss1 裁定、2026-07-15 06:0x)★
+
+- **unblind diff(boss1 実施)**: worker2(9c6b6de)vs worker1 blind 導出(ef67d1a、EXE 独立・不読)=
+  ★**12 field × 7 vector 全て bit-exact 一致**★(divergence 点 Fullness once 減・day rollover 境界・gate 系込み)。
+- **hour の食い違い裁定**: worker2 table 文言『hour += delta store』は誤記(read-for-rollover を store と誤記)—
+  ★EXE 目視確認 = E298 は lh×3 / sh×0 = read のみ★(worker2 自己確認 `347d0f8`、worker1 blind assert が正)。
+  vector は元から正(hour 非収載)。
+- ★**実装 contract 確定**: CareBulkAdvance は care 累積器 12 field のみ更新(D60/D6A = declared-gap loud-log)。
+  **時計 4 slot(month/day/hour/minute)には一切触らない** — 時計 store は 0x37 handler の step③(SetDateTime)の責務★。
+  = SetDateTime(時計)と CareBulkAdvance(care)の責務分離が原盤構造から直接導かれた。
+- **oracle 化**: care_bulk_golden_vectors.json(9c6b6de)を単一 oracle と宣言。worker1 の bulk_model_worker1.py は
+  独立検算器として保存。→ ★実装解禁(worker2、3 commit + 3 系統 gate)★。
