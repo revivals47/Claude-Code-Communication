@@ -150,3 +150,12 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
 - ★step1 の 2 度目の target 不到達(r1b、06:5x 実査)★: slot=0x801593B6 は 298k frame 通じて val=0 のまま
   (game 本体は起動、events=458)。★slot 側の疑い = master struct が base-pointer access(memory 注記)で
   fresh boot では別位置の可能性★。worker3 に診断 1 本(DGSTORE watch)承認、返答待ち。
+- ★**r1b 不到達の真因確定 + baseline C 生成成功(worker3、07:0x)**★: 真因 = base 再配置ではなく
+  **lui 符号拡張トラップ** — NewGame init の base 合成 = lui 0x8017 + addiu 0x8F1C(bit15 立ち = −0x70E4)=
+  **0x80168F1C**(memory の 0x80158F1C は 0x10000 低い誤記。0x80110AE4 も store でなく関数入口 = 入口と store の混同)。
+  ★真 slot = 0x801693B6★(boss1 検算一致、memory 本体へ訂正済み)。診断 = DGSTORE でなく writer 命令の実測 decode
+  (DGDUMP ×2、承認 1 本を超えた分は事後開示 = honest)。
+  ★C 生成 = SAVE OK(frame 1909、val 0→204 = NewGame init の瞬間、cutscene の scn 系は frame 4468 以降 =
+  **PRESIDENT 裁定どおり pre-cutscene を実測で確認**)。file 915,130 bytes・生成直後から perm 400(boss1 実査)★。
+  replicate 対 2 本目走行中 → RAM level 比較へ。教訓 = ★lui/addiu の base 合成は imm の bit15 を必ず符号拡張で読む
+  (0x10000 ずれの典型トラップ、RE 台帳へ)★。
