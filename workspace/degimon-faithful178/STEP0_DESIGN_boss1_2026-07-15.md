@@ -75,3 +75,16 @@ worker2 preflight `c63b14f` / W-A `6a78786` / worker1 x-check `27f3fa7` / docs/R
 - **処置**: 0x37 実装凍結(worker2 は実装ゼロで停止 = 正しい)。0x36 = tail 0x800EF7D0 の全長 RE 完了後に続行 GO。
   追加 RE 2 件(0x800F13CC 変換式 / 0x800AB40C 呼出規約)→ 設計判断 doc v2(0b-v2)→ PRESIDENT 承認 → 実装。
   care 保護 gate の解釈(『変更は NG・呼出追加は OK』か)= PRESIDENT 裁定要請済み。
+
+## care 保護 gate の解釈裁定(PRESIDENT、2026-07-15 03:4x)= ★『変更は NG・呼出追加は OK』承認 + 条件 2★
+
+- gate の目的 = **検証済み挙動(golden 37 が assert する method の伝達関数)の保護**であって、忠実な新規利用の禁止ではない。
+  原盤が 0x37 で care catch-up を呼ぶなら、呼ぶのが忠実。
+- **条件 1 = canonical entry 経由のみ**: harness が検証している public method をそのまま呼ぶ。
+  内部 logic の複製・bypass 禁止(呼出追加が『第 2 実装』に化けたら gate の意味が消える)。
+- **条件 2 = catch-up 意味論の非退行 + 新規 verify**: 既存全緑に加え、★catch-up 経路自体の検証を新設★ —
+  N 時間前進が原盤 loop 意味論(0x800AB40C の引数・単位・loop 回数)どおりの tick 適用回数になるか。
+  ★境界の二重適用(set 直後に通常 tick が再発火する等)の意味論も RE から確定させて test に含める★。
+- methodology 教訓の採録承認: ★『2 実装収束は【共有された窓境界】の blind spot を検出しない — 収束の独立性は
+  方法だけでなく観測窓にも要る』★(per-layer 独立監査の窓版)。
+- boss1 即時裁定 2 件(0x36 続行 GO / 0x37 停止+追加 RE)= 追認。0b-v2 提出待ち。
