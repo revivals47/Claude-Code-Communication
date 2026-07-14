@@ -252,3 +252,15 @@ v0.2 を PRESIDENT 査読に出す**★。新規 run ゼロ〜最小（DGSTORE r
   **class = 配線されていない変数は宣言だけでは何も保証しない(control-toggle 教訓の同族)+ 決定的テストは走らせた path しか裁かない**。
 - 初回使用 gate = **同一 env の既存 ctl artifact(h3b_d54_ctl)との guest stream bit 比較を実施**(継承 assumption でなく実測で earn)。
 - UNCAPPED を code 実測で確定(LOADT=100k/DMA=200k と異なり cap 判定なし)→ result doc へ転記予定。
+
+### 外部 RE 突合(worker2 `53d9c79`、boss1 spot-check PASS で採用、2026-07-15 01:5x)
+
+- ★外部 §2 の核 claim を EXE/tally 側から独立検証 = 一致★: 0x800AD774 の『entity[+0x30]=flag id → SetFlag 0x800F0F1C』
+  経路 = byte 一致(所属関数 0x800AD3EC)。entity 表 0x801643CC stride 0x38 = tally 実測一致(record[0..3] spacing 一致、
+  boss1 spot-check: rbw=0・fwpc=0x800F7AC8 で再確認)。
+- ★重要な位置づけ★: 0x800AD774 は rbw_tally-3 に 0 件(boss1 も独立 grep で 0 件確認)= **我々の full-1278 sweep が
+  recruit 完了経路を踏んでいない = 台帳 #1 MAPHEAD/0x66 と同型の『sweep 窓外の live code』class**。矛盾ではなく scope 差。
+- entity 表 = 全 record rbw=0(write-first、spawn helper 0x800F7xxx が map load ごとに populate)= **maintained state、
+  live-in ではない** ⇒ capture 上 (ii)model 側。但し +0x30 flag id の consumer(0x800AD774)は未走 = ③ 実装後の検証対象。
+- 0x800DEE24(W-A 未同定 #4)= entity 表と無関係(base も offset も別 struct、接触なし。間接関連は未探索と honest 開示)。
+- 繁栄度 var[1] / 42 体 flag 表 / savestate recipe = 本突合 scope 外のまま(external label の未検証 claim list 据え置き)。
