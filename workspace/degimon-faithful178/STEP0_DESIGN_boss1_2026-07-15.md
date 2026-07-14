@@ -57,3 +57,21 @@ worker2 preflight `c63b14f` / W-A `6a78786` / worker1 x-check `27f3fa7` / docs/R
    (受け皿を作って空のままにしない)。
 3. 併走 dispatch = GO(step1=worker3 / 0x36・0x37 実装=worker2 / x-check 準備=worker1)。
    ★本 arc 最初の game code commit★ — small commits + 非退行 gate(CutsceneVerify178 + care harness)を各 commit で。
+
+## ★裁定 (0b) の実装形 = 撤回・再設計へ(2026-07-15 03:3x、worker2 の実装前全長 RE による blocker)★
+
+- **何が誤りだったか**: 『0x37 = operand byte を E2DE/E2E0 へ無加工 copy』は **handler 後半だけを見た不完全 RE**
+  (worker2 W-A `6a78786` 自己申告)。全長 RE の実際 = operand は **var index 1 個**。handler は
+  GetVar(idx..idx+3) の 4 値を date 化(0x800F13CC 変換)し、現在の時計 4 成分と比較、
+  ★時間前進なら 0x800AB40C(care-tick 前進 = D54 writer 関数)を呼び★、4 slot へ store する。
+- **boss1 検算(統合推論、worker2 の RE 待ちで確定)**: 比較 slot の gp-0x6b74 / gp-0x6b72 =
+  **0x8013E298(時)/ 0x8013E29A(分)** = RE_time_day_system の時計 slot と一致
+  ⇒ **0x37 = SET_DATETIME(var 由来の時計 4 成分 set + 時間前進時の care catch-up)**の読みが整合。
+- **生き残るもの / 死ぬもの**: 『E2E0 = 2 writer class の共存』の骨格と taxonomy (i) 判定 = **不変**。
+  死んだのは実装形(値の由来 = operand → var bank / side effect なし → care-tick 呼出あり)。
+- **x-check への波及(methodology 台帳、新規)**: worker1 x-check の claim3 CONFIRMED は store site の値保存性としては
+  正しいが、**source の帰属(operand か var か)は両実装が同じ切り取り窓を共有して見えていなかった** —
+  ★**2 実装収束は『窓境界の blind spot』を検出しない。実装前の handler RE は全長(prologue→epilogue + 呼出先 1 段)を標準とする**★。
+- **処置**: 0x37 実装凍結(worker2 は実装ゼロで停止 = 正しい)。0x36 = tail 0x800EF7D0 の全長 RE 完了後に続行 GO。
+  追加 RE 2 件(0x800F13CC 変換式 / 0x800AB40C 呼出規約)→ 設計判断 doc v2(0b-v2)→ PRESIDENT 承認 → 実装。
+  care 保護 gate の解釈(『変更は NG・呼出追加は OK』か)= PRESIDENT 裁定要請済み。
