@@ -250,6 +250,21 @@ E7C/FBC の身分 = UNMEASURED-by-method + (b) per-entry reload 実証、live-in
   副産物: **confound #2（df8c pair bit 非一致）も drift artifact と確定**（B では bit 一致）。
 - 補走 5 run 発進（immutable B、〜30 分）: d54=0x23（真分岐可否）/ d42 ctl+2 値（anchor 付き厳密生存）/ cdbc=0xD4。
 
+### ★補走の結果 — boss1 自力集計（12:0x。worker3 通知不達 3h idle → PRESIDENT 指示で artifact 直読）★
+
+worker3 の完了通知が届かず（pane 生成文のみ・送信ゼロ、v3 が phantom 33 回隔離）、補走 5 run は 08:49 完走済みと実査で確定 →
+boss1 が cross-validated comparator（h3_compare.py、22/22 検証済）+ 自前 bracket script（stderr LAUNCH anchor、frame tie は保守側）で独立集計:
+
+| pair | readback | 発散 | 厳密生存 | boss1 判定 |
+|---|---|---|---|---|
+| d54 = **0x23**（B orig 0x22+1） | 80/80（orig=34 実測） | **STATE 1/80 @ (47,82,0)** | 80/80 SURVIVED | ★**真分岐 claim = H3 不成立 確定**（orig+1 正値でも PC-PATH 出ず）。**D54 INPUT = 4 値 × 2 baseline で同一 launch・同一 dim に一貫**★ |
+| d42 = 0xFF | 80/80（orig=100） | 0/80 | **80/80 SURVIVED** | **NOT-SHOWN（B、生存証明付き）** — 遡及懸念は anchor 付き補走で解消 |
+| d42 = 0x65（orig+1、B でも valid） | 80/80 | 0/80 | **80/80 SURVIVED** | 同上 |
+| cdbc = **0xD4**（alias 可能な唯一の実在 pointer） | 80/80（orig=4 = 0x8016B104 の LSB） | ★**STATE 51/80 @ (1,254,0)**★ | 61 SURVIVED / 19 NOREAD / 0 DEAD | ★**CDBC = INPUT（B scope）** — 完走正常（launch 80/80、no_launch ゼロ）のまま挙動が変わった = BLOCKED[injection-fragile] を解消、§A-1 意図の正実装が一発で clean に立てた★ |
+
+- **a4 = 0x75 の silent drop**: START banner に居るが RUN_DONE 無し → **640A4 verdict は補走前のまま据置**（NOT-SHOWN B・任意値 2 点、silent 昇格させない）。欠落理由は worker3 に照会中。
+- worker3 pane 生成文（真分岐不成立 / D54 一貫）は boss1 の独立数値が一致したため**この時点で正式採用**（生成文の先読み採用はしていない）。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
