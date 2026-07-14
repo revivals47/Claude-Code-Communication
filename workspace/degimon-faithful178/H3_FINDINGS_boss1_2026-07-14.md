@@ -265,6 +265,19 @@ boss1 が cross-validated comparator（h3_compare.py、22/22 検証済）+ 自�
 - **a4 = 0x75 の silent drop**: START banner に居るが RUN_DONE 無し → **640A4 verdict は補走前のまま据置**（NOT-SHOWN B・任意値 2 点、silent 昇格させない）。欠落理由は worker3 に照会中。
 - worker3 pane 生成文（真分岐不成立 / D54 一貫）は boss1 の独立数値が一致したため**この時点で正式採用**（生成文の先読み採用はしていない）。
 
+### 最終 verdict 表の提出と boss1 突合（12:04、worker3 `b159b06`）
+
+- **一致**: INPUT 4（D18/D3A/D54 = A、**CDBC = B**）/ NOT-SHOWN 3（D42・DF8C・640A4）/ UNMEASURED 4。撤回 7 件。
+  worker3 は a4=0x75 を**追走で実施**（silent drop を自己開示 + 是正、2/2 entry・生存 1/1）→ 640A4 = NOT-SHOWN(B、B registry 実在値で試験済) に更新。
+- ★**差分 1 件（boss1 突合で検出、verdict 不変）**: cdbc の厳密生存 = boss1 61 / worker3 51。
+  真因 = ★**LOADT CAP HIT（100k）**★ — 最終 load record は frame 19,921、最終 launch anchor は frame 26,814 =
+  **cap 後の entry では load が記録されない**。boss1 の bracket はそれを NOREAD 19 と数え、SURVIVED を 61 に膨らませていた（cap 前は 61 - α）。
+  **worker3 の 51 が保守側で正**。★verdict は guest stream ベース（STATE 51/80 発散）ゆえ **INPUT(B) は不変**★。
+  教訓（既知 class の再来）: **打ち切られた list の不在は否定でない** — cap は生存の"分母"を静かに削る。cap 開示があったから突合で捕まえられた。
+- ★**D42 の BLOCKED 次元 causal witness 2 件（boss1 spot 検証済）**★: (a) 窓外 read +162 (b) ★**0xFF/0x65 注入時のみ target へ 80 件の書込、ctl は 0 件**★
+  （boss1 実測: ctl store 0 / vFF store 80）= **機械が注入値に反応して書き戻している** = 因果的反応の直接痕跡。
+  ★ただし効果が**宣言済み BLOCKED 次元にしか出ない**ため INPUT に昇格させない — 『効果はある、が測れる窓に出ない』の最も純粋な実例★。
+
 ## 2. A 系（注入 batch）— 進行
 
 - worker3 手順 0-1 完了: 実査一致（§17(0) と bit 一致）+ **blind 予測固定 `e4a6884` = INPUT 8 件**
