@@ -213,3 +213,13 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
   post-hatch T1 の bit 保存を各々検証 ③small commits + 3 系統 gate + CutsceneVerify178 全緑
   ④★care 可視面の完成 claim = user 実視覚まで凍結(land 済 care への変更ゆえ再確認)★
   ⑤open items 3 件は推論で埋めない(D40 = step2 測定で裏取り / B084 deferred / D18 非対象)。
+
+## 14. 権限委譲境界(PRESIDENT、2026-07-15 09:3x — 以後の運用基準)
+
+- **boss1 委譲(逐一承認不要)**: dispatch GO / small commits+非退行 gate の検収 land / instrument 変更(§3 規範内・
+  観測のみ、diff 直読 GO)/ open items の測定裏取り・honest gap 記録・台帳更新。
+- **PRESIDENT gate 維持(5 件)**: ①設計判断(単一推奨 doc = 実装前裁定) ②★MAPHEAD/0x66 の実装 land★
+  (feature flag 構造 + go を land 前に。cutscene 挙動に触れる一切は user 凍結解除まで) ③★新 baseline canon★
+  (C と同厳密さ: replicate 対 earn + immutable + sha + 次元 label 台帳。生成 ack 必須) ④★全長 RE が設計前提を
+  覆した時 = 即上申・実装凍結★ ⑤完成 claim(user 実視覚)。
+- 報告頻度: phase 移行ごと(step 完了 / canon 生成 / 設計 doc / blocker)。routine 逐一報告は不要。
