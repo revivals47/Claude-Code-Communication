@@ -138,3 +138,15 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
   **orig 値一致の確認ではない**。orig 相違を FAIL と誤読しない★。
 - id 空間混同 = food-id≠shop-id class の 3 例目として台帳記録(『別空間の値を同名で join しない — id を跨いで使う時は
   空間の同定を先に』)。DGSAVE addr 一般化 = 承認済(diff 直読 GO 手順)。納期 07:00 再設定。
+- **worker2 step2 pre-design 完了(`1d6565f`、コード変更ゼロ)+ finding 2 件(06:5x 採用)**:
+  (1) ★B084 = 既存 CareIndex の可能性★(0x36 tail RE で species_care_params の index 使用を実測 — capture spec の
+  『RNG 系』label と食い違い)→ 盲目的 raw slot 化せず、**baseline C の B084 値 == baby CareIndex(1) 照合で確定/反証**
+  (恒等式回避の独立照合手順を pre-design に明記)。
+  (2) ★予見 blocker の実在確認: stat struct 輸入が care harness の init 前提(Fullness25/Stomach50/Condition50)を壊し得る★
+  → 単一推奨採用: **輸入前に既存 seed(実機 0x32=50 由来)と一致 assert — 一致 = 過剰決定的裏取り+harness 不変 /
+  乖離 = silent 上書き禁止・上申**(0x37 停止と同規律)。順序 = SetCareForm→import→clamp 再適用。
+  その他: B139 群 = flat 3 slot 推奨(stride 非一意 = record[3] を発明しない)/ 輸入 assert = 『drift guard であって
+  correctness 証明でない』と非循環明記(恒等式は証拠でない、の適用)。
+- ★step1 の 2 度目の target 不到達(r1b、06:5x 実査)★: slot=0x801593B6 は 298k frame 通じて val=0 のまま
+  (game 本体は起動、events=458)。★slot 側の疑い = master struct が base-pointer access(memory 注記)で
+  fresh boot では別位置の可能性★。worker3 に診断 1 本(DGSTORE watch)承認、返答待ち。
