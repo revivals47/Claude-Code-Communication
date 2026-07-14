@@ -89,3 +89,16 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
 - care two-tier への 0x36 経路追加: 既 land 資産の帰属変更に silent 化けするリスク → step0(0a) + care harness gate で封じる。
 - MAPHEAD 実装は fall-through 偶然依存の現 cutscene 挙動に影響し得る → flag 既定 OFF で構造遮断（裁定済）。
 - 『sweep 窓外 live code』class（0x800AD774 等）は ③ の差分テストでは検証できない（窓外）→ 検証は cutscene 凍結解除後の実走に属する、と scope 宣言。
+
+## 8. step1 実施中の追記(2026-07-15 03:5x-)
+
+- **worker1 独立 decode 系 = 完了(2cf9c18、前倒し)**: baseline B で core 5/5 PASS。decisive check =
+  EXE code 域 512KB が slps_017.97.orig と bit-exact(差分 668 は全て ≥0x8011B9EC = .data/.bss 帯)= RAM base 0x1A62 確定。
+- ★**突合 item(step1 x-check 時に解消)**: A/B 判別子の 4 addr が食い違う — H3 指紋台帳(L379)=
+  D3A/D54/**CDBC**/E7C vs worker1 実測 DIFF = D3A/D54/E7C/**FBC**(worker1 は per-slot 帰属 = 推論 label と明記)。
+  どちらかの per-slot 帰属誤り or 測定時点差。worker3 dump 到着後の 3 者突合(台帳/worker1/worker3)で確定する★。
+- **外部 doc §1 の部分不再現(worker1)**: CPU レジスタ offset『+0x36=r0』は B で不再現(実測 +0x13)。
+  RAM base 0x1A62 は decisive check で PASS = ★外部 doc は「RAM recipe = 検証済み / CPU offset = 不再現」に等級分離★。
+  worker1 実装は MIPS 不変条件の self-validating 走査で吸収(gp 期待値を条件に使わない = 循環回避)。
+- worker1 の指摘採用: h3_origs_dump.jsonl は **A-scoped**(boss1 の dispatch 文の『B 期待値』framing が誤り —
+  worker1 が台帳直読で訂正。以後の突合設計は scope label(A/B/C)確認を必須に)。
