@@ -48,31 +48,43 @@ H2 close の live-in 候補 10 = stat struct 4（D18/D3A/D42/D54） + E0F0 + CDB
 H3 で **10/10 全件処理済み**: INPUT 3（D18/D3A/D54） + witness 2（D42 = POST 次元 / CDBC = B scope） +
 model 級 1（E0F0 = derived） + NOT-SHOWN 2（DF8C/640A4） + UNMEASURED 2（E7C/FBC = DMA squash）。残ゼロ。
 
-### 2b. 仕分け表（writer profile = rbw_tally.jsonl-3 boss1 直読、2026-07-14）
+### 2b. 仕分け表 ★v0.2 = 全行確定★（writer profile = rbw_tally.jsonl-3 boss1 直読 + 維持機構 = worker2 W-A `6a78786`。
+boss1 検算: 全 EA 算術 8/8 一致 + ★gp = 0x80144E0C が独立 4 claim（E2DE/E2E0/E114/DF70）で過剰決定的に一致 = PASS★）
 
-| addr | verdict/scope | reads | 窓内 wcount | fwpc（第一 writer） | 意味論（evidence 有のみ） | ★三択判定★ |
-|---|---|---|---|---|---|---|
-| 0x80141D18 | INPUT(A) multi-dim | 217,089 | 13,434 | 0x800A988C（= sub3 bitfield、RE 済） | stat struct member | ★**(iii) struct 一括輸入 + 維持 = model**（fwpc 既知）★ |
-| 0x80141D3A | INPUT(A) 閾値 gate 型 | 109,157 | 6 | 0x800ECFDC | stat struct member | 同上 |
-| 0x80141D54 | INPUT(A+B、最堅) | 108,752 | 4 | 0x800AB6AC | stat struct member | 同上 |
-| 0x80141D42 | NOT-SHOWN + POST witness | 178,946 | 1 | 0x800ECFDC | stat struct member | 同上（struct 同梱。検証は §3 の POST 次元で） |
-| 0x8013E114 | INPUT(A) CTX | 8 | **0** | —（窓内 write 無し） | 未同定 | ★**(i) 値 capture 最有力**★（初期値のみで完結の可能性。boot 期 write 有無 = W-A） |
-| 0x8016B084 | INPUT(A) RNG | 566,685 | **0** | —（同上） | 未同定（RNG 次元に効く） | 同上 |
-| 0x8016B169 | INPUT(A) multi | 5,413 | **0** | —（同上） | 未同定 | 同上 |
-| 0x8013E2DE | INPUT(A) state-only | 27,144 | 4 | 0x800ED154 | 未同定 | (i)+model 二段（保留 → W-A で fwpc の関数同定後確定） |
-| 0x8013E2E0 | INPUT(A) 真分岐 1 含む | 32 | 4 | 0x800ED168 | 0x19 CheckFlag の分岐材料（H2 §3） | 同上 |
-| 0x80145E5A | INPUT(A) 進行系 60/60 | 36,185 | 1,976 | 0x800CBC30 | 未同定（PC-LEN+RAW+DONE = 進行そのもの） | 同上（writer 多 = model 主体の見込み） |
-| 0x8016B139 | INPUT(A) | 132,868 | 27,414 | 0x800BC3A4 | 未同定 | 同上 |
-| 0x8016B3A9 | INPUT(A) | 133,015 | 27,451 | 0x800BC3A4（B139 と同一 writer） | 未同定 | 同上 |
-| 0x8016B411 | INPUT(A) state-only(CTX+DONE) | 133,012 | 27,451 | 0x800BC3A4（同上） | 未同定 | 同上（B139/B3A9/B411 = 同一維持関数の 3 member = 1 実装で 3 件充足の見込み） |
-| 0x8013CDBC | ★B witness★（count 非算入） | 280,052 | 3 | 0x800A1BF4 | pointer slot（0x8013CDB4 ptr table 域、alias 実証済） | ★**(ii) model 確定**★ — 実機 pointer は C# 空間に存在しない。C# 側対応 = 参照。existence witness の C# 対応物特定 = W-A |
-| （参考）0x8013E0F0 | UNMEASURED = derived | — | — | （0B9 型、fwpc 0x800E9C74 系） | derived/maintained | ★**(ii) model 確定**（capture してはいけない — 実行時導出値）★ |
-| （参考）0x801640A4 | NOT-SHOWN(B) | — | — | — | 0x46/0x79 registry | (ii) model（実行時構築）。boot 時初期内容のみ要確認（保留） |
-| （参考）0x8013DF8C | NOT-SHOWN(B) | — | — | — | 未同定 | capture 対象外（挙動入力の証明なし。台帳残置） |
+| addr | verdict/scope | 維持機構（W-A 同定、値の由来） | ★三択判定（確定）★ |
+|---|---|---|---|
+| 0x80141D18 | INPUT(A) multi-dim | RMW bit clear（自現在値 AND 0xFFFFFFFD、絶対 EA store） | ★**(iii) struct 一括輸入（初期値）+ 維持 = model**★ |
+| 0x80141D3A | INPUT(A) 閾値 gate 型 | ★opcode 0x36 handler(0x800ECF48)★: 現在値 − operand、**下限 −100 clamp**（gate 型 profile と機構整合） | 同上（維持 = **VM opcode 0x36 実装**） |
+| 0x80141D42 | NOT-SHOWN + POST witness | 同 0x36 handler（D3A と同経路） | 同上（検証は §3 POST 次元） |
+| 0x80141D54 | INPUT(A+B、最堅) | 現在値 − record(+0xa) 由来値。直後に D18 の bit test（record 実体 = 未同定 #2） | 同上 |
+| 0x8013E114 | INPUT(A) CTX | ★**v0.1 判定を撤回・訂正**★（§2c）: = **gp-0x6cf8 = MAPHEAD buffer の pointer slot**。writer 0x800F0020 が定数 0x80159784（buffer 先頭）を格納。H2 の初差 CTX と機構一致（pointer ゆえ perturb で別 buffer 実行） | ★**(ii) model — pointer ⇒ 値 capture 不可、参照表現へ写像。台帳 #1 MAPHEAD 鎖に合流**★ |
+| 0x8016B084 | INPUT(A) RNG | ★静的 BLOCKED★（EA 確定可能 store に 0 件。**飽和開示: 全 store 17,528 中 79% = pointer-base = 未探索** = 不在の証明ではない） | ★初期値 = **(i) 値 capture（baseline C）で確定**（rbw=1 = 供給は必須）。維持機構 = 未同定のまま台帳 #7（③前の実測分離策あり）★ |
+| 0x8016B169 | INPUT(A) multi | 同上 | 同上 |
+| 0x8013E2DE | INPUT(A) state-only | ★opcode 0x37 handler(0x800ED050)★: **operand をそのまま gp slot へ copy** | ★**(i) 初期値 capture + 維持 = VM opcode 0x37 実装**★（写経後は script が値源 = capture は初期値のみで足りる） |
+| 0x8013E2E0 | INPUT(A) 真分岐 1 含む | 同 0x37 handler（operand 2 byte 目） | 同上 |
+| 0x80145E5A | INPUT(A) 進行系 60/60 | ★record 配列（base 0x80145E48・stride 36）member +0x12 に**定数 0/2 を書く state machine**★（意味 = 未同定 #3） | ★**(i) 初期値 capture + 維持 = model（record 配列 + 状態遷移）**★ |
+| 0x8016B139 | INPUT(A) | ★record member +0x35 に 0x800DEE24(s1,0x140,0xF0) 戻り値 xor 1 の bool★（同一 writer で 3 addr） | ★**(i) 初期値 capture + 維持 = model（1 実装で 3 件充足）**★ |
+| 0x8016B3A9 | INPUT(A) | 同上（record 間隔 0x270/0x68 = stride は 3 点から一意に決まらない、と honest 開示） | 同上 |
+| 0x8016B411 | INPUT(A) state-only(CTX+DONE) | 同上。★+0x34/+0x35 member = E7C/FBC annex の readerA/0x800BB940 と同 offset = RE 上の合流点（lead、断定なし）★ | 同上 |
+| 0x8013CDBC | ★B witness★（count 非算入） | ★writer 0x800A1BF4 = **0x8013CDB4 base の u32 pointer 配列 index 2 に NULL を書く解放系**。readerB が [0x8013CDB4+(i+2)*4] で引く**まさにその table** = H3 alias 実証と 2 系統収束★ | ★**(ii) model 確定**（参照表現へ写像。C# 対応物特定は ③）★ |
+| （参考）0x8013E0F0 | UNMEASURED = derived | （0B9 型） | ★**(ii) model 確定**（capture してはいけない）★ |
+| （参考）0x801640A4 | NOT-SHOWN(B) | 0x46/0x79 registry | (ii) model（実行時構築）。boot 初期内容のみ要確認（保留） |
+| （参考）0x8013DF8C | NOT-SHOWN(B) | — | capture 対象外（台帳残置） |
 
-**即決 3 / 有力 3 / 二段 7 / 保留付き**。確定に足りない材料は 1 種類だけ — ★**W-A: fwpc の関数同定**★
-（wpcs は数 addr 3 個以下に収束済み = 対象関数は高々 7 個。worker2 の静的 RE 1 dispatch 分）。
-判定を先取りしない: W-A 完了後に v0.2 で全行確定させる。
+★**総括（v0.2 確定）**: 三択の分布 = **(iii) struct 一括輸入 4（stat struct、維持 model 込み）/ (i) 初期値 capture 8（うち 4 は維持 model 同定済・2 は VM opcode 実装が維持・2 は維持未同定）/ (ii) model 3（E114・CDBC・E0F0 = pointer/derived、capture 禁止側）**。
+全 14 行に「初期値の供給元 = baseline C」が通底（全件 rbw=1 の帰結）。維持機構が VM opcode（0x36/0x37）である 4 件は、
+★C# の当該 opcode 実装有無の確認が ③ の preflight★（未実装なら台帳 #2/#3 と同じ「消費側実装」に合流）。
+
+### 2c. v0.1 → v0.2 の判定変更記録（Pattern 4: 撤回と理由を残す）
+
+- ★**E114: 「(i) 値 capture 最有力」→ 「(ii) model」に撤回・訂正**★。
+  v0.1 の根拠 = 「窓内 write ゼロ = 初期値だけで完結しそう」という **writer 不在からの推定**だった。
+  W-A 実測 = writer は実在（0x800F0020、boot/init 期 = 窓外）し、**書くのは compile-time 定数の buffer address = pointer slot**。
+  pointer は「値 capture 不可」規則（§1 決定木 (ii) 条件）に落ちる。
+  **教訓 = 「窓内 write ゼロ」は『writer がいない』ではなく『writer が窓の外にいる』**（v0.1 §0 の scope 注記が自分に刺さった実例）。
+  副産物: ★N(A) の INPUT 1 件（E114）が実装欠落台帳 #1（MAPHEAD 鎖）に直結した★ — 台帳 #1 の実装は N の 1 件を同時に充足する。
+- B084/B169: 「(i) 最有力」→ **初期値 (i) は確定・維持機構は BLOCKED**（79% pointer-base 未探索の飽和開示付き）。
+  ③前の分離策（新規 run 1 本、要承認）: boot〜窓頭の DGSTORE watch で writer を実測特定（静的の盲点 = pointer-base store を実測が補完）。
 
 ## 3. (b) D42 POST 次元 capture 化 = 第一級
 
@@ -100,7 +112,7 @@ model 級 1（E0F0 = derived） + NOT-SHOWN 2（DF8C/640A4） + UNMEASURED 2（E
 |---|---|---|---|
 | 1 | MAPHEAD.SCN（全段欠落） | ★taxonomy 外の第 4 類 = **file 導入 + reader 実装**★（値 capture でなく file-load への合流。C# に file が無いことが欠落の本体） | **鎖の始点 = 最初に実装**。消費 = GetSectionOffset scan（0x800F0A4C） |
 | 2 | opcode 0x46/0x79 未実装 | 消費側実装。registry 640A4 = (ii) model（実行時構築） | MAPHEAD の後 |
-| 3 | opcode 0x66 未実装 | 消費側実装。**DF70 の capture 方式 = 未定（W-B: DF70 の上流 writer 特定）** | DF70 capture → 0x66 消費の順 |
+| 3 | opcode 0x66 未実装 | 消費側実装。★**W-B 結果（worker2 `6a78786`）: DF70 の writer = field/helper 域 2 件（0x800AE4E0 = flag bit 0x20 ∧ gp-0x6cb0==1 の条件付き / 0x800BC294）、値 = register(s1/s2) の signed byte 化 = 定数でも file copy でもない ⇒ 「file 合流」方式は材料上不支持**。s1/s2 の上流 = 未同定（台帳 #6）⇒ **DF70 = 初期値 (i) capture + 維持方式は s1/s2 同定まで保留**★ | DF70 capture → 0x66 消費の順 |
 | 4 | 0x8015Fxxx boot-built table | DG.SCN 225 分は ★(ii) model 確定済み★（H3 close で C# 等価構築 225/225 実証 = capture 不要の前例）。残余部分の builder RE = 台帳継続 | 独立 |
 | 5 | stat struct boot 初期値 | ★本 spec §2b で (iii) に確定★ — eef22cc の二択（savestate 輸入 vs boot model）は、H3 の causal 証明（4 件中 3 INPUT + 1 witness）により「輸入が必要」側で決着。boot model 化は fwpc 同定後の将来 refactor 選択肢として残す | 独立（先行実装可 = ③ の最初の一歩に適） |
 | 6 | self-modify 疑い 2 addr（E7C/FBC） | §4。s0 同定まで判定保留 | 独立 |
@@ -138,6 +150,22 @@ v0.2 を PRESIDENT 査読に出す**★。新規 run ゼロ〜最小（DGSTORE r
 
 **進行状況（13:1x 更新)**: PRESIDENT GO → worker2 へ dispatch 発行（13:0x、納期 15:30）→ 着手 ack 受領（13:1x、規範復唱込み）。
 裁定条件 2 つは §1b/§5 へ反映済み（= v0.2 の W-A/W-B 非依存部分は先行完成。残 = §2b 保留 7 行 + §4 s0 判定の材料到着待ち）。
+
+## 10. v0.2 確定（2026-07-14 13:4x。W-A/W-B = worker2 `6a78786` 納期前完了、boss1 検算 PASS で採用）
+
+- **採用手続き**: boss1 が artifact 全文直読 → **独立検算 = EA 算術 8/8 一致 + gp 値の過剰決定的一致
+  （E2DE/E2E0/E114/DF70 の 4 独立 claim が全て gp=0x80144E0C を導く）** → §2b 全行確定・§2c 撤回記録・§5 #3 更新。
+- **worker2 の道具自己監査 2 件を methodology 台帳へ**（「自分の道具を疑え」の実践 2 例）:
+  (1) displacement scan の false positive 2 件を自己捕捉（ALU dest reg を invalidate せず stale base 残留 → 厳格版 + 全 hit 手動 verify）
+  (2) fn_entry 境界誤り（handler 24 件を飲み込み → **handler は $sp prologue を持たない ⇒ dispatch table entry を権威**に訂正）。
+- **未同定台帳 7 件**（worker2 明示、推測で埋めていない）: ① 0x800F53C8（stat id→pointer） ② D54 record(+0xa) 実体
+  ③ +0x12 member の意味 ④ 0x800DEE24（引数 0x140/0xF0） ⑤ CDBC NULL 化の呼出条件 ⑥ ★DF70 の s1/s2 上流★
+  ⑦ ★B084/B169 の維持 writer（79% pointer-base 未探索 BLOCKED）★。⑥⑦のみ capture 方式に影響（他は ③ の実装詳細）。
+- ★**③ 着手前の acceptance 前提（boss1 提案）**★:
+  (a) taxonomy 判定を左右した 3 claim（E114 pointer slot / CDBC NULL writer / 0x37 copy）の **worker1 独立 spot x-check**
+  （disasm 直読、2 実装収束の通常規律。v0.2 提出をこれで block はしない — ③ GO の前提に置く）。
+  (b) C# の opcode 0x36/0x37 実装有無の確認（未実装なら台帳 #2/#3 と同じ消費側実装に合流）。
+  (c) ⑥⑦ の分離策 = 各 1 本の実測（DGSTORE watch）を ③ 冒頭 or 直前に（新規 run につき個別承認）。
 
 ## 9. PRESIDENT 査読結果（2026-07-14 13:0x 受領、v0.1 = 方向承認）
 
