@@ -221,3 +221,34 @@ v0.2 を PRESIDENT 査読に出す**★。新規 run ゼロ〜最小（DGSTORE r
   E2E0 の「日カウンタ」と「0x37 copy 先」の両義の整合 = 未検証（並置のみ、統合せず）/ 0x800F53C8 = 未同定のまま。
 - **§2b への波及**: D3A/D42 行の「維持 = VM opcode 0x36 実装」は「**維持経路の追加実装（C# 既存 slot へ）**」に確定。
   E2DE/E2E0 行は「E2DE slot 新設 + 0x37 実装 + E2E0 二重意味の整合検証」に確定。三択判定そのものは不変。
+
+### (a) x-check 完了 = worker1 `67c0bfb`(blind 独立到達)→`27f3fa7`(unblind 突合)、2026-07-15 01:14。boss1 直読採用
+
+- **claim1(E114 pointer slot)= ★CONFIRMED・2 実装完全収束★**(writer/定数 0x80159784/offset/target 全一致)。
+  gp=0x80144E0C は worker1 が第 3 の方法(cross-claim consistency、image 内 gp-write ゼロ実査)で独立確定 = **3 系統収束**(worker2 disasm / boss1 過剰決定検算 / worker1 consistency)。
+- **claim3(0x37 無加工 copy)= ★CONFIRMED(nuance)★**: 格納値 = operand 不変。nuance = andi 0xff / sll16-sra16 が介在するが
+  **lbu(unsigned 0-255)入力に対し値保存の width 正規化 no-op** — 「値加工ゼロ」の意味で CONFIRMED。
+- **claim2(CDBC NULL writer)= ★PARTIAL — worker2 断定を sharpen★**: base 0x8013CDB4 / u32 scaling / NULL 書込は収束。
+  ★「index 2」は writer 命令に literal として存在しない(base+$s1*4、$s1=runtime)— worker2 の断定は target address 逆算由来 =
+  **caller が $s1=2 を渡す時のみ成立**★。worker2 自身の未同定 #5(呼出条件)と整合。
+  **taxonomy 影響 = なし**((ii) model 判定は pointer 配列構造と readerB 対応で立っており index 特定に依存しない)。
+  未同定 #5 を「caller の $s1=2 立証」に精緻化。
+- **教訓(小、台帳)**: 構造 claim の「どの index か」は writer 側 disasm と address 逆算のどちら由来かを書き分ける — 逆算は caller 前提を隠す。
+
+### ③ 設計条件の追加(PRESIDENT、(b) ack 時 2026-07-15 01:3x)
+
+- ★**care two-tier = 既 land 資産の保護**★(care 系 = 2026-06-23 land、golden 単一 oracle、harness 19/19 + live GREEN):
+  0x36 の script 維持経路追加が**既存 care harness の緑を壊さないこと**を ③ の非退行 gate に明示追加
+  (headless 非退行確認の対象に care harness を含める)。
+- 『新経路の追加』が『既存経路の帰属変更』に silent 化けしないよう、**two-tier のどちらに script 経路が入るかを ③ prereg で先に決める**。
+
+### (c) 発進記録(worker3、2026-07-15 01:16)
+
+- binary sha256 = 560c0c86…db32e2(commit 5808a55、run⑥⑦ 同一 binary = mid-batch rebuild 禁止遵守)。
+- ★banner 突合 PASS★: self-test PASS(3 parsed)+ STORE trace ON 5 addrs が prereg list と完全一致(silent skip 無し)。
+- ★経路 finding(台帳)★: これまで全 run script の boot path 変数(BIN)は**存在しないパスの phantom だった** —
+  savestate 起動は boot path を無視するため無害に通っていた(過去 run への影響なし)。fresh boot で初めて顕在化、
+  実イメージ = degimon/degimon.bin 直指定で解決(.cue は line5 parse error = 破損)。
+  **class = 配線されていない変数は宣言だけでは何も保証しない(control-toggle 教訓の同族)+ 決定的テストは走らせた path しか裁かない**。
+- 初回使用 gate = **同一 env の既存 ctl artifact(h3b_d54_ctl)との guest stream bit 比較を実施**(継承 assumption でなく実測で earn)。
+- UNCAPPED を code 実測で確定(LOADT=100k/DMA=200k と異なり cap 判定なし)→ result doc へ転記予定。
