@@ -88,3 +88,15 @@ worker2 preflight `c63b14f` / W-A `6a78786` / worker1 x-check `27f3fa7` / docs/R
 - methodology 教訓の採録承認: ★『2 実装収束は【共有された窓境界】の blind spot を検出しない — 収束の独立性は
   方法だけでなく観測窓にも要る』★(per-layer 独立監査の窓版)。
 - boss1 即時裁定 2 件(0x36 続行 GO / 0x37 停止+追加 RE)= 追認。0b-v2 提出待ち。
+
+## 0x36 tail finding + (A) core-only 裁定(2026-07-15 03:5x。全長 RE 標準の初回配当)
+
+- **finding(worker2 全長 RE)**: 0x36 の tail 0x800EF7D0(毎回 unconditional)= ★Fullness(D54)clamp +
+  ラッチ解除側の D18 write + D58 zero★(care-tick 関数は呼ばない = 別 path)。『bare subtract+clamp』は不完全だった。
+- **boss1 裁定 = (A) core-only 実装 + tail は 0b-v2 へ合流**(worker2 推奨に同意): 0x36 の diff 対象次元
+  (D3A/D42)は core で充足、tail の書込先(D54/D18/D58)は 0x37 catch-up と同じ『時計/care 相互作用』group。
+- **条件 = honest gap の構造化**: ①実行時 loud log に tail omitted 明記 ②IMPL_NOTES に gap entry +
+  『diff-test の D54/D18/D58 次元 FAIL は既知の追跡 signal』宣言 ③bit2 ラッチ = RE claim label のまま
+  (bit0x40/bit0x10 と混同しない、0b-v2 で確定)。(B) の前提確認(canonical entry の存在)= 0b-v2 材料。
+- **0b-v2 の scope(確定)**: 0x37 SET_DATETIME(変換式 + catch-up 規約 + 境界二重適用)+ 0x36 tail
+  (Fullness clamp + ラッチ解除)+ canonical entry 対応表 = 『時計/care 相互作用』の一括設計。
