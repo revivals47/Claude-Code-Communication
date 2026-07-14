@@ -159,3 +159,17 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
   **PRESIDENT 裁定どおり pre-cutscene を実測で確認**)。file 915,130 bytes・生成直後から perm 400(boss1 実査)★。
   replicate 対 2 本目走行中 → RAM level 比較へ。教訓 = ★lui/addiu の base 合成は imm の bit15 を必ず符号拡張で読む
   (0x10000 ずれの典型トラップ、RE 台帳へ)★。
+
+## 11. ★C transfer run の解釈 pre-registration(PRESIDENT 指定、run 発進【前】に固着。2026-07-15 07:2x)★
+
+- ★**scope 宣言: 本 run が validate するのは【capture pipeline(輸入 list → C# state が C dump と一致)+
+  DGSETTLE 機構自体】であって、per-addr の因果 transfer ではない**★。N=12 は C で全ゼロ(pre-partner)ゆえ、
+  per-addr 因果の確認は post-partner 時点(B084 照合の移送先と同じ)に属する。**C run に N 再確認を負わせない**。
+- **outcome 意味論(事前登録)**:
+  1. **発散** = 当該 addr は C でも live(初期値系入力)。
+  2. **無発散 + settle 中の上書きを survival が flag** = ★**UNMEASURED-at-C = 期待される正常結果**★
+     (= 『これらは post-cutscene(partner 生成)で作られる state』の確認 — 層分離と整合)。
+     ★『因果が C に transfer しない』と読むこと = 偽 BLOCKED = 禁止★(因果は A/B で確認済み。C は単に
+     それらの addr が live でない時点)。特に stat struct 4 は cutscene の partner 生成が書く addr =
+     上書き flag が出るのが正常。
+  3. **無発散 + 上書きゼロ(生存確認)** = 真の非入力候補(この値集合・この時点)。
