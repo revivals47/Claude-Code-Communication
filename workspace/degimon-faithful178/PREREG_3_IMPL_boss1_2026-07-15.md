@@ -256,3 +256,18 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
     『partner.FullnessMax』でも『別 actor.FullnessMax』でもなく、**【global な care-form-index の値で clamp】**★ —
     ★actor を当てるのでなく **機構(global read)を model** する。『どの actor か』を先取りしない★。
 - next run(承認済)の readout 追加: ★D54=20 が seed 単独か seed==max か + **FullnessMax(baby) の実測値**(clamp に要る)★。
+
+## 17. step4/5 の設計材料(worker3 census `03b4863`+`411e490`、新規 run ゼロ)= ★実装順序を実測が決めた★
+
+- ★**0x66(step5)= 『まれな warp op』ではなく【ほぼ全 entry の定型 prologue 末尾】**★:
+  462/463 entry が**ちょうど 1 回**・449 件が**先頭から 4 番目の op**・★直前 op は 0x67 が 464/464 = 100%(固定ペア)★・
+  ★直後に op は続かない(0 件)★・idle_stop 464/464。到達列 = 0x1B→0x1A→0x27→0x67→0x66。
+  ⇒ ★**差分テストの母数 = 463 entry** = 退行が即可視化される / 実装を誤れば全面的に壊れる = **最も安全に検証できる step**★。
+  ★未追跡(開示): 0x66 が DF70 の値を実際に読むかは未測定 → step5 の差分テスト設計で扱う★。
+- ★**0x46 / 0x79(step4)= 母数が極小(6 回 / 1 回)**★: 0x46 は `[46][47][NN]` の隣接ペア形(0x47 は C# 実装済)、
+  続く 1 byte が entry 170-173 で 01/02/03/04 の連番。0x79 は len=2・operand 0x01・**1 site のみ**(entry 151,60)で
+  直後に 0x46 が続く。
+  ⇒ ★**full sweep では埋もれる = 差分テストで「踏む entry」を明示指定しないと検証が空振りする**★。
+  ★必須 corpus(全件)= (129,6)(151,60)(170,51)(171,51)(172,51)(173,51)★ を step4 の prereg に固定する。
+- ★**boss1 採用の実装順序**: step5(0x66)を step4 より先に — 母数 463 で全面検証でき退行が即出る。
+  step4 は corpus を prereg で固定してから着手★(step3 完了後の dispatch 設計に反映)。
