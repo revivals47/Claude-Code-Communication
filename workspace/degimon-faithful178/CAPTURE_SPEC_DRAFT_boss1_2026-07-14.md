@@ -118,3 +118,18 @@ model 級 1（E0F0 = derived） + NOT-SHOWN 2（DF8C/640A4） + UNMEASURED 2（E
 ★**W-A（fwpc 7 関数の同定、worker2 静的 RE）+ W-B（DF70 上流 writer）を 1 dispatch で先行 → 結果で §2b 全行を確定した
 v0.2 を PRESIDENT 査読に出す**★。新規 run ゼロ〜最小（DGSTORE rider 1 本の可能性のみ）、game code ゼロ不変。
 理由: 保留 7 行の確定材料は fwpc の関数同定 1 種類に収束しており、これを飛ばすと三択が assumption-based になる（measure-first）。
+
+## 9. PRESIDENT 査読結果（2026-07-14 13:0x 受領、v0.1 = 方向承認）
+
+- **裁定 (1) = 承認 + 条件**: fresh boot 直後の新規 dump を capture 正典に（B は挙動検証 baseline へ役割分離）。
+  ★条件: 新正典は生成した瞬間から immutable（sha256 記録 + perm 400）+ 指紋台帳に**第 3 baseline として命名登録**
+  （A 喪失の教訓の適用）。③冒頭の causal 証明 1 対確認 run（N の因果が新正典へ transfer するか）は必須のまま★。
+- **裁定 (2) = 承認 + 条件**: 実装と cutscene 検証の分離 OK。★条件: MAPHEAD/0x66 の実装は**gate/flag で opt-in**とし、
+  user 裁定の検証まで既定 OFF★ — scenario-0 解決の変更は fall-through 偶然に依存する現 cutscene 挙動を silent に変え得る。
+  『実装 land ≠ 現挙動変更』を flag で構造保証（control-toggle 教訓の逆用 = 意図的に OFF で land。
+  ⇒ ③実装時、flag の配線実在を grep+log で確認してから land する義務も同時に発生する点に注意）。
+- **裁定 (3) = 承認**: W-A/W-B を v0.2 前提に含める。
+- **単一推奨 = GO**: W-A（fwpc 7 関数の静的 RE、worker2）+ W-B（DF70 上流 writer）を 1 dispatch 先行 → v0.2。
+  read-only RE = game code ゼロ規範内。
+
+⇒ 次 action: worker2 へ W-A/W-B dispatch（本節追記と同時刻に発行）。v0.2 は W-A/W-B 結果で §2b 全行確定 + 本裁定条件を仕様本文へ反映。
