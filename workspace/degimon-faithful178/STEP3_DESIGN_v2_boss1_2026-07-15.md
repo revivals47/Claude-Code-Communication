@@ -87,3 +87,20 @@ land は gate ②(測定条件 3 + PRESIDENT go)を経る。cutscene 実走・�
   3. ★ON の 4-hop per-hop 突合★
   + PRESIDENT go。★flag ON の live/視覚は user 凍結解除まで禁止(headless trace は可)★。
 - 実装 dispatch GO(OFF-inert commit → ON 配線 → per-hop trace)。
+
+## 6. ★live 実走で「Boot→4-hop 入口の接続」未実装が露出(2026-07-15 21:5x)★
+
+- **切り分け(worker3 live log 実測、defect でなく未実装 segment)**: live Boot=RunScene(238)→§238 0xFB→0xFE
+  RETURN→Finished(pages=0)で即終了 = 4-hop に入らず(覚醒未発火・水辺 framing・台詞 0)。
+  ★per-hop 単体(**178§254 起点**の 4-hop 本体)は忠実(headless 緑+実機 trace 一致)だが、
+  **Boot(238)→178§254 の 0x4B 入口への接続**が未実装★ = STEP3_DESIGN v2 の scope『Boot shortcut 置換』の未着手部分。
+- ★**PRESIDENT の自己失点記録(教訓)**: headless マイルストーンを過大提示した★ — headless per-hop 緑は
+  【178§254 起点】の 4-hop 本体(load 系列が (178,254) 始まり)。だが live awakening は Boot(238) 起点で、
+  238→178§254 の接続は headless test に入っていなかった。user に『4-hop works headless、live 見るか』と
+  **start point(mid-chain)を明示せず提示 = which-scope の過大**。
+  ★**教訓: headless マイルストーンは【起点】を明記せよ**(『178§254 起点の 4-hop』であって『Boot からの覚醒全体』でない)★。
+  ★**live gate が完成 claim を防いだ = 凍結規範が正しく働いた**(headless 緑を live 完成と読み替えていたら偽 GREEN)★。
+- **前提 4 点は全クリア**: build provenance 実測(Assembly-CSharp.dll sha b9065c91… に ②-b-4 コード実在)/
+  ★OFF bit-identical(run 前後)= 解除が OFF を汚さない実測★/user GO/live boot 成功。
+- ★処置: 実機 Boot-trace 1 run(238→178§254 の原盤遷移を確定)→ Boot 接続実装 → live 再走★。
+  4-hop 本体で成功した『memory 地図を実機で確証してから実装』pattern を踏襲、238 接続を推測実装しない。
