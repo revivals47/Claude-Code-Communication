@@ -1,4 +1,4 @@
-# capture 仕様 draft v0.1（boss1、2026-07-14 12:5x。PRESIDENT GO = H3 close 承認と同時）
+# capture 仕様 draft（boss1。v0.1 = 2026-07-14 12:5x 提出 → PRESIDENT 方向承認 → v0.2-prep = 13:1x、裁定条件の本文反映。W-A/W-B 依存部分（§2b 保留 7 行）は worker2 結果待ち = v0.2 で確定）
 
 ## 0. 目的・scope・規範
 
@@ -20,7 +20,17 @@
 |---|---|---|
 | **(i) 値 capture** | 実機 dump から per-addr の値を取得し、C# の初期化データとして台帳付きで輸入（provenance = どの dump のどの addr か明記） | causal INPUT ∧ 初期値が read される（rbw=1）∧ 意味論が値で完結（pointer でない） |
 | **(ii) model** | C# が機構を実装して値を自前で導出・維持（capture しない） | derived/maintained class（read 前に必ず store = E0F0/0B9 型）∨ pointer 類（実機アドレスは C# 空間に存在しない）∨ 等価構築が確認済みの boot-built table（DG.SCN 225 の前例） |
-| **(iii) savestate 輸入** | 連続領域を savestate から丸ごと初期値として輸入 | 連続 struct で member 個別の意味論解明を待たずに初期値一括供給が要る場合。★正典 savestate の裁定が前提（§7 裁定 1）★ |
+| **(iii) savestate 輸入** | 連続領域を savestate から丸ごと初期値として輸入 | 連続 struct で member 個別の意味論解明を待たずに初期値一括供給が要る場合。★正典 = baseline C（§1b、裁定 1 で確定）★ |
+
+### 1b. capture 正典 = baseline C（fresh boot 直後 dump。裁定 1 = 承認済、条件込みで確定）
+
+- **定義**: 製品（C#）が再現すべき『初期』は boot/new-game であって測定 baseline ではない（PRESIDENT 裁定理由）。
+  よって capture 正典 = **fresh boot 直後の新規 dump = baseline C と命名**。B（preserved 2026-07-14 save）は**挙動検証用 baseline に役割分離**（継続使用）。
+- **★生成条項（A 喪失の教訓の適用、生成した瞬間から）★**:
+  1. sha256 を記録し **perm 400（chmod a-w）を生成直後に適用**（rotation/user play への免疫）。
+  2. **指紋台帳に第 3 baseline『C』として命名登録**（A の部分指紋台帳・B の sha 台帳と同列。probe 判別子 = A/B と同様に 12 注入 addr の orig 値で採取）。
+- **★transfer 確認条項（必須）★**: ③冒頭に **causal 証明の 1 対確認 run** — N の因果（少なくとも stat struct の INPUT）が
+  baseline C 上でも成立するかを確認してから capture 値を採用する（A→B の existence transfer と同じ規律を C にも適用）。
 
 **判定の順序**: ① 因果性（INPUT verdict があるか） → ② 上流 writer（fwpc / wcount、rbw artifact 実測） → ③ 意味論（RE evidence）。
 ③ の材料が無い addr は**判定保留 + 調査 task 化**（判定の捏造禁止 — 「線を引いたらその線自体を検証」規範）。
@@ -96,8 +106,15 @@ model 級 1（E0F0 = derived） + NOT-SHOWN 2（DF8C/640A4） + UNMEASURED 2（E
 | 6 | self-modify 疑い 2 addr（E7C/FBC） | §4。s0 同定まで判定保留 | 独立 |
 | 7 | 待機 semantics（自然終端しない entry） | ★capture 仕様 scope 外と宣言★（値供給でなく実行挙動 = ⑤棚 4 op と同束、実装 phase の別 item） | — |
 
-**★cutscene 凍結 flag★**: #1（MAPHEAD）と #3（0x66）は検証が覚醒 cutscene に接続する。
-**実装と検証を分離** — 実装（③）は凍結に抵触しない、cutscene 実走による検証のみ user 裁定後（§7 裁定 2）。
+**★cutscene 凍結 flag（裁定 2 = 分離承認、条件込みで確定）★**: #1（MAPHEAD）と #3（0x66）は検証が覚醒 cutscene に接続する。
+**実装と検証を分離** — 実装（③）は凍結に抵触しない、cutscene 実走による検証のみ user 裁定後。
+
+**★opt-in flag 条項（裁定 2 の条件、③ 実装に対する拘束）★**:
+- MAPHEAD/0x66 の実装は **gate/flag で opt-in とし、user 裁定の検証まで既定 OFF**。
+  理由: scenario-0 解決の変更は、fall-through 偶然に依存する現 cutscene 挙動を silent に変え得る。
+  『実装 land ≠ 現挙動変更』を flag で構造保証する（control-toggle 教訓の逆用 = 意図的に OFF で land）。
+- **配線確認義務（同教訓の本来面）**: flag が実際にコード経路を gate していることを **grep 配線目視 + log 実測**で確認してから land
+  （宣言だけの toggle は no-op — OFF で差ゼロに見えるのが no-op のせいであってはならない。ON/OFF 両側の実測を acceptance に含める）。
 
 ## 6. acceptance / 検証計画（③ の gate、prereg は実装 phase で固着）
 
@@ -105,19 +122,22 @@ model 級 1（E0F0 = derived） + NOT-SHOWN 2（DF8C/640A4） + UNMEASURED 2（E
 2. 数値目標（state 列一致数の改善幅）は**実装 phase の prereg で固着**（本 draft では約束しない — 完成 claim 凍結規範）。
 3. 全 run = immutable copy（perm 400）を DGSTATE に。P1 replica + ctl-ctl 一致テスト常設（H3 methodology 8 項の継承）。
 
-## 7. 裁定要事項（PRESIDENT / user）
+## 7. 裁定結果（PRESIDENT、2026-07-14 13:0x — v0.1 の裁定要 3 件は全て回答済み）
 
-1. **★savestate 輸入の正典★**: A は消失。B = user play 進行後 = 「初期状態」としての適格性に疑義。
-   **boss1 推奨 = fresh boot 直後の新規 dump を capture 正典に採用**（B は挙動検証用 baseline として継続使用、役割を分離）。
-   ※ 採用時は stat struct の causal 証明が fresh boot 値でも成立するかの 1 対確認 run を ③ 冒頭に置く。
-2. **実装と検証の分離**: MAPHEAD/0x66 は実装先行・cutscene 検証は凍結解除後、で進めてよいか（boss1 推奨 = 分離 OK）。
-3. **W-A/W-B の位置づけ**: v0.2（確定版）の前提に含めるか（boss1 推奨 = 含める。判定材料なしで三択を確定しない）。
+1. **承認 + 条件** → 本文 §1b に反映済み（baseline C = fresh boot 正典、immutable + 命名登録 + transfer 確認）。
+2. **承認 + 条件** → 本文 §5 に反映済み（MAPHEAD/0x66 = flag opt-in 既定 OFF + 配線確認義務）。
+3. **承認** → W-A/W-B は v0.2 の前提（worker2 dispatch 13:0x 発行済み、§8）。
+
+**残る user 裁定事項は 1 件のみ**: cutscene 凍結解除（実走検証の時点。実装③はこれを待たない = flag OFF で land）。
 
 ## 8. 単一推奨
 
 ★**W-A（fwpc 7 関数の同定、worker2 静的 RE）+ W-B（DF70 上流 writer）を 1 dispatch で先行 → 結果で §2b 全行を確定した
 v0.2 を PRESIDENT 査読に出す**★。新規 run ゼロ〜最小（DGSTORE rider 1 本の可能性のみ）、game code ゼロ不変。
 理由: 保留 7 行の確定材料は fwpc の関数同定 1 種類に収束しており、これを飛ばすと三択が assumption-based になる（measure-first）。
+
+**進行状況（13:1x 更新)**: PRESIDENT GO → worker2 へ dispatch 発行（13:0x、納期 15:30）→ 着手 ack 受領（13:1x、規範復唱込み）。
+裁定条件 2 つは §1b/§5 へ反映済み（= v0.2 の W-A/W-B 非依存部分は先行完成。残 = §2b 保留 7 行 + §4 s0 判定の材料到着待ち）。
 
 ## 9. PRESIDENT 査読結果（2026-07-14 13:0x 受領、v0.1 = 方向承認）
 
