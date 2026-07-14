@@ -173,3 +173,15 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
      それらの addr が live でない時点)。特に stat struct 4 は cutscene の partner 生成が書く addr =
      上書き flag が出るのが正常。
   3. **無発散 + 上書きゼロ(生存確認)** = 真の非入力候補(この値集合・この時点)。
+
+### §11 訂正(PRESIDENT 裁定、2026-07-15 07:4x)— outcome (c) の語の修正
+
+- ★outcome (c) の pre-registered 文言『真の非入力候補』= **boss1 の登録文言が強すぎた(自己矛盾)** —
+  per-addr 結論は本 run の scope 外と自ら宣言しながら、(c) に per-addr label を仕込んでいた。worker3 は登録どおりに
+  書いたのであり worker3 の逸脱ではない★。
+- **訂正後の (c)**: 『無発散 + 上書きゼロ = **DGSETTLE が測定可能 trace を出した実証(機構検証)。
+  当該 window・単一値の下限観測のみ。A-scope の確定 verdict(D18 = INPUT、N の 1 件)とは直交し、再開しない**』。
+  『真の非入力』の語は cross-baseline で確定 A verdict と衝突する誤読を生むため撤回。
+- **副次 finding(台帳へ、推測で埋めない)**: D18 は settle 4000(cutscene 通過後)でも上書きされなかった =
+  『stat struct は cutscene が上書きする』の事前予想が **D18 では外れた**(partner 生成が settle 窓より後 or
+  D18 は partner-write でない、の可能性 — honest gap として記録のみ)。
