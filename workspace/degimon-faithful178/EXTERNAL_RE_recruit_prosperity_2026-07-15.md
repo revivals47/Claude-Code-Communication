@@ -9,8 +9,11 @@
 > - §2 核 claim（0x800AD774 経路 / entity 表 0x801643CC stride 0x38）= 『検証済み』（worker2 `53d9c79` が EXE/tally 側
 >   から独立検証 = byte 一致 + boss1 spot-check PASS。位置づけ = sweep 窓外 live code class / entity 表 = maintained state）。
 > - gp=0x80144E0C / 0x75=12B / pointer slot cluster = 我々の独立 RE と相互裏書き（採録時 3 点突合 PASS）。
-> - 未検証のまま残る claim: savestate 第2 zstd frame +0x1A62 recipe（worker3 手隙で 1 回検証予定）/ 繁栄度=var[1] /
->   既存資料の訂正 4 件（superseded label 化は ③ prereg 材料化のとき）。
+> - ★§1 recipe = 等級分離(worker1 独立検証 2cf9c18、2026-07-15 04:0x)★: **RAM base 0x1A62 = 『検証済み』**
+>   (decisive check = EXE code 域 512KB が原本 EXE と bit-exact、外部 claim から独立に確定)。
+>   **CPU レジスタ offset『+0x36=r0』= 『不再現』**(baseline B 実測 +0x13 — 引用禁止、自前走査で代替)。
+>   var[1]=87 / gp / eventBank も同検証で PASS = 『検証済み』へ昇格。
+> - 未検証のまま残る claim: 既存資料の訂正 4 件(superseded label 化は ③ prereg 材料化のとき)。
 > - 副次の 0x257/0x32B set・0x32A clear = 進行系揮発フラグ【推定】= 推定 label のまま（文書自身も推定表記）。
 >
 > **時系列台帳（記録）**: slot3 は 2026-07-15 01:28 に user play で再保存された（繁栄度 91 版）。
