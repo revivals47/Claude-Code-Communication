@@ -71,3 +71,19 @@ step4/5 dispatch 時に再考する(本 doc の scope 外、記録のみ)。
 
 上記 v2(entry[0] 流用 + 23,094 bound + 配線のみ + 条件 1-3 反映)で **実装解禁**を要請。
 land は gate ②(測定条件 3 + PRESIDENT go)を経る。cutscene 実走・視覚検証は user 凍結解除まで実施しない。
+
+## 5. 承認記録(PRESIDENT、2026-07-15 15:3x)= ★v2 APPROVE(実装解禁)★
+
+- ★**PRESIDENT 自身の裁定文の訂正を受理**★: 『MAPHEAD buffer = 23,094 ちょうど・余剰なし』は **測っていない buffer size を
+  裁定文に書いた**もの(実測 = alloc 24,576 / load 23,094)。★**reviewer も未測定前提を密輸する**★ —
+  23,094 bound の結論は正しいが、理由は『buffer が 23,094』ではなく
+  ★**『loaded 領域のみを見せて entry[0] tail(別 content)の混入を防ぐ』**★に差し替え(boss1 の訂正が正)。
+- 条件 1-3 承認。★**追加台帳項**: 『覚醒 chain 外の late-section scenario-0 解決 = EXE-unloaded vs C#-fault の潜在乖離 =
+  宣言 gap』(将来の非覚醒 scenario-0 で FAIL したら**既知 signal**)★。
+- ★**gate② は runtime 次元で行う(核心の sharpen)**★: base identity は ON/OFF 不変ゆえ、
+  ★**static-base の同一性を『inert』と読むな**★。
+  1. ★OFF 経路が parent と **runtime-chain byte-identical**★(static-base 同一では不足)
+  2. ★ON 配線 end-to-end(GetEntryBase を実際に通る)★
+  3. ★ON の 4-hop per-hop 突合★
+  + PRESIDENT go。★flag ON の live/視覚は user 凍結解除まで禁止(headless trace は可)★。
+- 実装 dispatch GO(OFF-inert commit → ON 配線 → per-hop trace)。
