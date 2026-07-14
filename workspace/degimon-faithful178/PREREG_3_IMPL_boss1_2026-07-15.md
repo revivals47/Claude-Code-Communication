@@ -130,3 +130,11 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
   (capture すべき『初期』= script が走る前 — cutscene の state 効果は VM 忠実実装が再現すべき層)。
   対抗 = scn163 初到達(post-cutscene、cutscene script 効果込み = MAPHEAD 未実装の C# では到達不能な状態が正典になる難点)。
   DGSAVE addr 一般化(DGSAVE_ADDR/VAL/W)= diff 起こし先行承認済(発進は C 時点確定後)。
+- **再裁定確定(PRESIDENT、05:4x)**: ★C 正典時点 = **0x801593B6==204 の初 frame(NewGame init 完了・覚醒 cutscene 前)**★。
+  決め手 = 層の分離(『cutscene の state 効果は VM 忠実実装が再現して見せるべき【出力】であって、初期値に焼き込んだら
+  「VM がそれを作れるか」の検証層が消える』)。post-cutscene 案は MAPHEAD 未実装 C# に到達不能な状態を正典にする = 循環。
+- ★**transfer run の読み方(PRESIDENT note、prereg 恒久)**: C = pre-cutscene ゆえ **N=12 の orig 値が A/B(mid-game)と
+  大きく違うのは想定内** — transfer 確認 run は『因果(INPUT)が C 上でも成立するか』の確認であって
+  **orig 値一致の確認ではない**。orig 相違を FAIL と誤読しない★。
+- id 空間混同 = food-id≠shop-id class の 3 例目として台帳記録(『別空間の値を同名で join しない — id を跨いで使う時は
+  空間の同定を先に』)。DGSAVE addr 一般化 = 承認済(diff 直読 GO 手順)。納期 07:00 再設定。
