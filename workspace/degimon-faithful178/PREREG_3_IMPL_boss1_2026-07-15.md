@@ -1,6 +1,7 @@
 # ③実装 phase prereg（boss1、2026-07-15 02:1x 起案 = draft-skeleton。★固着は (c) 結果反映後★）
 
-status: **DRAFT**（(c) 依存 slot 2 件 = §6 が空欄。埋まり次第固着 → PRESIDENT GO 裁定へ提出）
+status: ★**FIXED（固着、2026-07-15 02:2x）**★ — (c) 完了（worker3 `c55fcf5`、boss1 直読採用）により §6 の 2 slot を実測で充填。
+以後の変更は PRESIDENT 承認事項。→ GO 裁定待ち。
 前提 doc = CAPTURE_SPEC_DRAFT_boss1_2026-07-14.md（v0.2 確定版 + §10-12 完了記録）。承認履歴 = §9-11。
 
 ## 0. scope・成功条件
@@ -65,14 +66,21 @@ status: **DRAFT**（(c) 依存 slot 2 件 = §6 が空欄。埋まり次第固�
 file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation-src instrument + run script、worker1 = 検証 doc のみ（コード不触）。
 同一 step 内で worker2 と worker3 が同一 file を触る構成は作らない。
 
-## 6. ★(c) 依存 slot（未決 — 結果到着後に埋めて固着）★
+## 6. ★(c) 依存 slot = 実測で充填済み（worker3 `c55fcf5`、run⑥⑦。固着）★
 
-1. **B084/B169 の維持計画**: run⑦（boot-window watch）の結果待ち。
-   - writer 実測できた場合 → 維持機構を model 化するか、boot 期のみ = 初期値 capture で完結かを判定。
-   - NOT-SHOWN の場合 → 初期値 capture のみで step2 に含め、『維持未同定』label のまま ③ の差分テストで検出に委ねる（§2b 脚注の一般則を適用）。
-2. **DF70 の維持計画**: run⑥（DF70 watch）の結果待ち。
-   - writer 発火 + s1/s2 文脈が取れた場合 → 0x66 実装（step5）の値源設計に直結。
-   - 発火ゼロの場合 → 初期値 capture + 『維持 = sweep 窓外（recruit/warp 経路候補）』label で step5 の設計に注記。
+1. **B084/B169 の維持計画 = 『(i) 初期値 capture で covered scope 充足、維持 = 未同定（event 経路）label のまま step2 に含める』**。
+   - 根拠（run⑦、boot〜frame 140,521 実測 + 打ち切り開示 = gameplay 未到達・NOT-SHOWN 明記）: この窓の書込 = BIOS/init の
+     bulk zero-fill のみ・維持 writer 発火ゼロ。★bounding 前進 = 維持 writer は boot init にも sweep 窓にも居ない ∧
+     savestate B は非ゼロ値を保持 ⇒ 値は「両窓の外 = 実プレイ event 経路」で書かれた★。
+   - ⇒ (i) 判定（§2b）は測定済み全窓で裏書きされた。維持機構は §2b 脚注の一般則どおり **③ の差分テストを検出器**にする。
+   - ★worker3 提案の run⑦ 再試行（gameplay 窓到達）= 今は起こさない（boss1 裁定）★ — (i) 充足に追加測定は不要、
+     ③ 差分テストで当該 addr が FAIL した時に event-window run を改めて申請する（それが最小コストの発火条件）。
+2. **DF70 の維持計画 = 『maintained 系 = model（writer1 機構）、初期値 capture 不要側』= ★H2 の「真の未捕捉 live-in」分類を実測で更新★**。
+   - 根拠（run⑥、80 entry 完走・CAP HIT なし）: writer = ★0x800AE4E0（writer1）130/130 = 100%★・値 = ★定数 2（130/130）★・
+     entry 間 80/80 で毎回書き直し = 周期維持される derived 値の挙動。writer2(0x800BC294) = この窓で発火ゼロ（非存在の証明でない）。
+   - ⇒ step5（0x66）の値源設計 = **writer1 の定数 2 書込を model 化**（『同一関数内 = 同じ意味ではない』caveat 維持、
+     意味論の確定 = step5 設計時の静的 RE 事項）。s1/s2 の「上流」問題は消滅（s1 の実測値 = 常に 2）。
+   - W-B の warp routine 候補（0x800E3DA0、未再検証）は 台帳のまま（本実測では writer1 の caller 特定は不要になった）。
 
 ## 7. リスク台帳（着手前に既知のもの）
 
