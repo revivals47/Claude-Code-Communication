@@ -107,3 +107,16 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
   blind 予測 3 点 = (a) CDBC at-rest = 0x8016B104 で一致 (b) FBC word = 0xBD89A982 で一致(= 次元差確定)
   (c) D3A=1 / D54=0x00240022。外れたらどちらかの decoder 問題。★artifact 固定完了 = f1a `35716f6`(boss1 実在確認済)★。
   3 者突合の裁定はこの fixture に対して行う。
+
+## 9. 規範追加(PRESIDENT 承認による格上げ、2026-07-15 05:0x)
+
+7. ★**実装前の全長 RE = ③ の恒久条件**★: opcode 単位の実装は、対象 handler + 呼出先 1 段の**全長 RE
+   (prologue→epilogue、jr ra で末尾確定)を前提**とする。根拠 = 部分 RE 誤り 3 例(0x36 tail / 0x37 operand 帰属 /
+   0x800AB40C 規模)が**全て実装前の全長 RE で捕捉された**実績(誤前提の game code は 1 行も書かれていない)。
+
+## 10. 0b-v2 承認記録(PRESIDENT、05:0x)= 3 点 APPROVE
+
+- (2) CareBulkAdvance の gate 適合 = boss1 論理採用(『原盤に 2 つ在る別機構の、2 つ目の第 1 実装』)。
+- 様式 3 点承認(disposition table / bulk golden vector 単一 oracle + worker1 blind x-check / 発明ゼロ)。
+- ★land 後の非退行 gate = care harness 19/19 + golden 37 + **新 bulk vector の 3 系統全緑**を commit gate に★。
+- (1)(3) 承認(SetDateTime 原盤順序 / 0x36 tail = bit2 峻別 + D58 raw + land 後 tail omitted log 除去)。
