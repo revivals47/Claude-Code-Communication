@@ -241,3 +241,18 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
 - ★**follow-up 必須条件(どちらの解釈でも)**: 2 actor の FullnessMax が異なる case を exercise する **新 test を追加**★
   (すり抜けた理由 = 区別 case 未 exercise ⇒ 帰属を gate-asserted に変える)。
   (2) = 参照先是正 + end-to-end 実測(swap して仮定しない)/ (1) = comment 訂正 + 同 test。
+
+## 16. ★gate④ 決着(解釈(2))+ follow-up の罠(PRESIDENT、2026-07-15 12:2x)★
+
+- **決着(実測)**: baby(form=1)= 0x8016B1D4(frame 8299)/ tail が読む固定 B084 = 3 不変
+  ⇒ ★care-form ≠ partner-form = 別 entity★(worker2 静的 RE と整合)。commit C の partner.FullnessMax clamp = 帰属誤り確定。
+  algorithm(clamp/bit2/D58)は不変、参照先のみ是正。
+- ★**worker3 の自己訂正の副次効果: (B) user 手動 savestate 依頼は【不要】に**★ — false-absence(coverage gap)を
+  潰したことで窓内で決着。user への要請は取り下げ。
+- ★★**follow-up の罠(PRESIDENT 指定・最重要)**: 『参照先是正』を【B084 の意味同定前】に land するな★★
+  - 解釈(2) は『partner でない』を確定したが、★B084 が【何か】は未同定★。
+    ★未同定の先へ参照を差し替える = **H4 を別の H4 に置換**(gate④ を生んだ誤りの再演)★。
+  - ★**正しい忠実形 = EXE の構造を複製**: EXE は B084 を【固定 absolute = global】として読む ⇒ C# の忠実実装は
+    『partner.FullnessMax』でも『別 actor.FullnessMax』でもなく、**【global な care-form-index の値で clamp】**★ —
+    ★actor を当てるのでなく **機構(global read)を model** する。『どの actor か』を先取りしない★。
+- next run(承認済)の readout 追加: ★D54=20 が seed 単独か seed==max か + **FullnessMax(baby) の実測値**(clamp に要る)★。
