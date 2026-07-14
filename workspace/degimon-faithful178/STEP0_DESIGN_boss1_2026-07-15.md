@@ -116,3 +116,12 @@ worker2 preflight `c63b14f` / W-A `6a78786` / worker1 x-check `27f3fa7` / docs/R
 - **⇒ 0b-v2 起案前の残 RE 1 束(worker2 へ発注)**: (e) 0x800AB40C の全 store list + D6E/D60/D62 の実体
   (全長 RE 標準の適用。未同定は未同定のまま可 — その場合 catch-up 実装は identified 部分+honest gap の段階案になる)
   + (B 前提) 0x800EF7D0 の書込先に対応する既存 canonical entry の有無(0x36 tail 用)。
+
+## 0b-v2 への PRESIDENT 設計 note(2026-07-15 04:4x、条件 2 の verify 形の確定)
+
+- ★catch-up test は『N 時間前進 = TickCareHour N 回』を assert **しない**★ — 実機は per-hour loop でなく
+  deltaHours 単発一括。**assert すべきは『catch-up 関数 1 回・delta=N の一括適用が原盤 0x800AB40C の変換と一致』**。
+  loop 意味論を仮定した test は偽 FAIL 製造機(意味論の実測が先、test はそれに従う)。
+- 境界二重適用なし(旧値基準 1 回 + real-time 別経路)の機構説明を条件 2 の test 設計にそのまま使う。
+- E2DE 事案の教訓の言語化(PRESIDENT): ★『発明しなかったから、正しい意味が入る余地が残っていた』★ —
+  未同定 slot は raw 保持が正解(意味論は RE が埋める)。
