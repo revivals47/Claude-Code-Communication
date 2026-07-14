@@ -1,16 +1,23 @@
-> **★EXTERNAL-INPUT label（boss1、2026-07-15 01:2x）★**
+> **★EXTERNAL-INPUT label（boss1、2026-07-15 01:2x 採録 / 02:1x 原本更新に追随 = 159→165 行）★**
 > 出所 = user の別 session 成果（原本 ~/Desktop/RE_勧誘フラグ・繁栄度システム解読_2026-07-15.md、以下は逐語 copy）。
-> PRESIDENT 全文読了 + boss1 全文直読済み。文書内 falsifiable 検証（点数恒等式 13=100-87 / 10 savestate 単調性 /
-> プレイヤー申告突合 / エンティティ表照合）は文書自身の主張であり、★load-bearing に使う claim は使用時に自前検証必須★
-> （de-risk 規範: 外部成果物は到着後 re-verify してから green）。
-> boss1 の無料突合 3 点（採用時点で実施済）:
-> (1) gp=0x80144E0C = 我々の独立導出（4 claim 過剰決定、W-A 検算）と bit 一致
-> (2) opcode 0x75 = 12B 固定 = 我々の実測 Len（71/71）と一致（文書も DialogueRuntime.cs 整合を自認）
-> (3) *(gp-0x6cec)=0x8013E120 の pointer slot は E114（gp-0x6cf8=0x8013E114）と同一 slot cluster = 構造整合
-> 未検証のまま組み込む主要 claim（使用時に検証）: savestate 第2 zstd frame +0x1A62 = RAM 2MB recipe /
-> 繁栄度=var[1](0x801638DE) / 42 体 flag 対応表 / 既存資料の訂正 4 件 / entity 表 0x801643CC+0x30。
-> 処置予定: ①savestate decode recipe の 1 回検証 = worker3 手隙 bounded task ②訂正 4 件 = 対象 doc へ superseded
-> label（消さず来歴、③ prereg 材料化のとき） ③writer 0x800AD774 / entity 表 = W-A 未同定群との突合（③ 材料）。
+> PRESIDENT 全文読了 + boss1 全文直読済み。★load-bearing に使う claim は使用時に自前検証必須★（de-risk 規範）。
+>
+> **検証等級（更新あり）**:
+> - ★42 体 flag 対応表 = 『検証済み（予言的中）』へ昇格★（PRESIDENT 裁定 02:1x）: 対応表確定【後】に user が実機で
+>   メタルマメモン+スカモンを新規勧誘 → 0xE3/0xEF のみ 0→1・繁栄度 87→91（+3+1=+4）= 事前固定表からの
+>   prospective prediction PASS（事後説明でない）。
+> - §2 核 claim（0x800AD774 経路 / entity 表 0x801643CC stride 0x38）= 『検証済み』（worker2 `53d9c79` が EXE/tally 側
+>   から独立検証 = byte 一致 + boss1 spot-check PASS。位置づけ = sweep 窓外 live code class / entity 表 = maintained state）。
+> - gp=0x80144E0C / 0x75=12B / pointer slot cluster = 我々の独立 RE と相互裏書き（採録時 3 点突合 PASS）。
+> - 未検証のまま残る claim: savestate 第2 zstd frame +0x1A62 recipe（worker3 手隙で 1 回検証予定）/ 繁栄度=var[1] /
+>   既存資料の訂正 4 件（superseded label 化は ③ prereg 材料化のとき）。
+> - 副次の 0x257/0x32B set・0x32A clear = 進行系揮発フラグ【推定】= 推定 label のまま（文書自身も推定表記）。
+>
+> **時系列台帳（記録）**: slot3 は 2026-07-15 01:28 に user play で再保存された（繁栄度 91 版）。
+> ★現行 (c) run への影響 = ゼロを boss1 実測確認★: run⑦ = fresh boot（savestate 非使用）/ run⑥ = immutable copy
+> （perm 400 + sha256 4aa92a9f… 再計算一致 = 台帳値と bit 一致）= ★A 喪失事故後に張った防御（immutable 固定）が
+> 機能した実例★。
+> 処置予定: ①savestate decode recipe 1 回検証（worker3 手隙） ②訂正 4 件 superseded label ③0x800AD774 突合 = 完了済み。
 
 # RE — 勧誘フラグ・繁栄度システム解読（実機セーブ検証付き）
 
@@ -19,6 +26,7 @@
 - **手法**: DuckStation ステートセーブ10本の RAM 時系列diff ＋ EXE/dg.scn 静的解析のクロス検証
 - **成果**: 繁栄度の実体・加入フラグの格納方式・**フラグID↔デジモン対応 42体分**を確定。
   実プレイデータ（繁栄度87）で「未設定フラグの点数合計 = 100−87 = 13」が**厳密一致**。
+  さらに解読後の**新規勧誘2体で予言的中**（0xE3/0xEF のみ 0→1、繁栄度 +4 = 点数表どおり。§5-5）。
 - **remake 関連**: docs/PHASE1_flag_write_opcode_swap_2026-07-04.md の flag 系統（0x1C/0x1D, store +0xF5）の
   上に乗る知見。「native 側の flag write は他サブシステム」とされていた **NPC勧誘の実配線**がこれ。
 
@@ -53,7 +61,8 @@ CPU レジスタはデコード結果先頭の "CPU" セクション（GPR 列�
 | 4 | 06/18 04:34 | 22 |
 | 7 | 06/23 04:06 | 54 |
 | resume | 06/23 04:42 | 69 |
-| 3 | 07/14 04:39 | **87** |
+| 3 | 07/14 04:39 | **87**（解読時の基準）|
+| 3 (再保存) | 07/15 01:28 | **91**（live 検証 §5-5）|
 
 ---
 
@@ -160,6 +169,10 @@ GameState に var バンクを実装すれば SET_VAR/VAR_ADD/VAR_SUB (0x1E/0x1F
    「ヴァンデモンも勧誘した(はず)」→ 0xE2 は全ステートで 0。§4 の非加入分岐と整合 ✅
 4. **エンティティ表照合**: slot3 現在マップの実 RAM エンティティ3体の +0x30 フラグが
    dg.scn の 0x75 オペランドと一致 ✅
+5. **live 予言検証（2026-07-15）**: 対応表確定後、プレイヤーが実機でメタルマメモンと
+   スカモンを新規勧誘 → slot3 再取得。**0xE3・0xEF のみが 0→1**、繁栄度 87→91（+3+1=+4）で
+   点数表とも厳密一致 ✅（他の加入フラグに変化なし。副次で 0x257/0x32B set・0x32A clear =
+   進行系の揮発フラグと推定）
 
 ---
 
