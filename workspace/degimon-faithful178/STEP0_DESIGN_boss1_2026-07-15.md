@@ -100,3 +100,19 @@ worker2 preflight `c63b14f` / W-A `6a78786` / worker1 x-check `27f3fa7` / docs/R
   (bit0x40/bit0x10 と混同しない、0b-v2 で確定)。(B) の前提確認(canonical entry の存在)= 0b-v2 材料。
 - **0b-v2 の scope(確定)**: 0x37 SET_DATETIME(変換式 + catch-up 規約 + 境界二重適用)+ 0x36 tail
   (Fullness clamp + ラッチ解除)+ canonical entry 対応表 = 『時計/care 相互作用』の一括設計。
+
+## 0x37 追加 RE 結果(worker2 `8dc865d`、2026-07-15 04:3x 受領)= 0b-v2 の主材料
+
+- **(a) 変換式確定**: serial = minute + hour×60 + day×1440 + month×43200(30 日/月)。
+  4 var = [month, day, hour, minute]。★**E2DE = month slot と意味論確定**(『raw byte slot・意味論を発明しない』は
+  RE で上書き — 発明でなく実測で埋まった)★。store 対応 = E2DE=month / E2E0=day / E298=hour / E29A=minute。
+- **(b) catch-up 規約確定**: 0x800AB40C(deltaHours 引数、**単発 1 回・一括適用**、per-hour loop ではない)。
+  ★TickCareHour とは別関数 = 『care 累積器の N 時間一括前進』★。
+- **(c) 境界二重適用 = 起きない**(handler 順序: serial 計算 → catch-up(旧 slot 基準)→ slot store。
+  AdvanceMinutes は real-time 駆動の別経路 = set 後 minute から通常進行)。
+- **(d) C# 対応の残 gap**: E2DE=month 新規 slot / Day・Hour・Minute は private set → SetDateTime 追加要 /
+  catch-up の C# 対応 method なし = 新規(呼出追加 OK 枠だが、★catch-up が書く 0x80141D6E/D60/D62 の C# field
+  対応 = 未同定★)。
+- **⇒ 0b-v2 起案前の残 RE 1 束(worker2 へ発注)**: (e) 0x800AB40C の全 store list + D6E/D60/D62 の実体
+  (全長 RE 標準の適用。未同定は未同定のまま可 — その場合 catch-up 実装は identified 部分+honest gap の段階案になる)
+  + (B 前提) 0x800EF7D0 の書込先に対応する既存 canonical entry の有無(0x36 tail 用)。
