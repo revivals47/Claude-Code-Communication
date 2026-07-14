@@ -264,3 +264,11 @@ v0.2 を PRESIDENT 査読に出す**★。新規 run ゼロ〜最小（DGSTORE r
   live-in ではない** ⇒ capture 上 (ii)model 側。但し +0x30 flag id の consumer(0x800AD774)は未走 = ③ 実装後の検証対象。
 - 0x800DEE24(W-A 未同定 #4)= entity 表と無関係(base も offset も別 struct、接触なし。間接関連は未探索と honest 開示)。
 - 繁栄度 var[1] / 42 体 flag 表 / savestate recipe = 本突合 scope 外のまま(external label の未検証 claim list 据え置き)。
+
+## 13. 実装欠落台帳への追加(2026-07-15、外部 RE cross-ref)
+
+- ★**戦闘起動 opcode = 未同定**(我々・外部 RE ともに未了)★: 戦闘は **opcode + 敵 ID 駆動で dialogue text に出ない**ため、
+  text 全文検索では**原理的に検出不能**(外部文書の自戒 = 我々の「打ち切られた list の不在は否定でない」と同 class)。
+  ★step4/5(0x46/0x79/0x66)の RE 過程で戦闘起動 opcode に当たったら外部文書とクロス参照★。
+- 繁栄度実装 phase(将来)の必須 gotcha: 勧誘 = 加入 flag + 繁栄度加算 + ★ガード flag(未実装だと勧誘済 NPC が field 再出現)★。
+  var[1] = u8(u16 実装は隣接 var を巻き込む)。
