@@ -223,3 +223,21 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
   (C と同厳密さ: replicate 対 earn + immutable + sha + 次元 label 台帳。生成 ack 必須) ④★全長 RE が設計前提を
   覆した時 = 即上申・実装凍結★ ⑤完成 claim(user 実視覚)。
 - 報告頻度: phase 移行ごと(step 完了 / canon 生成 / 設計 doc / blocker)。routine 逐一報告は不要。
+
+## 15. ★gate④ 発動: commit C(0x36 tail)の帰属前提が揺らいだ(2026-07-15 10:4x)★
+
+- **事実**: worker3 の構造実測で ★B084 = 別 actor(CDB8 slot)の record、partner の record は CDBC slot → 0x8016B104★。
+  既 land の commit C は固定 addr B084 を『partner の form index』と帰属して partner.FullnessMax で clamp していた
+  (worker2 自己申告 `8000a39`)。★disasm は正しく、未検証の【帰属】だけが誤り★。
+- **処置(PRESIDENT 承認)**: commit C 系の追加実装 = 凍結 / ★revert しない(挙動 gate 緑)★ / silent 続行もしない /
+  ★測定で reconcile★(worker3 の partner 生成点 run が唯一の decider)。
+- ★**最重要ガード(PRESIDENT)**: 『care 19/19・golden 37 が緑』を解釈 (1) の証拠にするな★ —
+  緑なのは **2 actor の FullnessMax が区別される case を test が exercise していない**から。
+  ★緑は (1)(2) の両方と consistent = 帰属について何も言っていない★(「緑が何を assert してるか確認せよ」の適用)。
+- ★**class 記録**: land 済 commit が未検証帰属を含んでいた = 『測定済み入力に接地』しても、その入力の
+  **意味帰属は別途検証が要る**★(CDB8/CDBC slot 取り違え = 別空間 join の再来)。**実装後も測り続けたから捕まった**。
+- ★**20 vs 25 の分離**: recon(A) は **timing 裁定**だった。seed の【値】(C# 25 vs 実機 D54=20)は**別の correctness 問題** —
+  step2 の seed 値は本 run まで ★provisional に降格★。timing 裁定を値裁定に流用しない★。
+- ★**follow-up 必須条件(どちらの解釈でも)**: 2 actor の FullnessMax が異なる case を exercise する **新 test を追加**★
+  (すり抜けた理由 = 区別 case 未 exercise ⇒ 帰属を gate-asserted に変える)。
+  (2) = 参照先是正 + end-to-end 実測(swap して仮定しない)/ (1) = comment 訂正 + 同 test。
