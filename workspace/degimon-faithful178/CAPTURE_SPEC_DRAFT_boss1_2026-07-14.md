@@ -200,3 +200,24 @@ v0.2 を PRESIDENT 査読に出す**★。新規 run ゼロ〜最小（DGSTORE r
   read-only RE = game code ゼロ規範内。
 
 ⇒ 次 action: worker2 へ W-A/W-B dispatch（本節追記と同時刻に発行）。v0.2 は W-A/W-B 結果で §2b 全行確定 + 本裁定条件を仕様本文へ反映。
+
+## 12. ③前提の完了記録（(b) 完了 = worker2 `c63b14f`、2026-07-15 01:3x boss1 直読採用）
+
+### (b) C# opcode 0x36/0x37 preflight = ★両方 MISSING、但し単純 MISSING ではない★
+
+- **判定根拠**: 実 dispatch = DialogueRuntime.cs:575 switch(c)（brace 追跡で 575-1001 確定）。handle 20 opcode に
+  0x36/0x37 無し、OP_ 定数にも無し、default(879)=IsJump のみ（JumpOps に含まれず）⇒ **handler 無しで _pc+=len の
+  text 扱い fall-through**。★Len[] 掲載は証拠にしない（偽 GREEN #11 教訓の適用）★。
+- **0x36（→D3A/D42）**: ★slot は C# に存在★ — D42=PartnerState.Stomach(GameState.cs:117、[-100..+100]) /
+  D3A=HungerAccum(:121)。−100 clamp も存在するが**帰属は別 EXE addr 0x800A76A0 = care-tick**(:127)。
+  ⇒ ★**維持経路 DIVERGENT の芽: 実機 = script 0x36 が Stomach 減算 / C# = care-tick が減算**★。
+  ③ 含意 = 「slot 新設」でなく「**script 0x36 からも Stomach を触れる維持経路の追加**」（care two-tier 設計との整合は ③ 設計事項）。
+- **0x37（→E2DE/E2E0）**: E2E0 = C# に存在（日カウンタ、GameState.cs:23）だが★意味が違う: 実機 0x37 = operand を
+  【set】/ C# = 時間で【increment】★。E2DE = ★C# 対応物なし（grep ゼロ）★。⇒ ③ = E2DE slot 新設 + set 意味の
+  opcode 実装の 2 段。
+- **台帳合流**: 0x36/0x37 = #2/#3（0x46/0x79/0x66）と同じ『消費 opcode が C# に無い』class（**実装欠落は 3 件→5 件に拡大**、
+  ただし 0x36 は slot/clamp 既存で実装コスト小）。
+- **honest 未確定（worker2 明示）**: 覚醒 scenario での 0x36/0x37 実行有無 = 未測定（case 有無のみが scope）/
+  E2E0 の「日カウンタ」と「0x37 copy 先」の両義の整合 = 未検証（並置のみ、統合せず）/ 0x800F53C8 = 未同定のまま。
+- **§2b への波及**: D3A/D42 行の「維持 = VM opcode 0x36 実装」は「**維持経路の追加実装（C# 既存 slot へ）**」に確定。
+  E2DE/E2E0 行は「E2DE slot 新設 + 0x37 実装 + E2E0 二重意味の整合検証」に確定。三択判定そのものは不変。
