@@ -120,3 +120,13 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
 - 様式 3 点承認(disposition table / bulk golden vector 単一 oracle + worker1 blind x-check / 発明ゼロ)。
 - ★land 後の非退行 gate = care harness 19/19 + golden 37 + **新 bulk vector の 3 系統全緑**を commit gate に★。
 - (1)(3) 承認(SetDateTime 原盤順序 / 0x36 tail = bit2 峻別 + D58 raw + land 後 tail omitted log 除去)。
+- ★**C 生成 run1 = target 不到達 → 真因 = boss1 の id 空間混同(2026-07-15 05:3x、自己申告)**★:
+  『scene 204』を CurrentScenario==204 と operationalize したが、**204 は section/scene id 空間**
+  (実体 = persistent scene-id slot 0x801593B6、NewGame init 0x80110AE4 が sb 0xCC を書く。memory 明記
+  『204=section/map id≠178=entry index(別空間)』)。food-id≠shop-id class の再来 — **id を跨いで使う時は
+  空間の同定を先に**(worker3 の条件 5/6 設計 = 軌跡 log + dead-reckoning 禁止が検出した = 防御の配当)。
+  slot・boot 経路・binary は全て健全(軌跡 149→178→163 が既知 RE と一致)。
+  再裁定要請中: boss1 単一推奨 = **C = 0x801593B6==204 の初 frame(NewGame init 完了・cutscene 前)**
+  (capture すべき『初期』= script が走る前 — cutscene の state 効果は VM 忠実実装が再現すべき層)。
+  対抗 = scn163 初到達(post-cutscene、cutscene script 効果込み = MAPHEAD 未実装の C# では到達不能な状態が正典になる難点)。
+  DGSAVE addr 一般化(DGSAVE_ADDR/VAL/W)= diff 起こし先行承認済(発進は C 時点確定後)。
