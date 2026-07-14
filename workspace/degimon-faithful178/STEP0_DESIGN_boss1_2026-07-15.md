@@ -48,3 +48,12 @@ worker2 preflight `c63b14f` / W-A `6a78786` / worker1 x-check `27f3fa7` / docs/R
   本裁定の維持経路はその上で動く(prereg §1 の順序どおり)。
 
 承認いただければ step1(baseline C 生成 + stat struct 輸入)と併走で worker2 へ 0x36/0x37 実装を dispatch します。
+
+## 承認記録(PRESIDENT、2026-07-15 02:5x)= ★両裁定 APPROVE + 追加条件 2 点★
+
+1. (0a) 追加: ★loud log には operand 値 + 実行文脈(entry/section/pc)を含める★ — FAIL 時の RE trigger が
+   そのまま着手材料になる形で。
+2. (0b) 確認条件: ★E2DE/E2E0 とも baseline C からの初期値輸入対象に含まれることを step1 の輸入 list で明示★
+   (受け皿を作って空のままにしない)。
+3. 併走 dispatch = GO(step1=worker3 / 0x36・0x37 実装=worker2 / x-check 準備=worker1)。
+   ★本 arc 最初の game code commit★ — small commits + 非退行 gate(CutsceneVerify178 + care harness)を各 commit で。
