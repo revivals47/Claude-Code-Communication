@@ -102,3 +102,8 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
   worker1 実装は MIPS 不変条件の self-validating 走査で吸収(gp 期待値を条件に使わない = 循環回避)。
 - worker1 の指摘採用: h3_origs_dump.jsonl は **A-scoped**(boss1 の dispatch 文の『B 期待値』framing が誤り —
   worker1 が台帳直読で訂正。以後の突合設計は scope label(A/B/C)確認を必須に)。
+- **worker1 の事前分析+予測固定(04:0x 受領、worker3 dump 不読のまま)**: CDBC↔FBC 食い違いは『どちらかが誤り』でなく
+  ★測定次元差(台帳 L379 = runtime probe / worker1 = at-rest savestate 直読)で両立し得る★仮説。
+  blind 予測 3 点 = (a) CDBC at-rest = 0x8016B104 で一致 (b) FBC word = 0xBD89A982 で一致(= 次元差確定)
+  (c) D3A=1 / D54=0x00240022。外れたらどちらかの decoder 問題。★artifact 固定を指示済み(f1a commit で git 履歴証明)★。
+  3 者突合の裁定はこの fixture に対して行う。
