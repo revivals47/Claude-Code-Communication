@@ -460,3 +460,8 @@ boss1 が cross-validated comparator（h3_compare.py、22/22 検証済）+ 自�
 
 ★**単一推奨: capture 仕様確定 → 実装へ進む**★（user 裁定済の推奨順序どおり。因果 sprint は本パッケージで close、
 次 dispatch = capture 仕様 draft を boss1 が worker RE 材料から起案 → PRESIDENT 査読）。D42 の POST 次元 capture 化を仕様に含める。
+
+### L379 注記(2026-07-15、worker1 x-check `955634b` による次元 label 追加。L379 本文は不変・本注記が補完)
+- ★L379 の判別子 4 addr(D3A/D54/CDBC/E7C)は【B-runtime】次元の判別子★。at-rest(savestate 直読)次元では
+  判別子 = D3A/D54/E7C/FBC(worker1 実測)— ★CDBC は at-rest では A/B 同値(0x8016B104)で runtime でのみ差★。
+  指紋照合は次元(at-rest / runtime)を明記してから使うこと(次元差は矛盾でない、両方正しい)。

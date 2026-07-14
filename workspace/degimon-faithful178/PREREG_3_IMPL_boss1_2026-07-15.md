@@ -185,3 +185,19 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
 - **副次 finding(台帳へ、推測で埋めない)**: D18 は settle 4000(cutscene 通過後)でも上書きされなかった =
   『stat struct は cutscene が上書きする』の事前予想が **D18 では外れた**(partner 生成が settle 窓より後 or
   D18 は partner-write でない、の可能性 — honest gap として記録のみ)。
+
+## 12. ★step1 = CLOSE(2026-07-15 07:5x。x-check 通過)★
+
+- worker1 x-check(`955634b`、前倒し): ★task1 = C 台帳 4 項全 CONFIRMED★(blind 順序遵守、自前 decoder、
+  sha 二重固定)。★task2 = CDBC↔FBC 3 者突合 → **次元差仮説 CONFIRMED**★ — L379 = A-hookdump vs **B-runtime** の
+  判別子 / worker1 = A-hookdump vs **B-at-rest** の判別子で**両方正しい**(CDBC は at-rest では A/B/A-hook 全て
+  0x8016B104、runtime でのみ差 = runtime 限定差。FBC 欠落 = DMA squash class)。予測 lock 35716f6 = (a)(c) CONFIRMED /
+  (b) PARTIAL(対象 artifact 未産出 = 反証ゼロ)。⇒ ★指紋台帳は次元 label(at-rest / runtime)必須★ —
+  H3_FINDINGS L379 に注記追加済み。worker1 自己訂正 1 件(lock 内推論の撤回)も採録。
+- ★新材料(provenance 未確認)★: f1c の frame0.raw/frame1.raw(07-12 生成)= A at-rest の decode 実体の可能性
+  (var[1]=69 + 7 probe addr が A hookdump と bit 一致)。★由来 .sav 未確認 → worker3 へ照会中。確認されれば
+  A 指紋台帳を word 級 at-rest に拡張可能★(確認まで候補 label)。
+- ★step2 への確定 blocker(先読み)★: C の stat struct = 全ゼロ vs C# NewGame() seed(Fullness25/Stomach50/
+  Condition50)= **確定的に乖離(0≠50)** ⇒ pre-design の規律『一致 assert or 停止上申』の**上申側が必ず発火**。
+  実機は NewGame-init 時点でゼロ、seed(0x800A63A4=0x32)は partner 生成時 = **C# は seed 適用時点が実機より早い**
+  という timing 忠実度問題。step2 は実装前にこの reconciliation 設計(worker2 起案 → boss1 → PRESIDENT)を先行させる。
