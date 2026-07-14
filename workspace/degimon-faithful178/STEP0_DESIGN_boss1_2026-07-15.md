@@ -125,3 +125,49 @@ worker2 preflight `c63b14f` / W-A `6a78786` / worker1 x-check `27f3fa7` / docs/R
 - 境界二重適用なし(旧値基準 1 回 + real-time 別経路)の機構説明を条件 2 の test 設計にそのまま使う。
 - E2DE 事案の教訓の言語化(PRESIDENT): ★『発明しなかったから、正しい意味が入る余地が残っていた』★ —
   未同定 slot は raw 保持が正解(意味論は RE が埋める)。
+
+## ★8dc865d の訂正(worker2 自己申告、`b4a99c0`)+ 残 RE 結果 — 0b-v2 材料完備★
+
+- ★**訂正**: 0x800AB40C は『小型の別関数・hunger/latch なし』ではない — **全長 RE(末尾 0x800AB7B8、jr ra 1 箇所)=
+  care-hour 一括前進の【大型 care 本体】**★。store list 13 field = Fullness(D54)/IdleHours(D4A)/latch-precond(D2A)/
+  D58/D56/D6A/D6E/D60/D62/D38/D30/D50/D4E。時刻部 = D6E+=delta / D60-=delta / hour+=delta(≥24 で D62 日累積へ)。
+  ★内部 loop=0 = bulk(delta-scaled 算術)★ — 単発呼出・一括適用の claim は維持。
+  **= 部分 RE 誤りの 3 例目**(0x36 tail / 0x37 / 今回)。worker2 は以後 catch-up 系を最初から全長 RE と自己規範化。
+- ★**0b-v2 の核 = 意味論の乖離リスク**: C# TickCareHour = per-hour(1 時間ずつ+clamp)/ 0x800AB40C = bulk 一括式。
+  **『N×TickCareHour == bulk(N)』は未検証で、多時間 jump では乖離し得る**(per-hour clamp の反復 vs 一括減算)★。
+- **(B 前提)0x800EF7D0 の canonical entry = 不在確定**: ClampCareMeters は Stomach/Condition のみ / CareAction の
+  latch は bit0x40 = ★0x36 tail の bit2(0x4)とは別 latch(混同禁止)★ / D58 = C# 不在。⇒ 新規 method 要。
+
+## ★0b-v2: 『時計/care 相互作用』一括設計(boss1 起案、2026-07-15 04:5x → PRESIDENT 承認 gate)★
+
+### (1) 0x37 = SET_DATETIME(単一推奨)
+- DialogueRuntime case 0x37: operand = var index。GetVar(idx..idx+3) = [month, day, hour, minute]。
+  **handler 順序 = 原盤どおり**: serial 計算(変換式は RE 済)→ 旧値基準で catch-up 1 回(時間前進時のみ)→ slot store。
+- C# 形: `GameClock.SetDateTime(month, day, hour, minute)`(bulk setter 1 個を追加、既存 private set は不変)+
+  **`Month` = GameClock 新規 slot**(E2DE、意味論 RE 済)。E2DE/E2E0 初期値 = step1 輸入 list 済(承認条件)。
+
+### (2) catch-up = ★bulk 式の新規 method `CareBulkAdvance(deltaHours)` を単一推奨★
+- **理由**: (i) 原盤自体が per-hour tick とは別の bulk 機構 — 忠実対象は**その式そのもの** (ii) 『N×TickCareHour ==
+  bulk(N)』は未検証 = 等価仮定の per-hour 呼び回しは assumption-based (iii) gate 条件 1(内部 logic 複製禁止)に
+  非抵触 — TickCareHour の複製ではなく、**別の原盤関数の第 1 実装**。
+- **実装様式 = per-field disposition table 必須**: store list 全 13 field を『implement(C# 対応あり or 算術 RE 済)/
+  raw-slot 新設(D6E/D60/D62 等 = 算術は RE 済・意味論未同定 → E2DE 方式で raw 保持)/ declared-gap(宣言付き omit)』
+  の 3 分類で実装 note に固定。★silent 欠落禁止 — omit は宣言 + 差分テスト次元の追跡 signal 化★。
+- **oracle**: care golden 方式を踏襲 — **bulk 式 golden vector を新設**(EXE 算術から導出、worker1 が blind x-check)
+  = 単一 oracle。
+- **characterization 測定**: bulk(N) vs N×TickCareHour の乖離を test で記録(実装決定用ではない —
+  乖離があれば『per-hour 案は不忠実』の証明、なければ回帰安全性の記録)。
+
+### (3) 0x36 tail = 新規 method(Fullness clamp + bit2 clear + D58 zero)
+- Fullness clamp(form 表 +8 の FullnessMax、RE 済)+ **D18 bit2 clear = bit 操作のみ忠実実装**(意味論未確定のまま、
+  ★bit0x40(要ケア)とは別 latch と code comment で明記★)+ D58 = 新規 raw slot に zero。
+- 呼出 = 0x36 case の core 直後(原盤どおり毎回 unconditional)。land 後、c229d7f の『tail omitted』loud-log を除去。
+
+### (4) verify(PRESIDENT 条件 2 + 設計 note の形)
+- catch-up test = ★『catch-up 関数 1 回・delta=N の一括適用が原盤 0x800AB40C の変換(golden vector)と一致』★。
+- 二重適用なし test(set 後 AdvanceMinutes が set 値から通常進行)。既存 care harness 37/37 + CutsceneVerify178 全緑維持。
+- 差分テスト: E2DE/E2E0/E298/E29A + D54/D18/D58 次元の FAIL 減を per-step 目標に。
+
+### (5) 残 unknown(宣言)
+- bit2 の意味 / D56・D6A・D38・D50・D4E の semantics(disposition table で宣言処理)。RE は実装ノート段階で
+  worker2 が per-field に判定、未同定は raw-slot or declared-gap(発明ゼロ原則)。
