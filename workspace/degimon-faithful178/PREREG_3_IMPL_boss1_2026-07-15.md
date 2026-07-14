@@ -105,5 +105,5 @@ file 境界: worker2 = unity/Assets/Scripts/（実装）、worker3 = duckstation
 - **worker1 の事前分析+予測固定(04:0x 受領、worker3 dump 不読のまま)**: CDBC↔FBC 食い違いは『どちらかが誤り』でなく
   ★測定次元差(台帳 L379 = runtime probe / worker1 = at-rest savestate 直読)で両立し得る★仮説。
   blind 予測 3 点 = (a) CDBC at-rest = 0x8016B104 で一致 (b) FBC word = 0xBD89A982 で一致(= 次元差確定)
-  (c) D3A=1 / D54=0x00240022。外れたらどちらかの decoder 問題。★artifact 固定を指示済み(f1a commit で git 履歴証明)★。
+  (c) D3A=1 / D54=0x00240022。外れたらどちらかの decoder 問題。★artifact 固定完了 = f1a `35716f6`(boss1 実在確認済)★。
   3 者突合の裁定はこの fixture に対して行う。
