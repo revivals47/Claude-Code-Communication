@@ -104,3 +104,27 @@ land は gate ②(測定条件 3 + PRESIDENT go)を経る。cutscene 実走・�
   ★OFF bit-identical(run 前後)= 解除が OFF を汚さない実測★/user GO/live boot 成功。
 - ★処置: 実機 Boot-trace 1 run(238→178§254 の原盤遷移を確定)→ Boot 接続実装 → live 再走★。
   4-hop 本体で成功した『memory 地図を実機で確証してから実装』pattern を踏襲、238 接続を推測実装しない。
+
+## 7. ★★経路 reconcile = 4-hop 本体が §13 mis-premise の上に建っていた(2026-07-16 03:0x、worker2 `37fb02e`)★★
+
+- ★**CONFIRMED(machine-check 優先、直読)**★:
+  1. **0x4B(218)= MAP warp**(byte1 sp+0x2d→gp-0x6cac=changeMap dest=map registry idx=ROOM08)= **scenario-0 §218
+     dialogue load ではない**(L136/136bb4b と一致)。⇒ ★**§13 の『hop2=MAPHEAD §218 resolve』は 0x4B dest を
+     section と誤読した mis-RE**★。
+  2. **entry178 body 内に 0xFB(163)は 0 件**(全 scan)= 163 の出所は entry178 外。
+  3. ★e21d673/worker2 chain trace が §218 を通ったのは、②-b-1 が §13 mis-premise をコード化して §218 dialogue load
+     を挿入した**産物** = canon でない★。
+- ★**含意(重大)**: ②-b-1〜4 は §13 mis-premise 上の §218-transit で build = canon(fresh boot lscn=[149,163,178])と
+  入口・中間が違う = **redesign 要**。『4-hop data 地図一致』は **mis-premise 上の偽の一致**、worker3 fresh boot が真 oracle★。
+- ★**boss1 の検収盲点(自己記録)**: boss1 は worker 実装が『§13 data 地図と一致するか』を検収 PASS したが、
+  **『§13 地図が原盤か』を検収していなかった** — oracle(data 地図)自体の検証を怠った★。
+  「緑が何を assert してるか確認せよ」の最深版 = ★**oracle 自体が偽だった**★。headless per-hop 緑・e21d673『実機 oracle』は
+  両方 178§254 起点(§13 mis-premise 由来の起点)で測っていた。**fresh boot(canon C = New Game 直後)が全体を仲裁した**。
+- ★**valid な実測は保持(崩れる範囲を限定)**★:
+  - **保持**: MAPHEAD content==entry[0][:23094](純 byte 比較、経路無関係)/ seed・care・canon 群(step2 以前)/
+    OFF-inert(OFF=shortcut 不変)/ 0x4B が map warp である事実自体。
+  - **崩れる**: ②-b の §218-transit 4-hop / 『4-hop data 地図一致』headless 緑 / STEP3_DESIGN v1-v2 の
+    『GetEntryBase(0)=§218 経由』前提 / memory §13 の hop2。
+- ★**OPEN(推論で埋めない、実測待ち)**: (H-A)fresh boot が 178→163 に至る機構 = ROOM08 の MAPHEAD §218 resident 由来か
+  (H-B)別経路か / lscn==0 ゼロ と MAPHEAD §218 の整合。弁別 = worker3 per-seq trace(0x4B 後の実 load 対象)+
+  changeMap 0x800E3DA0→StartScript 全長 RE★。
