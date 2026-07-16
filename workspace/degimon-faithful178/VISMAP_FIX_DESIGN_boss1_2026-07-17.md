@@ -23,11 +23,15 @@
 - ★各 settle で render すべき map = 直前 0x4B の dest = oracle 可視 map と 1:1★。0x47 は pending を更新しない(草原 beat で 0x47(30)(117)(29) が pending=238 を上書きしないから草原=238 が出る、ROOM08 beat で 0x47-after-0x4B(218) が 218 を上書きしないから ROOM08 が出る)。
 
 ## 2. 修正機構: cutscene-active-gated coalesce-to-settle render
-IsCutsceneActive 背後で:
+### ★gate 訂正(worker2 step1 実 code 直読で捕捉、boss1 裏取り済)★
+- ★当初案「IsCutsceneActive 単独 gate」は誤り★: OFF 覚醒も RunScene(238)→ACTIVATE 178→PlayMapSectionScene→SceneCutscene root(ScenarioVM L163/189)ゆえ **IsCutsceneActive=true**(TextboxView:134=`!IsFinished && Root==SceneCutscene`)。∴ IsCutsceneActive 単独では OFF cutscene(user PASS 済 830ac05b)も coalesce=OFF 視覚保護不足。
+- ★正 gate = `FaithfulScenarioZero && IsCutsceneActive`(worker2 CoalesceActive helper)★: OFF(flag=false)+通常 field-nav(cutscene=false)を除外、ON boot chain の cutscene のみ coalesce。dispatch step1 framing(OFF[flag=false]+field-nav[cutscene=false]=byte-identical)と整合。
+
+★gate=FaithfulScenarioZero && IsCutsceneActive★ 背後で:
 1. **0x4B warp**: pending field-map を更新するが **即 render しない**(現状の QueueWarp→次frame flush→BuildField を defer)。pending は次の 0x4B か settle まで保持。
 2. **0x47 emit**: ★可視 pending を更新しない・render しない★(map-setup、非 field-scene)。= 中間 mist03/tunn07 可視化の直接封鎖。
 3. **DialogueState settle 遷移**(Running→WaitingAdvance/WaitingChoice/Finished): pending map が現表示と異なれば BuildField(pending)。= 草原/ROOM08/twna01 の 3 render のみ、中間ゼロ。
-4. **OFF / 通常 field-nav**(IsCutsceneActive=false): 現状の即 render を 1 bit も変えない。
+4. **OFF cutscene(flag=false)/ 通常 field-nav(cutscene=false)**: gate FALSE ゆえ現状の即 render を 1 bit も変えない。★OFF 覚醒は ICA=true だが FSZ=false で除外(byte-identical 保護)★。
 
 ### signal-bridge(worker2 wiring 選択)
 - FieldManager は現状 IsCutsceneActive のみ保持、DialogueState(settle-state)未接続。
