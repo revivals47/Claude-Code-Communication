@@ -23,15 +23,19 @@
 - ★各 settle で render すべき map = 直前 0x4B の dest = oracle 可視 map と 1:1★。0x47 は pending を更新しない(草原 beat で 0x47(30)(117)(29) が pending=238 を上書きしないから草原=238 が出る、ROOM08 beat で 0x47-after-0x4B(218) が 218 を上書きしないから ROOM08 が出る)。
 
 ## 2. 修正機構: cutscene-active-gated coalesce-to-settle render
-### ★gate 訂正(worker2 step1 実 code 直読で捕捉、boss1 裏取り済)★
-- ★当初案「IsCutsceneActive 単独 gate」は誤り★: OFF 覚醒も RunScene(238)→ACTIVATE 178→PlayMapSectionScene→SceneCutscene root(ScenarioVM L163/189)ゆえ **IsCutsceneActive=true**(TextboxView:134=`!IsFinished && Root==SceneCutscene`)。∴ IsCutsceneActive 単独では OFF cutscene(user PASS 済 830ac05b)も coalesce=OFF 視覚保護不足。
-- ★正 gate = `FaithfulScenarioZero && IsCutsceneActive`(worker2 CoalesceActive helper)★: OFF(flag=false)+通常 field-nav(cutscene=false)を除外、ON boot chain の cutscene のみ coalesce。dispatch step1 framing(OFF[flag=false]+field-nav[cutscene=false]=byte-identical)と整合。
+### ★gate 訂正(2 段、worker2 実 code 直読で捕捉、boss1 裏取り済)★
+- ★訂正1(step1): 「IsCutsceneActive 単独」は誤り★: OFF 覚醒も RunScene(238)→ACTIVATE 178→SceneCutscene root ゆえ **IsCutsceneActive=true**。∴ 単独では OFF cutscene(830ac05b)も coalesce=OFF 保護不足。→ `FaithfulScenarioZero && IsCutsceneActive` へ。
+- ★訂正2(step2 前 premise-check): 「FaithfulScenarioZero && IsCutsceneActive」も不足★: 覚醒 flow は root 混在 — §204(RunScene(204)→**PlayMapSection=NpcSection root**、boss1 直読確認)+ §238(0x4B(238)→scenario-0 §238、PendingScenarioActivate=false=**NpcSection root**)は **IsCutsceneActive=false**。∴ これらの 0x47(mist03/topn01/tunn07 由来)が gate 素通り→render(bug 残存)。SceneCutscene な §218/178§254 のみ ICA=true。
+- ★正 gate = dedicated flag `AwakeningCutsceneActive`(worker2 option A)★: 覚醒 cutscene 全 span(Boot→twna01、NpcSection + SceneCutscene 混在)を cover。
+  - **set**: ScenarioVM Boot の `if(FaithfulScenarioZero)` block(RunScene(204) 覚醒起点)。★OFF(RunScene(238))は set しない=OFF-inert★。
+  - **clear**: 覚醒 terminal(c8e2e32 terminal 0x4B(204) LaunchDest=204→twna01 settle→idle。twna01 render 後)。★clear 後は field-nav 即 render 復帰★。
+  - (B)FSZ && InputLocked = field NPC dialogue も InputLocked=true ゆえ field-nav 0x47 warp 誤 suppress=却下。
 
-★gate=FaithfulScenarioZero && IsCutsceneActive★ 背後で:
+★gate=AwakeningCutsceneActive(dedicated flag、Boot(204) set / terminal clear)★ 背後で:
 1. **0x4B warp**: pending field-map を更新するが **即 render しない**(現状の QueueWarp→次frame flush→BuildField を defer)。pending は次の 0x4B か settle まで保持。
 2. **0x47 emit**: ★可視 pending を更新しない・render しない★(map-setup、非 field-scene)。= 中間 mist03/tunn07 可視化の直接封鎖。
 3. **DialogueState settle 遷移**(Running→WaitingAdvance/WaitingChoice/Finished): pending map が現表示と異なれば BuildField(pending)。= 草原/ROOM08/twna01 の 3 render のみ、中間ゼロ。
-4. **OFF cutscene(flag=false)/ 通常 field-nav(cutscene=false)**: gate FALSE ゆえ現状の即 render を 1 bit も変えない。★OFF 覚醒は ICA=true だが FSZ=false で除外(byte-identical 保護)★。
+4. **OFF cutscene(flag=false、AwakeningCutsceneActive 未 set)/ 通常 field-nav(terminal 後 clear 済)**: gate FALSE ゆえ現状の即 render を 1 bit も変えない。★OFF 覚醒は ICA=true でも AwakeningCutsceneActive 未 set(OFF は RunScene(238)、set 経路非通過)で除外(byte-identical 保護)★。
 
 ### signal-bridge(worker2 wiring 選択)
 - FieldManager は現状 IsCutsceneActive のみ保持、DialogueState(settle-state)未接続。
@@ -44,6 +48,7 @@
 
 ## 4. ★honest gap / 実装前 verify(premise 化しない)★
 - ★実装時 dry-run trace で「各 settle の pending = oracle 可視 map(草原=238/ROOM08=218/twna01=204)」を実測確認してから land★。§1 表は oracle 接地だが、実装が実際にこの pending 列を産むか(0x47 が本当に pending 非更新か、map-id 一致か)を trace で確認=推論を実装に密輸しない。
+- ★gate(A)coverage の実測確認(訂正2 由来、追加検証項目)★: (a)§204/§238 NpcSection の 0x47(mist03/topn01/tunn07 由来)も AwakeningCutsceneActive gate 内で **非 render**(ICA=false でも dedicated flag が cover)。(b)terminal twna01 render 後に flag clear→**field-nav 即 render 復帰**(flag 残留で field-nav 破壊しない)。(c)可視列=草原→ROOM08→twna01 の 3 render のみ、中間 0 件。
 - 0x47 の非 field 意味(map-setup が何を set するか)= scope 外(可視 render を suppress するだけ、data-load 副作用があれば worker2 が実装時に保持判断)。
 
 ## 5. acceptance(gate ②-style、runtime)
