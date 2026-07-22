@@ -65,3 +65,28 @@ MEMORY.md index 追加行:
 > - **backlog (boss1 closeout notes = Claude-Code-Communication/workspace/k16_stage_d_boss1_closeout_notes.md に詳細)**: gallery context_menu demo が stub (実 popup を出さない、popup 系 visual validation の標準シナリオ化推奨) / popup per-monitor scale (foreign monitor 上の軽微 mis-scale = owner SSOT の意図的 tradeoff、将来 enhancement) / escape hatch alias (=false/no) / k16 系 remote branch 4 件 hygiene (scale-transform ff3cbf2 + popup-cpu-path-2 a0aabda は **WIP worktree 占有中で削除禁止**、protocol-wiring + popup-cpu-path は main 包含検証後に削除候補) / F-3 CPU plain text subpixel phase (~0.75px、fractional 時のみ) / Q2 SDF >256px / FB-1 dogfood pre-existing fail 2 件 (agents-linux-v2 E0063 + gpu-furnace E0308、bisect 要) / pdfview physical render target opt-in。
 
 また、07-21 K15 追記の K16 起票行の末尾に `→ **2026-07-22 完遂 (下記)**` を追記すること。
+
+---
+
+## §F セッション末尾追補 — dual-PC 同期・再開手順 (session close 監査で追記)
+
+### ★重要: ops repo (本 repo) の dual-PC line 分岐を解消済
+handoff push 時に判明: userfork (revivals47) の main は home-PC が 07-08 に push した line (CLAUDE.md 行動姿勢 7 箇条 / instructions 棚卸し / degimon handoffs ×3) で止まっており、work-PC は 07-07 分岐点から handoff 4 本 (07-09 / 07-13 / 07-21 / 07-22) を **pull せずに local へ積んでいた** = 07-09〜07-21 の work-PC handoff は本日まで remote に存在しなかった。**解消 = work-PC 側で `git rebase userfork/main` (conflict ゼロ、ファイル互いに素) → push 済、userfork/main = `77c5260` 以降**。work-PC には棚卸し後の新 instructions (CLAUDE.md 行動姿勢 7 箇条含む) が rebase で取り込まれた。
+
+**home-PC 再開手順**:
+1. 本 repo: `git fetch userfork && git status -sb` — home-PC local が 506a152 のままなら `git merge --ff-only userfork/main` で一括取得 (07-09〜07-22 handoff 4 本 + 本追補が入る)
+2. GUI_kit: `git pull` → main が `8ca0cb8` (= ddee0db の K16 default-on + K16 workspace notes archive 12 件) 以降であること
+3. testruct: `git pull` → main `57357aa` 以降
+4. memory mirror: 本 doc の mirror 節 2 点を home-PC memory へ verbatim 適用
+5. **home-PC は display 環境が異なる可能性**: fractional scale が default-on になったため、home-PC の scale 設定 (整数 scale なら実質不変 / 非対応 compositor なら protocol 非 bind で不変) を最初の app 起動時に一度目視。異常があれば `HAYATE_FRACTIONAL_SCALE=0` で切り分け
+
+### session close 監査結果 (work-PC、2026-07-22)
+| repo | HEAD | 状態 |
+|---|---|---|
+| Claude-Code-Communication | `77c5260`+ (userfork 同期済) | clean。origin (upstream Akira-Papa) ahead 48 は正常 (push 先は userfork のみ) |
+| GUI_kit | `8ca0cb8` | clean。K16 workspace notes 12 件 archive commit 済。stash 2 件は旧 stray-ラベル (既知、温存) |
+| hayate-kit-testruct | `57357aa` | clean |
+| hayate-kit-settings / linux-gallery / pdfview | main / master 同期 | Cargo.lock 自動更新のみ (harmless、commit 不要規範) |
+
+### 残 open (次 session 冒頭 checklist)
+- なし (K16 track 完全終結、全 worker standby)。次 dispatch = user trigger 待ち (backlog は本 doc §残課題 + testruct REMAINING-TASKS.md)
