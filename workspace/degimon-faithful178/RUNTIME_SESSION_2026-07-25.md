@@ -22,7 +22,15 @@ claim 規律: 以下【観測】=log 直読、【推論】=未裏取り。
 > (既知 FAALL.VHB per-scene bank 知見と整合)。**本節の【観測】(trap PC/ra/register/dump bytes)は全て真、
 > 誤っていたのは解釈**(「section copy dispatcher」「entity array」)。watchpoint 対象 addr 自体が
 > 7/25 handoff §B の誤 anchor 由来 = 同 handoff の entity claim(stride 0xc4/type@+0x22 等)も出所再検証中。
-> 真の field NPC array = 再同定 dispatch 進行中(worker1 (b)+worker3 敵対検証)。off-by-one 機構は本 path では説明不能。
+> 真の field NPC array = ★再同定完了(同日 16:43、worker1 aeb1138、2 独立経路収束)★: **base=`0x80145608`**
+> (経路A=savestate 非RAM prefix 0x1A62 実測換算 / 経路B=211 map×966 entry best-match lattice、EXE lui 44 箇所+AI 関数 lb 直読裏取り)。
+> record 型 = type@+0x00 / pos@+0xA8 / rot_y@+0xB0 / ai_type@+0xBC、**stride 0xC4 は生存**。map 自己同定多重度 = savestate 群
+> twna01 7/7・twna13 8/8、live ram_A/B = mayo00 5/5(=当日の battle は mayo00 上と判明)。
+> ★off-by-one(type=N+1)= 測定 artifact と確定★: 旧読み(pos-6)+0x22 = 0x1C+0xA8 = 0xC4 でちょうど**次 record の type** を
+> 拾っていた(旧 oracle 4 行を 1 byte 違わず再現、type 一致は正 base で 20/20 vs 旧仮説 3/17)。
+> 残: (798,-1656) 黄 creature の旧視覚反証 1 件のみ未説明(user 1 分の原盤色確認待ち)。scale = honest gap 維持。
+> 波及棚卸し: savestate_ram.py prefix 未補正由来の過去 VA/gp claim + extracted/ の 2 種 EXE 併存(t_addr 0x80080000 vs 0x80090800)provenance = worker1 対応中。
+> ★land 済 field-model 配線(48f25ac 系)は off-by-one 補正を含む=誤 base 読みと N+1 の 2 誤り相殺で見た目正だった可能性 → 正 base への re-baseline は別 dispatch(PRESIDENT gate、user 視覚 PASS 済の画を壊さないこと)★。
 
 - 【観測】watchpoint `0x80147358`(entity array)trap: 書込みは **BIOS byte-copy `0xbfc02b68`**(`lbu t6,0(a1)` loop)内。
   - field 遷移時: a0(進行 pointer)=`0x80147359` / src=`0x80010be9` / len 残=`0x43` / **ra=`0x800cf1a8`**
