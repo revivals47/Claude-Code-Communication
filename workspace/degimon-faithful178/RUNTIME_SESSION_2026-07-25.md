@@ -38,7 +38,11 @@ claim 規律: 以下【観測】=log 直読、【推論】=未裏取り。
 
 ## 2. battle damage RE = 部分進展(HP addr 未確定)
 
-- 【観測】`s_damageCheck`(VA 0x80056ca8)hbreak: **戦闘突入 +5〜6 秒に 2 call(sp 0x30 差=別 frame 連続)で 1 回だけ発火、per-attack では発火しない**(3 戦再現 + user「now」同期攻撃で hit ゼロの決定打)。caller **ra=`0x8005cab4`**(file offset `0x9FD4`)。args a0=`0x8016b084` / a1=`0x8016b0bc`(既知 static table。live HP struct でない=下記)
+> ★訂正(同日、worker3 発見 + boss1 bytes 裏取り)★: 「2 call(sp 0x30 差=別 frame 連続)」は誤り = **1 call**。
+> s_damageCheck 先頭(file 0x41C8)= `addiu sp,sp,-0x30` の prologue であり、2 記録は同一 invocation の
+> prologue 前後の再報告(pc / pc+4、sp 差 0x30 が prologue そのもの)。per-attack 非発火の結論は不変。
+
+- 【観測】`s_damageCheck`(VA 0x80056ca8)hbreak: **戦闘突入 +5〜6 秒に 1 call のみ発火(上記訂正)、per-attack では発火しない**(3 戦再現 + user「now」同期攻撃で hit ゼロの決定打)。caller **ra=`0x8005cab4`**(file offset `0x9FD4`)。args a0=`0x8016b084` / a1=`0x8016b0bc`(既知 static table。live HP struct でない=下記)
 - 【観測】HP 候補 `0x80014536`(snapshot diff で唯一の −627 一致)は**偽陽性と確定**: 攻撃 100+92 後の live 直読=3620(期待 52493 と不一致)。0xD040→0xCDCD の fill-pattern 偶然
 - 【観測】`0x8016b000-0x8016b2ff` は 599 ダメージ前後で bit 不変 = live battle HP はこの帯に無い
 - 【観測】非同期 20 連写(1.5s 間隔)では単調減少系列ゼロ = 窓内に攻撃なしの公算
