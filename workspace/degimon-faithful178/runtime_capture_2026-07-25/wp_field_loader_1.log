@@ -1,0 +1,32 @@
+The target architecture is set to "mips:3000".
+The target is set to little endian.
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x80091e3c in ?? ()
+Hardware watchpoint 1: *(unsigned int*)0x80147358
+
+Program stopped.
+0x80091e84 in ?? ()
+===TRAP===
+pc: 0x80091e84
+ra: 0x80091f88
+sp: 0x801ffe58
+   0x80091e78:	move	a1,zero
+   0x80091e7c:	j	0x80091e9c
+   0x80091e80:	nop
+=> 0x80091e84:	lui	v0,0x8012
+   0x80091e88:	lw	v0,-13560(v0)
+   0x80091e8c:	nop
+warning: GDB can't find the start of the function at 0x80091e84.
+
+    GDB is unable to find the start of the function at 0x80091e84
+and thus can't determine the size of that function's stack frame.
+This means that GDB may be unable to access that stack frame, or
+the frames below it.
+    This problem is most likely caused by an invalid program counter or
+stack pointer.
+    However, if you think GDB should simply search farther back
+from 0x80091e84 for code which looks like the beginning of a
+function, you can increase the range of the search using the `set
+heuristic-fence-post' command.
+#0  0x80091e84 in ?? ()

@@ -1,0 +1,37 @@
+15:46:25 The target architecture is set to "mips:3000".
+15:46:25 The target is set to little endian.
+15:46:25 warning: No executable has been specified and target does not support
+15:46:25 determining executable automatically.  Try using the "file" command.
+15:46:25 0x8009dcd0 in ?? ()
+15:46:25 Breakpoint 1 at 0x80056ca8
+15:46:49 
+15:46:49 Program stopped.
+15:46:49 0xbfc02b68 in ?? ()
+15:46:49 warning: GDB can't find the start of the function at 0xbfc02b68.
+15:46:49 
+15:46:49     GDB is unable to find the start of the function at 0xbfc02b68
+15:46:49 and thus can't determine the size of that function's stack frame.
+15:46:49 This means that GDB may be unable to access that stack frame, or
+15:46:49 the frames below it.
+15:46:49     This problem is most likely caused by an invalid program counter or
+15:46:49 stack pointer.
+15:46:49     However, if you think GDB should simply search farther back
+15:46:49 from 0xbfc02b68 for code which looks like the beginning of a
+15:46:49 function, you can increase the range of the search using the `set
+15:46:49 heuristic-fence-post' command.
+15:46:49 HIT 1 pc=bfc02b68 ra=80108960 a0=80147359 a1=80010be9 a2=00000843 a3=00000000 v0=0000000c s0=80138ab8 s1=80010000 s2=00000008 sp=801ffc98
+15:46:55 
+15:46:55 Program stopped.
+15:46:55 0x80056ca8 in ?? ()
+15:46:55 warning: GDB can't find the start of the function at 0x80056ca8.
+15:46:55 HIT 2 pc=80056ca8 ra=8005cab4 a0=8016b084 a1=8016b0bc a2=00000000 a3=00000000 v0=00000010 s0=00000066 s1=00000001 s2=00000005 sp=801ffe00
+15:46:55 
+15:46:55 Program stopped.
+15:46:55 0x80056cac in ?? ()
+15:46:55 warning: GDB can't find the start of the function at 0x80056cac.
+15:46:55 HIT 3 pc=80056cac ra=8005cab4 a0=8016b084 a1=8016b0bc a2=00000000 a3=00000000 v0=00000010 s0=00000066 s1=00000001 s2=00000005 sp=801ffdd0
+15:47:14 
+15:47:14 Program stopped.
+15:47:14 0xbfc02b68 in ?? ()
+15:47:14 warning: GDB can't find the start of the function at 0xbfc02b68.
+15:47:14 HIT 4 pc=bfc02b68 ra=80108960 a0=80147359 a1=80010be9 a2=00000043 a3=00000000 v0=0000000c s0=80138ab8 s1=80010000 s2=00000008 sp=801ffc88

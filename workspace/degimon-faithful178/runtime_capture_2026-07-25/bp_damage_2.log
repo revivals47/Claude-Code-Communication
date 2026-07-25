@@ -1,0 +1,73 @@
+15:49:28 The target architecture is set to "mips:3000".
+15:49:28 The target is set to little endian.
+15:49:28 warning: No executable has been specified and target does not support
+15:49:28 determining executable automatically.  Try using the "file" command.
+15:49:28 0x80091e50 in ?? ()
+15:49:28 Hardware watchpoint 1: *(unsigned int*)0x80147358
+15:49:28 Hardware assisted breakpoint 2 at 0x80056ca8
+15:50:24 
+15:50:24 Program stopped.
+15:50:24 0xbfc02b68 in ?? ()
+15:50:24 warning: GDB can't find the start of the function at 0xbfc02b68.
+15:50:24 
+15:50:24     GDB is unable to find the start of the function at 0xbfc02b68
+15:50:24 and thus can't determine the size of that function's stack frame.
+15:50:24 This means that GDB may be unable to access that stack frame, or
+15:50:24 the frames below it.
+15:50:24     This problem is most likely caused by an invalid program counter or
+15:50:24 stack pointer.
+15:50:24     However, if you think GDB should simply search farther back
+15:50:24 from 0xbfc02b68 for code which looks like the beginning of a
+15:50:24 function, you can increase the range of the search using the `set
+15:50:24 heuristic-fence-post' command.
+15:50:24 HIT 1 pc=bfc02b68 ra=800cf1a8 a0=80147359 a1=80010be9 a2=00000043 a3=00000001 v0=0000000c s0=80010000 s1=8001001c s2=8013d630 sp=801ffd08
+15:50:29 
+15:50:29 Program stopped.
+15:50:29 0xbfc02b68 in ?? ()
+15:50:29 warning: GDB can't find the start of the function at 0xbfc02b68.
+15:50:29 HIT 2 pc=bfc02b68 ra=800cf1a8 a0=80147359 a1=80010be9 a2=00000043 a3=00000001 v0=0000000c s0=80010000 s1=80010018 s2=8013d630 sp=801ffd08
+15:50:46 
+15:50:46 Program stopped.
+15:50:46 0xbfc02b68 in ?? ()
+15:50:46 warning: GDB can't find the start of the function at 0xbfc02b68.
+15:50:46 HIT 3 pc=bfc02b68 ra=80108960 a0=80147359 a1=80010be9 a2=00000843 a3=00000000 v0=0000000c s0=80138ab8 s1=80010000 s2=00000008 sp=801ffc98
+15:50:52 
+15:50:52 Program stopped.
+15:50:52 0x80056ca8 in ?? ()
+15:50:52 warning: GDB can't find the start of the function at 0x80056ca8.
+15:50:52 HIT 4 pc=80056ca8 ra=8005cab4 a0=8016b084 a1=8016b0bc a2=00000000 a3=00000000 v0=ffffff33 s0=00000066 s1=00000001 s2=00000002 sp=801ffe00
+15:50:52 
+15:50:52 Program stopped.
+15:50:52 0x80056cac in ?? ()
+15:50:52 warning: GDB can't find the start of the function at 0x80056cac.
+15:50:52 HIT 5 pc=80056cac ra=8005cab4 a0=8016b084 a1=8016b0bc a2=00000000 a3=00000000 v0=ffffff33 s0=00000066 s1=00000001 s2=00000002 sp=801ffdd0
+15:51:09 
+15:51:09 Program stopped.
+15:51:09 0xbfc02b68 in ?? ()
+15:51:09 warning: GDB can't find the start of the function at 0xbfc02b68.
+15:51:09 HIT 6 pc=bfc02b68 ra=80108960 a0=80147359 a1=80010be9 a2=00000043 a3=00000000 v0=0000000c s0=80138ab8 s1=80010000 s2=00000008 sp=801ffc88
+15:51:48 
+15:51:48 Program stopped.
+15:51:48 0x80091e40 in ?? ()
+15:51:48 warning: GDB can't find the start of the function at 0x80091e40.
+15:51:48 HIT 7 pc=80091e40 ra=80091f64 a0=005149ad a1=00010000 a2=00ffffff a3=ff000000 v0=00000001 s0=d602001e s1=0000010e s2=00000000 sp=801ffe58
+15:52:22 
+15:52:22 Program stopped.
+15:52:22 0xbfc02b68 in ?? ()
+15:52:22 warning: GDB can't find the start of the function at 0xbfc02b68.
+15:52:22 HIT 8 pc=bfc02b68 ra=80108960 a0=80147359 a1=80010be9 a2=00000843 a3=00000000 v0=0000000c s0=80138ab8 s1=80010000 s2=00000008 sp=801ffc98
+15:52:28 
+15:52:28 Program stopped.
+15:52:28 0x80056ca8 in ?? ()
+15:52:28 warning: GDB can't find the start of the function at 0x80056ca8.
+15:52:28 HIT 9 pc=80056ca8 ra=8005cab4 a0=8016b084 a1=8016b0bc a2=00000000 a3=00000000 v0=0000008f s0=00000066 s1=00000001 s2=00000003 sp=801ffe00
+15:52:28 
+15:52:28 Program stopped.
+15:52:28 0x80056cac in ?? ()
+15:52:28 warning: GDB can't find the start of the function at 0x80056cac.
+15:52:28 HIT 10 pc=80056cac ra=8005cab4 a0=8016b084 a1=8016b0bc a2=00000000 a3=00000000 v0=0000008f s0=00000066 s1=00000001 s2=00000003 sp=801ffdd0
+15:53:27 
+15:53:27 Program stopped.
+15:53:27 0xbfc02b68 in ?? ()
+15:53:27 warning: GDB can't find the start of the function at 0xbfc02b68.
+15:53:27 HIT 11 pc=bfc02b68 ra=80108960 a0=80147359 a1=80010be9 a2=00000043 a3=00000000 v0=0000000c s0=80138ab8 s1=80010000 s2=00000008 sp=801ffc88

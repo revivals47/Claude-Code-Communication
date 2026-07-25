@@ -1,0 +1,105 @@
+16:02:07 The target architecture is set to "mips:3000".
+16:02:07 The target is set to little endian.
+16:02:08 warning: No executable has been specified and target does not support
+16:02:08 determining executable automatically.  Try using the "file" command.
+16:02:09 0x8009b0e0 in ?? ()
+16:02:09 Hardware watchpoint 1: *(unsigned short*)0x80014536
+16:02:13 
+16:02:13 Program stopped.
+16:02:13 0xbfc02b68 in ?? ()
+16:02:13 warning: GDB can't find the start of the function at 0xbfc02b68.
+16:02:13 
+16:02:13     GDB is unable to find the start of the function at 0xbfc02b68
+16:02:13 and thus can't determine the size of that function's stack frame.
+16:02:13 This means that GDB may be unable to access that stack frame, or
+16:02:13 the frames below it.
+16:02:13     This problem is most likely caused by an invalid program counter or
+16:02:13 stack pointer.
+16:02:13     However, if you think GDB should simply search farther back
+16:02:13 from 0xbfc02b68 for code which looks like the beginning of a
+16:02:13 function, you can increase the range of the search using the `set
+16:02:13 heuristic-fence-post' command.
+16:02:13 TRAP 1 pc=bfc02b68 ra=80108960 a0=80147359 a1=80010be9 a2=00000043 a3=00000000 v0=0000000c v1=8014677c t0=bfc02b50 t1=000000a8 s0=80138ab8 s1=80010000 s2=00000008 hp=3620
+16:02:13    0xbfc02b58:	jr	ra
+16:02:13    0xbfc02b5c:	move	v0,zero
+16:02:13    0xbfc02b60:	blez	a2,0xbfc02b80
+16:02:13    0xbfc02b64:	move	v1,a0
+16:02:13 => 0xbfc02b68:	lbu	t6,0(a1)
+16:02:13    0xbfc02b6c:	addiu	a2,a2,-1
+16:02:41 
+16:02:41 Program stopped.
+16:02:41 0xbfc02b68 in ?? ()
+16:02:41 warning: GDB can't find the start of the function at 0xbfc02b68.
+16:02:41 TRAP 2 pc=bfc02b68 ra=80108960 a0=80147359 a1=80010be9 a2=00000843 a3=00000000 v0=0000000c v1=8014677c t0=bfc02b50 t1=000000a8 s0=80138ab8 s1=80010000 s2=00000008 hp=53312
+16:02:41    0xbfc02b58:	jr	ra
+16:02:41    0xbfc02b5c:	move	v0,zero
+16:02:41    0xbfc02b60:	blez	a2,0xbfc02b80
+16:02:41    0xbfc02b64:	move	v1,a0
+16:02:41 => 0xbfc02b68:	lbu	t6,0(a1)
+16:02:41    0xbfc02b6c:	addiu	a2,a2,-1
+16:02:46 
+16:02:46 Program stopped.
+16:02:46 0x80056ca8 in ?? ()
+16:02:46 warning: GDB can't find the start of the function at 0x80056ca8.
+16:02:46 TRAP 3 pc=80056ca8 ra=8005cab4 a0=8016b084 a1=8016b0bc a2=00000000 a3=00000000 v0=00000088 v1=00000078 t0=bfc02b50 t1=000000a8 s0=00000066 s1=00000001 s2=00000003 hp=52685
+16:02:46    0x80056c98:	nop
+16:02:46    0x80056c9c:	nop
+16:02:46    0x80056ca0:	nop
+16:02:46    0x80056ca4:	nop
+16:02:46 => 0x80056ca8:	addiu	sp,sp,-48
+16:02:46    0x80056cac:	sw	ra,28(sp)
+16:03:09 
+16:03:09 Program stopped.
+16:03:09 0x80096d50 in ?? ()
+16:03:09 warning: GDB can't find the start of the function at 0x80096d50.
+16:03:09 TRAP 4 pc=80096d50 ra=800b8ea8 a0=8016bbe0 a1=801771b8 a2=00ffffff a3=ff000000 v0=00177190 v1=09177190 t0=00000000 t1=fffffff8 s0=80157f04 s1=801771b8 s2=80144b88 hp=52685
+16:03:09    0x80096d40:	and	v0,v0,a2
+16:03:09    0x80096d44:	or	v1,v1,v0
+16:03:09    0x80096d48:	sw	v1,0(a1)
+16:03:09    0x80096d4c:	lw	v0,0(a0)
+16:03:09 => 0x80096d50:	and	a1,a1,a2
+16:03:09    0x80096d54:	and	v0,v0,a3
+16:03:10 
+16:03:10 Program stopped.
+16:03:10 0x800d8d10 in ?? ()
+16:03:10 warning: GDB can't find the start of the function at 0x800d8d10.
+16:03:10 TRAP 5 pc=800d8d10 ra=800d8ad4 a0=00800000 a1=00800000 a2=1f801070 a3=ff000000 v0=00000003 v1=00060000 t0=00000000 t1=00000040 s0=00000016 s1=801576de s2=80157840 hp=52685
+16:03:10    0x800d8d00:	sh	v0,24(sp)
+16:03:10    0x800d8d04:	lhu	v0,0(s3)
+16:03:10    0x800d8d08:	nop
+16:03:10    0x800d8d0c:	sh	v0,26(sp)
+16:03:10 => 0x800d8d10:	lbu	v0,0(s1)
+16:03:10    0x800d8d14:	nop
+16:03:49 
+16:03:49 Program stopped.
+16:03:49 0xbfc02b68 in ?? ()
+16:03:49 warning: GDB can't find the start of the function at 0xbfc02b68.
+16:03:49 TRAP 6 pc=bfc02b68 ra=80108960 a0=80147359 a1=80010be9 a2=00000043 a3=00000000 v0=0000000c v1=8014677c t0=bfc02b50 t1=000000a8 s0=80138ab8 s1=80010000 s2=00000008 hp=3620
+16:03:49    0xbfc02b58:	jr	ra
+16:03:49    0xbfc02b5c:	move	v0,zero
+16:03:49    0xbfc02b60:	blez	a2,0xbfc02b80
+16:03:49    0xbfc02b64:	move	v1,a0
+16:03:49 => 0xbfc02b68:	lbu	t6,0(a1)
+16:03:49    0xbfc02b6c:	addiu	a2,a2,-1
+16:09:14 
+16:09:14 Program stopped.
+16:09:14 0x80091e40 in ?? ()
+16:09:14 warning: GDB can't find the start of the function at 0x80091e40.
+16:09:14 TRAP 7 pc=80091e40 ra=80091f64 a0=0051ded8 a1=00010000 a2=00ffffff a3=ff000000 v0=00000001 v1=ffffffff t0=00000000 t1=fffffff8 s0=d602021e s1=000000f7 s2=00000000 hp=8354
+16:09:14    0x80091e30:	beqz	v0,0x80091e9c
+16:09:14    0x80091e34:	sw	ra,24(sp)
+16:09:14    0x80091e38:	li	v1,-1
+16:09:14    0x80091e3c:	lw	v0,16(sp)
+16:09:14 => 0x80091e40:	nop
+16:09:14    0x80091e44:	addiu	v0,v0,-1
+16:09:15 
+16:09:15 Program stopped.
+16:09:15 0x80091e94 in ?? ()
+16:09:15 warning: GDB can't find the start of the function at 0x80091e94.
+16:09:15 TRAP 8 pc=80091e94 ra=80091f88 a0=0051defd a1=00008000 a2=00ffffff a3=ff000000 v0=00000001 v1=ffffffff t0=00000000 t1=fffffff8 s0=d602021e s1=000000f4 s2=00000000 hp=8354
+16:09:15    0x80091e84:	lui	v0,0x8012
+16:09:15    0x80091e88:	lw	v0,-13560(v0)
+16:09:15    0x80091e8c:	nop
+16:09:15    0x80091e90:	slt	v0,v0,a0
+16:09:15 => 0x80091e94:	bnez	v0,0x80091e3c
+16:09:15    0x80091e98:	nop

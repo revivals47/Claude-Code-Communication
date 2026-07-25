@@ -1,0 +1,9 @@
+15:38:33 The target architecture is set to "mips:3000".
+15:38:33 The target is set to little endian.
+15:38:33 warning: No executable has been specified and target does not support
+15:38:33 determining executable automatically.  Try using the "file" command.
+15:38:33 0x80091e50 in ?? ()
+15:38:33 Hardware watchpoint 1: *(unsigned int*)0x80147358
+15:38:55 
+15:38:55 Program stopped.
+15:38:55 0x800d1080 in ?? ()
