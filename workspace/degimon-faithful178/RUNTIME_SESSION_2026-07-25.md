@@ -17,7 +17,7 @@ claim 規律: 以下【観測】=log 直読、【推論】=未裏取り。
 > ★★訂正(同日 16:2x、worker1 反証 + boss1 bytes 独立確認、PRESIDENT 受理)★★:
 > anchor `0x80147358` は **field NPC entity array ではなく psyq VAB(サウンドバンク)VH ヘッダ buffer の内部**。
 > pointer table `0x80134230` = 9 slot の VH buffer 表(全 slot pBAV magic、slot8=`0x8014677c`、0x80147358 はその +0xBDC。
-> VabHdr ps=5 → VH size 0x1420 bit 一致)。呼び先 chain = psyq SPU lib(SsVabOpenHead/SsVabTransBody 系)。
+> VabHdr ps=5 → VH size 0x1420 は battle 側残長 0x843 との算術整合[log 内の直接値ではない、worker3 精密化])。呼び先 chain = psyq SPU lib(SsVabOpenHead/SsVabTransBody 系)。
 > ENTITY_ARRAY 節の 32-byte 周期の正体 = **VagAtr(tone 属性、32-byte struct)**。遷移時のみ発火 = per-scene VAB reload
 > (既知 FAALL.VHB per-scene bank 知見と整合)。**本節の【観測】(trap PC/ra/register/dump bytes)は全て真、
 > 誤っていたのは解釈**(「section copy dispatcher」「entity array」)。watchpoint 対象 addr 自体が
@@ -25,15 +25,16 @@ claim 規律: 以下【観測】=log 直読、【推論】=未裏取り。
 > 真の field NPC array = 再同定 dispatch 進行中(worker1 (b)+worker3 敵対検証)。off-by-one 機構は本 path では説明不能。
 
 - 【観測】watchpoint `0x80147358`(entity array)trap: 書込みは **BIOS byte-copy `0xbfc02b68`**(`lbu t6,0(a1)` loop)内。
-  - field 遷移時: dst=`0x80147359`(=+1、trap 時点)/ src=`0x80010be9` / len 残=`0x43` / **ra=`0x800cf1a8`**
+  - field 遷移時: a0(進行 pointer)=`0x80147359` / src=`0x80010be9` / len 残=`0x43` / **ra=`0x800cf1a8`**
+  - ★watchpoint semantics caveat(worker3)★: word watch 下では copy の**開始 addr / 総長は log から導出不能**(a0/a2 は trap 時点の進行値)。「dst=+1 開始」等の off-by-one 読みは非導出
   - 【観測】field 歩行中 trap ゼロ、遷移の瞬間のみ発火(2 回再現)= loader 帰属
 - 【観測】caller 周辺 disasm(memdump_1.log、live RAM 直読):
-  - `0x800cf1a0: jal 0x80091450`(= memcpy wrapper、BIOS A0 系と推論)
+  - `0x800cf1a0: jal 0x80091450` — 【観測へ昇格(VERIFY §2.3、ram_A bytes 直読)】= **BIOS A0 trampoline、A(2Ah)=memcpy**(`addiu t2,zero,0xa0 / jr t2 / addiu t1,zero,0x2a`)。trap 地点 0xbfc02b68 は memcpy byte-loop 本体。なお `0x800cf110 jal 0x80091430` = A(1Fh)、機能名未同定
   - 引数構成(disasm 直読): **a0(dst)=`[0x80134230 + idx*4]` の指す先** / a1(src)=s0+([s0]&~3)(=header word0)/ a2(len)=[s0+4]−[s0+0](=word1−word0)
   - 【推論】= 「map file の section 別 copy dispatcher」。idx は sp+104 の値。pointer table `0x80134230` が各 section の書込み先を保持
 - 【観測】battle 突入時にも同経路で copy: len=`0x843`、**ra=`0x80108960`**(第 3 の call site)。battle 終了時は len=`0x43`+同 ra で field 復帰 copy
 - 【観測】entity array live 実体 dump 取得(遷移直後、memdump_1.log ===ENTITY_ARRAY===): 先頭 0x44 byte ゼロ、以後 32-byte 周期らしき record 列(id 連番 0x1d..0x2a、`00c0..00c3` 座標様 field)【周期/型は推論、worker 検証要】
-- staging buffer 生 bytes も同 log(===STAGING===)。
+- staging buffer 生 bytes も同 log(===STAGING===)。★但し honest gap(VERIFY §2.4): memdump(15:4x)は trap(15:40-42)と別時刻で、STAGING 節を copy src の oracle として使うことは不可(header 値が copy 直前状態でない)★。
 - **→ worker1 の loader RE(off-by-one/gating/scale 厳密化)は静的 trace で進行可能に**(7/25 handoff の「watchpoint 待ち」解消)
 
 ## 2. battle damage RE = 部分進展(HP addr 未確定)
