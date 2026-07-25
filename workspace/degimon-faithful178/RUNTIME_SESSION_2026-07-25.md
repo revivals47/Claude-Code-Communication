@@ -14,6 +14,16 @@ claim 規律: 以下【観測】=log 直読、【推論】=未裏取り。
 
 ## 1. field NPC loader = 静的 RE unblock 達成(本日最大成果)
 
+> ★★訂正(同日 16:2x、worker1 反証 + boss1 bytes 独立確認、PRESIDENT 受理)★★:
+> anchor `0x80147358` は **field NPC entity array ではなく psyq VAB(サウンドバンク)VH ヘッダ buffer の内部**。
+> pointer table `0x80134230` = 9 slot の VH buffer 表(全 slot pBAV magic、slot8=`0x8014677c`、0x80147358 はその +0xBDC。
+> VabHdr ps=5 → VH size 0x1420 bit 一致)。呼び先 chain = psyq SPU lib(SsVabOpenHead/SsVabTransBody 系)。
+> ENTITY_ARRAY 節の 32-byte 周期の正体 = **VagAtr(tone 属性、32-byte struct)**。遷移時のみ発火 = per-scene VAB reload
+> (既知 FAALL.VHB per-scene bank 知見と整合)。**本節の【観測】(trap PC/ra/register/dump bytes)は全て真、
+> 誤っていたのは解釈**(「section copy dispatcher」「entity array」)。watchpoint 対象 addr 自体が
+> 7/25 handoff §B の誤 anchor 由来 = 同 handoff の entity claim(stride 0xc4/type@+0x22 等)も出所再検証中。
+> 真の field NPC array = 再同定 dispatch 進行中(worker1 (b)+worker3 敵対検証)。off-by-one 機構は本 path では説明不能。
+
 - 【観測】watchpoint `0x80147358`(entity array)trap: 書込みは **BIOS byte-copy `0xbfc02b68`**(`lbu t6,0(a1)` loop)内。
   - field 遷移時: dst=`0x80147359`(=+1、trap 時点)/ src=`0x80010be9` / len 残=`0x43` / **ra=`0x800cf1a8`**
   - 【観測】field 歩行中 trap ゼロ、遷移の瞬間のみ発火(2 回再現)= loader 帰属
