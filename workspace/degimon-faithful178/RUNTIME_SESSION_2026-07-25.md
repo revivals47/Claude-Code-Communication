@@ -39,7 +39,19 @@ claim 規律: 以下【観測】=log 直読、【推論】=未裏取り。
 
 ## 2. battle damage RE = 部分進展(HP addr 未確定)
 
-> ★訂正(同日、worker3 発見 + boss1 bytes 裏取り)★: 「2 call(sp 0x30 差=別 frame 連続)」は誤り = **1 call**。
+> ★★訂正 2(同日 16:39、worker2 caller RE 完了 9ef5815 + boss1 spot-check)★★:
+> (i) caller `0x8005ca7c-0x8005cb90` = **バトル main**(1 戦闘 1 call、frame loop 内包、戻り値 -1/0/1=敗北/中断/勝利
+> → wrapper の care 分岐)。engage 時 1 call はバトル初期化として構造必然。
+> (ii) 「args a0/a1」は誤り = **register 残滓**(対象関数は void、直前 call の 3 register 一致で出所確定)。
+> `0x8016b084` = careform 既知 actor 配列 slot1 と同一実体。
+> (iii) ★本 doc §2「`0x8016b000-2ff` bit 不変 = HP この帯に無い」は**反証**★: 真の HP = **`0x8016b0cc`(最大)/`0x8016b0d0`(現在)**
+> (worker2 が gp 確定経由の静的導出で解消)。私の snapshot 判定が誤った真因 = ★**ram_A/B は別戦闘の採取で oracle 自体が破綻**
+> (frame counter 1104→320 減少が証拠)。実 diff は 41 byte あり HP -3 も含まれていた = 「-627 ちょうど」filter が真 HP を落とした★。
+> [[feedback_verify_the_oracle_not_just_the_match]] の実例。
+> (iv) ラベル注意: 「s_damageCheck」という名前自体が未検証(catalog は打ち切り断片)。本 doc の同名表記は「VA 0x80056ca8 の関数」と読替え。
+> → §4 残タスク 1 は単純化: **user 1-2 分 = `0x8016b0d0` に Z2 write watch → 1 戦闘で被弾 → 書込み PC 取得**(getDamagePoint へ 1-2 hop)。
+>
+> ★訂正 1(同日、worker3 発見 + boss1 bytes 裏取り)★: 「2 call(sp 0x30 差=別 frame 連続)」は誤り = **1 call**。
 > s_damageCheck 先頭(file 0x41C8)= `addiu sp,sp,-0x30` の prologue であり、2 記録は同一 invocation の
 > prologue 前後の再報告(pc / pc+4、sp 差 0x30 が prologue そのもの)。per-attack 非発火の結論は不変。
 
