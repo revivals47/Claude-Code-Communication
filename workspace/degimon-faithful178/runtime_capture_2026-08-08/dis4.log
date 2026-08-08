@@ -1,0 +1,263 @@
+The target architecture is set to "mips:3000".
+The target is set to little endian.
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x8005f25c in ?? ()
+
+##### SITE A function head: 0x8005dd00-0x8005e300 #####
+   0x8005dd00:	nop
+   0x8005dd04:	b	0x8005dda8
+   0x8005dd08:	nop
+   0x8005dd0c:	lhu	v0,52(s0)
+   0x8005dd10:	nop
+   0x8005dd14:	andi	v0,v0,0x4
+   0x8005dd18:	bnez	v0,0x8005dda8
+   0x8005dd1c:	nop
+   0x8005dd20:	lhu	v0,52(s0)
+   0x8005dd24:	nop
+   0x8005dd28:	ori	v0,v0,0x4
+   0x8005dd2c:	sh	v0,52(s0)
+   0x8005dd30:	li	a0,41
+   0x8005dd34:	jal	0x800a4a74
+   0x8005dd38:	nop
+   0x8005dd3c:	addi	v0,v0,200
+   0x8005dd40:	sll	v0,v0,0x10
+   0x8005dd44:	sra	v0,v0,0x10
+   0x8005dd48:	sh	v0,32(s0)
+   0x8005dd4c:	move	a0,s1
+   0x8005dd50:	move	a1,s0
+   0x8005dd54:	jal	0x80060d10
+   0x8005dd58:	nop
+   0x8005dd5c:	move	a0,s0
+   0x8005dd60:	jal	0x80060bec
+   0x8005dd64:	nop
+   0x8005dd68:	b	0x8005dda8
+   0x8005dd6c:	nop
+   0x8005dd70:	lhu	v0,52(s0)
+   0x8005dd74:	nop
+   0x8005dd78:	andi	v0,v0,0x8
+   0x8005dd7c:	bnez	v0,0x8005dda8
+   0x8005dd80:	nop
+   0x8005dd84:	li	v0,-1
+   0x8005dd88:	sh	v0,34(s0)
+   0x8005dd8c:	move	a0,s1
+   0x8005dd90:	move	a1,s0
+   0x8005dd94:	jal	0x80060dc8
+   0x8005dd98:	nop
+   0x8005dd9c:	move	a0,s0
+   0x8005dda0:	jal	0x80060bec
+   0x8005dda4:	nop
+   0x8005dda8:	lw	v0,-28140(gp)
+   0x8005ddac:	nop
+   0x8005ddb0:	bne	s0,v0,0x8005ddd0
+   0x8005ddb4:	nop
+   0x8005ddb8:	lw	v1,-28140(gp)
+   0x8005ddbc:	nop
+   0x8005ddc0:	lhu	v0,1604(v1)
+   0x8005ddc4:	nop
+   0x8005ddc8:	addiu	v0,v0,1
+   0x8005ddcc:	sh	v0,1604(v1)
+   0x8005ddd0:	lw	ra,28(sp)
+   0x8005ddd4:	lw	s2,24(sp)
+   0x8005ddd8:	lw	s1,20(sp)
+   0x8005dddc:	lw	s0,16(sp)
+   0x8005dde0:	addiu	sp,sp,40
+   0x8005dde4:	jr	ra
+   0x8005dde8:	nop
+   0x8005ddec:	addiu	sp,sp,-8
+   0x8005ddf0:	sw	s0,0(sp)
+   0x8005ddf4:	sw	a0,8(sp)
+   0x8005ddf8:	move	s0,zero
+   0x8005ddfc:	b	0x8005de38
+   0x8005de00:	nop
+   0x8005de04:	lw	v0,-28140(gp)
+   0x8005de08:	nop
+   0x8005de0c:	addu	v0,v0,s0
+   0x8005de10:	lbu	v1,1644(v0)
+   0x8005de14:	lh	v0,8(sp)
+   0x8005de18:	nop
+   0x8005de1c:	bne	v1,v0,0x8005de34
+   0x8005de20:	nop
+   0x8005de24:	sll	v0,s0,0x10
+   0x8005de28:	sra	v0,v0,0x10
+   0x8005de2c:	b	0x8005de50
+   0x8005de30:	nop
+   0x8005de34:	addi	s0,s0,1
+   0x8005de38:	lh	v0,-28108(gp)
+   0x8005de3c:	nop
+   0x8005de40:	slt	at,v0,s0
+   0x8005de44:	beqz	at,0x8005de04
+   0x8005de48:	nop
+   0x8005de4c:	li	v0,-1
+   0x8005de50:	lw	s0,0(sp)
+   0x8005de54:	addiu	sp,sp,8
+   0x8005de58:	jr	ra
+   0x8005de5c:	nop
+   0x8005de60:	addiu	sp,sp,-16
+   0x8005de64:	sw	s2,8(sp)
+   0x8005de68:	sw	s1,4(sp)
+   0x8005de6c:	sw	s0,0(sp)
+   0x8005de70:	move	s1,a0
+   0x8005de74:	move	s2,a1
+   0x8005de78:	move	s0,zero
+   0x8005de7c:	b	0x8005ded8
+   0x8005de80:	nop
+   0x8005de84:	addu	v0,s1,s0
+   0x8005de88:	lb	v0,60(v0)
+   0x8005de8c:	li	at,-1
+   0x8005de90:	beq	v0,at,0x8005dee4
+   0x8005de94:	nop
+   0x8005de98:	addu	v0,s1,s0
+   0x8005de9c:	lb	v1,60(v0)
+   0x8005dea0:	lw	v0,16(s2)
+   0x8005dea4:	nop
+   0x8005dea8:	bne	v1,v0,0x8005ded4
+   0x8005deac:	nop
+   0x8005deb0:	addu	v0,s1,s0
+   0x8005deb4:	lb	v1,210(v0)
+   0x8005deb8:	lw	v0,20(s2)
+   0x8005debc:	nop
+   0x8005dec0:	bne	v1,v0,0x8005ded4
+   0x8005dec4:	nop
+   0x8005dec8:	move	v0,zero
+   0x8005decc:	b	0x8005df18
+   0x8005ded0:	nop
+   0x8005ded4:	addi	s0,s0,1
+   0x8005ded8:	slti	at,s0,149
+   0x8005dedc:	bnez	at,0x8005de84
+   0x8005dee0:	nop
+   0x8005dee4:	lw	v0,16(s2)
+   0x8005dee8:	nop
+   0x8005deec:	sll	v1,v0,0x18
+   0x8005def0:	sra	v1,v1,0x18
+   0x8005def4:	addu	v0,s1,s0
+   0x8005def8:	sb	v1,60(v0)
+   0x8005defc:	lw	v0,20(s2)
+   0x8005df00:	nop
+   0x8005df04:	sll	v1,v0,0x18
+   0x8005df08:	sra	v1,v1,0x18
+   0x8005df0c:	addu	v0,s1,s0
+   0x8005df10:	sb	v1,210(v0)
+   0x8005df14:	li	v0,1
+   0x8005df18:	lw	s2,8(sp)
+   0x8005df1c:	lw	s1,4(sp)
+   0x8005df20:	lw	s0,0(sp)
+   0x8005df24:	addiu	sp,sp,16
+   0x8005df28:	jr	ra
+   0x8005df2c:	nop
+   0x8005df30:	addiu	sp,sp,-40
+   0x8005df34:	sw	ra,36(sp)
+   0x8005df38:	sw	s2,32(sp)
+   0x8005df3c:	sw	s1,28(sp)
+   0x8005df40:	sw	s0,24(sp)
+   0x8005df44:	move	s2,a0
+   0x8005df48:	move	s1,a1
+   0x8005df4c:	sw	a2,48(sp)
+   0x8005df50:	move	a0,s1
+   0x8005df54:	jal	0x8005cb94
+   0x8005df58:	nop
+   0x8005df5c:	sll	s0,v0,0x10
+   0x8005df60:	sra	s0,s0,0x10
+   0x8005df64:	move	a0,s2
+   0x8005df68:	lbu	a1,48(sp)
+   0x8005df6c:	jal	0x800c9cbc
+   0x8005df70:	nop
+   0x8005df74:	sll	v1,s0,0x4
+   0x8005df78:	lui	v0,0x8013
+   0x8005df7c:	addiu	v0,v0,9664
+   0x8005df80:	addu	v0,v0,v1
+   0x8005df84:	lbu	v0,7(v0)
+   0x8005df88:	nop
+   0x8005df8c:	addi	v0,v0,16
+   0x8005df90:	sw	v0,16(sp)
+   0x8005df94:	sll	v1,s0,0x4
+   0x8005df98:	lui	v0,0x8013
+   0x8005df9c:	addiu	v0,v0,9664
+   0x8005dfa0:	addu	v0,v0,v1
+   0x8005dfa4:	lbu	a0,9(v0)
+   0x8005dfa8:	li	a1,1
+   0x8005dfac:	addiu	a2,s1,8
+   0x8005dfb0:	move	a3,s2
+   0x8005dfb4:	jal	0x800b0ff0
+   0x8005dfb8:	nop
+   0x8005dfbc:	lw	ra,36(sp)
+   0x8005dfc0:	lw	s2,32(sp)
+   0x8005dfc4:	lw	s1,28(sp)
+   0x8005dfc8:	lw	s0,24(sp)
+   0x8005dfcc:	addiu	sp,sp,40
+   0x8005dfd0:	jr	ra
+   0x8005dfd4:	nop
+   0x8005dfd8:	addiu	sp,sp,-136
+   0x8005dfdc:	sw	ra,52(sp)
+   0x8005dfe0:	sw	s2,48(sp)
+   0x8005dfe4:	sw	s1,44(sp)
+   0x8005dfe8:	sw	s0,40(sp)
+   0x8005dfec:	lw	s0,-28140(gp)
+   0x8005dff0:	nop
+   0x8005dff4:	sw	s0,92(sp)
+   0x8005dff8:	lw	v0,-28140(gp)
+   0x8005dffc:	nop
+   0x8005e000:	addiu	v0,v0,1440
+   0x8005e004:	sw	v0,96(sp)
+   0x8005e008:	sw	zero,56(sp)
+   0x8005e00c:	b	0x8005e900
+   0x8005e010:	nop
+   0x8005e014:	lhu	v0,52(s0)
+   0x8005e018:	nop
+   0x8005e01c:	andi	v0,v0,0x8000
+   0x8005e020:	bnez	v0,0x8005e8dc
+   0x8005e024:	nop
+   0x8005e028:	lw	v1,-28140(gp)
+   0x8005e02c:	lw	v0,56(sp)
+   0x8005e030:	nop
+   0x8005e034:	addu	v0,v1,v0
+   0x8005e038:	lbu	a0,1644(v0)
+   0x8005e03c:	addiu	a1,sp,100
+   0x8005e040:	jal	0x800a51f0
+   0x8005e044:	nop
+   0x8005e048:	beqz	v0,0x8005e8dc
+   0x8005e04c:	nop
+   0x8005e050:	lh	v0,-28112(gp)
+   0x8005e054:	nop
+   0x8005e058:	slti	at,v0,19
+   0x8005e05c:	beqz	at,0x8005e8dc
+   0x8005e060:	nop
+   0x8005e064:	lw	v1,-28140(gp)
+   0x8005e068:	lw	v0,56(sp)
+   0x8005e06c:	nop
+   0x8005e070:	addu	v0,v1,v0
+   0x8005e074:	lbu	v0,1644(v0)
+   0x8005e078:	nop
+   0x8005e07c:	sll	v1,v0,0x2
+   0x8005e080:	lui	v0,0x8014
+   0x8005e084:	addiu	v0,v0,-12876
+   0x8005e088:	addu	v0,v0,v1
+   0x8005e08c:	lw	s1,0(v0)
+   0x8005e090:	addiu	a0,sp,100
+   0x8005e094:	jal	0x8005cb94
+   0x8005e098:	nop
+   0x8005e09c:	sw	v0,68(sp)
+   0x8005e0a0:	lbu	v0,46(s1)
+   0x8005e0a4:	nop
+   0x8005e0a8:	addi	a0,v0,-46
+   0x8005e0ac:	lw	v1,0(s1)
+   0x8005e0b0:	nop
+   0x8005e0b4:	sll	v0,v1,0x1
+   0x8005e0b8:	add	v0,v0,v1
+   0x8005e0bc:	sll	v0,v0,0x2
+   0x8005e0c0:	add	v0,v0,v1
+   0x8005e0c4:	sll	v1,v0,0x2
+   0x8005e0c8:	lui	v0,0x8014
+   0x8005e0cc:	addiu	v0,v0,-22236
+   0x8005e0d0:	addu	v0,v0,v1
+   0x8005e0d4:	addu	v0,a0,v0
+   0x8005e0d8:	lbu	v0,35(v0)
+   0x8005e0dc:	li	at,45
+   0x8005e0e0:	bne	v0,at,0x8005e118
+   0x8005e0e4:	nop
+   0x8005e0e8:	lbu	v1,55(s0)
+   0x8005e0ec:	lw	v0,-28140(gp)
+   0x8005e0f0:	nop
+   0x8005e0f4:	addu	v0,v0,v1
+   0x8005e0f8:	lbu	v1,1644(v0)
+   0x8005e0fc:	lw	v0,124(sp)

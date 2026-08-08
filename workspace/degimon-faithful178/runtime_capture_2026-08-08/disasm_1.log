@@ -1,0 +1,347 @@
+The target architecture is set to "mips:3000".
+The target is set to little endian.
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x80091e8c in ?? ()
+
+===== CALLER in battle overlay: around 0x800683b0 (btl_rel +0x158d0) =====
+   0x80068100:	.word	0xf6aa409f
+   0x80068104:	lh	s6,30392(k0)
+   0x80068108:	.word	0x9fb8d887
+   0x8006810c:	.word	0xf7b7f38f
+   0x80068110:	swl	t3,-30841(t7)
+   0x80068114:	.word	0x9f56d7bb
+   0x80068118:	.word	0xb394d320
+   0x8006811c:	.word	0x5901d309
+   0x80068120:	lwc1	$f22,-28708(t3)
+   0x80068124:	slti	s2,v1,2455
+   0x80068128:	.word	0xf34a2704
+   0x8006812c:	swl	v1,-24273(s1)
+   0x80068130:	.word	0xf2f27435
+   0x80068134:	addiu	s3,ra,-30129
+   0x80068138:	.word	0x59eb3504
+   0x8006813c:	.word	0x59aa74eb
+   0x80068140:	.word	0xd95cd976
+   0x80068144:	sltiu	s6,k1,-9814
+   0x80068148:	swc2	$15,-20519(gp)
+   0x8006814c:	.word	0xf3f22ff3
+   0x80068150:	jalx	0x863e3f65
+   0x80068154:	.word	0xd98f8f06
+   0x80068158:	lw	s6,-28756(k1)
+   0x8006815c:	addi	v0,s1,8777
+   0x80068160:	.word	0xf58c5e84
+   0x80068164:	addi	s5,s1,10786
+   0x80068168:	.word	0xf50f0b0f
+   0x8006816c:	.word	0xd0f64cf5
+   0x80068170:	.word	0x3ec28776
+   0x80068174:	jalx	0x89aa1369
+   0x80068178:	jalx	0x898f5939
+   0x8006817c:	lh	s4,22202(gp)
+   0x80068180:	lw	t3,30314(sp)
+   0x80068184:	.word	0x6901e060
+   0x80068188:	.word	0xd4a984c4
+   0x8006818c:	lw	v0,-24736(k0)
+   0x80068190:	lh	a2,-21774(gp)
+   0x80068194:	.word	0xd2b33ec4
+   0x80068198:	.word	0xb3d3d3d6
+   0x8006819c:	swl	a2,-24800(s4)
+   0x800681a0:	.word	0xb07569f6
+   0x800681a4:	.word	0xd4aa36d4
+   0x800681a8:	sh	t5,1059(t0)
+   0x800681ac:	jalx	0x8011afc9
+   0x800681b0:	sltiu	t9,sp,4236
+   0x800681b4:	.word	0x40b5fac
+   0x800681b8:	jalx	0x89fdfe31
+   0x800681bc:	.word	0x59f32ff3
+   0x800681c0:	c1	0xd3d4c3
+   0x800681c4:	lh	t9,12166(s6)
+   0x800681c8:	jalx	0x8366aa3d
+   0x800681cc:	.word	0xd90000f3
+   0x800681d0:	.word	0xd4f3f200
+   0x800681d4:	.word	0xf2100646
+   0x800681d8:	bne	s7,s3,0x80053234
+   0x800681dc:	beq	a0,t2,0x8006be84
+   0x800681e0:	lh	s2,26147(k1)
+   0x800681e4:	jal	0x8cd599a4
+   0x800681e8:	slti	t7,t0,13610
+   0x800681ec:	.word	0xd05fac16
+   0x800681f0:	lwc1	$f11,-18415(a3)
+   0x800681f4:	.word	0x59978fdc
+   0x800681f8:	.word	0xf686a90e
+   0x800681fc:	swc1	$f21,22186(v1)
+   0x80068200:	.word	0xf3e4d60e
+   0x80068204:	.word	0xdd87bb76
+   0x80068208:	.word	0x7fd29fdd
+   0x8006820c:	.word	0xf32f9440
+   0x80068210:	swc2	$15,-5159(gp)
+   0x80068214:	.word	0x6af6d4a9
+   0x80068218:	c0	0xaaf675
+   0x8006821c:	swc2	$25,-23628(s8)
+   0x80068220:	jalx	0x8752c251
+   0x80068224:	c1	0x12faa76
+   0x80068228:	.word	0x700d0b1b
+   0x8006822c:	.word	0xf3232823
+   0x80068230:	.word	0x18f25f8a
+   0x80068234:	.word	0x22edd4
+   0x80068238:	.word	0x69eb8fd9
+   0x8006823c:	lw	s6,-21799(k1)
+   0x80068240:	.word	0x757557
+   0x80068244:	.word	0x69f2f3d9
+   0x80068248:	.word	0x7fd946dc
+   0x8006824c:	swl	zero,-20004(s0)
+   0x80068250:	.word	0x2f7ff2
+   0x80068254:	.word	0x7f5fd0d9
+   0x80068258:	.word	0xd05f8a49
+   0x8006825c:	.word	0xf27f5f5f
+   0x80068260:	addi	a0,t8,28685
+   0x80068264:	ori	k1,t0,0x427
+   0x80068268:	slti	a2,t0,8719
+   0x8006826c:	bne	s0,a2,0x8006be88
+   0x80068270:	andi	s6,k1,0xab8c
+   0x80068274:	.word	0x4471c3da
+   0x80068278:	lh	t3,-25778(s7)
+   0x8006827c:	swr	a0,-25701(s4)
+   0x80068280:	lh	a0,23019(gp)
+   0x80068284:	.word	0xf801b8f0
+   0x80068288:	.word	0x402b0e2c
+   0x8006828c:	.word	0x9ff39e57
+   0x80068290:	lh	ra,-1893(a0)
+   0x80068294:	lb	t8,26976(t6)
+   0x80068298:	.word	0x448fd46a
+   0x8006829c:	.word	0x4074ddb3
+   0x800682a0:	andi	t3,ra,0xf19f
+   0x800682a4:	.word	0x66768f71
+   0x800682a8:	sb	t3,-20154(a3)
+   0x800682ac:	jalx	0x809c1035
+   0x800682b0:	j	0x880047c8
+   0x800682b4:	sltiu	zero,t8,212
+   0x800682b8:	.word	0xf58f987f
+   0x800682bc:	.word	0x69607649
+   0x800682c0:	lh	s6,-25670(k1)
+   0x800682c4:	jalx	0x8b65dae5
+   0x800682c8:	swl	s5,30340(s3)
+   0x800682cc:	lw	s3,-9585(ra)
+   0x800682d0:	swl	t7,-28785(s1)
+   0x800682d4:	.word	0x5fd010d9
+   0x800682d8:	.word	0xbebe168a
+   0x800682dc:	.word	0xb100f210
+   0x800682e0:	.word	0x40d0d28
+   0x800682e4:	slti	v1,at,8964
+   0x800682e8:	.word	0x629060f
+   0x800682ec:	jal	0x8ca41818
+   0x800682f0:	.word	0xda350f35
+   0x800682f4:	.word	0x69565681
+   0x800682f8:	swc2	$22,-5130(s8)
+   0x800682fc:	lwc3	$10,-3850(s5)
+   0x80068300:	.word	0xd259eb60
+   0x80068304:	lwr	zero,16019(k0)
+   0x80068308:	.word	0xf7936387
+   0x8006830c:	c2	0x1eb939b
+   0x80068310:	lh	ra,-24677(a0)
+   0x80068314:	andi	k1,s4,0xd6d6
+   0x80068318:	.word	0x3e6960d3
+   0x8006831c:	lwc3	$19,-30730(s5)
+   0x80068320:	lh	t7,-22052(gp)
+   0x80068324:	c1	0x8ff359
+   0x80068328:	lw	t7,-9857(gp)
+   0x8006832c:	slti	v1,t1,10846
+   0x80068330:	addi	s0,t8,-20047
+   0x80068334:	.word	0xf27faf7f
+   0x80068338:	sh	s2,-9741(a3)
+   0x8006833c:	.word	0x40d230a
+   0x80068340:	beq	a3,s5,0x8006abd0
+   0x80068344:	.word	0xf2f274f3
+   0x80068348:	j	0x8a93af64
+   0x8006834c:	lw	s2,-21493(ra)
+   0x80068350:	lh	t9,-2390(s2)
+   0x80068354:	.word	0xd010f38f
+   0x80068358:	.word	0xf2b5d0d0
+   0x8006835c:	.word	0xb1aa00f3
+   0x80068360:	jal	0x84103434
+   0x80068364:	addi	v1,t9,1028
+   0x80068368:	jal	0x8c183c2c
+   0x8006836c:	j	0x8c18a57c
+   0x80068370:	j	0x8cd4d598
+   0x80068374:	lwc0	$5,20789(s8)
+   0x80068378:	lh	a0,11140(s2)
+   0x8006837c:	.word	0x444b63d8
+   0x80068380:	.word	0x598f9bb3
+   0x80068384:	.word	0xf7ce9fd2
+   0x80068388:	.word	0x40e0bbc4
+   0x8006838c:	lhu	s2,-15400(a2)
+   0x80068390:	.word	0xd640d331
+   0x80068394:	.word	0x607556f0
+   0x80068398:	.word	0x44764281
+   0x8006839c:	.word	0x69b8012b
+   0x800683a0:	.word	0xd4c4b8d8
+   0x800683a4:	.word	0xd9f3d9d9
+   0x800683a8:	sltiu	t3,ra,4352
+   0x800683ac:	.word	0x66db3500
+   0x800683b0:	blez	sp,0x80064bf0
+   0x800683b4:	lwr	zero,-3409(zero)
+   0x800683b8:	.word	0xd249d974
+   0x800683bc:	j	0x8ab165d8
+   0x800683c0:	jal	0x8410348c
+   0x800683c4:	swr	a3,10275(t2)
+   0x800683c8:	.word	0xd48fd900
+   0x800683cc:	addi	v1,t9,8994
+   0x800683d0:	jalx	0x8ca4a129
+   0x800683d4:	.word	0xb598d969
+   0x800683d8:	.word	0xd900065f
+   0x800683dc:	sltiu	zero,t8,-3151
+   0x800683e0:	.word	0x70230b28
+   0x800683e4:	slti	v1,at,1136
+   0x800683e8:	.word	0xd006662a
+   0x800683ec:	slti	v0,s1,4191
+   0x800683f0:	lhu	s8,-11360(t9)
+   0x800683f4:	j	0x886c2998
+   0x800683f8:	swc1	$f1,16960(zero)
+   0x800683fc:	.word	0x71b3e044
+   0x80068400:	jalx	0x8aaacc81
+   0x80068404:	lh	s5,-2303(k1)
+   0x80068408:	.word	0xd89b4e37
+   0x8006840c:	swc2	$22,-25609(s8)
+   0x80068410:	.word	0xb7a35893
+   0x80068414:	lh	s3,17626(at)
+   0x80068418:	slti	s2,s8,22315
+   0x8006841c:	lh	t1,26881(v1)
+   0x80068420:	lw	t6,22489(gp)
+   0x80068424:	.word	0xd9b1008f
+   0x80068428:	.word	0x2fd4d9
+   0x8006842c:	.word	0xd05f35f2
+   0x80068430:	lw	a0,4191(zero)
+   0x80068434:	.word	0x7faf00d4
+   0x80068438:	.word	0xd41b4976
+   0x8006843c:	.word	0xf3d976aa
+   0x80068440:	.word	0x41b49f3
+   0x80068444:	addi	t5,t8,1037
+   0x80068448:	c1	0x14c6623
+   0x8006844c:	addi	t2,t9,6160
+   0x80068450:	ori	k1,t0,0x2304
+   0x80068454:	.word	0xd9b529
+   0x80068458:	.word	0xf3be060f
+   0x8006845c:	jalx	0x83c889fd
+   0x80068460:	.word	0x4234a1b
+   0x80068464:	addi	a0,t8,1059
+   0x80068468:	jal	0x8cd4a82c
+   0x8006846c:	j	0x8926faf8
+   0x80068470:	.word	0xf0c4b028
+
+===== HP DRAIN routine: 0x80102f00-0x80103080 =====
+   0x80102f00:	lw	a0,-27488(gp)
+   0x80102f04:	jal	0x80098ad0
+   0x80102f08:	nop
+   0x80102f0c:	lw	ra,16(sp)
+   0x80102f10:	addiu	sp,sp,24
+   0x80102f14:	jr	ra
+   0x80102f18:	nop
+   0x80102f1c:	addiu	sp,sp,-8
+   0x80102f20:	sw	s1,4(sp)
+   0x80102f24:	sw	s0,0(sp)
+   0x80102f28:	move	s0,a0
+   0x80102f2c:	move	s1,a1
+   0x80102f30:	lh	v0,46(s0)
+   0x80102f34:	nop
+   0x80102f38:	slti	at,v0,1000
+   0x80102f3c:	bnez	at,0x80102f64
+   0x80102f40:	nop
+   0x80102f44:	lh	v0,20(s1)
+   0x80102f48:	nop
+   0x80102f4c:	addi	v0,v0,-900
+   0x80102f50:	sh	v0,20(s1)
+   0x80102f54:	lh	v0,46(s0)
+   0x80102f58:	nop
+   0x80102f5c:	addi	v0,v0,-900
+   0x80102f60:	sh	v0,46(s0)
+   0x80102f64:	lh	v0,46(s0)
+   0x80102f68:	nop
+   0x80102f6c:	slti	at,v0,100
+   0x80102f70:	bnez	at,0x80102f98
+   0x80102f74:	nop
+   0x80102f78:	lh	v0,20(s1)
+   0x80102f7c:	nop
+   0x80102f80:	addi	v0,v0,-80
+   0x80102f84:	sh	v0,20(s1)
+   0x80102f88:	lh	v0,46(s0)
+   0x80102f8c:	nop
+   0x80102f90:	addi	v0,v0,-80
+   0x80102f94:	sh	v0,46(s0)
+   0x80102f98:	lh	v0,46(s0)
+   0x80102f9c:	nop
+   0x80102fa0:	slti	at,v0,10
+   0x80102fa4:	bnez	at,0x80102fcc
+   0x80102fa8:	nop
+   0x80102fac:	lh	v0,20(s1)
+   0x80102fb0:	nop
+   0x80102fb4:	addi	v0,v0,-6
+   0x80102fb8:	sh	v0,20(s1)
+   0x80102fbc:	lh	v0,46(s0)
+   0x80102fc0:	nop
+   0x80102fc4:	addi	v0,v0,-6
+   0x80102fc8:	sh	v0,46(s0)
+   0x80102fcc:	lh	v0,46(s0)
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+   0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+   0x80102ff8:	sh	v0,46(s0)
+   0x80102ffc:	lh	v0,20(s1)
+   0x80103000:	nop
+   0x80103004:	bgez	v0,0x80103014
+   0x80103008:	nop
+   0x8010300c:	sh	zero,20(s1)
+   0x80103010:	sh	zero,46(s0)
+   0x80103014:	lw	s1,4(sp)
+   0x80103018:	lw	s0,0(sp)
+   0x8010301c:	addiu	sp,sp,8
+   0x80103020:	jr	ra
+   0x80103024:	nop
+   0x80103028:	addiu	sp,sp,-40
+   0x8010302c:	sw	ra,28(sp)
+   0x80103030:	sw	s2,24(sp)
+   0x80103034:	sw	s1,20(sp)
+   0x80103038:	sw	s0,16(sp)
+   0x8010303c:	move	s2,a0
+   0x80103040:	sw	a1,44(sp)
+   0x80103044:	move	s0,zero
+   0x80103048:	b	0x801030e4
+   0x8010304c:	nop
+   0x80103050:	addu	v0,s2,s0
+   0x80103054:	lbu	v0,0(v0)
+   0x80103058:	nop
+   0x8010305c:	sb	v0,39(sp)
+   0x80103060:	sll	v0,s0,0x10
+   0x80103064:	sra	v0,v0,0x10
+   0x80103068:	sh	v0,36(sp)
+   0x8010306c:	move	s1,s0
+   0x80103070:	b	0x801030b4
+   0x80103074:	nop
+   0x80103078:	lbu	v1,39(sp)
+   0x8010307c:	addu	v0,s2,s1
+   0x80103080:	lbu	v0,0(v0)
+   0x80103084:	nop
+   0x80103088:	sltu	at,v0,v1
+   0x8010308c:	beqz	at,0x801030b0
+   0x80103090:	nop
+
+===== stat struct 0x8016b0bc =====
+0x8016b0bc:	0x03e703e7	0x03e703e7	0x00000000	0x362f332e
+0x8016b0cc:	0x270f270f	0x1b851e0a	0x00ff0125	0x00000004
+0x8016b0dc:	0x4400333f	0x0280ca66	0x00000000	0x00000000
+0x8016b0ec:	0xe282cd82	0x9300c482	0x00000000	0x80000000
+0x8016b0fc:	0x00000000	0x00000003	0x00000079	0x801e7920
+0x8016b10c:	0x801eddd4	0x801e70c0	0xfc118000	0x00000000
+
+===== mirror struct 0x801460f8 =====
+0x801460f8:	0xffffffff	0x00000000	0x00000001	0x00000002
+0x80146108:	0x00000003	0xffffffff	0x06e007d1	0x00000062
+0x80146118:	0x00000000	0xffff0000	0x00000005	0x00000000
+0x80146128:	0x00640000	0x01ff0000	0x003c002e	0xffffffff
+0x80146138:	0xffffffff	0xffffffff	0xffffffff	0xffffffff
+0x80146148:	0xffffffff	0xffffffff	0xffffffff	0xffffffff

@@ -1,0 +1,359 @@
+The target architecture is set to "mips:3000".
+The target is set to little endian.
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x00001bb8 in ?? ()
+PRE hp_cur=7716 mp_cur=7650 hp_max=9999
+Hardware watchpoint 1: *(unsigned int*)0x8016b0d0
+
+Program stopped.
+0x80102fbc in ?? ()
+warning: GDB can't find the start of the function at 0x80102fbc.
+
+    GDB is unable to find the start of the function at 0x80102fbc
+and thus can't determine the size of that function's stack frame.
+This means that GDB may be unable to access that stack frame, or
+the frames below it.
+    This problem is most likely caused by an invalid program counter or
+stack pointer.
+    However, if you think GDB should simply search farther back
+from 0x80102fbc for code which looks like the beginning of a
+function, you can increase the range of the search using the `set
+heuristic-fence-post' command.
+TRAP 1 pc=80102fbc ra=800683b0 sp=801ffd78 hp=7710 mp=7221 | BTLoff=000b04dc a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e1e v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fa8:	nop
+   0x80102fac:	lh	v0,20(s1)
+   0x80102fb0:	nop
+   0x80102fb4:	addi	v0,v0,-6
+   0x80102fb8:	sh	v0,20(s1)
+=> 0x80102fbc:	lh	v0,46(s0)
+   0x80102fc0:	nop
+   0x80102fc4:	addi	v0,v0,-6
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 2 pc=80102fec ra=800683b0 sp=801ffd78 hp=7709 mp=7221 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e1d v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 3 pc=80102fec ra=800683b0 sp=801ffd78 hp=7708 mp=7221 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e1c v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 4 pc=80102fec ra=800683b0 sp=801ffd78 hp=7707 mp=7221 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e1b v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 5 pc=80102fec ra=800683b0 sp=801ffd78 hp=7706 mp=7221 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e1a v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 6 pc=80102fec ra=800683b0 sp=801ffd78 hp=7705 mp=7221 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e19 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 7 pc=80102fec ra=800683b0 sp=801ffd78 hp=7704 mp=7221 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e18 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 8 pc=80102fec ra=800683b0 sp=801ffd78 hp=7703 mp=7221 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e17 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 9 pc=80102fec ra=800683b0 sp=801ffd78 hp=7702 mp=7221 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e16 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 10 pc=80102fec ra=800683b0 sp=801ffd78 hp=7701 mp=7221 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e15 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80091e50 in ?? ()
+warning: GDB can't find the start of the function at 0x80091e50.
+TRAP 11 pc=80091e50 ra=80091f88 sp=801ffda0 hp=7701 mp=7197 | BTLoff=0003f370 a0=008676d9 a1=00008000 a2=00ffffff a3=ff000000 v0=000041d7 v1=ffffffff t0=8011a1d0 s0=5602001b s1=00000199 s2=00000007
+   0x80091e3c:	lw	v0,16(sp)
+   0x80091e40:	nop
+   0x80091e44:	addiu	v0,v0,-1
+   0x80091e48:	sw	v0,16(sp)
+   0x80091e4c:	lw	v0,16(sp)
+=> 0x80091e50:	nop
+   0x80091e54:	bne	v0,v1,0x80091e84
+   0x80091e58:	nop
+
+Program stopped.
+0x80091e48 in ?? ()
+warning: GDB can't find the start of the function at 0x80091e48.
+TRAP 12 pc=80091e48 ra=80091f88 sp=801ffda0 hp=7701 mp=7197 | BTLoff=0003f368 a0=00867733 a1=00008000 a2=00ffffff a3=ff000000 v0=000041d1 v1=ffffffff t0=8011a1d0 s0=5602001b s1=0000019c s2=00000007
+   0x80091e34:	sw	ra,24(sp)
+   0x80091e38:	li	v1,-1
+   0x80091e3c:	lw	v0,16(sp)
+   0x80091e40:	nop
+   0x80091e44:	addiu	v0,v0,-1
+=> 0x80091e48:	sw	v0,16(sp)
+   0x80091e4c:	lw	v0,16(sp)
+   0x80091e50:	nop
+
+Program stopped.
+0x80091e48 in ?? ()
+warning: GDB can't find the start of the function at 0x80091e48.
+TRAP 13 pc=80091e48 ra=80091f88 sp=801ffda0 hp=7701 mp=7197 | BTLoff=0003f368 a0=00867754 a1=00008000 a2=00ffffff a3=ff000000 v0=00004266 v1=ffffffff t0=8011a1d0 s0=5602001b s1=000001e1 s2=00000007
+   0x80091e34:	sw	ra,24(sp)
+   0x80091e38:	li	v1,-1
+   0x80091e3c:	lw	v0,16(sp)
+   0x80091e40:	nop
+   0x80091e44:	addiu	v0,v0,-1
+=> 0x80091e48:	sw	v0,16(sp)
+   0x80091e4c:	lw	v0,16(sp)
+   0x80091e50:	nop
+
+Program stopped.
+0x80091e44 in ?? ()
+warning: GDB can't find the start of the function at 0x80091e44.
+TRAP 14 pc=80091e44 ra=80091f88 sp=801ffda0 hp=7701 mp=7197 | BTLoff=0003f364 a0=0086776f a1=00008000 a2=00ffffff a3=ff000000 v0=00004266 v1=ffffffff t0=8011a1d0 s0=5602001b s1=00000189 s2=00000007
+   0x80091e30:	beqz	v0,0x80091e9c
+   0x80091e34:	sw	ra,24(sp)
+   0x80091e38:	li	v1,-1
+   0x80091e3c:	lw	v0,16(sp)
+   0x80091e40:	nop
+=> 0x80091e44:	addiu	v0,v0,-1
+   0x80091e48:	sw	v0,16(sp)
+   0x80091e4c:	lw	v0,16(sp)
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 15 pc=80102fec ra=800683b0 sp=801ffd78 hp=7700 mp=7173 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e14 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 16 pc=80102fec ra=800683b0 sp=801ffd78 hp=7699 mp=7173 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e13 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 17 pc=80102fec ra=800683b0 sp=801ffd78 hp=7698 mp=7173 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e12 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 18 pc=80102fec ra=800683b0 sp=801ffd78 hp=7697 mp=7173 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e11 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 19 pc=80102fec ra=800683b0 sp=801ffd78 hp=7696 mp=7125 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e10 v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 20 pc=80102fec ra=800683b0 sp=801ffd78 hp=7695 mp=7125 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e0f v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 21 pc=80102fec ra=800683b0 sp=801ffd78 hp=7694 mp=7125 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e0e v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 22 pc=80102fec ra=800683b0 sp=801ffd78 hp=7693 mp=7125 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e0d v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 23 pc=80102fec ra=800683b0 sp=801ffd78 hp=7692 mp=7125 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e0c v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 24 pc=80102fec ra=800683b0 sp=801ffd78 hp=7691 mp=7125 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e0b v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 25 pc=80102fec ra=800683b0 sp=801ffd78 hp=7690 mp=7125 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e0a v1=00000000 t0=00000000 s0=801460f8 s1=8016b0bc s2=801460f8
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x800df49c in ?? ()
+warning: GDB can't find the start of the function at 0x800df49c.
+TRAP 26 pc=800df49c ra=800df488 sp=801ffe50 hp=7690 mp=7045 | BTLoff=0008c9bc a0=80177e88 a1=00177e60 a2=00ffffff a3=ff000000 v0=00000004 v1=00000000 t0=00600000 s0=80177e88 s1=00000002 s2=00000000
+   0x800df488:	lh	v0,50(sp)
+   0x800df48c:	nop
+   0x800df490:	mult	v0,s2
+   0x800df494:	mflo	v1
+   0x800df498:	lh	v0,48(sp)
+=> 0x800df49c:	nop
+   0x800df4a0:	add	v0,v0,v1
+   0x800df4a4:	add	v1,s1,v0
+Cannot execute this command while the target is running.
+Use the "interrupt" command to stop the target
+and then try again.

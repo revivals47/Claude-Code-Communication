@@ -1,0 +1,918 @@
+The target architecture is set to "mips:3000".
+The target is set to little endian.
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x80091e8c in ?? ()
+PRE hp=7690 pending=0
+Hardware watchpoint 1: *(unsigned int*)0x80146124
+
+Program stopped.
+0x80056ec0 in ?? ()
+warning: GDB can't find the start of the function at 0x80056ec0.
+
+    GDB is unable to find the start of the function at 0x80056ec0
+and thus can't determine the size of that function's stack frame.
+This means that GDB may be unable to access that stack frame, or
+the frames below it.
+    This problem is most likely caused by an invalid program counter or
+stack pointer.
+    However, if you think GDB should simply search farther back
+from 0x80056ec0 for code which looks like the beginning of a
+function, you can increase the range of the search using the `set
+heuristic-fence-post' command.
+TRAP 1 pc=80056ec0 ra=80056ddc sp=801ffdd0 pending=0 hp=7690 | BTLoff=000043e0 a0=000000ff a1=0000000b a2=00000021 a3=80141428 v0=00000064 v1=00000000 t0=8011a1d0 t1=000000a8 s0=801460f8 s1=8016b0bc s2=00000000 s3=00000000
+   0x80056ea4:	li	v0,-1
+   0x80056ea8:	sw	v0,0(s0)
+   0x80056eac:	li	v0,-1
+   0x80056eb0:	sw	v0,20(s0)
+   0x80056eb4:	li	v0,100
+   0x80056eb8:	sh	v0,50(s0)
+   0x80056ebc:	sh	zero,44(s0)
+=> 0x80056ec0:	sb	zero,59(s0)
+   0x80056ec4:	lh	v0,6(s1)
+   0x80056ec8:	nop
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 2 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7690 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000000 v0=0000002e v1=00000001 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 3 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7690 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000000 v0=0000002e v1=00000011 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 4 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7690 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000001 v0=00000033 v1=0000003f t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 5 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7689 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000014e a3=00000009 v0=00001e09 v1=00000000 t0=00600000 t1=0000bf20 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 6 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7689 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000001 v0=00000033 v1=00000020 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 7 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7689 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000001 v0=00000033 v1=00000057 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 8 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7689 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000000 v0=0000002e v1=00000010 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 9 pc=80102fec ra=800683b0 sp=801ffd78 pending=3 hp=7688 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e08 v1=00000000 t0=00001000 t1=801ffd40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 10 pc=80102fec ra=800683b0 sp=801ffd78 pending=2 hp=7687 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e07 v1=00000000 t0=00001000 t1=801ffd40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 11 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7686 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001e06 v1=00000000 t0=00001000 t1=801ffd40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 12 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7686 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000001 v0=00000033 v1=00000046 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 13 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7685 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=8017a8a4 a3=00000000 v0=00001e05 v1=00000000 t0=8016b46c t1=00000000 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 14 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7685 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000001 v0=00000033 v1=00000057 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 15 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7684 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=8018e8ac a3=00000000 v0=00001e04 v1=00000000 t0=8016f46c t1=00000000 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 16 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7684 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000000 v0=0000002e v1=00000005 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 17 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7684 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000001 v0=00000033 v1=0000004b t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 18 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7684 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000002 v0=0000002f v1=00000050 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 19 pc=80102fec ra=800683b0 sp=801ffd78 pending=8 hp=7683 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000148 a3=00000009 v0=00001e03 v1=00000000 t0=00600000 t1=0000bf20 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 20 pc=80102fec ra=800683b0 sp=801ffd78 pending=7 hp=7682 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000014a a3=00000009 v0=00001e02 v1=00000000 t0=00600000 t1=0000bf40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 21 pc=80102fec ra=800683b0 sp=801ffd78 pending=6 hp=7681 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000014c a3=00000009 v0=00001e01 v1=00000000 t0=00600000 t1=0000bf40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 22 pc=80102fec ra=800683b0 sp=801ffd78 pending=5 hp=7680 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000014d a3=00000009 v0=00001e00 v1=00000000 t0=00600000 t1=0000bf60 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 23 pc=80102fec ra=800683b0 sp=801ffd78 pending=4 hp=7679 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000014e a3=00000009 v0=00001dff v1=00000000 t0=00600000 t1=0000bf60 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 24 pc=80102fec ra=800683b0 sp=801ffd78 pending=3 hp=7678 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000014f a3=00000009 v0=00001dfe v1=00000000 t0=00600000 t1=0000bf60 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 25 pc=80102fec ra=800683b0 sp=801ffd78 pending=2 hp=7677 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000014f a3=00000009 v0=00001dfd v1=00000000 t0=00600000 t1=0000bf80 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 26 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7676 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000150 a3=00000009 v0=00001dfc v1=00000000 t0=00600000 t1=0000bf80 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 27 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7676 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000000 v0=0000002e v1=00000019 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 28 pc=80102fec ra=800683b0 sp=801ffd78 pending=2 hp=7675 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001dfb v1=00000000 t0=00001000 t1=801ffd40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 29 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7674 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00ffffff a3=ff000000 v0=00001dfa v1=00000000 t0=00001000 t1=801ffd40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 30 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7674 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000002 v0=0000002f v1=00000059 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 31 pc=80102fec ra=800683b0 sp=801ffd78 pending=9 hp=7673 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000145 a3=00000009 v0=00001df9 v1=00000000 t0=00600000 t1=0000bf20 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 32 pc=80102fec ra=800683b0 sp=801ffd78 pending=8 hp=7672 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000143 a3=00000009 v0=00001df8 v1=00000000 t0=00600000 t1=0000bf40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 33 pc=80102fec ra=800683b0 sp=801ffd78 pending=7 hp=7671 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000142 a3=00000009 v0=00001df7 v1=00000000 t0=00600000 t1=0000bf40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 34 pc=80102fec ra=800683b0 sp=801ffd78 pending=6 hp=7670 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000141 a3=00000009 v0=00001df6 v1=00000000 t0=00600000 t1=0000bf60 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 35 pc=80102fec ra=800683b0 sp=801ffd78 pending=5 hp=7669 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000140 a3=00000009 v0=00001df5 v1=00000000 t0=00600000 t1=0000bf60 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 36 pc=80102fec ra=800683b0 sp=801ffd78 pending=4 hp=7668 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000013f a3=00000009 v0=00001df4 v1=00000000 t0=00600000 t1=0000bf60 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 37 pc=80102fec ra=800683b0 sp=801ffd78 pending=3 hp=7667 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000013f a3=00000009 v0=00001df3 v1=00000000 t0=00600000 t1=0000bf80 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 38 pc=80102fec ra=800683b0 sp=801ffd78 pending=2 hp=7666 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000013e a3=00000009 v0=00001df2 v1=00000000 t0=00600000 t1=0000bf80 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 39 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7665 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000013e a3=00000009 v0=00001df1 v1=00000000 t0=00600000 t1=0000bf80 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 40 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7665 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000002 v0=0000002f v1=00000032 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 41 pc=80102fec ra=800683b0 sp=801ffd78 pending=6 hp=7664 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000148 a3=00000009 v0=00001df0 v1=00000000 t0=00600000 t1=0000df00 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 42 pc=80102fec ra=800683b0 sp=801ffd78 pending=5 hp=7663 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000148 a3=00000009 v0=00001def v1=00000000 t0=00600000 t1=0000df00 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 43 pc=80102fec ra=800683b0 sp=801ffd78 pending=4 hp=7662 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000148 a3=00000009 v0=00001dee v1=00000000 t0=00600000 t1=0000df00 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 44 pc=80102fec ra=800683b0 sp=801ffd78 pending=3 hp=7661 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000149 a3=00000009 v0=00001ded v1=00000000 t0=00600000 t1=0000df00 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 45 pc=80102fec ra=800683b0 sp=801ffd78 pending=2 hp=7660 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000149 a3=00000009 v0=00001dec v1=00000000 t0=00600000 t1=0000df00 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 46 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7659 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=00000149 a3=00000009 v0=00001deb v1=00000000 t0=00600000 t1=0000df00 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 47 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7659 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000002 v0=0000002f v1=0000003f t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 48 pc=80102fec ra=800683b0 sp=801ffd78 pending=8 hp=7658 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000015a a3=00000009 v0=00001dea v1=00000000 t0=00600000 t1=0000bf20 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 49 pc=80102fec ra=800683b0 sp=801ffd78 pending=7 hp=7657 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000015b a3=00000009 v0=00001de9 v1=00000000 t0=00600000 t1=0000bf40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 50 pc=80102fec ra=800683b0 sp=801ffd78 pending=6 hp=7656 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000015c a3=00000009 v0=00001de8 v1=00000000 t0=00600000 t1=0000bf40 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 51 pc=80102fec ra=800683b0 sp=801ffd78 pending=5 hp=7655 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000015c a3=00000009 v0=00001de7 v1=00000000 t0=00600000 t1=0000bf60 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 52 pc=80102fec ra=800683b0 sp=801ffd78 pending=4 hp=7654 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000015d a3=00000009 v0=00001de6 v1=00000000 t0=00600000 t1=0000bf60 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 53 pc=80102fec ra=800683b0 sp=801ffd78 pending=3 hp=7653 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000015d a3=00000009 v0=00001de5 v1=00000000 t0=00600000 t1=0000bf60 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 54 pc=80102fec ra=800683b0 sp=801ffd78 pending=2 hp=7652 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000015e a3=00000009 v0=00001de4 v1=00000000 t0=00600000 t1=0000bf80 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 55 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7651 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=0000015e a3=00000009 v0=00001de3 v1=00000000 t0=00600000 t1=0000bf80 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 56 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7651 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000002 v0=0000002f v1=00000059 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 57 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7650 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=8018e644 a3=00000000 v0=00001de2 v1=00000000 t0=8016f46c t1=00000000 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 58 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7650 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000002 v0=0000002f v1=00000041 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
+
+Program stopped.
+0x80102fec in ?? ()
+warning: GDB can't find the start of the function at 0x80102fec.
+TRAP 59 pc=80102fec ra=800683b0 sp=801ffd78 pending=1 hp=7649 | BTLoff=000b050c a0=801460f8 a1=8016b0bc a2=8017aa00 a3=00000000 v0=00001de1 v1=00000000 t0=8016b46c t1=00000000 s0=801460f8 s1=8016b0bc s2=801460f8 s3=00000000
+   0x80102fd0:	nop
+   0x80102fd4:	blez	v0,0x80102ffc
+   0x80102fd8:	nop
+   0x80102fdc:	lh	v0,20(s1)
+   0x80102fe0:	nop
+   0x80102fe4:	addi	v0,v0,-1
+   0x80102fe8:	sh	v0,20(s1)
+=> 0x80102fec:	lh	v0,46(s0)
+   0x80102ff0:	nop
+   0x80102ff4:	addi	v0,v0,-1
+
+Program stopped.
+0x8005f25c in ?? ()
+warning: GDB can't find the start of the function at 0x8005f25c.
+TRAP 60 pc=8005f25c ra=80063804 sp=801ffd28 pending=0 hp=7649 | BTLoff=0000c77c a0=8016b084 a1=801460f8 a2=00000000 a3=00000000 v0=0000002e v1=00000011 t0=bfc02200 t1=000000bc s0=801460f8 s1=8016b0bc s2=8016b084 s3=00000000
+   0x8005f240:	sw	s2,24(sp)
+   0x8005f244:	sw	s1,20(sp)
+   0x8005f248:	sw	s0,16(sp)
+   0x8005f24c:	sw	a0,32(sp)
+   0x8005f250:	move	s0,a1
+   0x8005f254:	sw	a3,44(sp)
+   0x8005f258:	sh	zero,44(s0)
+=> 0x8005f25c:	lw	v0,32(sp)
+   0x8005f260:	nop
+   0x8005f264:	addiu	s2,v0,56
