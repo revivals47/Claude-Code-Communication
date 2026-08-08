@@ -26,7 +26,10 @@ read-only 検証。degimon repo 本体・他 worktree への書込みなし。
 | (6) claim B(slot8=0x8014677c、+0xBDC) | **支持** |
 | (6) claim C(ps=5 / VH 0x1420) | **支持**(ただし「copy 長と一致」は表現要精密化、§6.3) |
 | (6) claim D(VagAtr 構造) | **支持**(私の (4) 自己導出と完全整合、§6.4) |
-| (6) claim E(SPU chain) | **到達性=支持 / 「psyq SPU ライブラリ系」=判定不能**(§6.5) |
+| (6) claim E(SPU chain) | **到達性=支持 / 機能同定=支持(§10.5) / lib 名の断定=判定不能 / 「SPU 転送」=不支持**(§6.5 → §10.5 で更新) |
+| §10 jalr 8 site | **8/8 解決**(§10.1) |
+| §10 SB.VHB ↔ live VH | **byte 照合 5117/5152、差分は全て機構で説明可**(§10.3) |
+| §10 copy パラメータ | **dst/src/len の 3 register を推論ゼロで再現**(§10.4) |
 
 **帰属レベルの最大所見**: §1 の「field NPC loader / entity array」帰属は誤り。0x80147358 は psyq **VAB(音源 bank)header 領域**の内部であり、BIOS copy は VAB VH のロードである(§6 で確定)。
 
@@ -395,10 +398,166 @@ record 先頭 = VA ...9c で decode(ram_A):
 1. memdump(15:4x)/ wp log(15:40-15:42)/ ram_A・ram_B(16:0x)は **別時刻**。3 者を同一 state として結合してはならない。
 2. `===STAGING===` 節は copy の src oracle として使えない(§2.4)。
 3. dump 採取時の map は未知。指示どおり NPC 表との join は一切していない(§6 で VAB 帰属が確定したため join 自体が無意味になった)。
-4. claim E の chain 解析は direct jal のみ。jalr 8 site 未追跡 = 構造的に不完全。
+4. ~~claim E の chain 解析は direct jal のみ。jalr 8 site 未追跡 = 構造的に不完全。~~ → **§10.1 で 8/8 解決済**(残る不完全性は §10.1 末尾に再掲)
 5. btl_rel.bin の caller 単一性は同 overlay 内のみ。main EXE / 他 overlay / jalr は未走査。
-6. §7 は推論。dst 開始 address の直接観測が無い。
+6. ~~§7 は推論。dst 開始 address の直接観測が無い。~~ → **§10.4 で dst 開始 = 0x8014677c が code から確定**(§7 の残る推論部は §10.5 に更新)
 7. 本検証は log と binary の直読のみ。実機再現(user 操作)は行っていない。
+
+---
+
+## §10 追加検証: claim E gap closure と psyq 同定の ground 化(2026-07-25 後半、boss1 発注)
+
+### 10.1 未追跡 jalr 8 site = **8/8 解決**
+
+§6.5 の BFS(entry 0x800cf0e4)に残っていた jalr 8 site を全件解決。
+
+| # | jalr site | 所属 fn | target 式 | 解決値 | 手段 |
+|---|---|---|---|---|---|
+| 1 | 0x800925c8 | 0x800925b0 | `*(*(0x8011cabc) + 4)` | **0x8009290c** | live 値(`*(0x8011cabc)`=0x8011ca9c) |
+| 2 | 0x800b534c | 0x800b51ac | `*(0x8012f480)` | **0x00000000** | live 値。直前 `beqz v0` で **未登録 hook = 呼ばれない** |
+| 3 | 0x800b537c | 0x800b51ac | `*(0x8012f47c)` | **0x800b4338** | live 値 |
+| 4 | 0x800b55cc | 0x800b542c | `*(0x8012f480)` | 0x00000000 | 同 #2 |
+| 5 | 0x800b55fc | 0x800b542c | `*(0x8012f47c)` | 0x800b4338 | 同 #3 |
+| 6 | 0x800b5a28 | 0x800b56f4 | `*(0x8012f480)` | 0x00000000 | 同 #2 |
+| 7 | 0x800b5a58 | 0x800b56f4 | `*(0x8012f47c)` | 0x800b4338 | 同 #3 |
+| 8 | 0x800dbb94 | 0x800db8f8 | `s6` ← 引数 a2 | **0x800db8bc** | ★純静的★ |
+
+- #8 の解決根拠: 0x800db8f8 への direct caller は RAM 全走査で **0x800db8dc の 1 箇所のみ**。そこで `lui a2,0x800e; addiu a2,a2,-0x4744` = **0x800db8bc** を渡し、callee は `move s6,a2`(0x800db910)で保持。0x800db8bc の実体は `jr ra; move v0,a1` = **恒等 callback**。
+- 相異なる非 NULL target は **3 個**: 0x8009290c / 0x800b4338 / 0x800db8bc。ram_A と ram_B で全 global が bit 一致。
+- ★limitation★: #1,3,5,7 は **capture 時点の live 値**による解決。他時刻に別値が入る可能性は排除していない。#2,4,6 は capture 時 NULL であり、hook が登録される状況は未観測。#8 のみ時刻非依存。
+
+**jalr を解決した上での再 BFS**(depth ≤ 8、到達 **66 fn**): `lui reg,0x1f80`(SPU/IO MMIO page)は **依然ゼロ**。RAM 全域には同 pattern が 281 site 存在するので、到達集合が MMIO を持たないことは実質的な情報である(ただし §10.5 の限定つき)。
+
+### 10.2 vise 先行資産の素性確認
+
+`/home/ken/Desktop/vise/docs/sound_format_analysis.md`(git `282394c`、2026-02-01、前身 project の worker3 作)を参照。**derived doc(二次資料)**であり、本 doc では**根拠として採用しない**。代わりに同 doc が指した対象を **ISO の一次 bytes で直接測り直した**(§10.3)。
+
+一致していた点(参考): VAB magic が `pBAV`(LE)であること、VHB = 12 or 16 byte wrapper + VAB であること、`faall` のみ wrapper が 0x10 であること。
+
+### 10.3 一次 source による ground 化: ISO directory + VHB 実 bytes
+
+`/home/ken/Desktop/vise/cd_extracted/degimon01.iso`(331,894,784 B、ISO9660 'DEGIMON'、2048 B/sector)。**ISO9660 directory record を直接 parse**(vise doc の数値は使わない):
+
+| file | LBA | size | wrapper | ver | ps | ts | vs | fsize | VH size |
+|---|---|---|---|---|---|---|---|---|---|
+| SS.VHB | 145857 | 57,180 | 0x0C | 7 | 2 | 29 | 18 | 0xdf50 | 0xe20 |
+| SL.VHB | 145829 | 55,564 | 0x0C | 7 | 2 | 30 | 27 | 0xd900 | 0xe20 |
+| **SB.VHB** | 145707 | **248,524** | 0x0C | 7 | **5** | **66** | **60** | **0x3cac0** | **0x1420** |
+| ESALL.VHB | 142614 | 3,698,688 | 0x0C | 7 | 1 | 16 | 15 | 0x39970 | 0xc20 |
+| FAALL.VHB | 144420 | 2,635,776 | **0x10** | 7 | 5 | 10 | 5 | 0xd470 | 0x1420 |
+| VBALL.VHB | 145885 | 1,017,856 | 0x0C | 7 | 1 | 12 | 1 | 0x2300 | 0xc20 |
+| VLALL.VHB | 146382 | 491,520 | 0x0C | 7 | 1 | 5 | 5 | 0x5450 | 0xc20 |
+
+**厳密な size 会計**(`file size == wrapper + fsize`)が成立するのは **SS / SL / SB の 3 件のみ**:
+- SS: 57,180 = 12 + 57,168 ✓ / SL: 55,564 = 12 + 55,552 ✓ / SB: 248,524 = 12 + 248,512 ✓
+- `*ALL.VHB` 4 件は成立しない(例: ESALL は 3,698,688 ≫ 12 + 235,888)= **複数 VAB を連結した container**。ISO 全体の `pBAV` 出現は **145 件**であり、単一 VAB file は上記 3 件のみという読みと整合。
+- ★この 3 件は、pointer table 直前に置かれた ASCII 文字列 `SOUND\SS` / `SOUND\SL` / `SOUND\SB`(§6.1)と 1 対 1 に対応する。★
+
+**live との byte 照合**(SB.VHB の VH 0x1420 bytes vs `ram_A` の 0x8014677c):
+
+| 比較 | 一致 | 差分の所在 |
+|---|---|---|
+| SB.VHB VH ↔ **ram_A** | **5117 / 5152 (99.32%)** | 35 byte、**全て [0xbde, 0xc1e]** に限局 |
+| SB.VHB VH ↔ **ram_B** | 4518 / 5152 | 634 byte、**全て [0x28, 0x81b]**(= ProgAtr 領域の各 entry +0x08..+0x0f) |
+
+- **ram_B の差分** = disc は `ffffffff ffffffff`、live は `(program index u32)(昇順 u16 ペア)`。⇒ **VH を copy した後に runtime が ProgAtr の reserved field を書き換える patch pass が存在する**。ram_B の VagAtr 領域は disc と完全一致。
+- **ram_A の差分** = ProgAtr は **disc のまま(未 patch)**、VagAtr #30/#31 相当の [0xbde,0xc20) のみ zero。⇒ ram_A は **copy 直後・patch 前**の状態。
+- ⇒ 機構は **① VH を丸ごと copy → ② ProgAtr を runtime patch** の順。
+
+### 10.4 ★copy パラメータの完全な閉包(推論ゼロ)★
+
+§9-6 で「dst 開始 address の直接観測が無い」と書いた honest gap は **解消した**。
+
+**(a) 2 つの call site は構造的に同一**。ra=0x80108960 側を逆 assemble(`word@0x80108958 = 0x0c024514` = 同じ `jal 0x80091450`):
+
+```
+0x801088c8  addiu sp,sp,-0x30          ; fn entry(引数 a0 = idx)
+0x801088e4  sll   a0, s2, 3            ; idx*8
+0x801088ec  addiu v1, v1, -0x7588      ; descriptor table = 0x80138A78
+0x801088f0  addu  s0, v1, a0           ; s0 = 0x80138A78 + idx*8
+0x801088f4  lw    s1, 0(s0)            ; s1 = staging pointer
+0x80108928  addiu v0, v0, 0x4230       ; 0x80134230(= §2.2 と同じ slot table)
+0x80108940  addu  a1, s1, v0           ; src = s1 + ([s1] & ~3)
+0x80108950  subu  a2, v1, v0           ; len = [s1+4] - [s1+0]
+0x80108954  lw    a0, 0(a0)            ; dst = *(0x80134230 + idx*4)
+0x80108958  jal   0x80091450           ; A(2Ah) memcpy
+0x80108968  jal   0x800db83c           ; ← copy 後の登録/parse
+```
+
+**(b) idx = 8 が観測から確定**。battle 側 trap の観測値 **s0 = 0x80138ab8**(`wp_field_loader_4.log:124` ほか)を descriptor table に当てると:
+`(0x80138ab8 − 0x80138A78) / 8 = 0x40/8 = **8**` ⇒ **dst = slot8 = 0x8014677c**(仮定ではなく register からの逆算)。
+ram_A/ram_B の同 entry は `[+0] = 0x80010000` = trap の観測 s1 と一致 ✓
+
+**(c) staging header の実値を捕獲**。`ram_A` の 0x80010000:
+```
+word0 = 0x0000000C   word1 = 0x0000142C   →  len = word1 - word0 = 0x1420
+```
+⇒ **word0 = 0x0C は SB.VHB の wrapper size そのもの**(§10.3 の ISO 実測と一致)、**len = 0x1420 は SB.VHB の VH size そのもの**。
+⇒ **VHB の 12 byte wrapper は、この loader が読む offset table である**(`src = s0 + offsets[0]`、`len = offsets[1] − offsets[0]`)。
+
+**(d) trap の 3 register が完全に再現される**:
+
+| 観測 register | 導出値 | 一致 |
+|---|---|---|
+| a0 = **0x80147359** | dst_start 0x8014677c + 0xBDD | ✓ |
+| a1 = **0x80010be9** | src_start 0x8001000C + 0xBDD | ✓ |
+| a2 = **0x00000843** | len 0x1420 − 0xBDD | ✓ |
+
+★3 値とも bit 一致。battle 側 copy = **SB.VHB の VH(0x1420 B)を slot8 へ丸ごと転送**で確定。★
+
+**(e) 自己訂正**: §2.4 で「`===STAGING_HEAD===` は src oracle に使えない」と書いたが、正しくは **memdump 採取時点の staging buffer が既に別用途で上書きされていた**だけである。staging header の**構造**(= VHB wrapper = offset table)は正しく、ram_A ではその実値が捕獲できている。§2.4 の限定は「memdump の当該節に限る」と読み替えること。
+(ram_B の同 header は `word0=0x0C / word1=0x12B` = len 0x11F の別転送。staging buffer は他 section にも再利用される。)
+
+### 10.5 claim E の最終判定(更新)
+
+| 主張 | 判定 |
+|---|---|
+| 0x800cf1a0 を含む関数から 0x800db83c / 0x800db8c4 / 0x800dbcd8 へ到達する | **支持**(log 直読 + jalr 解決済 BFS) |
+| その関数群が **VAB header を parse し、per-VAG の size/address table を構築する** | **支持(code 直読で機能同定)** |
+| それが **psyq SPU ライブラリ(SsVab 系)そのものである** | **判定不能**(名前を決める材料が無い) |
+| その chain が **SPU へ転送する** | **不支持**(到達 66 fn に SPU MMIO 参照ゼロ) |
+
+**機能同定の根拠**(`0x800db8f8` の loop、live RAM 逆 assemble):
+
+```
+0x800dbb28  lhu  v0, 0x12(a0)     ; ★VabHdr + 0x12 = ps を読む★
+0x800dbb2c  lbu  s4, 0x16(a0)     ;  VabHdr + 0x16 = vs
+0x800dbb30  sll  v0, v0, 9        ; ★ps * 512 = VagAtr 領域 size★
+0x800dbb34  addu a3, a3, v0       ;  a3 = VAG offset table 先頭へ
+loop(a1 = 0 .. 0xFF):            ; ★256 entry★
+  0x800dbb3c  slt v0, t0, a1      ;  t0 = vs → ★vs を越えたら skip★
+  0x800dbb48  lw   v0, 4(a0)      ;  VabHdr + 0x04 = version
+  0x800dbb4c  lhu  v1, 0(a3)      ;  u16 offset entry
+  0x800dbb50  slti v0, v0, 5      ; ★ver < 5 なら <<2、それ以外 <<3★
+  0x800dbb58  sll  v0, v1, 2  /  0x800dbb5c  sll v0, v1, 3
+  0x800dbb60  sw   v0, 0(a2)      ;  u32 の size table へ store
+  0x800dbb6c  addu s0, s0, v0     ;  積算(累計 SPU address)
+  a3 += 2 ; a2 += 4 ; a1 += 1
+```
+
+★この code は、私が §4 で **先入観なしに data から測った VAB 構造を、そのまま実行形で再現している**★:
+
+| 私が §4/§6 で data から測った値 | この code が使う定数 |
+|---|---|
+| ps は VabHdr+0x12 | `lhu v0,0x12(a0)` |
+| VagAtr 領域 = 512 × ps | `sll v0,v0,9` |
+| VagAtr の後に VAG offset table | `addu a3,a3,v0` |
+| offset table は u16 × 256 | loop 上限 `0x100` |
+| 非零 entry は vs 個(=60)まで | `slt t0,a1` で vs 越えを skip |
+
+⇒ **「VAB header を解釈して per-VAG の size/address 表を構築する関数群」までは code 直読で確定**。名前(SsVabTransBody 等)の断定は symbol が無いため行わない。
+⇒ **SPU 転送は本 chain の到達範囲に無い**。ただし ★不在は否定でない★: (a) 到達集合には capture 時 NULL の hook が 3 site あり、hook 登録時の到達範囲は未観測、(b) 私の BFS は direct jal + 解決済 jalr のみ、(c) DMA 経由・割り込み callback 経由は追跡していない。
+
+### 10.6 §7 の更新(観測へ格上げ / 残る推論)
+
+| §7 の記述 | 更新後 |
+|---|---|
+| slot8 は field 用(ps=1)/ battle 用(ps=5)VAB を張り替える | **battle 側 = SB.VHB(ps=5)を確定**(§10.4)。field 側の総長 0xC20 = 2592+512×1 も同一機構から導出可 |
+| dst 開始 address は導出不能 | **解消**。descriptor table の観測 s0 から idx=8 → slot8(§10.4-b) |
+| ps=1 header 実体は 3 dump に非残存 | **維持**。ただし disc には ps=1 の VAB が **90 件超**存在し(§6.3 の scan)、field 側 0xC20 と整合 |
+| 「field 用 / battle 用」の用途 label | **維持して推論**。bank 内容の照合はしていない。SB = `SOUND\SB` であることまでが観測 |
+
+**新たな honest gap**: field 側(ra=0x800cf1a8、総長 0xC20)の staging header 実値は 3 dump のいずれにも残っていない。どの ps=1 bank かは**特定不能**(候補 90 件超)。
 
 ---
 
