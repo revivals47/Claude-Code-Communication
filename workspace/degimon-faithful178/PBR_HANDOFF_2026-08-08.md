@@ -7,6 +7,17 @@
 
 ## 0. ★申し送り(最初に読む)★
 
+### 0.0 ★本日最大の教訓★
+
+★**bytes が正しくても、bytes の解釈が完全とは限らない**★。
+
+★視覚 gate は「最後の儀式」ではなく「別次元の測定」★:
+- ★bytes = 何が load されるか★
+- ★user の目 = 何が画面に居るか★
+
+★今日の gate は実際に defect を捕まえた。bytes だけでは出なかった★。
+→ 視覚 gate を「確認のための形式」として最後に付け足すのではなく、★bytes では原理的に届かない次元を測る手段★として設計する。
+
 ### 0.1 撤回の質 — A / B の分類
 
 ★撤回には 2 種類あり、価値が違う★。本 session の実データで分類する。
@@ -26,6 +37,12 @@
 | worker2 | ★自分の解釈枠 doc が gate 分割裁定で対象ずれ(stale)を起こしていた★ — boss1 の handoff 査読で摘出、V2 / V2R に分けて改訂 |
 | boss1 | `strings` 既定 ASCII が .NET UTF-16 literal を取りこぼしていた(`-el` で訂正) |
 | boss1 | ★handoff 査読で worker2 の解釈枠の stale を検出★ — ★索引化作業それ自体が stale 検出器として機能した★ |
+| worker3 | ★自分の doc の題「entity array に触る全 code site の列挙」を誤りとして自己訂正★ — 実際に列挙したのは ★base を組み立てる site だけ★で、★record ptr を引数で受け取る関数は原理的に見えない★ |
+| worker3 | ★worker1 の scan の穴を塞いだ★ — ★`sh@0xBC` / `sw@0xBC` も `+0xBD` を覆う★。発見した 1 site(`0x800DE6F4`)は ★base が `sp` = stack local = 偽陽性★ と本人が確認 |
+| boss1 | ★28 点の相関から意味へ 1 段飛ばした★。★その直後に post-hoc の選言を自分で自由度申告した★ |
+| boss1 | ★base 組立 site 46 件という起点を作り、worker に渡す前に盲点に気づけなかった★(§0.2c) |
+
+★制度が設計どおり機能した実例★: ★2 系統 scan を control として発注したことが、実際に worker3 側の同型ミスを 1 件炙り出した★。
 
 **★B = 他人に指摘されて直した撤回(必要だが波及が小さい)★**
 boss1: flatpak path / 打切り tsv / 境界の形状判断 / 「2 軸で閉じた」/ 「worker1 は誤り」/ gitignore 対象は git diff の母集団外(★4 度目の同型★)
@@ -56,6 +73,26 @@ worker2 の V2 解釈枠は ★書かれた時点では正しかったが、そ�
 ★この stale は handoff の査読で捕まった★ = ★doc を索引化する作業それ自体が stale の検出器として機能した★。
 索引化は「まとめる事務作業」に見えるが、★各 doc が何を指すかを 1 行で言い直す過程で、指し先のずれが露出する★。
 ∴ ★closeout を事務作業として省略しない★。
+
+★併せて: doc が参照する一次証跡が追跡下にあるかを、doc とは別に確かめる★。
+実例 — PRESIDENT が「★`log` の原本を残せ」と裁定しながら、自分の原本を残していなかった★」と自己申告(`runtime_capture_2026-08-08/` を `f3a8e16` で保全)。★気づいた契機は worker1 の commit(`0f2eeff`)を見て自分の側を確認したこと★ = ★他者の保全作業が、自分の未保全を可視化した★。
+★doc だけ残って根拠が消える★形になりかけた点で ★FU-4(`2799c4e` の緑が事後に確認できない)と同型★。
+∴ doc の整合を見るだけでは足りず、★その doc が指す証跡が version 管理下にあるかを別途確認する★。★workspace は gitignore 配下なので、force-add しない限り「doc は残るが根拠は消える」が既定の挙動★ — ここが特に危ない。
+
+### 0.2c ★PRESIDENT 自身による「自分の指示の限界」の記録★
+
+★以下は PRESIDENT が自ら記録するよう指示したもの(名前入りで残す)★:
+
+★「PRESIDENT の指示した scan 起点自体が、両方向で同じ盲点を持っていた」★
+
+- PRESIDENT は ★「entity base + stride を READ する site を全数抽出せよ」★ と指示した
+- ★この母集団は、record ptr を **引数で受け取る**関数を原理的に含まない★。★今回効いた `0x800BCC20` 群がまさにそれ★
+- ∴ ★「向きを変えろ(writer → reader)」とは言ったが、母集団の作り方は writer 時代のままだった★ = ★PRESIDENT の設計ミス★
+- ★boss1 も同じ起点(base 組立 site 46 件)を作って worker に渡そうとしており、渡す前に気づけなかった★
+
+★対策★: ★次に reader を探すときは、base 組立 site だけでなく「entity を loop する関数から呼ばれる leaf」まで辿る必要がある★。
+
+→ これは §0.2 の型(「自分の測定範囲を全体だと思った」)が ★指示の設計レベルで起きた★ 例。★向きを変えても母集団の作り方を変えなければ、同じ盲点が両方向に残る★。
 
 ### 0.3 ★A を促す制度 3 つ★
 
@@ -93,6 +130,10 @@ worker2 の V2 解釈枠は ★書かれた時点では正しかったが、そ�
 | `PBR_P0_STREAM_GATING_worker3.md` | 生 `.map` を loader 読み順で手 parse した静的照合 / gating / ★黄 creature の oracle 監査(§6)★ / ★V1-V5 の実行形(§10-§11)★ |
 | `PBR_P0_map_index_table.tsv` | map index ↔ 名前の表。★この tsv が idx 0..238 で打ち切られていたことが boss1 の誤裁定の原因(§0.2)★ |
 | `pbr_p0_adjudicate.py` / `pbr_p0_crosscheck.py` | worker2 の判定 script。self-check 付き、index 0..7 限定、shift 量 k 全走査 |
+| **`runtime_capture_2026-08-08/`** | ★本 dispatch の**入力 spec**(`docs/RE_field_entity_loader_2026-08-08.md`)の一次証跡★。`wp_entity_1.log` / `dis*.log` ほか **28 file**。★PRESIDENT が `f3a8e16` で保全(4,537 行、workspace は gitignore ゆえ force-add)★。`docs/RE_battle_getDamagePoint_2026-08-08.md` L7 と `docs/RE_field_entity_loader_2026-08-08.md` L6 が根拠として参照 |
+| `runtime_capture_2026-07-25/` | mayo00 の生 2MB RAM dump 群(`ram_A/B.bin`、`ram_live_1628_*.bin`)。Phase 0 判定の RAM 素材 |
+
+★log は原本を維持する(PRESIDENT 承認)★: 抽出版は我々が作った derived artifact であり、★選択的に切っていないことを後世が確認できない★。★原本が自己 authenticating である★ことに勝る形は無い、という判断。
 
 ---
 
@@ -144,3 +185,23 @@ worktree `degimon_world_remake-pbr` / branch `track1/placement-rebaseline` → m
 - ISSUE-1 / ISSUE-2 / ISSUE-3(`PBR_P1_ISSUES_worker1.md`)
 - 除外条項のうち未消化のもの — X5(MGEN17 未測定)/ X14(table 論理長 255 か 256 slot 末尾未使用か)/ X6(RAM 実測は gate ON 223 map の 2.7%)
 - worker2 側の未特定: savestate `_4`/`_5`/`_6`/`_7` に対する当時の inline scan が 0 件を出した原因(★撤回済だが原因は未特定★、`PBR_P0_ADJUDICATION_worker2.md` §7.4)
+
+---
+
+## 5. ★`+0xBD` 関連の決着★
+
+★出所 = boss1 経由の受領内容(worker1 / worker3 / boss1 / PRESIDENT の測定)。worker2 は本件を自分では測定していない★ — 引用時は各 doc の一次記述に当たること。
+
+| # | 決着内容 |
+|---|---|
+| 1 | ★探索の向きを writer → reader に変えた。ただし起点の母集団が両方向で同じ盲点を持っていた★(§0.2c) |
+| 2 | ★`+0xBD` = state 3 で毎 tick +1、`0x28`(=40)で 0 に戻る counter。**可視 flag ではない**(機構で確定)★ |
+| 3 | ★4 素材 7 record すべて `+0xC0 = 0` = state machine が一度も動いていない★ → ★可視性はこの機構が支配していない★ |
+| 4 | ★相関 28/28 は事実のまま、因果の読みは棄却★ — ★この書き分けを崩さないこと★ |
+| 5 | ★因果反転仮説(接近した結果 tick が回った)= 次の検証対象★。★mayo00 全 0 を自然に説明する★点も併記。★未検証★ |
+| 6 | ★H-alt(user が見落とした / 遮蔽された)は**未棄却**★。★「見なかった」は「居ない」より弱い★ |
+| 7 | ★`script10` が原盤で表示されるかは**未決定**★ |
+| 8 | ★V2R から体数を外す判断は、上記の当否に依存しない★(worker3 の指摘) |
+| 9 | ★user の時間を使う線(V2R / TANE 位置 / mayo00 原盤)は全て**次 session へ持ち越し**★ |
+
+★#4 が本節で最も壊れやすい★: ★相関 28/28 は観測として生きている。棄却されたのは「それを可視性の因果と読む」解釈のみ★。次に読む者は ★この 2 つを混ぜないこと★。
