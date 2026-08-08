@@ -132,9 +132,16 @@ user実視覚(2026-07-09)で確定した覚醒cutscene 2 gapの解析。read-onl
 ## 次phase dispatch候補(PRESIDENT裁定済の登録)
 1. ★field-model配線 re-baseline★(PRESIDENT裁定 7/25: 本phase着手禁止、独立dispatch化):
    land済のEntityPlacer系を正base 0x80145608+type@+0x00直読へ再接地。旧2誤り(base誤り×off-by-one読み)相殺で現画はuser PASS済のため、★回帰検証設計込み★が着手条件(oracle=map自己同定20/20の新読み+user実視覚)。
+   → ★2026-08-08 入力spec完成(着手条件のうち技術側は解消)★: loader本体=0x800bae54 を runtime trap 起点で確定。
+   base 0x80145608 / stride 0xC4 を**ローダの実命令列から直接確認**(第3独立経路)、record型4 fieldも7/25と一致。
+   ★新たに反映必須の2点: (a)entity数=stream先頭halfword(固定長走査は誤り) (b)gating=[0x8013541C+mapIdx*16].byte12&0x80(未再現だと原盤で出ないmapにNPCが出る)★。
+   spec=docs/RE_field_entity_loader_2026-08-08.md(commit a6fbcb6)。残=回帰検証設計+PRESIDENT gate+user実視覚。
+   caveat: trapは単一map分のみ(他mapでの同一経路は未確認)。
 2. savestate_ram.py修正(frame prefix 0x1A62補正)。棚卸し完了済(worker1 SAVESTATE_TOOL_IMPACT_AUDIT.md、ce5908b): 実害=0x80147358系のみで訂正済、主要anchor 12件はEXE-grounded確認。修正案=load_ram()がEXE署名でprefix実測(回帰確認=gp-0x6cd6/gp-0x6d90不変、印字gpが0x8014686E→0x80144E0Cに変わる点は明示)
 2b. ★0x10000ずれ2例の原因特定+doc訂正(小、未断定)★: HANDOFF_scene_prog_2026-07-07のwatch 0x801593B6 vs grounded 0x801693B6 / evl_rel_analysisの0x8017B084・0x8017B0BC vs 0x8016B084・0x8016B0BC。lui符号拡張トラップ同型の転記/算出ミス疑い(事実のみ、原因未特定)
 3. scale field書込み元RE(honest gap継続、runtime state帯+0x14/16/18/1C/1Eの静的writer未特定)
+   → ★2026-08-08 部分前進: entity loader(0x800bae54)は +0x14〜+0x1E に一切書かないと全数確認★ = scale は placement データ由来でないと**除外確定**。
+   HONEST_GAP_LEDGER の(B)「scale source不在=native render」を支持(未断定)。残候補=種族table由来 or render path側。docs/RE_field_entity_loader_2026-08-08.md
 4. ~~getDamagePoint確定(user 1-2分: 0x8016b0d0 Z2 write watch→書込みPC→file offset換算)~~ → ★CLOSED(2026-08-08、user実操作runtime session)★
    ★getDamagePoint = VA 0x8005d44c = btl_rel.bin file offset 0x0A96C(size 0x3E0)★、呼出元per-hit解決=0x8005dfd8(file 0x0B4F8)。
    経路: 0x8016b0d0 watch は「結果」のみ(=HPゲージdrainアニメ 0x80102f1c、即値-900/-80/-6/-1)→真の着地点=damage_result+0x2E→
