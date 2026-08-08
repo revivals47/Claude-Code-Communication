@@ -1,0 +1,86 @@
+Processor: Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz, 8 core(s) @ 3885 MHz 
+Available Memory: 32034 MB 
+Linux Kernel and distribution: Linux 6.11 Ubuntu 24.04 64bit
+System Language: ja_JP
+Keyboard Layout: jp
+Selected window backend: x11 
+Mono path[0] = '/home/ken/Desktop/Digimon/degimon_world_remake-pbr/workspace/build/DegimonLive/DegimonLive_Data/Managed'
+Mono config path = '/home/ken/Desktop/Digimon/degimon_world_remake-pbr/workspace/build/DegimonLive/DegimonLive_Data/MonoBleedingEdge/etc'
+CodeReloadManager initialized
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.4.11f1 (b0a1d6caadd2)
+[Subsystems] Discovering subsystems at path /home/ken/Desktop/Digimon/degimon_world_remake-pbr/workspace/build/DegimonLive/DegimonLive_Data/UnitySubsystems
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Begin MonoManager ReloadAssembly
+- Finished resetting the current domain, in  0.003 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+UnloadTime: 0.380352 ms
+[BOOT] AUTOBOOT=1 — headless live-boot verification (Title/NameInput auto-advance)
+[MapRegistry] ★name 重複 YAKA25: id=65 と id=232★ — id=232 を name 引きの解決先にする(id 引きなら両方に到達可)。gating/placement は name でなく MapIndex で引くこと
+[MapRegistry] loaded 244 entries (242 shipped) from 'registry/maps.json'
+[BOOT] services ready: Session, DataRegistry, MapRegistry(entries=244, shipped=242), MapLoader, GameSceneManager
+[FLOW] (start) → TitleState
+[TITLE] enter
+[BOOT] GameFlow started → Title
+[BOOT] Bootstrap created GameManager (scene-independent, DontDestroyOnLoad)
+[DIALOGUE] DB loaded (DG.SCN)
+[TITLE] AUTOBOOT → New Game
+[TITLE] New Game → NameInput
+[TITLE] exit
+[FLOW] TitleState → NameInputState
+[NAMEINPUT] enter
+[BOOT] FieldPresenter registered: FieldManager
+[BOOT] Dialogue facade registered: TextboxView
+[NAMEINPUT] AUTOBOOT → confirm name='TESTBOY'
+[DataRegistry] loaded 'data/species_care_params.json' (SpeciesCareFile)
+[NEWGAME] InitializeNewGame: flags/vars/inventory reset, clock=Day0 08:00(placeholder), partner init(EXE 0x80110AF4): id=0 stage=1 discipline=8, care(baby form1): max=25 thr=6 decay/h=3 fav=-1
+[NAMEINPUT] confirmed name='TESTBOY' partner=pending(intro) → Field
+[NAMEINPUT] exit
+[FLOW] NameInputState → FieldState
+[FIELD] enter (player='TESTBOY')
+[MapLoader] loaded 'TWNA01' from 'maps/twna01/twna01.json'
+[FIELD] map loaded name='twna01' spawns=10 rawCamOrigin=(0.00, -4301.00, -5973.00) viewerDist=1813
+[FIELD] HandleMapLoaded name=twna01 arrival=-1 — building field
+[FIELD] backdrop full-map billboard size=(60.6,50.5) depth=143.1 factor=(2.40,2.67) worldPerPx=0.0789 shader='Degimon/BackdropBackground' renderQueue=2000
+[YINV] OK: canonical 単一反転(焦点近傍点が viewport 外ゆえ投影 path check skip)。consumer flip は grep+review。
+[CAMERA] eye=(0.00, 86.02, -119.46) fwd=(0.00, -0.60, 0.80) fov=7.57(=2atan(120/1813)=7.57) aspect=1.333(=1.333) ortho=False near=0.30 far=1000.0 | scrollPx=(0.00, 0.00) scrollNdc=(0.00, 0.00) maxScrollPx=(448.00, 400.00) (3D transform は不動=GS_VIEWPOINT write0 相当)
+[PLACE] player initial spawn[0] ps1=(440.00, 0.00, -3715.00) -> world=(4.40, 0.00, -37.15) (canonical 地面 Y=0.00)
+[PLACE-GATE] entity gating 表 load: OFF index 32 / name 20
+[FIELD-MODEL] code 表 load: 180 種
+[PLACE] entities placed=8 (spawn markers + NPC=3、全 ToWorld 経由) — field-model=3/3体(残 marker fallback、DEGIMON_FIELD_MODELS) — debug NPC 4体除外(map=twna01、DEGIMON_DEBUG_NPCS=1 で表示)
+[PLACE] coplanar check: player Y=0.000 entities maxΔY=0.000 -> OK(coplanar、生spawn y=0)
+[FIELD] intro trigger → ScenarioVM.Boot()(data 駆動 master-walk)
+[SCENARIO-VM] Boot(production faithful awakening, flag OFF)=RunScene(238)(entry0.sec238 ACTIVATE 178→deferred-load→Jijimon 178、worker1/worker2 CONFIRMED ra=0x800EF408)
+[SCENE-PROG] RunScene(238) → entry0.section[238](scene-transition driver、ACTIVATE/JMP は Advance)
+[DIALOGUE] Begin entry=0 headerValid=False word0=0x468 bodyStart=0x46C len=24576
+[DIALOGUE] PlaySection entry=0 section=238 root=NpcSection → pc=0x3518
+[FIELD] dialogue started → InputLocked=true (player frozen)
+[PROGRESSION] SCENARIO_JUMP(0xFB) @pc=0x3518 scenario(op0)=178 ctx(op1)=238 → Pending body-load(deferred、ACTIVATE=PlayMap)
+[DIALOGUE][SCRIPT] JUMP(0x19) 0x3524 -> 0x3544
+[DIALOGUE] RETURN(0xFE) NpcSection @pc=0x3544 → Finished(single-section bound, pages=0)
+[DIALOGUE] scenario finished → OnFinished(player 操作復帰)
+[SCENARIO-VM] load scenario=178 section=254(ACTIVATE(section 0xFE)) [SceneCutscene]
+[DIALOGUE] Begin entry=178 headerValid=True word0=0x10 bodyStart=0x14 len=6144
+[DIALOGUE] PlaySection entry=178 section=254 root=SceneCutscene → pc=0x10 contentEnd=0x1316
+[FIELD] dialogue started → InputLocked=true (player frozen)
+[PROGRESSION] scenario-VM advanced @OnFinished → 次 scenario 実行(InputLocked 維持)
+[STALL-DIAG] 90 frame 停滞: state=WaitingAdvance pc=0x8A pages=1 speaker=8
+[LIVEBOOT] field reached via real boot path; ran 8.0s — live [CAMERA]/[PLACE]/[MOVE]/[SCROLL] emitted by FieldManager. Quitting.
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+CodeReloadManager destroyed

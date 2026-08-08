@@ -1,0 +1,146 @@
+# placement re-baseline — handoff / 索引 (2026-08-08)
+
+**性格**: 散在 doc へのポインタ + 各々に何が書いてあるかの 1 行。★全文はここに複写しない。数値・判定は必ずリンク先を読むこと★。
+**状態**: ★user 実視覚 gate V2 は回答待ち★。完成 claim は本 doc では出さない。shift 説について ★「unshifted で決まり」とは書かない★。
+
+---
+
+## 0. ★申し送り(最初に読む)★
+
+### 0.1 撤回の質 — A / B の分類
+
+★撤回には 2 種類あり、価値が違う★。本 session の実データで分類する。
+
+**★A = 自分の道具 / 自分の oracle を疑った撤回(効いた。新しい事実を生んだ)★**
+
+| 主体 | 内容 |
+|---|---|
+| worker3 | 到達性 oracle の**被覆率を測って自分の結論を格下げ**(39%) |
+| worker3 | ★remake を見せると V2 は同語反復★ — user に渡る直前に停止(PRESIDENT が「混同は私の側」と認めた) |
+| worker3 | ★原盤に存在しないものを原盤の質問に書かない★(黄球の priming)= 観測の独立性を守る基本 |
+| worker1 | roslyn standalone は Unity compile ではない(★指摘される前に自己申告★) |
+| worker1 | run2 の `error CS` 0 件は「★走らなかった 0★」(Csc 行 0 / SCBP 起動 0) |
+| worker1 | ★build errors=0 / 341MB の成果物を検めて StreamingAssets/maps が空と発見★ = ★成功指標でなく中身を見た★「build 成功 ≠ 動く」 |
+| worker2 | 自分が回帰 oracle §5.1 に書いた失敗モード(cap 飽和)に自分が踏んでいた |
+| worker2 | ★色語が未確定のまま user に質問しようとしていた★ を渡す前に摘出。★本質は「白か紫かを決めたこと」ではなく「期待値を提示しない訊き方に変えたこと」★(色は remake 側の色で、原盤の色と一致する保証がない) |
+| worker2 | ★自分の解釈枠 doc が gate 分割裁定で対象ずれ(stale)を起こしていた★ — boss1 の handoff 査読で摘出、V2 / V2R に分けて改訂 |
+| boss1 | `strings` 既定 ASCII が .NET UTF-16 literal を取りこぼしていた(`-el` で訂正) |
+| boss1 | ★handoff 査読で worker2 の解釈枠の stale を検出★ — ★索引化作業それ自体が stale 検出器として機能した★ |
+
+**★B = 他人に指摘されて直した撤回(必要だが波及が小さい)★**
+boss1: flatpak path / 打切り tsv / 境界の形状判断 / 「2 軸で閉じた」/ 「worker1 は誤り」/ gitignore 対象は git diff の母集団外(★4 度目の同型★)
+
+→ ★A は新しい事実を生み、B は誤りを消しただけ★。この差が重要。
+
+### 0.2 ★B の 5 件は 1 つの型に集約される★
+
+boss1 が今日撤回した 5 件は、いずれも ★「自分の測定範囲を全体だと思った」★ という **同一の型**:
+
+| 件 | 全体だと思った範囲 |
+|---|---|
+| flatpak path | 探索範囲 |
+| 打切り tsv | list 範囲(idx 0..238 で停止していた) |
+| 形状での境界判断 | table 終端 |
+| 「2 軸で閉じた」 | oracle の被覆 |
+| gitignore 母集団外 | build 同一性 |
+
+★同一人物が同じ型で 5 回、しかも 5 回とも別の場所で落ちた★。
+→ ★これは注意力の問題ではなく、型が見えていなかったということ★。
+→ ∴ remedy は「気をつける」ではなく ★手続き★ — 制度 (iii) を置く理由がこれ。
+
+### 0.2b ★doc は書いた瞬間から stale になりうる★
+
+worker2 の V2 解釈枠は ★書かれた時点では正しかったが、その後の gate 分割裁定(V2=原盤 / V2R=remake)で **対象がずれた**★。内容は正しいまま、指し先だけが誤りになった。
+→ ★裁定 / 前提が変わったら、既存 doc に遡って「これは今も同じ対象を指しているか」を確かめる★(`feedback_rebaseline_derived_docs_vs_code` と同型。boss1 が本日繰り返し躓いた型でもある)。
+
+★この stale は handoff の査読で捕まった★ = ★doc を索引化する作業それ自体が stale の検出器として機能した★。
+索引化は「まとめる事務作業」に見えるが、★各 doc が何を指すかを 1 行で言い直す過程で、指し先のずれが露出する★。
+∴ ★closeout を事務作業として省略しない★。
+
+### 0.3 ★A を促す制度 3 つ★
+
+- **(i)** ★oracle を使う前に、その oracle の被覆率を測る★
+- **(ii)** ★緑の名前を、実際に走らせた gate の名前と一致させる★
+- **(iii)** ★不在を主張する前に、母集団が全体であることを別経路で確かめる★
+
+### 0.4 ★結論★
+
+★「撤回を減らせ」ではなく「撤回が出る運用を維持せよ」★。
+★撤回が出ないのは規律の証拠ではなく、検証していない証拠かもしれない★。
+
+★boss1 は止める場所を作り、かつ自分でも測る。埋めるのを worker に丸投げしない★。
+実データ: 最終盤に user 提示直前で止まった 4 件はすべて worker 側から出た。★しかし session 全体では boss1 自身の実測で出た実バグの方が重い★ —
+
+- ★YAKA25 の name 重複★(gen tool = first-wins / convert_map = last-wins で ★2 tool が逆に動いていた★)= 本 dispatch で最も重い実装バグ
+- ★`savestate_ram.py` の story が u8 変数を u16 で読んでいた defect★(0xCCCC 混入まで特定)
+- ★容量 assert が gating の外にあった latent bug★(差し戻しは boss1 査読から)
+- `strings` 既定 ASCII の自己摘出
+
+★実際にやったのは「段取り」+「自分の手での実測」であり、後者が無ければ YAKA25 は land していた★。
+∴「止める場所を作る役」とだけ書くと、次の boss1 が ★「段取りだけ組めばよい」と読む★ — それは今日の実態と違う。
+
+---
+
+## 1. Phase 0(判定)
+
+生 `.map` / EXE / RAM の bytes で shift 仮説を判定した phase。★実装着手なし★。
+
+| doc | 内容(1 行) |
+|---|---|
+| `PBR_PHASE0_DESIGN_boss1_2026-08-08.md` | 本 dispatch の設計。判定 4 軸(type↔pos pairing / entity 数 / gating / 順序)と担当割り。★§2.3 の「残骸疑い」は後に撤回済★ |
+| `PBR_P0_ADJUDICATION_worker2.md` | RAM ↔ json の機械判定。★6 map / 25 record で H-unshifted 全一致、shift 量 k を変えた対抗仮説は 0 件★。7/23 表の bit 単位再生成、視覚 lock の循環摘出、自分の tool の誤りの撤回 |
+| `PBR_P0_RAM_INVENTORY_worker1.md` | RAM 素材の全数 inventory と savestate 読取 infra。prefix 実測、素材ごとの map 同定と有効性 |
+| `PBR_P0_STREAM_GATING_worker3.md` | 生 `.map` を loader 読み順で手 parse した静的照合 / gating / ★黄 creature の oracle 監査(§6)★ / ★V1-V5 の実行形(§10-§11)★ |
+| `PBR_P0_map_index_table.tsv` | map index ↔ 名前の表。★この tsv が idx 0..238 で打ち切られていたことが boss1 の誤裁定の原因(§0.2)★ |
+| `pbr_p0_adjudicate.py` / `pbr_p0_crosscheck.py` | worker2 の判定 script。self-check 付き、index 0..7 限定、shift 量 k 全走査 |
+
+---
+
+## 2. Phase 1(実装)
+
+worktree `degimon_world_remake-pbr` / branch `track1/placement-rebaseline` → main へ merge。
+
+| commit | 内容 |
+|---|---|
+| `304d157` | entity re-baseline — ★`i+1` 補正撤去★ / map gating / 容量 8 fail-fast + RAM oracle infra |
+| `4ace328` | 容量 assert を ★gating の内側へ移動★(boss1 査読 差し戻し) |
+| `c227eaa` | ★key 設計を index へ是正★ + YAKA25 gating 誤り修正 + "story" ラベル誤りの訂正 |
+| `7d6ee17` | 空 slot 11 件を権威 table に明示 + ★`index>=255` を fail-fast★ + gating を index source に統一 |
+| `1bc84f3` | YAKA25 の採用根拠から到達性を外す(worker3 の被覆率測定を反映) |
+| **`473ded8`** | **Merge `track1/placement-rebaseline`** |
+
+| doc / log | 内容 |
+|---|---|
+| `PBR_P1_REGRESSION_ORACLE_worker2.md` | ★land 合否基準(実装より先に固定)★。pass 条件 P1/P1b/P1c/P2/P2b/P3-P10、★除外条項 X1-X16★、教訓 §6.1-6.4、判定チェックリスト |
+| `PBR_P1_ISSUES_worker1.md` | ★latent bug / 未決 issue 4 件★ — ISSUE-1 ViseNpcBootstrap の baked が 7/23 artifact 由来(変更提案) / ISSUE-2 MGEN06-10 = gate ON なのに抽出が落ちている / ISSUE-3 勧誘住人は現行 remake で原理的に再現不能 / ISSUE-4 key 設計(★Phase 1 内で是正済★) |
+| `PBR_P1_unity_batch_compile_2026-08-08.log` | Unity batch compile(1 回目) |
+| `PBR_P1_unity_batch_compile_run2_2026-08-08.log` | 同 2 回目。★`error CS` 0 件は「走らなかった 0」だった件の一次証拠(§0.1)★ |
+| `PBR_P1_unity_build_2026-08-08.log` | player build。★errors=0 / 341MB でも StreamingAssets/maps が空だった件の一次証拠★ |
+| `PBR_P1_smoke_run_2026-08-08.log` | build 成果物の起動 smoke |
+
+---
+
+## 3. user 実視覚 gate(★回答待ち★)
+
+| doc | 内容 |
+|---|---|
+| `PBR_P0_STREAM_GATING_worker3.md` §10-§11 | ★V1-V5 の実行形★。§11 が V2 / V2R の最終形(★自由記述。選択肢も色語も種名も出さない★ / §11.2 blind は既に壊れている旨を取り繕わず明記 / §11.3 user 提示文 / §11.4 採点用) |
+| `PBR_V2_PREREG_INTERPRETATION_worker2.md` | ★回答が出る前に「どこまで言えるか」を固定した枠★。§3 = V2R が assert する範囲 / §4 = V2 が assert する範囲 / §5 色語問題の経緯 / §6 doc が stale 化した記録 |
+
+★gate は 2 つに分割されている(PRESIDENT 裁定)★:
+- ★V2 = **原盤** を見る★(DuckStation + `SLPS-01797_9`)。検証するのは ★`.map` bytes → type id → species table → 原盤画面上の実個体 の end-to-end★ = ★bytes 決着が原盤の実ピクセルと出会う唯一の場所★
+- ★V2R = **remake** を見る★。★shift 判定ではなく動作確認★(完成 claim 凍結解除の要件)。★post-merge の remake は必ず unshifted を描くので、remake を見ても shift については同語反復★
+
+いずれについても ★assert しない範囲★ は解釈枠 §3 / §4 を参照。
+
+---
+
+## 4. follow-up
+
+★follow-up の一覧は worker1 が registry を更新する。本 doc は参照のみで、ここを一次情報にしない★。
+未決として明示的に残っているもの(詳細は各 doc):
+
+- 黄 creature 監査の残り(`PBR_P0_STREAM_GATING_worker3.md` §6.8)
+- ISSUE-1 / ISSUE-2 / ISSUE-3(`PBR_P1_ISSUES_worker1.md`)
+- 除外条項のうち未消化のもの — X5(MGEN17 未測定)/ X14(table 論理長 255 か 256 slot 末尾未使用か)/ X6(RAM 実測は gate ON 223 map の 2.7%)
+- worker2 側の未特定: savestate `_4`/`_5`/`_6`/`_7` に対する当時の inline scan が 0 件を出した原因(★撤回済だが原因は未特定★、`PBR_P0_ADJUDICATION_worker2.md` §7.4)
