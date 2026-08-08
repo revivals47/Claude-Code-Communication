@@ -135,6 +135,13 @@ user実視覚(2026-07-09)で確定した覚醒cutscene 2 gapの解析。read-onl
 2. savestate_ram.py修正(frame prefix 0x1A62補正)。棚卸し完了済(worker1 SAVESTATE_TOOL_IMPACT_AUDIT.md、ce5908b): 実害=0x80147358系のみで訂正済、主要anchor 12件はEXE-grounded確認。修正案=load_ram()がEXE署名でprefix実測(回帰確認=gp-0x6cd6/gp-0x6d90不変、印字gpが0x8014686E→0x80144E0Cに変わる点は明示)
 2b. ★0x10000ずれ2例の原因特定+doc訂正(小、未断定)★: HANDOFF_scene_prog_2026-07-07のwatch 0x801593B6 vs grounded 0x801693B6 / evl_rel_analysisの0x8017B084・0x8017B0BC vs 0x8016B084・0x8016B0BC。lui符号拡張トラップ同型の転記/算出ミス疑い(事実のみ、原因未特定)
 3. scale field書込み元RE(honest gap継続、runtime state帯+0x14/16/18/1C/1Eの静的writer未特定)
-4. getDamagePoint確定(user 1-2分: 0x8016b0d0 Z2 write watch→書込みPC→file offset換算、PRESIDENTがuser帰還queueへ登録済)
+4. ~~getDamagePoint確定(user 1-2分: 0x8016b0d0 Z2 write watch→書込みPC→file offset換算)~~ → ★CLOSED(2026-08-08、user実操作runtime session)★
+   ★getDamagePoint = VA 0x8005d44c = btl_rel.bin file offset 0x0A96C(size 0x3E0)★、呼出元per-hit解決=0x8005dfd8(file 0x0B4F8)。
+   経路: 0x8016b0d0 watch は「結果」のみ(=HPゲージdrainアニメ 0x80102f1c、即値-900/-80/-6/-1)→真の着地点=damage_result+0x2E→
+   btl_rel全域 `sh rt,0x2E(rs)` 全数スキャンでwriter 6箇所に限定→per-hit解決のjal先=0x8005d44c。
+   検証=live 992B と btl_rel@0x0A96C が sha256一致(byte-identical)→load base 0x80052ae0 独立再確認。
+   式exact化+副産物table(技0x801325C0 stride16 / 種族0x8013A924 stride52 / 相性行列0x801322F4 stride7)= docs/RE_battle_getDamagePoint_2026-08-08.md(commit cddb360)。
+   ★残gap: 式の数値end-to-end照合は未実施★(本session savestateが全カンストで被ダメ1に潰れた)。育成途中saveで技id/A/D/P採取して照合するのが次(user 1 session、優先度中)。
+   併せて 1.1 で 0x8016b0cc=最大HP を静的lui側からも独立確認 → 下記2bの「0x10000ずれ」は同型のHI補正漏れの公算(未断定)。
 5. (798,-1656)黄creature件 — ★optional/低優先へ降格(PRESIDENT裁定 7/25)★: shift仮説はcode二重閉包(load段writer 0x800bae54単一stream+表示段reader 0x800bb580単一経路)で決着済。残るのは「色不一致そのものの原因究明」(座標→個体の帰属/種→色の想定/別variant等、RE_field_entity_array_rebase §6参照)
 6. SLPS_017.97素性調査(別build確定、来歴未特定。extracted/README_EXE_PROVENANCE.md参照。rename要否=user判断FYI済)
