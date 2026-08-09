@@ -207,13 +207,18 @@ worker2 実測: savestate 10 件すべてで `6ca6` と `6d90` は同値、か�
 - ★この緑が assert すること★: 件数が先頭 halfword 由来であること
 - ★assert **しない**こと★: 「8 で足りていた」こと(§3 除外条項 X4 参照)
 
-### P4. 配列容量 8 — fail-fast、silent clamp 禁止
+### P4. 配列容量 8 — ★silent clamp 禁止★(★2026-08-10 T2-C で「停止」→「skip + 診断」に改訂。PRESIDENT 追認済★)
 
-- **手順**: 実装に `count <= 8` の assert を置く
-- **pass**: count > 8 を与えたとき ★例外 / 明示 error で停止★し、**黙って 8 件に切り詰めない**
+- **手順**: 実装に `count <= 8` の判定を置く
+- **pass(旧、2026-08-08〜08-10)**: ~~count > 8 を与えたとき ★例外 / 明示 error で停止★~~
+- **★pass(現、2026-08-10 改訂)★**: count > 8 を与えたとき ★★① 例外を投げず続行し ② NPC を 1 体も置かず(★8 件に clamp しない★) ③ `PlacementAnomaly` に機械可読で記録し ④ `LogError` を出す★★
+- ★改訂の理由★: ★`throw` は `Place()` を中断し、caller は誰も catch しない(★`FieldManager.cs:484` の手前に `try` が 1 つも無いことを全数確認★)★ ⇒ ★field load ごと落ちる★ ⇒ ★★user 実視覚 gate が実行できなくなる★★。★完成判定を user 視覚に凍結している以上、★視覚検証を止める防御は本末転倒★★
+- ★禁止の中身は変わっていない★: ★2026-08-08 裁定が禁じたのは **silent** であること★。★改訂後も LogError + Anomalies の 2 系統に残すので silent ではない★
+- ★**skip も忠実ではない**★: 原盤は ★配列外へ溢れ書きする未定義動作★。★skip も clamp も等しく原盤に無い挙動★ ⇒ ★skip 採用は忠実性の主張ではない★。clamp でなく skip を採る根拠は ★誤りの見え方★ = ★clamp は正常に見えて通ってしまう / skip は map が空になり視覚 gate に必ず現れる★
 - **根拠**: 配列容量は 8(disasm 確定)だが ★loader 側に clamp は無い★(loop 条件は先頭 halfword のみ、worker1 disasm)。∴ 「データが 8 以下だから安全」であって「loader が守っている」のではない。remake 側は ★この振る舞いを明示的に決める★ 側に立つ
-- **test**: count=9 の合成入力で fail-fast することを 1 件テストする(実データには存在しないので合成が必要)
-- ★この緑が assert すること★: 溢れが silent に握り潰されないこと
+- **test**: `Editor/EntityPlacerSkipVerify.cs`。★合成入力 5 件(陰性 3 / 陽性 2)、境界の内(entity 8 / MapIndex 254)と外(9 / 255)を両方★。★2026-08-10 実行: 5/5 PASS(前提検査つき)★
+- ★この緑が assert すること★: ★溢れが silent に握り潰されないこと★ / ★★clamp されていないこと(placed=8 なら不合格)★★
+- ★★この緑が assert **しない** こと★★: ★skip が原盤忠実であること★ / ★実データでこの条項が発火するか(現状 ★latent★、実データの 8 超は 0 件)★
 
 ### P5. gating(`flags & 0x80`)
 
@@ -266,7 +271,7 @@ worker2 実測: savestate 10 件すべてで `6ca6` と `6d90` は同値、か�
 roster は EXE 由来で確定: `type30=TOKO / 43=YURA / 44=TANE / 117=JIJI`(`data/species_model_codes.json`、`_source` = EXE `0x8013ce24`)。
 
 - **pass 条件**: ★この 3 行を Phase 1 で勝手に書き換えて緑としない★。
-  **user PASS 済の画を無断で変えないこと**。判定は次の 2 段:
+  **user PASS 済の画を無断で変えないこと**。 ★【2026-08-09 注記】この「PASS」は **我々が提示した画像に対する user の判断**であり、★user は remake を操作していない★(user 証言)。★PASS を無効化するものではなく、何を PASS したのかを正確にするための注記★★ 判定は次の 2 段:
   1. **doc 上の起票**: 上表の差分を「変更提案」として明記する(= 本節がその起票)
   2. **user 視覚 gate に載せる**(P10)。★PASS の取り消しは user にしか決められない★
 - ★この緑が assert すること★: 差分が可視化され、user 判断に載ったこと
@@ -282,12 +287,33 @@ user に見てもらう内容(具体):
 |---|---|---|---|
 | V1 | twna01 に入る(`DEGIMON_DEBUG_NPCS` 未設定) | 静的 NPC の配置 | 変更前と比べて **配置が動いていないこと**(OFF-inert の目視裏取り) |
 | **V2** | ★**原盤**★ — DuckStation + `SLPS-01797_9` | 原盤 twna01 の画面 | ★`(798,-1656)` に居る個体★。★訊き方は自由記述: 選択肢も色語も種名も出さない★(期待値の提示は priming、かつ色は remake 側の色で原盤と一致する保証がない)。★検証するのは `.map` bytes → type id → species table → 原盤の実個体 の end-to-end★ = shift 判定に残る 1 点の独立観測 |
-| **V2R** | ★**remake**★ — twna01、`DEGIMON_FIELD_MODELS=1` | remake の描画 | ★shift 判定ではなく動作確認★(完成 claim 凍結解除の要件)。★post-merge の remake は必ず unshifted を描くので、shift については同語反復★ |
+| **V2R** | ★**remake**★ — twna01、`DEGIMON_FIELD_MODELS=1` | remake の描画 | ★shift 判定ではなく動作確認★(完成 claim 凍結解除の要件)。★post-merge の remake は必ず unshifted を描くので、shift については同語反復★。★★⚠ 前提変更あり: これは **user にとって初めての remake 操作**になる。手順は「起動済の画を見る」ではなく「起動から」書き直すこと★★ |
 | V3 | twna01、`DEGIMON_FIELD_MODELS=1` | 同上 | `(-839,2210)` に ★TANE が居るか★(unshifted なら居る。現 baked では未配置) |
 | V4 | mayo00 に入る | 5 体の配置 | 同座標に 2 体重なる箇所(`(594,0,2347)` と `(327,0,-1500)`)が原盤と同じ見え方か |
-| V5 | `ViseNpcBootstrap` 村 render(P9 適用案) | 変更提案の画 | ★現行 PASS 済の画と差し替えてよいか★。NO なら現行を維持 |
+| V5 | `ViseNpcBootstrap` 村 render(P9 適用案) | 変更提案の画 | ★現行 PASS 済の画と差し替えてよいか★。NO なら現行を維持。★**⚠ 前提変更あり**: 「現行 PASS 済の画」は user が操作した結果ではなく我々の提示画★ |
 
 - **pass**: user が各項目に明示的に OK / NG を返すこと。★AI 側の headless capture / cargo 緑 / codex LGTM は本項目の代替にならない★(`feedback_live_visual_verify_before_completion`)
+
+#### ★★P10-pre. V-gate の**前提条件** — `Anomalies` が空でなければ user に出さない(2026-08-10 PRESIDENT 条件、T2-C 追認の唯一の条件)★★
+
+★★V1-V5 のいずれかを user に見せる前に、必ず以下を確認する。★1 つでも満たさなければ user に出さない★★★
+
+| # | 確認 | 方法 | 満たさない場合 |
+|---|---|---|---|
+| ★**Pre-1**★ | ★★`EntityPlacer.Anomalies` が **空**★★ | ★対象 map を load した後に count を読む / batch log に `[PLACE-ANOMALY]` が ★1 行も無い★ ことを確認★ | ★★user に出さない★★。★先に抽出側を直す★ |
+| ★**Pre-2**★ | ★`map_entity_gating.json` が StreamingAssets に ★存在する★★ | ★`[PLACE-GATE] … 不在` が log に出ていないこと★ | ★出さない★。`gen_map_entity_gating.py` → `provision_curated_data.py` を実行 |
+| ★**Pre-3**★ | ★対象 map の `MapIndex` が ★OFF list に無い★(= 原盤で NPC が湧く map)★ | ★表の `entity_loader_off_indices` を直読★ | ★★出さない★★ — ★OFF map を見せると「NPC が居ない」が ★正常なのか異常なのか user に区別できない★★ |
+
+★★理由(PRESIDENT、逐語)★★:
+> ★『user は remake を操作したことがない ⇒ ★NPC ゼロの map を見せたら「remake が壊れている」と受け取る★』★
+
+★★∴ 本前提条件が守る対象は ★実装ではなく ★user の観測★ である★★:
+- ★T2-C の skip は「異常時に map が空になる」挙動★。★これは我々にとっては ★異常の可視化★ だが、★user にとっては ★remake の不具合★ にしか見えない★★
+- ⇒ ★★★skip を「異常が見える方に間違える」設計にした以上、★その「見える」先を user にしてはならない★★★★ —
+  ★見せる相手は ★我々★(log と Anomalies)であって、★user 視覚 gate は ★異常が無い状態でだけ★ 使う★
+- ★★これを守らないと、★V-gate の NG が「配置が違う」なのか「異常で空になった」なのか ★分離できなくなる★★★ = ★user の 1 回の観測を無駄にする★
+
+★★記録義務★★: ★V-gate を実施したときは、★Pre-1〜3 の確認結果を同じ報告に併記する★★。★『確認した』ではなく ★何を見てそう言えるか★(log の該当行 / count の値)を書く★。
 
 ---
 
@@ -317,6 +343,8 @@ user に見てもらう内容(具体):
 | **X14** | table 終端は被参照シンボル `0x8013640C` で確定(§1.6)。★ただし「論理長 255」か「256 slot の末尾未使用」かは未確定★ | 「255 slot で完全に確定」 | ★この区別が未決であることを明記したまま使う★。決着したら `223 / 21 / 11 / 244` を再検算する |
 | **X15** | ★`gp-0x6ca6 == 0` は「MAYO01(idx 0)」と「未設定」を区別できない★ | 「index 0 だから MAYO01 に居る」 | ★index 0 単独を map 同定の根拠にしない★。entity 配列の内容など独立な証拠と併せる |
 | **X16** | ★entity 配列が全 0(clear の 0xFFFF ですらない)= entity load 未実行★の素材(§1.7) | 「配置 0 体 = gate OFF の証拠」/「その map に居る」 | ★oracle 素材から除外する★。load 未実行状態は placement について何も語らない |
+| **★X17★** | ★★`map_entity_gating.json` が StreamingAssets に不在だと、`IsEntityLoaderOff` は ★全 map で false★ を返す = ★全 map が gate ON に見える★★★【2026-08-10 worker2 実測、batch log `[PLACE-GATE] … 不在`】 | ★「gate ON の map で測った」★ / ★「gating が適用されている」★ | ★★「表が在って ON」と「表が無いから ON」は ★別物★★★。★gating に関わる測定は ★表の存在を先に実測してから★ 行う★。★表は `StreamingAssets/*` = 意図的 gitignore で、★`gen_map_entity_gating.py` → `provision_curated_data.py` を踏むまで存在しない★(設計どおりだが、★踏み忘れの唯一の信号が log 1 行の LogWarning★)。★T2-C 1 回目はこれで前提を偽造されたまま 5/5 PASS した★ |
+| **★X18★** | ★★`PlacementAnomaly` が記録されている状態の画面★★(map が空 / NPC が欠けている) | ★「配置が原盤と違う」= 忠実性の反証★ | ★★異常による skip と、配置の誤りを ★同じ画で判定してはならない★★★。★P10-pre を満たさない画は oracle 素材にしない★。★user の 1 回の観測を、原因不明の空 map に使わない★ |
 
 ### 3.3 ★oracle 自体が無効になる条件(結果を破棄する)★
 
@@ -350,12 +378,12 @@ user に見てもらう内容(具体):
 
 ## 5. ★rot の切り分け — facing 成果は巻き戻さない★
 
-混同すると **user PASS 済の facing まで巻き戻す事故**になるため、明確に分ける。
+混同すると **user PASS 済の facing まで巻き戻す事故**になるため、明確に分ける。 ★【2026-08-09 注記】この「PASS」は **我々が提示した画像に対する user の判断**であり、★user は remake を操作していない★(user 証言)。★PASS を無効化するものではなく、何を PASS したのかを正確にするための注記★★
 
 - 7/23 struct の `rot@+0x0e` は delta `0xA2` を足すと ★`+0xB0` = 真の `rot_y` offset に一致★。同様に `pos@+0x06` → `+0xA8` に一致。
   ∴ ★pos と rot は同一 record から読まれており、両者の対応は正しい★。
 - ずれていたのは ★`type` だけ★: `0xA2 + 0x22 = 0xC4` = ちょうど 1 stride = **隣の record の type**。
-- ∴ ★facing 成果(user PASS 済、`Toko 315° / Yura 342.8° / Tane 45°` = ry 3584 / 3900 / 512)は再取得不要・巻き戻し不要★。
+- ∴ ★facing 成果(user PASS 済、`Toko 315° / Yura 342.8° / Tane 45°` = ry 3584 / 3900 / 512)は再取得不要・巻き戻し不要★。 ★【2026-08-09 注記】この「PASS」は **我々が提示した画像に対する user の判断**であり、★user は remake を操作していない★(user 証言)。★PASS を無効化するものではなく、何を PASS したのかを正確にするための注記★★
 
 **無効なのは 1 点のみ** — ★「その rot 値を shifted 説の独立証拠として使うこと」★:
 
