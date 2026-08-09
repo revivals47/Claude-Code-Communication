@@ -9,7 +9,16 @@ tmp/
 *_done.txt
 
 # Scratch / notes (GUI_kit と同様の慣例)
-workspace/
+#
+# ★2026-08-09 変更(user 承認)★: `workspace/` の一括除外をやめた。
+#   理由 = 実態が scratch でなくなっていた。workspace/degimon-faithful178 の 227 file 中
+#   ★125 file が repo 外★で、その中に ★過去の handoff / HONEST_GAP_LEDGER / dispatch 設計 doc★ が含まれていた。
+#   = 「doc に残した」と言ってきたものの多くが、この machine の disk 上にしか存在しない状態だった。
+#   → ★永続記録は追跡する。除外は「再生成できるもの」だけに限る★。
+#   注: *.log / *.txt / tmp/ は上の共通規則で引き続き除外される。
+#   注: 一括除外していた期間に -f で追加した file は tracked のまま(gitignore は tracked file に効かない)。
+workspace/**/__pycache__/
+*.pyc
 
 # ScheduleWakeup / Cron lock files
 .claude/*.lock
