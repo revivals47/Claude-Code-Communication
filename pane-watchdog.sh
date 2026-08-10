@@ -49,6 +49,21 @@ while true; do
     #   再送しない。composer 残留 draft を watchdog が正規メッセージに昇格させた事故
     #   (偽『完走報告』2 件, 07:22/07:53 RESEND-OK 参照)の再発防止。
     #   非該当テキストは quarantine log に全文保全して composer を C-c で破棄。
+    # ★2026-08-11 追加: composer が「貼り付け placeholder」表示のものは 一切 触らない★
+    #   Claude Code の composer は 長い入力を [Pasted text #N +M lines] と省略表示する。
+    #   この時 ❯ 行に 全文は現れない。∴ 下の gate に流すと:
+    #     - probe が placeholder 文字列になり send_log に一致しない
+    #     - ⇒ QUARANTINE され、QLOG には ★placeholder しか保全されない★
+    #     - ⇒ C-c で ★本文 2 千 byte 級の正規便が 復旧不能に失われる★
+    #   実測: QLOG 1,001 行の最大長 378 byte / boss1 の便の典型 2,412 byte
+    #   ∴ placeholder を見たら ALERT だけ出して 何もしない(人が復旧する)。
+    case "$input2" in
+      *"Pasted text #"*)
+        echo "$(date '+%F %T') ALERT paste-placeholder $pane :: 触らず放置 :: ${input2:0:120}" >> "$LOG"
+        COOLDOWN[$pane]=$(date +%s)
+        continue
+        ;;
+    esac
     probe="${input2:0:60}"
     if ! tail -c 3000000 "$SENDLOG" 2>/dev/null | grep -qF -- "$probe"; then
       echo "$(date '+%F %T') QUARANTINE $pane :: not-in-send_log :: ${input2:0:120}" >> "$LOG"
