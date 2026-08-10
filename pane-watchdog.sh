@@ -19,8 +19,10 @@ exec 9>/tmp/pane-watchdog.lock
 flock -n 9 || { echo "pane-watchdog already running"; exit 1; }
 
 LOG="$(dirname "$0")/logs/pane-watchdog.log"
+SENDLOG="$(dirname "$0")/logs/send_log.txt"
+QLOG="$(dirname "$0")/logs/pane-watchdog-quarantine.log"
 mkdir -p "$(dirname "$LOG")"
-echo "$(date '+%F %T') START watchdog-v2 pid=$$" >> "$LOG"
+echo "$(date '+%F %T') START watchdog-v3 pid=$$ (integrity gate: send_log cross-check)" >> "$LOG"
 
 nbsp=$(printf '\302\240')
 declare -A COOLDOWN
@@ -43,6 +45,18 @@ while true; do
     echo "$snap2" | grep -q "esc to inte" && continue
     input2=$(echo "$snap2" | extract_input)
     { [ -z "$input2" ] || [ "$input" != "$input2" ]; } && continue
+    # ★v3 integrity gate (2026-07-13): agent-send.sh を経由した形跡(send_log)の無いテキストは
+    #   再送しない。composer 残留 draft を watchdog が正規メッセージに昇格させた事故
+    #   (偽『完走報告』2 件, 07:22/07:53 RESEND-OK 参照)の再発防止。
+    #   非該当テキストは quarantine log に全文保全して composer を C-c で破棄。
+    probe="${input2:0:60}"
+    if ! tail -c 3000000 "$SENDLOG" 2>/dev/null | grep -qF -- "$probe"; then
+      echo "$(date '+%F %T') QUARANTINE $pane :: not-in-send_log :: ${input2:0:120}" >> "$LOG"
+      printf '%s PANE=%s FULL::%s\n' "$(date '+%F %T')" "$pane" "$input2" >> "$QLOG"
+      tmux send-keys -t "$pane" C-c
+      COOLDOWN[$pane]=$(date +%s)
+      continue
+    fi
     # stuck 確定 → agent-send 同一手順で再送(全文は -J 取得済)
     tmux send-keys -t "$pane" C-c
     sleep 0.5
