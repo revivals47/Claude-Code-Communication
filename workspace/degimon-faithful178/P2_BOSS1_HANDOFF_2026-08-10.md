@@ -29,27 +29,31 @@ git -C /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 log --oneline -3
 > **0x10 は §122.1 で「fall-through 無し」と機構接地済だったのに、worker3 の TERM 集合に入っていなかった**。
 > 1 回目の (p1) 判定が「終端でない 0x10 = 7 件」で誤って出た原因はこれ。**接地は doc に在ったが、道具に入っていなかった。**
 > **空欄は各 worker が自分の担当分を埋める**。埋まるまでは「道具が知らない可能性が在る」と読む。
+>
+> **(87) 再現 command 列を追加した。書けないものは空欄にせず「再現不能」と明記する**(空欄は「まだ書いていない」と読まれる)。
+> **18 件中: 再現 command 在り 12 / 再現不能 5 / 外部照合ゆえ該当なし 3**(重複計上あり)。
+> **「再現不能」は恥ではない。書かないことが恥。**書けば次の人が script 化できる。
 
-| # | 内容 | 根拠種別 | 出所 | **実装先(道具のどこ)** |
-|---|---|---|---|---|
-| 1 | **.map loader = `0x800DF7D0`**。offset 表から **6 section** を順次読む | 機構 | worker1 §78/§83 | worker1 exedis / 未記入 |
-| 2 | **header は可変長**。`widx(read6) = A + B + 3`(A=map表+0x0A, B=+0x0B)、guard 時 word 2。**241/241 反例 0** | 機構+全数 | boss1 実測 + worker1 §83 | `tools/boss1_map_header_verify.py`(R2/R4、**恒久化済・反例 0 で再現**) |
-| 3 | **section 5(entity)**: record = **84 + 6N**、終端 = **件数**、sentinel 無し(5 section 全てで 0 件) | 機構 | worker1 §78.1/§84 | convert_map.py(投影元)/ 要記入 |
-| 4 | **`lb 0xc(0x8013541C + idx*16) & 0x80`**(bit7)が entity parse を gate。0 なら即 return | 機構 | worker1 | 要記入 |
-| 5 | **section 6 = 属性 grid**。`0x801C4C74` / **100×100 / 1 byte** / fill は 1 site / **上限 check 0 件** | 機構 | worker1 §80 | 要記入 |
-| 6 | **EXE が index する grid の byte 列 = worker2 が数えた tilemap の byte 列。242/242 bit 一致** | 機構 | boss1 実測 | `tools/boss1_map_header_verify.py`(R1/R3、**恒久化済・反例 0 で再現**) |
-| 7 | **s0 = プレイヤーが立つセルの属性値**(座標→100 格子)。帯 = **C[51,80) / D[80,110) / B[110,120) + 単独 120** | 機構 | worker1 §85 | 要記入 |
-| 8 | **D 帯 80-109 → script helper(key=s0)** / **B 帯 110-119 → warp 配列**。**7 月 json 側記述と境界が完全一致(blind)** | 機構 | worker1、7 月 doc は独立 | 要記入 |
-| 9 | **tile 110+k 在り ⇒ warp slot k は 0xFFFF でない = 289/289 反例 0**(片方向。逆は 61.8% で不成立) | 統計(全数) | worker2 | worker2 tilemap 走査 |
-| 10 | **TEXT 終端 = `0x0D` かつ直後 2 byte 目が 0**。単一 exit(走査範囲内)。escape 消費表 22 種 | 機構 | worker1 §76/§77 + worker3 §125/§127(方法は独立、**盲検ではない**) | worker3 機構版 TEXT 判定器 |
-| 11 | **0x00 は真の no-op 命令**(band に `0x00-0x0F` が無く PC は +1 済)。`0x40-0x45` `0x59` `0x60-0x63` `0x7F-0xFA` も同様 | 機構 | worker3 §137 | **worker3 の walk に反映済(§137 以降)** |
-| 12 | **0x18 の命令長 = 4**。表は inline だが **PC は跨がない**(表 byte は data) | 機構 | worker3 §134 | **worker3 の Len 表に反映済(長さ 4)** |
-| 13 | **(β2) 到達源不明 = 0 件** ⇒ 母集団が閉じた(24 entry の handler 本体という走査範囲の中で) | 機構 | worker3 §136 | worker3 §136 の分類器 |
-| 14 | **#1(flag id 800 以上は実在しえない)は mask 非依存** — `0x800F191C` は u16 のまま `andi 7` / `sra 3`、値域切り詰め mask 0 件 | 機構 | **worker1 と worker3 が相互非開示で独立到達、重なる site で一致** | 検出器 #1(worker3)/ worker1 側は witness のみ |
-| 15 | **corpus 対 rip**: CD 配下 242 file と EXE・overlay 16 本が image と sha256 全数一致。EDC **162,058/162,058 誤り 0** | 機構 | worker2 | worker2 edc_verify.py ほか |
-| 16 | **rip 対 既知良品 dump**: redump disc/55488 と **SHA1/MD5/CRC32/size/track の 5 点一致** | 機構 | PRESIDENT 直取得 + worker2 が頁を独立に直取得 | —(外部照合) |
-| 17 | **cue の L2 が閉じた**: 差は file 名と行末のみ、TRACK/INDEX 行は byte 一致 | 機構 | worker2 | —(外部照合) |
-| 18 | **write offset +2**(redump 頁)⇒ 我々の rip は **offset 補正済の側** | 機構 | worker2 | —(外部照合) |
+| # | 内容 | 根拠種別 | 出所 | **実装先(道具のどこ)** | **再現 command((87))** |
+|---|---|---|---|---|---|
+| 1 | **.map loader = `0x800DF7D0`**。offset 表から **6 section** を順次読む | 機構 | worker1 §78/§83 | worker1 exedis / 未記入 | **再現不能**(worker1 §78.1、inline のみ) |
+| 2 | **header は可変長**。`widx(read6) = A + B + 3`(A=map表+0x0A, B=+0x0B)、guard 時 word 2。**241/241 反例 0** | 機構+全数 | boss1 実測 + worker1 §83 | `tools/boss1_map_header_verify.py`(R2/R4、**恒久化済・反例 0 で再現**) | `tools/boss1_map_header_verify.py` |
+| 3 | **section 5(entity)**: record = **84 + 6N**、終端 = **件数**、sentinel 無し(5 section 全てで 0 件) | 機構 | worker1 §78.1/§84 | convert_map.py(投影元)/ 要記入 | worker2 `blocklen_residual.py` |
+| 4 | **`lb 0xc(0x8013541C + idx*16) & 0x80`**(bit7)が entity parse を gate。0 なら即 return | 機構 | worker1 | 要記入 | **再現不能**(worker1 §80 系、inline のみ) |
+| 5 | **section 6 = 属性 grid**。`0x801C4C74` / **100×100 / 1 byte** / fill は 1 site / **上限 check 0 件** | 機構 | worker1 §80 | 要記入 | **再現不能**(worker1 §80、inline のみ) |
+| 6 | **EXE が index する grid の byte 列 = worker2 が数えた tilemap の byte 列。242/242 bit 一致** | 機構 | boss1 実測 | `tools/boss1_map_header_verify.py`(R1/R3、**恒久化済・反例 0 で再現**) | `tools/boss1_map_header_verify.py` |
+| 7 | **s0 = プレイヤーが立つセルの属性値**(座標→100 格子)。帯 = **C[51,80) / D[80,110) / B[110,120) + 単独 120** | 機構 | worker1 §85 | 要記入 | **再現不能**(worker1 §81 §85、inline のみ) |
+| 8 | **D 帯 80-109 → script helper(key=s0)** / **B 帯 110-119 → warp 配列**。**7 月 json 側記述と境界が完全一致(blind)** | 機構 | worker1、7 月 doc は独立 | 要記入 | **再現不能**(同上) |
+| 9 | **tile 110+k 在り ⇒ warp slot k は 0xFFFF でない = 289/289 反例 0**(片方向。逆は 61.8% で不成立) | 統計(全数) | worker2 | worker2 tilemap 走査 | worker2 `warp_tile_census.py` |
+| 10 | **TEXT 終端 = `0x0D` かつ直後 2 byte 目が 0**。単一 exit(走査範囲内)。escape 消費表 22 種 | 機構 | worker1 §76/§77 + worker3 §125/§127(方法は独立、**盲検ではない**) | worker3 機構版 TEXT 判定器 | worker1 §77.1 は**再現不能** / worker3 側は機構版判定器 |
+| 11 | **0x00 は真の no-op 命令**(band に `0x00-0x0F` が無く PC は +1 済)。`0x40-0x45` `0x59` `0x60-0x63` `0x7F-0xFA` も同様 | 機構 | worker3 §137 | **worker3 の walk に反映済(§137 以降)** | worker3 の walk |
+| 12 | **0x18 の命令長 = 4**。表は inline だが **PC は跨がない**(表 byte は data) | 機構 | worker3 §134 | **worker3 の Len 表に反映済(長さ 4)** | worker3 の Len 表 |
+| 13 | **(β2) 到達源不明 = 0 件** ⇒ 母集団が閉じた(24 entry の handler 本体という走査範囲の中で) | 機構 | worker3 §136 | worker3 §136 の分類器 | worker3 §136 の分類器 |
+| 14 | **#1(flag id 800 以上は実在しえない)は mask 非依存** — `0x800F191C` は u16 のまま `andi 7` / `sra 3`、値域切り詰め mask 0 件 | 機構 | **worker1 と worker3 が相互非開示で独立到達、重なる site で一致** | 検出器 #1(worker3)/ worker1 側は witness のみ | worker1 `w1_exe_measures.py`(§63 系)/ worker3 検出器 #1 |
+| 15 | **corpus 対 rip**: CD 配下 242 file と EXE・overlay 16 本が image と sha256 全数一致。EDC **162,058/162,058 誤り 0** | 機構 | worker2 | worker2 edc_verify.py ほか | worker2 `edc_verify.py` ほか |
+| 16 | **rip 対 既知良品 dump**: redump disc/55488 と **SHA1/MD5/CRC32/size/track の 5 点一致** | 機構 | PRESIDENT 直取得 + worker2 が頁を独立に直取得 | —(外部照合) | —(外部照合。redump 頁は再取得可) |
+| 17 | **cue の L2 が閉じた**: 差は file 名と行末のみ、TRACK/INDEX 行は byte 一致 | 機構 | worker2 | —(外部照合) | —(同上) |
+| 18 | **write offset +2**(redump 頁)⇒ 我々の rip は **offset 補正済の側** | 機構 | worker2 | —(外部照合) | —(同上) |
 
 ---
 
@@ -58,7 +62,7 @@ git -C /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 log --oneline -3
 | # | 内容 | 現状の根拠種別 | 大きさ |
 |---|---|---|---|
 | 1 | ~~(p1) 51,168 byte を分母から除けるか~~ → **§4 で決着済(除去根拠が 位置 → 機構)**。**ただし byte 数が §4 と食い違う(51,168 対 51,944、差 776)** — 定義差か集計誤りかを worker3 に確認中 | **機構**(776 byte 分のみ未確定) | 反映済 |
-| 2 | (p3) 5,118 byte が code か data か | 未決 | 未測定 |
+| 2 | (p3) 5,118 byte が code か data か(**9.1% = 468 byte は TEXT 内側で data と機構確定、90.9% は未決**) | 未決 | 最大 +0.43 pt |
 | 3 | (5b) の残り [29.4, 40.0] の帰属(SJIS 支配のみが根拠) | 統計 | — |
 | 4 | (5a) 正常な表にも TEXT が 34-45% 混じる ⇒ **0x18 inline 表の模型がより広く誤っている可能性** | 統計 | 別 task |
 | 5 | (5a) の permutation +13.3 pt は「code 構造」か「表の 2 byte 周期と decoder の相互作用」か | 統計 | H4 両論 |
@@ -98,6 +102,55 @@ git -C /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 log --oneline -3
 **消失率 = 1/29 = 3.4%**(通番導入後 23 時以降の boss1 宛 SENT が母数)。**下界**。
 **本日 boss1 宛は 189 通で、通番で守られていたのは 29 通のみ。**
 ⇒ **残り 160 通は「消失が無かった」のではなく「検出対象外」**。**不在の主張と、検出不能の申告は別。**
+
+---
+
+## 2.7 **既知だが使えない道具**(PRESIDENT (84)(89))
+
+**「動かない」だけ書くと、元の問題も一緒に消える。**なぜ使えなくなったかの経緯を残す。
+
+### `pane-watchdog.sh`(CCC 直下)— **起動しない**
+
+**経緯**:
+1. **問題が在った** — 便が composer で止まる(`agent-send` の C-m が確定しない)
+2. **対策を作った** — watchdog が stuck を検出して再送
+3. **対策が事故を起こした** — composer 残留 draft を正規 message に昇格。**偽「完走報告」2 件**(2026-07-13、07:22/07:53)
+4. **gate を足した**(v3)— 「composer の text が `send_log` に在るか」で正規性を判定、無ければ **C-c で破棄**
+5. **gate が正規の便を破棄した** — 2026-07-18 12:21/12:28/12:34 に**同一 message を 3 回 QUARANTINE**
+   (`not-in-send_log :: W3LIVE2-0717 【boss1→worker3: user live PASS受領】`。quarantine log は **1,000 行**)
+6. **止められた**(log は 07-18 12:34 で終わる。**理由は boss1 の推測であり確認していない**)
+7. **元の問題は放置された** ⇒ **2026-08-11 に「新発見」として扱われた**
+
+**起動しない決定的理由**: gate は **`send_log` が完全であることを前提**にしているが、**その前提は反証済**(欠陥 1 = send → log の順ゆえ log に false negative が在る)。
+⇒ **send はしたが log を書く前に切れた便を、watchdog は「不正」と判定して破棄する**。今夜復旧した worker1 #08 は、**watchdog が動いていたら消えていた**。
+**起動の条件**: 判定基準を `send_log` の有無から別の何かに変えるまで起動しない。設計のみ(実装しない): **quarantine で破棄せず保全して放置**(C-c を撃たない)。**破棄が最も高くつく。**
+
+**版表記の食い違い**: header は `v2`、START ログは `watchdog-v3`。**doc と道具の不一致が、その問題を記録する道具自身の中にある。**
+
+### `workspace/tools/scn_trace.py`(**degimon repo の tracked file。CCC ではない**)— **7 点 stale**
+
+0x13=CALL 未反映 / 0x15 が TERMINATORS に在る / 0x10 が generic(**選択肢 arm が全未到達**)/ Len 0x74・0x7D・0x77 未反映(**8.7% phantom**)/ offset 表 512 のまま(286 件 over-read)/ 0x18 の長さ / TEXT 終端。
+**5 版が 15 worktree に散在**(`e8ae2d32` が 8、他 4 版)。**7 点は `e8ae2d32` 限定**で、他版の staleness は未測定。
+**共有 tree 不触ゆえ触らない。**警告を届かせるには user 承認が要る。
+
+### worker1 の生成器 5 本 — **v1 の再現用として残す**
+
+Len 0x74/0x7D 未反映。**再実行すると 8.7% phantom を再生産する。**v2(`w1_digest_v2.py`)へ移行済、旧 file は「その時何を報告したか」の記録として保持。
+
+---
+
+## 2.8 **出所不明の便 3 通**(2026-08-11、**未解決**)
+
+worker1/worker2/worker3 の入力欄に、**boss1 の最終通番 +1** を持つ便が現れた(内容は boss1 が意図していた次 task と一致)。
+
+| 候補 | 判定 |
+|---|---|
+| boss1 が送った(turn が send 途中で切れた) | **反証** — boss1 の transcript 全数で、当該文字列は**PRESIDENT の便が初出**。boss1 の agent-send command には 1 件も現れず、**結果が返っていない Bash 呼び出しは 0 件** |
+| user の直接入力 | **否定**(user 回答: 「? を 2 回送っただけ」) |
+| `pane-watchdog.sh` | **反証** — process 停止中、log に 08-10/08-11 の行は **0 件** |
+
+⇒ **出所は不明**。ただし**前例が在る**: 2026-07-13 の watchdog による draft 昇格事故(偽「完走報告」2 件)。
+**「誰も送っていない message が pane に現れる」は、この system で前例がある。**放置しない。
 
 ---
 
@@ -171,6 +224,10 @@ git -C /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 log --oneline -3
 12-c. **上位への報告は、doc の限定より強く書かない** — 報告を書いたら**同じ主張が doc でどう書かれているかを引いて強度を比べ、doc の方が弱ければ doc に合わせる**
 13. **「分布が合う」は「対応が合う」ではない**。式を書いたら**その式の入力を持っているか**を先に確認
 14. **「領域の性質」と「指標への影響量」は別の量**
+14-b. **template 補正は「証拠の件数」に効き、「被害の量」には効かない**((90)) — 誤用の形は「1 defect だから影響も 1」。**水増しを警戒するあまり過小に書く**の実例。mgen06-10 は **抽出 defect 1 件 / 影響 map 5 / 失われた entity 23 体**で、**23 は水増しではない**
+14-c. **型を配る時も「この集合の外が在りうる」を書く**((91)) — 仮説には H4 を課してきたが、**型の集合には課していなかった**。実例: boss1 が配った 2 型(N/N 一致 / 0/N)の外に、worker2 が**第 3 の型**(`N−k / N`、**k が結果そのもの**、M を付けるべきは反例側)を出した
+14-d. **新規に発見する前に、手元の script の header を読む**((92)) — **2 名の実例**: PRESIDENT と boss1 が**どちらも** `pane-watchdog.sh` の先頭 7 行を読まずに、**1 か月前に実証済の現象と復旧手順を「新発見」として再導出した**。探索コストは `ls` と `cat` 2 回。**1 名なら癖、2 名なら構造**
+14-e. **保存の基準は「再利用するか」でなく「この数を誰かが疑ったら再現できるか」**((88)) — worker1 の診断「**1 回で終わる測定ほど保存されない**」が根。**再利用しない測定こそ検算のために保存が要る**。(49) の 3 型はすべて**保存の基準が検算でなかった**ことから出ている
 15. **新指標は陽性対照と陰性対照の両方を先に通す** — **worker2 の EDC で実際に真逆の結論を止めた**(offset 2064 vs 2072)
 16. **帰無は仮説の data 型に合わせる**。permutation null(分布を保ち構造を壊す)と型対照は**別の問い**
 17. **状態が動くのも 1 つの claim**。旧記述は削らず「その時点の走査範囲での正しい記述」として残す
@@ -201,7 +258,7 @@ git -C /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 log --oneline -3
 
 | 者 | 登録した型 | 自分で踏んだ件 |
 |---|---|---|
-| PRESIDENT | 「出典を自分で引く」「H4 を常に空ける」 | **部分引用**(引用範囲を宣言せず)/ **(18) を 2 択で登録**(H4 の枠を作らなかった) |
+| PRESIDENT | 「出典を自分で引く」「H4 を常に空ける」 | **部分引用**(引用範囲を宣言せず)/ **(18) を 2 択で登録**(H4 の枠なし)/ **(53) が片側のみ**(N/N 一致にしか触れず 0/N を書かなかった)/ **型の集合に H4 を課さなかった**((91) で自己申告。**「枠を配る側が、枠の外を書かない」が 3 件**) |
 | boss1 | 中継 checklist / 「限定欄と本文を突き合わせる」 | **中継汚染 2 件** / **同一報告内で §④ が §② を訂正しながら §② を残した** |
 | worker2 | 「限界を書く」 | **穴を指摘する文と穴に落ちた文が同一報告に同居**(母数 1 → 3) |
 | worker3 | 「機構として接地する」 | **自分で接地した 0x10 を自分の TERM 集合に未反映** |
