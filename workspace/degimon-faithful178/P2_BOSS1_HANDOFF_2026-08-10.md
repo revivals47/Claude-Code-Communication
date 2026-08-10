@@ -36,11 +36,11 @@ git -C /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 log --oneline -3
 | # | 内容 | 根拠種別 | 出所 | **実装先(道具のどこ)** |
 |---|---|---|---|---|
 | 1 | **.map loader = `0x800DF7D0`**。offset 表から **6 section** を順次読む | 機構 | worker1 §78/§83 | worker1 exedis / 未記入 |
-| 2 | **header は可変長**。`widx(read6) = A + B + 3`(A=map表+0x0A, B=+0x0B)、guard 時 word 2。**241/241 反例 0** | 機構+全数 | boss1 実測 + worker1 §83 | **boss1 が実測。worker2 の parser に未反映(要確認)** |
+| 2 | **header は可変長**。`widx(read6) = A + B + 3`(A=map表+0x0A, B=+0x0B)、guard 時 word 2。**241/241 反例 0** | 機構+全数 | boss1 実測 + worker1 §83 | `tools/boss1_map_header_verify.py`(R2/R4、**恒久化済・反例 0 で再現**) |
 | 3 | **section 5(entity)**: record = **84 + 6N**、終端 = **件数**、sentinel 無し(5 section 全てで 0 件) | 機構 | worker1 §78.1/§84 | convert_map.py(投影元)/ 要記入 |
 | 4 | **`lb 0xc(0x8013541C + idx*16) & 0x80`**(bit7)が entity parse を gate。0 なら即 return | 機構 | worker1 | 要記入 |
 | 5 | **section 6 = 属性 grid**。`0x801C4C74` / **100×100 / 1 byte** / fill は 1 site / **上限 check 0 件** | 機構 | worker1 §80 | 要記入 |
-| 6 | **EXE が index する grid の byte 列 = worker2 が数えた tilemap の byte 列。242/242 bit 一致** | 機構 | boss1 実測 | boss1 の照合 script(scratchpad、恒久化されていない) |
+| 6 | **EXE が index する grid の byte 列 = worker2 が数えた tilemap の byte 列。242/242 bit 一致** | 機構 | boss1 実測 | `tools/boss1_map_header_verify.py`(R1/R3、**恒久化済・反例 0 で再現**) |
 | 7 | **s0 = プレイヤーが立つセルの属性値**(座標→100 格子)。帯 = **C[51,80) / D[80,110) / B[110,120) + 単独 120** | 機構 | worker1 §85 | 要記入 |
 | 8 | **D 帯 80-109 → script helper(key=s0)** / **B 帯 110-119 → warp 配列**。**7 月 json 側記述と境界が完全一致(blind)** | 機構 | worker1、7 月 doc は独立 | 要記入 |
 | 9 | **tile 110+k 在り ⇒ warp slot k は 0xFFFF でない = 289/289 反例 0**(片方向。逆は 61.8% で不成立) | 統計(全数) | worker2 | worker2 tilemap 走査 |
