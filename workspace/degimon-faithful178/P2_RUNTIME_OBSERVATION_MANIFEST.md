@@ -17,13 +17,13 @@ PRESIDENT #46 (216) の裁定で作成。
 
 ## 登録項目
 
-| # | 項目名 | 観測対象（address / size / stride） | 必要な game state | これが決めること | 取れない場合に残る不確定 | 依存している現行数値 | **手順が確立しているか** |
-|---|---|---|---|---|---|---|---|
-| **A** | VM 停止 flag の clear 条件 | `0x801640B8` + `0x14`、**1 byte × 6 slot、stride 0x34** | script 実行中（VM が走っている任意の場面） | band 外 opcode で VM が**止まるか再開するか**。`(byte & 0x0F) != 0 && (byte & 0x40) != 0` の slot が 1 つでもあれば再開 | band 外打切の採否が決まらない | worker1 **−16.42%**（40,855 → 34,146）/ worker2 の L・N' 系列。**命令数が 2 倍以上振れる** | **Yes** |
-| **A2** | VM 停止 flag の set 条件（A と同時取得可） | `0x80145E48` + `0x12`、**halfword × 6 slot** | 同上 | 停止 flag を立てる 3 つ目の site（`0x800F2F88`）の発火条件 | A の解釈が片肺になる | A と同じ | **Yes** |
-| **B** | data 領域へ実行が入るか | 画面（player に見える挙動）+ 可能なら PC trace | 通常プレイ（複数場面） | **原盤が data を命令として読み続ける経路を実際に通るか**。通るなら player に何が見えるか | remake の HONEST GAP が「未判断」のまま | 忠実度課題。被覆率の分母定義そのもの | **No**（どの場面を見るかが未定） |
-| **C** | load 失敗時の stale buffer parse | 画面 + `.map` load 失敗を誘発した状態 | load 失敗が起きる場面（再現手順 未確立） | 原盤が stale buffer を 6 section として parse する挙動の可視結果 | P-S1 / P-S2 が HONEST GAP のまま | 既存 HONEST GAP（再現の要否 未判断） | **No**（load 失敗の誘発手順が未確立） |
-| **W2-1** | 現在 entry id が 0 になるか（worker2） | `gp-0x6cd4`、**halfword 1 個**（現在 entry id。gp の実値は観測時に取得が必要） | script 実行中（複数場面。特に map 遷移直後と会話開始時） | **entry0（= MAPHEAD.SCN と byte 一致）が script として実行されるか** | entry0 由来の数値を母集団に含めるかが未決のまま | worker2 の 225 entry 母集団 / entry0 の 14,598 byte run 判定 / 被覆率の分母 | **Yes**（gp 実値の取得のみ） |
+| # | 項目名 | 観測対象（address / size / stride） | 必要な game state | これが決めること | 取れない場合に残る不確定 | 依存している現行数値 | 手順確立 | **既存 capture で試したか** | **観測の瞬間（直前 event）** |
+|---|---|---|---|---|---|---|---|---|---|
+| **A** | VM 停止 flag の clear 条件 | `0x801640B8` + `0x14`、**1 byte × 6 slot、stride 0x34** | script 実行中（VM が走っている任意の場面） | band 外 opcode で VM が**止まるか再開するか**。`(byte & 0x0F) != 0 && (byte & 0x40) != 0` の slot が 1 つでもあれば再開 | band 外打切の採否が決まらない | worker1 **−16.42%**（40,855 → 34,146）/ worker2 の L・N' 系列。**命令数が 2 倍以上振れる** | Yes | **Yes — 6 本全数（ram_A/ram_B/ram_live_1628_1,2,3/SLPS3_atrest）。部分回答済** | **未記入 → 要記入**: 「band 外 opcode を実行した直後」。既存 6 本は at-rest で**瞬間が違う** |
+| **A2** | VM 停止 flag の set 条件（A と同時取得可） | `0x80145E48` + `0x12`、**halfword × 6 slot** | 同上 | 停止 flag を立てる 3 つ目の site（`0x800F2F88`）の発火条件 | A の解釈が片肺になる | A と同じ | Yes | **Yes — 同 6 本** | 同上 |
+| **B** | data 領域へ実行が入るか | 画面（player に見える挙動）+ 可能なら PC trace | 通常プレイ（複数場面） | **原盤が data を命令として読み続ける経路を実際に通るか**。通るなら player に何が見えるか | remake の HONEST GAP が「未判断」のまま | 忠実度課題。被覆率の分母定義そのもの | No | **No** | 未記入 |
+| **C** | load 失敗時の stale buffer parse | 画面 + `.map` load 失敗を誘発した状態 | load 失敗が起きる場面（再現手順 未確立） | 原盤が stale buffer を 6 section として parse する挙動の可視結果 | P-S1 / P-S2 が HONEST GAP のまま | 既存 HONEST GAP（再現の要否 未判断） | No | **No** | 未記入 |
+| **W2-1** | 現在 entry id が 0 になるか（worker2） | `gp-0x6cd4`、**halfword 1 個**（現在 entry id。gp の実値は観測時に取得が必要） | script 実行中（複数場面。特に map 遷移直後と会話開始時） | **entry0（= MAPHEAD.SCN と byte 一致）が script として実行されるか** | entry0 由来の数値を母集団に含めるかが未決のまま | worker2 の 225 entry 母集団 / entry0 の 14,598 byte run 判定 / 被覆率の分母 | Yes | **未確認 → 要確認**（gp = 0x80144E0C なので `0x8013E138` を 6 本で読める） | 未記入 |
 
 **W2-1 の静的側の限界（なぜ static で読めないか）**: 機構は静的に確定済 — `0x800F0988` は id==0 のとき offset 表を引かず `gp-0x6cf8` の常駐 pointer を返す（`0x800F09A8`）。∴ **entry0 を body base にする経路は存在する**。しかし到達した `0x14`/`0x17` の 152 site で **entry id operand == 0 は 0 件**。この 0 は walker の到達規則に依存し、盲検（全 byte 走査）は 59% が存在しない entry id を指す雑音のため証拠にならない。∴ **「機構は在るが呼ばれているか」は runtime でしか決まらない。**
 
@@ -31,6 +31,38 @@ PRESIDENT #46 (216) の裁定で作成。
 
 - worker1 / worker2 / worker3 が各自の未決から、**static で読めないもの**だけを挙げる。
 - 挙げる時は上記 6 列すべてを埋める。**(4)「これが決めること」が 1 行で書けないものは登録しない。**
+
+## 既存 capture の在庫（PRESIDENT #50 (238)）
+
+> **user の観測を要求する前に、既存 capture で答えられないかを全数確認する。**
+> これを埋めずに上がってきた発注は**差し戻す**。
+
+**我々は 2MB の RAM dump を 6 本持っていて、誰も見ていなかった。**
+有限資源を使う判断を、**在庫を数えずに**していた——「0 件には母数を」の資源版。
+
+在庫: `workspace/degimon-faithful178/runtime_capture_2026-07-25/{ram_A,ram_B,ram_live_1628_1,2,3}.bin`
++ `f1c/oi3b_atrest/SLPS3_atrest_ram.bin`。offset = VA − 0x80000000。
+
+### A / A2 の実測（PRESIDENT が 6 本読了）
+
+| 項目 | ram_A | ram_B | ram_live_1628_1,2,3 | SLPS3_atrest |
+|---|---|---|---|---|
+| 停止 flag `0x8013E15C` | **0** | **0** | **1** | **1** |
+| pending opcode `0x8013E150` | 0x00 | 0x00 | 0x00 | 0x00 |
+| A（+0x14 × 6 slot） | `a0,00,00,00,00,00` | 同左 | `00 ×6` | `a0,00,...` |
+
+worker1 の clear 条件「(&0x0F) かつ (&0x40)」への当てはめ: `0xA0 & 0x0F = 0` ⇒ 不成立、`0x00` ⇒ 不成立。
+∴ **6 本すべてで 6 slot のどれも clear 条件を満たしていない** ⇒ **worker1 の「止まる」側に傾く観測**。
+
+### ただし決定的ではない（PRESIDENT (240)）
+
+> これらは 2026-07-25 に**別の目的で**取った at-rest capture。**捕獲の瞬間が、問いの瞬間ではない。**
+
+問いは「band 外 opcode を実行した**直後**に clear 条件が満たされるか」であり、**その瞬間の capture は無い**。
+
+∴ **『観測対象』だけでなく『どの瞬間か（直前に何が起きた状態か）』を書かないと、取っても答えにならない。**
+
+∴ 現時点の判断: **A は単独では発注しない。B と束ねて 1 回の live session で両方取る形に設計し直す。**
 
 ## 発注方針（PRESIDENT #47 (224)）
 
