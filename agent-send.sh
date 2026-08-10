@@ -81,12 +81,26 @@ show_agents() {
     echo "  worker3   → multiagent:0.3  (実行担当者C)"
 }
 
-# ログ記録
+# ログ記録(送信前)。2026-08-11 追加。
+# 目的: send_message の途中(本文 send-keys 後・C-m 前の 2 秒窓など)で process/turn が
+#       切れると、従来は log 行が 1 行も残らず「送っていない」と誤読された。
+#       ATTEMPT を先に書くことで「撃った形跡」が必ず残る。
+#       ATTEMPT が在り SENT が無い = ★送信の途中で切れた★ = composer に残留している疑い。
+log_attempt() {
+    local agent="$1"
+    local message="$2"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+
+    mkdir -p logs
+    echo "[$timestamp] $agent: ATTEMPT - \"$message\"" >> logs/send_log.txt
+}
+
+# ログ記録(送信後)。SENT の行形式は従来どおり(既存の grep 互換)
 log_send() {
     local agent="$1"
     local message="$2"
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-    
+
     mkdir -p logs
     echo "[$timestamp] $agent: SENT - \"$message\"" >> logs/send_log.txt
 }
@@ -160,6 +174,10 @@ main() {
         exit 1
     fi
     
+    # メッセージ送信
+    # ログ記録(送信前 = ATTEMPT)。途中で切れても痕跡が残る
+    log_attempt "$agent_name" "$message"
+
     # メッセージ送信
     send_message "$target" "$message"
     
