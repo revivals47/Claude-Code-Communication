@@ -27,26 +27,32 @@ git -C /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 log --oneline -3
 
 ## 1. **閉じた量**(機構または全数照合で確定)
 
-| # | 内容 | 根拠種別 | 出所 |
-|---|---|---|---|
-| 1 | **.map loader = `0x800DF7D0`**。offset 表から **6 section** を順次読む | 機構 | worker1 §78/§83 |
-| 2 | **header は可変長**。`widx(read6) = A + B + 3`(A=map表+0x0A, B=+0x0B)、guard 時 word 2。**241/241 反例 0** | 機構+全数 | boss1 実測 + worker1 §83 |
-| 3 | **section 5(entity)**: record = **84 + 6N**、終端 = **件数**、sentinel 無し(5 section 全てで 0 件) | 機構 | worker1 §78.1/§84 |
-| 4 | **`lb 0xc(0x8013541C + idx*16) & 0x80`**(bit7)が entity parse を gate。0 なら即 return | 機構 | worker1 |
-| 5 | **section 6 = 属性 grid**。`0x801C4C74` / **100×100 / 1 byte** / fill は 1 site / **上限 check 0 件** | 機構 | worker1 §80 |
-| 6 | **EXE が index する grid の byte 列 = worker2 が数えた tilemap の byte 列。242/242 bit 一致** | 機構 | boss1 実測 |
-| 7 | **s0 = プレイヤーが立つセルの属性値**(座標→100 格子)。帯 = **C[51,80) / D[80,110) / B[110,120) + 単独 120** | 機構 | worker1 §85 |
-| 8 | **D 帯 80-109 → script helper(key=s0)** / **B 帯 110-119 → warp 配列**。**7 月 json 側記述と境界が完全一致(blind)** | 機構 | worker1、7 月 doc は独立 |
-| 9 | **tile 110+k 在り ⇒ warp slot k は 0xFFFF でない = 289/289 反例 0**(片方向。逆は 61.8% で不成立) | 統計(全数) | worker2 |
-| 10 | **TEXT 終端 = `0x0D` かつ直後 2 byte 目が 0**。単一 exit(走査範囲内)。escape 消費表 22 種 | 機構 | worker1 §76/§77 + worker3 §125/§127(方法は独立、**盲検ではない**) |
-| 11 | **0x00 は真の no-op 命令**(band に `0x00-0x0F` が無く PC は +1 済)。`0x40-0x45` `0x59` `0x60-0x63` `0x7F-0xFA` も同様 | 機構 | worker3 §137 |
-| 12 | **0x18 の命令長 = 4**。表は inline だが **PC は跨がない**(表 byte は data) | 機構 | worker3 §134 |
-| 13 | **(β2) 到達源不明 = 0 件** ⇒ 母集団が閉じた(24 entry の handler 本体という走査範囲の中で) | 機構 | worker3 §136 |
-| 14 | **#1(flag id 800 以上は実在しえない)は mask 非依存** — `0x800F191C` は u16 のまま `andi 7` / `sra 3`、値域切り詰め mask 0 件 | 機構 | **worker1 と worker3 が相互非開示で独立到達、重なる site で一致** |
-| 15 | **corpus 対 rip**: CD 配下 242 file と EXE・overlay 16 本が image と sha256 全数一致。EDC **162,058/162,058 誤り 0** | 機構 | worker2 |
-| 16 | **rip 対 既知良品 dump**: redump disc/55488 と **SHA1/MD5/CRC32/size/track の 5 点一致** | 機構 | PRESIDENT 直取得 + worker2 が頁を独立に直取得 |
-| 17 | **cue の L2 が閉じた**: 差は file 名と行末のみ、TRACK/INDEX 行は byte 一致 | 機構 | worker2 |
-| 18 | **write offset +2**(redump 頁)⇒ 我々の rip は **offset 補正済の側** | 機構 | worker2 |
+> **「閉じた」と「道具が知っている」は別**(PRESIDENT (49))。
+> 各項目に **実装先** 欄を持つ。**空欄 = 接地したが道具に反映されていない可能性** — その状態が実際に事故を起こした:
+> **0x10 は §122.1 で「fall-through 無し」と機構接地済だったのに、worker3 の TERM 集合に入っていなかった**。
+> 1 回目の (p1) 判定が「終端でない 0x10 = 7 件」で誤って出た原因はこれ。**接地は doc に在ったが、道具に入っていなかった。**
+> **空欄は各 worker が自分の担当分を埋める**。埋まるまでは「道具が知らない可能性が在る」と読む。
+
+| # | 内容 | 根拠種別 | 出所 | **実装先(道具のどこ)** |
+|---|---|---|---|---|
+| 1 | **.map loader = `0x800DF7D0`**。offset 表から **6 section** を順次読む | 機構 | worker1 §78/§83 | worker1 exedis / 未記入 |
+| 2 | **header は可変長**。`widx(read6) = A + B + 3`(A=map表+0x0A, B=+0x0B)、guard 時 word 2。**241/241 反例 0** | 機構+全数 | boss1 実測 + worker1 §83 | **boss1 が実測。worker2 の parser に未反映(要確認)** |
+| 3 | **section 5(entity)**: record = **84 + 6N**、終端 = **件数**、sentinel 無し(5 section 全てで 0 件) | 機構 | worker1 §78.1/§84 | convert_map.py(投影元)/ 要記入 |
+| 4 | **`lb 0xc(0x8013541C + idx*16) & 0x80`**(bit7)が entity parse を gate。0 なら即 return | 機構 | worker1 | 要記入 |
+| 5 | **section 6 = 属性 grid**。`0x801C4C74` / **100×100 / 1 byte** / fill は 1 site / **上限 check 0 件** | 機構 | worker1 §80 | 要記入 |
+| 6 | **EXE が index する grid の byte 列 = worker2 が数えた tilemap の byte 列。242/242 bit 一致** | 機構 | boss1 実測 | boss1 の照合 script(scratchpad、恒久化されていない) |
+| 7 | **s0 = プレイヤーが立つセルの属性値**(座標→100 格子)。帯 = **C[51,80) / D[80,110) / B[110,120) + 単独 120** | 機構 | worker1 §85 | 要記入 |
+| 8 | **D 帯 80-109 → script helper(key=s0)** / **B 帯 110-119 → warp 配列**。**7 月 json 側記述と境界が完全一致(blind)** | 機構 | worker1、7 月 doc は独立 | 要記入 |
+| 9 | **tile 110+k 在り ⇒ warp slot k は 0xFFFF でない = 289/289 反例 0**(片方向。逆は 61.8% で不成立) | 統計(全数) | worker2 | worker2 tilemap 走査 |
+| 10 | **TEXT 終端 = `0x0D` かつ直後 2 byte 目が 0**。単一 exit(走査範囲内)。escape 消費表 22 種 | 機構 | worker1 §76/§77 + worker3 §125/§127(方法は独立、**盲検ではない**) | worker3 機構版 TEXT 判定器 |
+| 11 | **0x00 は真の no-op 命令**(band に `0x00-0x0F` が無く PC は +1 済)。`0x40-0x45` `0x59` `0x60-0x63` `0x7F-0xFA` も同様 | 機構 | worker3 §137 | **worker3 の walk に反映済(§137 以降)** |
+| 12 | **0x18 の命令長 = 4**。表は inline だが **PC は跨がない**(表 byte は data) | 機構 | worker3 §134 | **worker3 の Len 表に反映済(長さ 4)** |
+| 13 | **(β2) 到達源不明 = 0 件** ⇒ 母集団が閉じた(24 entry の handler 本体という走査範囲の中で) | 機構 | worker3 §136 | worker3 §136 の分類器 |
+| 14 | **#1(flag id 800 以上は実在しえない)は mask 非依存** — `0x800F191C` は u16 のまま `andi 7` / `sra 3`、値域切り詰め mask 0 件 | 機構 | **worker1 と worker3 が相互非開示で独立到達、重なる site で一致** | 検出器 #1(worker3)/ worker1 側は witness のみ |
+| 15 | **corpus 対 rip**: CD 配下 242 file と EXE・overlay 16 本が image と sha256 全数一致。EDC **162,058/162,058 誤り 0** | 機構 | worker2 | worker2 edc_verify.py ほか |
+| 16 | **rip 対 既知良品 dump**: redump disc/55488 と **SHA1/MD5/CRC32/size/track の 5 点一致** | 機構 | PRESIDENT 直取得 + worker2 が頁を独立に直取得 | —(外部照合) |
+| 17 | **cue の L2 が閉じた**: 差は file 名と行末のみ、TRACK/INDEX 行は byte 一致 | 機構 | worker2 | —(外部照合) |
+| 18 | **write offset +2**(redump 頁)⇒ 我々の rip は **offset 補正済の側** | 機構 | worker2 | —(外部照合) |
 
 ---
 
@@ -83,7 +89,7 @@ git -C /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 log --oneline -3
 
 ---
 
-## 4. 被覆率の系列(**現行値 = 32.6%**)
+## 4. 被覆率の系列(**現行値 = 36.8%、ただし target 経路が未閉鎖**)
 
 | 値 | 何を変えたか | 根拠種別 | 状態 |
 |---|---|---|---|
@@ -94,10 +100,16 @@ git -C /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 log --oneline -3
 | 41.4 / 38.9% | 0x18 の cap / drop 2 仮説 | 機構 | 撤回 |
 | 38.9% | 0x18 の命令長 = 4 | 機構 | 撤回 |
 | 38.7% | (5b) の TEXT 分を除去 | 機構 | 撤回 |
-| **32.6%** | **tracer の TEXT 早切り(終端違い 96.1%)を機構版で訂正** | **機構** | **現行** |
+| 32.6% | **tracer の TEXT 早切り(終端違い 96.1%)を機構版で訂正** | 機構 | 撤回 |
+| **36.8%** | **(p1) 51,944 byte を分母から除去(除去根拠が 位置 → 機構 に上がった)** | **機構** | **現行** |
 
-**分母 453,530 = 総 690,176 − section table 8,036 − TEXT 228,986。pad は分母に含む。**
-**32.6% は「0x0D peek 規則」の上に立つ値**(規則自体の正否は未検定)。
+**分子 147,764 / 分母 401,586 = 453,530 − (p1) 51,944。**
+**36.8% は「0x0D peek 規則」の上に立つ値**(規則自体の正否は未検定)。
+
+**(p1) 除去の到達不能性は 3 経路のうち 2 経路しか閉じていない**:
+- **fall-through = 0 件(機構で閉じた)** / **section 頭 = 0 件(機構で閉じた)**
+- **target = 14 領域が未閉鎖**(厳密 10 byte / 保守的 1,028 byte)⇒ 影響 0.02〜1.98%、被覆率は **36.8%〜36.7%**
+- ∴ **「全項 機構」とはまだ書けない**。14 件の source 判定が進行中
 
 ---
 
