@@ -23,6 +23,9 @@ PRESIDENT #46 (216) の裁定で作成。
 | **A2** | VM 停止 flag の set 条件（A と同時取得可） | `0x80145E48` + `0x12`、**halfword × 6 slot** | 同上 | 停止 flag を立てる 3 つ目の site（`0x800F2F88`）の発火条件 | A の解釈が片肺になる | A と同じ |
 | **B** | data 領域へ実行が入るか | 画面（player に見える挙動）+ 可能なら PC trace | 通常プレイ（複数場面） | **原盤が data を命令として読み続ける経路を実際に通るか**。通るなら player に何が見えるか | remake の HONEST GAP が「未判断」のまま | 忠実度課題。被覆率の分母定義そのもの |
 | **C** | load 失敗時の stale buffer parse | 画面 + `.map` load 失敗を誘発した状態 | load 失敗が起きる場面（再現手順 未確立） | 原盤が stale buffer を 6 section として parse する挙動の可視結果 | P-S1 / P-S2 が HONEST GAP のまま | 既存 HONEST GAP（再現の要否 未判断） |
+| **W2-1** | 現在 entry id が 0 になるか（worker2） | `gp-0x6cd4`、**halfword 1 個**（現在 entry id。gp の実値は観測時に取得が必要） | script 実行中（複数場面。特に map 遷移直後と会話開始時） | **entry0（= MAPHEAD.SCN と byte 一致）が script として実行されるか** | entry0 由来の数値を母集団に含めるかが未決のまま | worker2 の 225 entry 母集団 / entry0 の 14,598 byte run 判定 / 被覆率の分母 |
+
+**W2-1 の静的側の限界（なぜ static で読めないか）**: 機構は静的に確定済 — `0x800F0988` は id==0 のとき offset 表を引かず `gp-0x6cf8` の常駐 pointer を返す（`0x800F09A8`）。∴ **entry0 を body base にする経路は存在する**。しかし到達した `0x14`/`0x17` の 152 site で **entry id operand == 0 は 0 件**。この 0 は walker の到達規則に依存し、盲検（全 byte 走査）は 59% が存在しない entry id を指す雑音のため証拠にならない。∴ **「機構は在るが呼ばれているか」は runtime でしか決まらない。**
 
 ## 未登録（3 者からの追加待ち）
 
