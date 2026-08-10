@@ -25,6 +25,14 @@ PRESIDENT #46 (216) の裁定で作成。
 | **C** | load 失敗時の stale buffer parse | 画面 + `.map` load 失敗を誘発した状態 | load 失敗が起きる場面（再現手順 未確立） | 原盤が stale buffer を 6 section として parse する挙動の可視結果 | P-S1 / P-S2 が HONEST GAP のまま | 既存 HONEST GAP（再現の要否 未判断） | No | **No** | 未記入 |
 | **W2-1** | 現在 entry id が 0 になるか（worker2） | `gp-0x6cd4`、**halfword 1 個**（現在 entry id。gp の実値は観測時に取得が必要） | script 実行中（複数場面。特に map 遷移直後と会話開始時） | **entry0（= MAPHEAD.SCN と byte 一致）が script として実行されるか** | entry0 由来の数値を母集団に含めるかが未決のまま | worker2 の 225 entry 母集団 / entry0 の 14,598 byte run 判定 / 被覆率の分母 | Yes | **未確認 → 要確認**（gp = 0x80144E0C なので `0x8013E138` を 6 本で読める） | 未記入 |
 
+### W2-1 の追加 2 列（boss1 #48 ②）
+
+| 既存 capture で試したか（file 名） | 観測の瞬間（直前 event） |
+|---|---|
+| **試した。5 本すべて読了** — `ram_A.bin` / `ram_B.bin` / `ram_live_1628_1,2,3.bin`（gp = 0x80144E0C、`gp-0x6cd4` = **0x8013E138**）。**5 本すべて entry id = 0x0065（= 101）。0 は 1 本も無い** | **不明（別目的の at-rest capture）**。ただし内部状態から 2 状態に分かれる: ram_A/B = PC 0x80161854・停止 flag 0（VM 走行中）/ 1628_* = PC 0x80161B93・停止 flag 1（停止後）。**5 本 = 独立 5 標本ではない。body base が全て同一（0x80161784）＝ 同一 script。実効 2 状態** |
+
+**W2-1 の現状**: 部分回答済（5/5 で id ≠ 0、実効 2 状態）。**未回答部分 = map 遷移直後・会話開始時など別 script の瞬間**。∴ 発注は残るが、**優先度は下がる**（1 場面では反例が出なかった、が母数 1 場面）。
+
 **W2-1 の静的側の限界（なぜ static で読めないか）**: 機構は静的に確定済 — `0x800F0988` は id==0 のとき offset 表を引かず `gp-0x6cf8` の常駐 pointer を返す（`0x800F09A8`）。∴ **entry0 を body base にする経路は存在する**。しかし到達した `0x14`/`0x17` の 152 site で **entry id operand == 0 は 0 件**。この 0 は walker の到達規則に依存し、盲検（全 byte 走査）は 59% が存在しない entry id を指す雑音のため証拠にならない。∴ **「機構は在るが呼ばれているか」は runtime でしか決まらない。**
 
 ## 未登録（3 者からの追加待ち）
