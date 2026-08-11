@@ -78,6 +78,73 @@ opcode 9 個 / pending 状態機械 / **0x19 = 静的決定不能**
 次の user 観測の設計（場面 N 件 × 各何秒 × 何 Hz × その場面でしか出ない比較軸）は worker2 の担当。
 **user の観測回数は有限資源。発注は PRESIDENT が一括**。
 
+### 転換後の到達点（2026-08-12、随時更新）
+
+**remake は intro arc を完走する**（例外 0 / Warning 0 / STALL 0 / 60.0s / log 419 行）。
+`0xFF SCRIPT_END @pc=0x1315 pages=66` が **CutsceneVerify178 baseline と一致**（live / editor verify の 2 経路）。
+ただし **画面は出ていない ⇒ scalar / log 次元のみ**。原盤側が無いので**差分とは呼べない**。
+
+#### 転換直後に判明した最大の欠陥: clean checkout から起動できなかった
+
+`StreamingAssets/data` は gitignore ⇒ **`git worktree add` が複製しない**。prep script は repo に無く、git 履歴にも provision 実績が無かった。
+∴ **90 往復の間、誰も clean checkout から起動していなかった**。旧 baseline が「版不明」だった理由もこれ。
+
+- 共有 tree の StreamingAssets は**完全 provision 済**（maps 486 entry）
+- `vise/scripts/` に生成器 5 本（`deploy_map_json.py` / `convert_map.py` / `extract_map_entries.py` / `extract_warps.py` / `add_tilemap.py`）
+- `vise/extracted/maps` = 242 = log の `shipped=242` と一致 ⇒ [[vise先行資産]] が発火し、生成器の書き直しを止めた
+- worker3 が prep script 作成（103 行 / 共有 tree 読取のみ / `.gitignore` 不変 / `--dry-run`・`--verify`）
+
+**恒久規範**: **clean checkout から起動できるかを、最初に 1 度確かめる。prep 手順が repo に無ければ、それが最初の欠陥。**
+
+#### user 可視の差分 1 件目 = 0xFB の map 変更が未配線（閉じた）
+
+| | |
+|---|---|
+| 欠陥 | `DialogueRuntime.cs:1050` が op1 を `CurrentSection` に代入するだけで **MapLoader を呼ばない** |
+| 住所 | `gp − 0x6CA6 = 0x8013E166`。**同じ住所を 2 者が別の名前で呼んでいた**（remake「ctx」/ worker1「map index」） |
+| 論証 | **5 独立 source** = 機構（`0x800F0D10` が +2→gp−0x6CD6 / **+4→gp−0x6CA6**）/ burst（179→TWNA13, 192→TWNB13）/ EXE name 表 vs `maps.json` **255 一致・0 不一致** / section key 陰性対照 / **entry 0 = MAPHEAD で `op1 == section key` が 255 件・不一致 0** |
+| 検定 | BEFORE **TOPN01 = 0 / 10 file**（検出力 = `TWNA01` 15 件 / `ROOM08` 7 件）→ AFTER **5 file で各 1 件** |
+| 判定 | **5/5。ただし事前登録の分母は 8 file なので「N=8 が的中」とは書けない**（部分的検定） |
+
+live で `[SCRIPTWARP] → [MapLoader] loaded 'TOPN01' → [WARP] → [FIELD] HandleMapLoaded` まで到達。
+∴ worker1 の限定「signal の発火であって `LoadById` が通ったことではない」は**解けた**。guard も抜けている。
+
+**残る限定**: TOPN01 が load されることと**原盤と同じ map に行くこと**は別。原盤 dump が無いので**「原盤と違う」はまだ言えない**。
+
+#### 打ち切り条件 ② は単一の数値として比較できない
+
+計器が壊れていた: `_warnCount++` の出現 **0 件**（`warns=0` は達成でなく**計数器が動いていない証拠**）、`IsKnown(op) => true` はハードコード。worker1 が両方修理（`IsKnown` = explicit 31 種 / `_warnCount` を gate 内で ++）。
+
+その上で **worker3 69 種 / worker1 78 種**に割れた。原因は 3 つで、**どれも単独では説明しない**:
+
+1. **停止規則** — neverstop で +18 種（worker3 のみ 10 種の**半分を回収**）
+2. **既知集合** — worker3 29 種（case 24 + JumpOps 5）対 worker1 31 種
+3. **code 版** — census.log mtime 02:27 / p2w3 の `DialogueRuntime.cs` mtime 03:21 ⇒ **census を出した tree はもう存在しない**
+
+しかも **続行させると偽の種が 13 増える**（data を歩く）。∴ 「初回停止」も「続行」も正しい計器ではない。
+
+> **(a) 同一 commit (b) 同一停止規則 (c) 同一既知集合 を固定しない限り比較できない。単一の数値として比べてはいけない量。**
+
+**運用形**: 他者の数と並べない。**同一構成（worker1 の base = legacyRet=F / neverStop=F / IsKnown 31 種）で撮った 1 本の数列の時間変化**を見る。
+
+#### gate が拾えない誤りの型
+
+`0x27` は **`longjmp a1=2` = VM から一旦 return する yield 型**。remake の「len consume して続行」とは**型が違う**。
+gate は「未対応」を止めるが、**「対応しているが型が違う」は素通りする**。∴「実装 4 / 部分 3」の中にも同型が潜みうる。
+対して `0x56`/`0x57` は band4 の退出が **a1=1 = 継続** ⇒ 制御流は remake と同型で、**欠落しているのは副作用だけ**。
+
+#### 観測 oracle の到達点
+
+`vmtrace.py`（ANCHOR VA **0x8013E114**、狙い撃ち read）で **1 kHz / CPU 2.23%** を実機で実証。
+**E1 = 確定**（器は state 変化を検出する）— 理由: **欠測は変化を捏造できない**。
+**pad_edge (0x8013E2C8) = 立ち上がり**と確定（1 kHz が効いた 1 件目）。**pad_held = 0x8013E2C0**。
+flag 配列 = `*(gp−0x6cec) + (id>>3) + 0xF5`、**bank+0x25C = return-record stack**（3 経路一致）。
+
+**構造的非忠実（未 trigger、解凍 trigger 記録済）**:
+- 原盤の flag storage に**範囲検査が無い**（`0x800F191C` に `slti`/`sltiu`/`slt` ゼロ）⇒ id ≥ 800 は **var 配列を踏む**。remake は `bool[4096]` の独立配列 ⇒ 踏み合わない
+- 到達 script の最大 flag id = **64,845** > `EventFlagCount 4096` ⇒ **remake は黙って落とす**
+- `pending` の実測値は **opcode そのもの**（0 / 16=0x10 / 26=0x1A / **103=0x67**）。**0x67 は VM_SPEC 未記載**。remake は enum のみ ⇒ **0/非0 でしか比較できない**
+
 ### (467) PRESIDENT の反省
 
 > **私は 90 往復、指標の精度を上げる作業を主導しました。指標が壊れていることを見つけたのは成果ですが、その先も指標を追いました。**
