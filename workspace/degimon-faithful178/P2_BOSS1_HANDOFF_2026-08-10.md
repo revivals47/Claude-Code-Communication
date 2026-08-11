@@ -5,6 +5,88 @@
 
 ---
 
+## ⚠️ 2026-08-12: 方針転換 — 解析中心 → remake 中心（PRESIDENT #91）
+
+user が codex に第三者意見を取った。逐語:
+
+> **RE を完了させてからリメイクする段階ではありません。リメイクを動かし、差が出た場所だけ RE する段階です。**
+> **3 walker の残差 6,606 byte を次の突合点にする方針も、いったん中止すべき。**
+
+boss1 が裏を取った（`git log` 直読）: **remake main = e638797 / 08-09 17:47 ⇒ 3 日間 1 行も動いていない**。
+その間 boss1–worker で 90 往復、**全部解析**。∴ 指摘は当たっている。
+
+### 打ち切り条件（(466)）— 「RE が完全になったら」は終了条件にしない
+
+1. 代表シナリオ群で原盤と remake の**説明不能な状態遷移差が 0**
+2. 完走対象のプレイ経路で**到達した未対応 opcode が 0**
+3. CALL / RETURN / TEXT / CHOICE / yield / 0x19 の境界に**自動回帰テスト**
+4. 5,749 byte が**到達性 5 分類**（① 実行時到達 ② 実行可能だが未到達 ③ データ/表/文字列 ④ padding ⑤ 未分類）に入り、
+   **「未分類 かつ 実行時到達」が 0**（最優先は ① のみ、②〜⑤ は後回し）
+5. 連続 2 回のプレイ検証で新規の到達未対応・重大差分が出ない
+
+**比較軸**: PC 遷移 / entry・section / stack push-pop / pending と停止 / flag・scenario 変数 / choice 結果 / text 開始終了 / warp・イベント
+
+### 恒久規則 (462)
+
+> **user 可視の差分、または失敗している受入テストに紐づかない RE 調査は開始しない。**
+
+### 役割 (464)
+
+| 者 | 担当 | worktree / branch |
+|---|---|---|
+| worker1 | **正式 VM 実装**（remake の script VM を VM_SPEC 準拠に） | `degimon_world_remake-p2w1` / `track1/vm-spec-impl` |
+| worker2 | **実機 trace と差分 oracle**（burst 道具、比較の器） | `degimon_world_remake-p2w2` / `track2/trace-oracle` |
+| worker3 | **remake への統合とプレイ検証** | `degimon_world_remake-p2w3` / `track3/remake-integration` |
+
+同じ問いを 3 者に解かせるのはやめる（重要境界の期間限定 review の時だけ）。
+
+**worker1 の実装規約**: 未対応 opcode は**黙って推定せず、entry / PC / stack / 周辺 byte を出して停止**する。
+これが打ち切り条件 ② の計測器になる。
+
+**worker3 の境界**: [[AI workerはGUI verify不可]] ⇒ 出せるのは headless / log / 状態 dump の差分まで。
+**完成 claim は user 実視覚まで凍結（例外なし）**。視覚が要る検証は PRESIDENT が user に一括発注する。
+
+### 凍結（破棄ではない。全部 commit 済、差が出た時に戻る）
+
+- (c) の残差 **5,749 byte**
+- TEXT 3 定義の残差 **7,064 byte**（worker1 249,476 / worker2 242,412）
+- 命令 byte の残差
+- 別枠の帰属の精密化（worker2 の 8 本分類、worker1 の 4 分類、worker3 の A=3/B=3/C=11）
+
+### 守るもの — VM_SPEC は中心成果物
+
+`P2_VM_SPEC_2026-08-11.md` **sha256 a81a0db836860cd0 / 285 行**。捨てない。転換後の中心。
+codex も「中心成果物を静的 walker から**実行可能な VM 仕様**に替える」と書いている。
+
+**実装に使える確定**: 6 band dispatch 表 + jump table base 5 本 / 退出規約 (setjmp-longjmp、帰結 0-3) /
+call stack record (+0 PC / +4 entry id / +6 tag / +7 section id、埋めるのは tag 1 = 0x13/0x14 だけ) /
+opcode 9 個 / pending 状態機械 / **0x19 = 静的決定不能**
+
+**転換直前 3 便で出た、実装に直結する事実（凍結しない）**:
+
+- **0x15 = 1 段 pop して継続**（worker1 §154）
+- **0xFE/0xFF = pop して復帰**（直進ではない。worker2 の BU で確定）— 停止は tag 0 の時だけ
+- **tag3/4 (0x4B 718 / 0x66 501 / 0xFB 255 …) の行き先は実行時 lookup**（0x800EF8E0 / 0x800F0AC8）
+  ⇒ script operand から静的に追えない。**静的 table を作らず、lookup を実装するか停止する**
+- **0x19 = counter 無し、出口は分岐が taken の時だけ**（0x800EF644 / 0x800EF680）
+- **escape 22 件は computed goto**（`jr $v0`）、**飛び先は 20 種**（22 ではない）
+- Len 確定 85/100 opcode（不一致 3 件 = 0x39 2→6 / 0x73 4→6 / 0x7E 4→2 は EXE 側が正）
+
+### runtime oracle の母数が足りない (465)
+
+現在の oracle は**会話 1 場面・60 秒だけ**。**戦闘 / メニュー / イベント / 選択肢 / 入れ子 CALL が 1 度も観測されていない**。
+次の user 観測の設計（場面 N 件 × 各何秒 × 何 Hz × その場面でしか出ない比較軸）は worker2 の担当。
+**user の観測回数は有限資源。発注は PRESIDENT が一括**。
+
+### (467) PRESIDENT の反省
+
+> **私は 90 往復、指標の精度を上げる作業を主導しました。指標が壊れていることを見つけたのは成果ですが、その先も指標を追いました。**
+> **「何のための被覆率か」を一度も問いませんでした。**
+
+∴ 型 = **目的を問わずに指標を精密化した**。以後、**規範は受入テストが落ちた時だけ追加**する（生産速度も過剰だった）。
+
+---
+
 ## 0. 起点(次に読む人が最初に検算するもの)
 
 ```
