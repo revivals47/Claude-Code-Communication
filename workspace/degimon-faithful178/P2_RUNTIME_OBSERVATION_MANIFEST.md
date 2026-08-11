@@ -48,8 +48,28 @@ PRESIDENT #46 (216) の裁定で作成。
 **我々は 2MB の RAM dump を 6 本持っていて、誰も見ていなかった。**
 有限資源を使う判断を、**在庫を数えずに**していた——「0 件には母数を」の資源版。
 
-在庫: `workspace/degimon-faithful178/runtime_capture_2026-07-25/{ram_A,ram_B,ram_live_1628_1,2,3}.bin`
-+ `f1c/oi3b_atrest/SLPS3_atrest_ram.bin`。offset = VA − 0x80000000。
+### 訂正（boss1、2026-08-11 09:4x）: **在庫は 6 本ではなく 7 本。上の相対 path は誤り**
+
+worker2 が「f1c/oi3b_atrest が見つからない」と 0 件報告（#50 への返信）。**worker2 の探索は正しく、doc が誤っていた** ——
+`f1c/…` は `workspace/degimon-faithful178/` 配下ではなく**別 worktree** の中にある。boss1 が `find` で全数走査した結果:
+
+| # | path | size | sha256 (先頭 8) |
+|---|---|---|---|
+| 1-5 | `workspace/degimon-faithful178/runtime_capture_2026-07-25/{ram_A,ram_B,ram_live_1628_1,2,3}.bin` | 各 2,097,152 | `fdf3eb7a` / `4f12f227` / `43187d66` / `9343a4a4` / `a8d39731` |
+| 6 | `/home/ken/Desktop/Digimon/degimon_world_remake-f1c/workspace/f1c/oi3b_atrest/SLPS3_atrest_ram.bin` | 2,097,152 | `7fa603a8` |
+| **7** | **`/home/ken/Desktop/Digimon/degimon_world_remake-f1c/workspace/f1c/A_atrest.ram`** | 2,097,152 | **`a3f2c4f6`** |
+
+**7 本の sha256 は全て相異**（boss1 実測）= **file としては 7 標本。ただし内容の独立性は別問題**
+（ram_A/B と 1628_* は body base 同一 = 実効 2 状態、worker2 §W2-1）。
+
+**#7 の provenance 限定**（台帳 = 同 dir の `A_ATREST_LEDGER.md` §0、worker3 2026-07-15）:
+> **本 file は「部分復元」であり、原本 baseline A とは別 provenance 等級である。**
+> 復元されたのは **at-rest 次元のみ**。生成 script は不明（grep 0 件）。**原本 A と同格に扱わない。**
+
+∴ **在庫を数えてから発注するという規範を立てた便で、boss1 が在庫を数え損ねていた。**
+型 = **在庫の母数誤り（boss1）**。台帳 #21 / #25 と同型（母集団誤り）で、対象が測定量ではなく**資源**に変わっただけ。
+
+offset = VA − 0x80000000。
 
 ### A / A2 の実測（PRESIDENT が 6 本読了）
 
