@@ -24,6 +24,29 @@ ANCHOR = bytes([0x84,0x97,0x15,0x80, 0x84,0xf7,0x15,0x80, 0x84,0x17,0x16,0x80,
                 0x84,0x37,0x16,0x80, 0x20,0x3a,0x16,0x80])
 RAM_SIZE = 0x200000
 
+# 発注が答えるべき問い（manifest A / W-D / W-E / B）に直接効く gp 相対変数。
+# gp = 0x80144E0C（2 経路で確定）。VA − 0x80000000 が dump 内 offset。
+# body base は VM_SPEC の VA 欄が誤記で、正は gp−27852 = 0x8013E140（worker2 実測が支持）。
+WATCH = [
+    ('停止flag',   0x8013E15C, 4),
+    ('pending',    0x8013E150, 1),
+    ('PC',         0x8013E144, 4),
+    ('body_base',  0x8013E140, 4),
+    ('entry_id',   0x8013E138, 2),   # gp-0x6CD4 = resolver の cache key = 実体
+    ('gp_6CD6',    0x8013E136, 2),   # 最後に 0xFB が指定した entry id
+    ('stack深さ',  0x8013E12A, 2),
+    ('stack_base', 0x8013E120, 4),
+] + [(f'win{i}+14', 0x801640B8 + i * 0x34 + 0x14, 1) for i in range(6)]
+
+
+def digest(data):
+    """1 frame から WATCH の値を抜く。full dump を読まずに A/W-D/W-E が判る。"""
+    out = {}
+    for name, va, sz in WATCH:
+        o = va - 0x80000000
+        out[name] = int.from_bytes(data[o:o + sz], 'little')
+    return out
+
 
 def find_pid():
     hits = []
@@ -93,15 +116,26 @@ def burst(pid, outdir, interval, count):
         path = os.path.join(outdir, f'ram_{i:04d}.bin')
         with open(path, 'wb') as f:
             f.write(data)
-        meta['frames'].append({'i': i, 't': round(ts - t0, 4),
-                               'sha256': hashlib.sha256(data).hexdigest()[:16]})
+        fr = {'i': i, 't': round(ts - t0, 4),
+              'sha256': hashlib.sha256(data).hexdigest()[:16]}
+        fr['w'] = digest(data)
+        meta['frames'].append(fr)
         print(f'\r{i+1}/{count}  t={ts-t0:6.2f}s', end='', file=sys.stderr)
     print(file=sys.stderr)
     mem.close()
     with open(os.path.join(outdir, 'burst_meta.json'), 'w') as f:
         json.dump(meta, f, indent=1, ensure_ascii=False)
     uniq = len({fr['sha256'] for fr in meta['frames']})
-    return meta, f'OK: {count} 枚 / 相異 sha {uniq} 枚（相異 1 なら game 静止 or 読めていない）'
+    # 発注が答える問いを その場で 1 行にする（user にも 成否が判る）
+    ws = [fr['w'] for fr in meta['frames']]
+    def vary(k):
+        return len({w[k] for w in ws})
+    summary = ' / '.join(f'{k}:{vary(k)}種' for k, _, _ in WATCH)
+    hit = [w for w in ws if any((w[f'win{i}+14'] & 0x0F) and (w[f'win{i}+14'] & 0x40)
+                                for i in range(6))]
+    return meta, (f'OK: {count} 枚 / 相異 sha {uniq} 枚\n'
+                  f'  変動: {summary}\n'
+                  f'  ★A の clear 条件(&0x0F かつ &0x40)を満たす frame = {len(hit)} 枚★')
 
 
 def selftest():
@@ -134,6 +168,9 @@ def selftest():
     print(f'  read {r:.1f} ms + write {w:.1f} ms = {r+w:.1f} ms/枚')
     print(f'  -> 0.2s 間隔 150 枚（30 秒）= {(r+w)*150/1000:.2f} 秒 CPU / '
           f'{RAM_SIZE*150/1024/1024:.0f} MB')
+    print('== digest 対象（full dump を読まずに A/W-D/W-E が判る） ==')
+    for name, va, sz in WATCH:
+        print(f'  {name:11} VA=0x{va:08X} off=0x{va-0x80000000:06X} {sz}B')
     print('== 未検査（DuckStation 起動が要る） ==')
     print('  ANCHOR 署名による region 同定 / 実 RAM の読み取り / 会話中の内容')
     return 0 if all(s.startswith('OK') for _, _, s in rows) else 1
