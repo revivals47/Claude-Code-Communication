@@ -23,6 +23,7 @@ PRESIDENT #46 (216) の裁定で作成。
 | **A2** | VM 停止 flag の set 条件（A と同時取得可） | `0x80145E48` + `0x12`、**halfword × 6 slot** | 同上 | 停止 flag を立てる 3 つ目の site（`0x800F2F88`）の発火条件 | A の解釈が片肺になる | A と同じ | Yes | **Yes — 同 6 本** | 同上 |
 | **B** | data 領域へ実行が入るか | 画面（player に見える挙動）+ 可能なら PC trace | 通常プレイ（複数場面） | **原盤が data を命令として読み続ける経路を実際に通るか**。通るなら player に何が見えるか | remake の HONEST GAP が「未判断」のまま | 忠実度課題。被覆率の分母定義そのもの | No | **No** | 未記入 |
 | **C** | load 失敗時の stale buffer parse | 画面 + `.map` load 失敗を誘発した状態 | load 失敗が起きる場面（再現手順 未確立） | 原盤が stale buffer を 6 section として parse する挙動の可視結果 | P-S1 / P-S2 が HONEST GAP のまま | 既存 HONEST GAP（再現の要否 未判断） | No | **No** | 未記入 |
+| **W-E** | **VM が yield 後に再入して続きを実行するか**（PRESIDENT #60 (295) / worker2 の AN。**AM が静的に決まらないと全数走査で確定したので manifest へ移した**） | **PC = `0x8013E144`（u32）** + **pending opcode = `0x8013E150`（u8）** + **停止 flag = `0x8013E15C`**。**1 フレームずつ進めて 3 つを追う** | **会話・イベント script の実行中**（`0x1A`/`0x10` で yield した直後の数フレーム） | **基底 A（1 call 内）と基底 B（再入して歩く）のどちらが実機の到達集合か** | **3 者とも 2 基底併記のまま。1 つに決まらない**（PRESIDENT: 「walker は原理的に選べない」） | **worker3 の 9.18% / worker2 の 38.60% / worker1 の下界 = 3 者全員の分母** | Yes（address 3 つとも確定済） | **Yes — 7 本全数。★7/7 で pending = 0、深さ = 0★。停止 flag は 0 が 3 本 / 1 が 4 本** ⇒ **再入の瞬間は 1 本も捉えていない** | **記入済**: 「`0x1A`/`0x10` を実行して VM を抜けた**直後**」。既存 7 本はすべて**その瞬間ではない** |
 | **W-D** | **call stack 深さ ≠ 0 の瞬間**（PRESIDENT #55 (267)） | **深さ = `0x8013E12A`（u16）** + **base ptr = `0x8013E120`（u32、実測 `0x80163784`）** + **配列 = [base]+604、record 8 byte** | **下位 script 実行中**（0x13 CALL で入った入れ子の中）。**観測の瞬間 = 会話 / イベント script の途中** | **0xFE/0xFF = RETURN の「戻って続行」side が実在するか** | 「入れ子では戻って続行」が機構読みのみで runtime 未確認のまま | worker1 の entry 跨ぎ未実装分（下界申告）/ worker2 の打切規則の正当化（CALL fall-through 論） | Yes（address 3 つとも確定済、2 byte + 配列を読むだけ） | **Yes — 6 本全数。★深さ = 0 が 6/6★。停止 flag = 1 の 4 本でも 0** ⇒ **入れ子中の capture を 1 本も持っていない** | **記入済**: 「会話 / イベント script の実行途中（深さが立っている間）」。既存 6 本は**すべて深さ 0 = 問いの瞬間ではない** |
 | **W2-1** | 現在 entry id が 0 になるか（worker2） | `gp-0x6cd4`、**halfword 1 個**（現在 entry id。gp の実値は観測時に取得が必要） | script 実行中（複数場面。特に map 遷移直後と会話開始時） | **entry0（= MAPHEAD.SCN と byte 一致）が script として実行されるか** | entry0 由来の数値を母集団に含めるかが未決のまま | worker2 の 225 entry 母集団 / entry0 の 14,598 byte run 判定 / 被覆率の分母 | Yes | **未確認 → 要確認**（gp = 0x80144E0C なので `0x8013E138` を 6 本で読める） | 未記入 |
 
@@ -45,6 +46,26 @@ PRESIDENT #46 (216) の裁定で作成。
 | `f1c/A_atrest.ram` | 0x00B1 だが **body base = entry0 常駐 ptr と同一** | entry 177 と 6.43% | **内部矛盾 ⇒ 証拠に使わない**（台帳 §0 の provenance 限定） |
 
 ∴ **entry id は 101 / 177 の 2 場面で、どちらも 0 ではない**（母数 2）。
+
+### W2-1 の状態変更（2026-08-11 11:3x）: **未決 → 候補あり（1 例、provenance 限定つき）**
+
+worker2 が **`A_atrest` を「内部矛盾」として棄却した自分の判断を撤回した**。撤回の契機は **worker1 の finding**
+（`gp-0x6CD4` = **resolver の cache key**）——**entry0 は resolver を通さず常駐 pointer で取る（`0x800F09A8`）ので cache key は更新されない**。
+∴ **base = entry0 / cache key = 177 は矛盾ではなく整合**。
+
+base を entry0 として読み直した実測（worker2）:
+
+- PC 相対 = **0x5A01（23,041 / 24,576）= 範囲内**、かつ **先頭表領域（u16 = 0x468）の外 = code 領域**
+- **rel−1 の byte = `0xFE`** ⇒ **4 例目の「停止直前 = 0xFE」、しかも entry0**
+- RAM と DG.SCN が **byte 一致**（`0a fe 00 1b 05 1a 00`）
+
+⇒ **W2-1 の問い「entry0 が script として実行されるか」に、初めて陽性側の観測が出た。**
+
+**限定（worker2 が落としていない / boss1 も維持）**: `A_atrest` は台帳 §0 の「**at-rest 次元のみの部分復元。原本 A と同格に扱わない**」
+⇒ **確定ではなく候補（1 例）**。**棄却理由が消えただけで、採用の根拠が立ったわけではない。**
+
+**次**: worker2 が **AO**（他 6 本で base が entry0 常駐 ptr `0x80159784` と一致する dump があるか = **反例探し**）を実施中。
+worker2 の判断（自分の主張が立った直後に、有利な母数を増やす前に反例側を先に見る）を boss1 が承認。
 
 **副産物（worker2、W2-1 の静的側を runtime で裏付け）**: **entry0（MAPHEAD）は `0x80159784` に常駐**し、
 3 本（ram_A / SLPS3_atrest / A_atrest）すべてで DG.SCN entry0 と **23,446/24,576 = 95.40% 一致**。
