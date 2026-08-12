@@ -8,15 +8,19 @@
 ## ① 4 者の 通番
 | 相手 | 私が 発行した 最後 | 相手から 受領した 最後 | 次 |
 |---|---|---|---|
-| worker1 | ★#173★ | worker1 #159 | #174 |
+| worker1 | ★#174★ | worker1 #160 | #175 |
 | worker2 | ★#146★ | worker2（#144 返信 + 短信） | #147 |
-| worker3 | ★#153★ | worker3 #230 | #154 |
-| PRESIDENT | ★#114★ | PRESIDENT #114 | #115 |
+| worker3 | ★#154★ | worker3 #230 | #155 |
+| PRESIDENT | ★#116★ | PRESIDENT #115 | #117 |
 
 ## ② 3 者の 現在 task
-- ★worker1★ = ★doc v3-3 収載（第 1 号 = ③ 相当 + #159 §1-§3）★ + ★§3 は ★GetEntry(-1) の 2 行 直読だけ 許可★（それ以上は 開始しない）★
+- ★worker1★ = ★★自分の 過去 0 件主張に「同 gate の 陽性対照」を 遡及★★（v3-3 = 1c60e72d4e0617c9 / 563 行 / 2e87cd5 land 済）+ ★worker2 の 契約疑義に 即応★
 - ★worker2★ = ★★器の 実装（律速 解除済）★★ = 1 command / self-test 同梱 / 終了 code 3 値 / ★meta.scene_id・savestate_id★
-- ★worker3★ = ★retro-sweep（cap + census 三版 → 撤回台帳の 系列撤回欄）★ → w3-1 / w3-3 → 05ed4d5 → choice
+- ★worker3★ = ★retro-sweep（cap + 系列撤回 + ★対照の gate 軸★）★ → census v7 に 拾いすぎ対照 → w3-1 / w3-3 → 05ed4d5 → choice
+
+## ②-2 ★私が 保持している 請求 / 上申（返答待ち）★
+1. ★★請求 = PRESIDENT に『0 件報告の 5 点様式』の ★逐語★★★ — ★私も worker1 も 本体を 読んでいない まま 中継していました★ ⇒ ★暫定 = worker1 の 5 つ（母数 / gate / 陽性対照（同 gate か）/ 見落とし / 拾いすぎ）★
+2. ★上申 = RETURN path の GetEntry(-1) は ★throw★（★条件つき user 可視★）★ ⇒ ★私の 推奨 = ★別 dispatch を 割かず 器の 副産物として 捕まえる★★
 
 ## ③ 未決 3 件
 1. ★★第 1 号（BodyStart 4 byte）= ★③ 相当 = backlog で 確定★★★ — ★#2 dead / #3 の sec<0 は setter 5 site 全数 0 件 / boot 初回は PlaySection 起動★
