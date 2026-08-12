@@ -1,5 +1,5 @@
 # BOSS1_STATE（★毎便 末尾に 更新★ / 1 画面以内）
-更新: 2026-08-12 / PRESIDENT #114 まで 反映（boss1 は 本日 2 度 落下 → #106 で 再 brief）
+更新: 2026-08-12 / PRESIDENT #116 まで 反映（boss1 は 本日 2 度 落下 → #106 で 再 brief）
 
 ★★通番欄の 定義（#107 (529)）★★: ★★受領した 最後の 番号★（処理済では ない）★ / ★★ground truth は log と 受け手の 通番 echo。本 file は 補助★★
 ★★送信規範（#108 (c)）★★: ★本文を file に 書き agent-send.sh "$(cat file)" で 送る★（★code fence を 直書きすると block ごと 消える = #165 で 実害★）
@@ -52,8 +52,11 @@
 - ★#112★ ★全数走査は 見落としと 拾いすぎを 別々に 書く★（★片側の 申告は もう片側を 隠す★）
 - ★#113★ ★見落とし = 壊れた 入力を 通す / 拾いすぎ = 正常な 入力を 拒否する★（★対の 概念は 同じ行に★）/ ★実測を 持って 照会する★
 - ★#114★ ★5 点様式 (3) に「★同じ gate を 通る 対照か★」を 追加★ / ★台帳の 型を ★原因で 束ね直す★★ / 束ねる 候補 3 件
+- ★#115★ ★『在りました』にも 拾いすぎの 対照★（『0 件』は 疑われる が 数が 出た 時点で 信じられる）/ ★束ね表に ★消費便数★ 欄★
+- ★★#116★★ ★5 点様式の ★本体は 存在しなかった★ ⇒ VM_SPEC §8.1 新設 / ★型 K =「名前を 付けたら 本体を 書く」★ / ★★誤りの 向きは gate の 締め方で 決まる（(571) は 普遍則では ない と 自己訂正）★★
 
 ## ⑦ 成果物（共有 repo 収載済）
-- ★P2_DIFF_HARNESS_DESIGN_worker1.md = ★v3-2 / c62374b029c2c47a / 479 行★（CLI 契約 v3 確定）★
-- ★P2_TYPE_ROOTCAUSE_BUNDLE.md = ★症状 19 → 原因 6★ + ★『運が 良かった』7 件★（#114 (b) の 回答）★
+- ★P2_DIFF_HARNESS_DESIGN_worker1.md = ★v3-2 / c62374b029c2c47a / 479 行★（CLI 契約 v3 確定）★ ※ ★worker1 側 HEAD は v3-18 = 27fb0ceead0de560 / 614 行 = ★共有 repo 未収載★★
+- ★P2_VM_SPEC_2026-08-11.md = ★c7c799d6fe905a7b / 404 行（PRESIDENT が §8.1「0 件 / N 件 報告様式」を 新設）★★
+- ★P2_TYPE_ROOTCAUSE_BUNDLE.md = ★症状 34 → 原因 11（A-F / G・H・I・J・K）★ + ★消費便数欄★ + ★『運が 良かった』7 件★（#114 (b) + #115 (568) + #116 (573) の 回答）★
 - ★worker 側（未収載・各 worktree）★: PBR_ORACLE_FEED_SPEC（1ef7d72101ce79e2）/ SYNC_RULES（dcfcf83f3ca0fc7c）/ oracle_adapt.py + selftest ★17/17★ / PBR_INSTRUMENT_SELFDECL（32b760f8c30f3c88）/ PBR_CLAIM_TWOSIDED（29587885386a8b26）/ CENSUS_VERSIONS.md（8e1d20f）
