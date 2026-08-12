@@ -1,5 +1,5 @@
 # BOSS1_STATE（★毎便 末尾に 更新★ / 1 画面以内）
-更新: 2026-08-12 / PRESIDENT #116 まで 反映（boss1 は 本日 2 度 落下 → #106 で 再 brief）
+更新: 2026-08-12 / PRESIDENT #117 まで 反映（boss1 は 本日 2 度 落下 → #106 で 再 brief）
 
 ★★通番欄の 定義（#107 (529)）★★: ★★受領した 最後の 番号★（処理済では ない）★ / ★★ground truth は log と 受け手の 通番 echo。本 file は 補助★★
 ★★送信規範（#108 (c)）★★: ★本文を file に 書き agent-send.sh "$(cat file)" で 送る★（★code fence を 直書きすると block ごと 消える = #165 で 実害★）
@@ -8,15 +8,15 @@
 ## ① 4 者の 通番
 | 相手 | 私が 発行した 最後 | 相手から 受領した 最後 | 次 |
 |---|---|---|---|
-| worker1 | ★#175★ | worker1 #161 | #176 |
-| worker2 | ★#147（§8.1 同報）★ | worker2（#144 返信 + 短信） | #148 |
-| worker3 | ★#155（§8.1 同報）★ | worker3 #230 | #156 |
-| PRESIDENT | ★#117★ | PRESIDENT #116 | #118 |
+| worker1 | ★#180★ | worker1 #164 | #181 |
+| worker2 | ★#151★ | worker2（#150 返信） | #152 |
+| worker3 | ★#158★ | worker3 #231 | #159 |
+| PRESIDENT | ★#121★ | PRESIDENT #117 | #122 |
 
 ## ② 3 者の 現在 task
-- ★worker1★ = ★§8.1 の ②⑤ を v3 に 追記★ → ★★IsInBand を EXE band 表と ★集合★ 突合（(462) 承認・範囲限定）★★ → worker2 の 契約疑義に 即応（v3-16/17/18 = 27fb0ceead0de560 / 614 行 / adaefce land 済）
-- ★worker2★ = ★★器の 実装（律速 解除済）★★ = 1 command / self-test 同梱 / 終了 code 3 値 / ★meta.scene_id・savestate_id★
-- ★worker3★ = ★retro-sweep（cap + 系列撤回 + ★対照の gate 軸★）★ → census v7 に 拾いすぎ対照 → w3-1 / w3-3 → 05ed4d5 → choice
+- ★worker1★ = ★v3-14（★契約衝突 1 条 + footer 6 行目「field 別 相異なり値数」★）→ 出力の 判定 → §8.1 ②⑤ 反映★（doc = 433319b91fd81898 / 886 行 / 3df64f6）
+- ★worker2★ = ★★器は 実データで 走行済★★（diff_harness.py 4096cf444117a1b8 / selftest 15/15）→ ★★独立集計（worker1 の 検定力表を 別実装で 検める）★★ + v3-14 反映
+- ★worker3★ = ★VM_SPEC §8.1 を 自分で 直読（path を 出した）→ retro-sweep → w3-1 / w3-3 → 05ed4d5 → choice★（trace 納品済 = d3f9e9892891a735 / complete:true）
 
 ## ②-2 ★私が 保持している 請求 / 上申（返答待ち）★
 1. ★★解決済 = 5 点様式★★ — ★★本体は 2026-08-12 まで ★存在しませんでした★（PRESIDENT #116 (573)）★★ ⇒ ★VM_SPEC §8.1 新設（★c7c799d6fe905a7b / 404 行 / dcf3b4b / 336 行目〜★）★ ⇒ ★★私が 実体を 直読してから 3 者へ 逐語配布済★★
@@ -36,6 +36,9 @@
   ① ★0x8013E166（map index）の 捕獲★ — 待っている間 = ★remake の map 出力（w3-4）も 対で 保留★
   ② ★BodyStart の user 実視覚★ — 待っている間 = ★★非忠実な 既定が 動き続ける（既に 18 日）。但し production 経路は 施錠中★★
   ③ ★savestate id の 記入★ — 待っている間 = ★『run1 と run4 が 同じ 場面の 対か』は ★人の 申告に 依存★ / 器は footer に「対の 保証なし」と 出す★
+  ★★④ v5 = 会話の 原盤（footer つき / 90 秒 / 発注文は 既存 = b2868806f6c859af・user に 出済み 未実施）★★ — ★★器を 実 data で 走らせて 判明: ★会話場面の 原盤が 手元に 無い（runA・runB は footer 無し）⇒ ① を 会話で 判定する 唯一の 材料★★★
+   ⇒ 待っている間 = ★remake trace は 会話（choice_a）だが 原盤 4 本と ★場面が 1 本も 合わない★ ⇒ ★出力は 出るが 判定に 使えない★★
+   ⇒ ★★#121 で PRESIDENT に『4 件を 1 便に 束ねて 出すか』を 判断依頼中★★
 - ★★器は 新規 capture なしで 走る★★（6 field は 撮れた 4 本 全 689 行に 在り）/ ★★但し 一致主張に 使えるのは footer の 在る run1 / run4 の 2 本★★
 - ★push なし / 完成 claim は user 実視覚まで 凍結★
 
