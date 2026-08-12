@@ -1,22 +1,26 @@
 # BOSS1_STATE（★毎便 末尾に 更新★ / 1 画面以内）
-更新: 2026-08-12 / PRESIDENT #117 まで 反映（boss1 は 本日 2 度 落下 → #106 で 再 brief）
+更新: 2026-08-12 / PRESIDENT #121 まで 反映（boss1 は 本日 2 度 落下 → #106 で 再 brief）
 
 ★★通番欄の 定義（#107 (529)）★★: ★★受領した 最後の 番号★（処理済では ない）★ / ★★ground truth は log と 受け手の 通番 echo。本 file は 補助★★
+★★doc 参照（#121 (588)）★★: ★★path + branch + sha の 3 点★★（★sha だけでも path + sha でも 引けない。★台帳の sha は「その 時点の 値」★）
 ★★送信規範（#108 (c)）★★: ★本文を file に 書き agent-send.sh "$(cat file)" で 送る★（★code fence を 直書きすると block ごと 消える = #165 で 実害★）
 ★★便の 冒頭に「照合した 過去裁定の 番号」欄（#113 (b)。PRESIDENT も 自便に 設置）★★
 
 ## ① 4 者の 通番
 | 相手 | 私が 発行した 最後 | 相手から 受領した 最後 | 次 |
 |---|---|---|---|
-| worker1 | ★#180★ | worker1 #164 | #181 |
-| worker2 | ★#151★ | worker2（#150 返信） | #152 |
-| worker3 | ★#158★ | worker3 #231 | #159 |
-| PRESIDENT | ★#121★ | PRESIDENT #117 | #122 |
+| worker1 | ★#181（3 点参照 同報）★ | worker1 #165 | #182 |
+| worker2 | ★#153★ | worker2（#150 返信） | #154 |
+| worker3 | ★#159（3 点参照 同報）★ | worker3 #231 | #160 |
+| PRESIDENT | ★#122★ | PRESIDENT #121 | #123 |
 
 ## ② 3 者の 現在 task
 - ★worker1★ = ★v3-14（★契約衝突 1 条 + footer 6 行目「field 別 相異なり値数」★）→ 出力の 判定 → §8.1 ②⑤ 反映★（doc = 433319b91fd81898 / 886 行 / 3df64f6）
 - ★worker2★ = ★★器は 実データで 走行済★★（diff_harness.py 4096cf444117a1b8 / selftest 15/15）→ ★★独立集計（worker1 の 検定力表を 別実装で 検める）★★ + v3-14 反映
 - ★worker3★ = ★VM_SPEC §8.1 を 自分で 直読（path を 出した）→ retro-sweep → w3-1 / w3-3 → 05ed4d5 → choice★（trace 納品済 = d3f9e9892891a735 / complete:true）
+
+## ②-1 ★★私が 止めている もの（gate）★★
+1. ★★v5 の user 送出★★ — ★PRESIDENT が 出す 直前で 保留を 依頼（#122）★ ⇒ ★理由 = ★vmtrace.py を 共有 repo へ 移動 + FIELDS に map を 足す 前に 出すと ★user が 旧 path の 旧版で 撮る★★ ⇒ ★★gate は worker2 の 移動完了報告★★
 
 ## ②-2 ★私が 保持している 請求 / 上申（返答待ち）★
 1. ★★解決済 = 5 点様式★★ — ★★本体は 2026-08-12 まで ★存在しませんでした★（PRESIDENT #116 (573)）★★ ⇒ ★VM_SPEC §8.1 新設（★c7c799d6fe905a7b / 404 行 / dcf3b4b / 336 行目〜★）★ ⇒ ★★私が 実体を 直読してから 3 者へ 逐語配布済★★
