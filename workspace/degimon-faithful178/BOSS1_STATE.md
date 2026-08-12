@@ -1,5 +1,5 @@
 # BOSS1_STATE（★毎便 末尾に 更新★ / 1 画面以内）
-更新: 2026-08-12 20:18 / PRESIDENT #142 まで 反映（boss1 は 本日 3 度 落下、3 度目 = 17:35 / user 再起動 → 復帰）
+更新: 2026-08-12 20:28 / PRESIDENT #144 まで 反映（boss1 は 本日 3 度 落下、3 度目 = 17:35 / user 再起動 → 復帰）
 
 ★★通番の 定義★★: ★受領した 最後の 番号（処理済では ない）★ / ★★ground truth は log と ★受け手の 通番 echo★★
 ★★doc 参照 = ★4 点★（#131 (6-n)）★★: ★path + ★worktree★ + branch + sha★（★同じ path・同じ branch でも ★worktree が 違えば 中身が 違う★★）
@@ -111,6 +111,49 @@
 - ★見分け方 = ★検査③（観測値が VM 外の 定数だけで 説明できるか）★★ ⇒ ★★欄名にも worker3 の 実装選択にも 依存しない★★
 - ★★worker2 の 判断（支持）★★: ★★pc 単独では 錨を 取らない★★（★run4 と 本 trace は pc が ★2 個だけ 偶然一致★ ⇒ ★偶然の 整列★）
   ⇒ ★★『黙って ずらさない』の 系 = ★『黙って 揃えない』★★
+
+
+## ⓪-9 ★★pc の 原点が 揃って いません（#143 (731)(732)・私が 再測 一致）★★
+```
+★DialogueData.cs:88★ = ComputeBodyStart(word0) => FaithfulBodyStart ? ★word0★ : (★4 + word0★)（★既定 OFF★）
+⇒ ★★remake の pc 原点 = ★4 + word0★ / 原盤 = ★word0★★★
+★CD 原盤 直読★: ★entry 177 word0=12 / [word0,+4) = ★fe 00 ★19★ 00★★ ⇒ ★★remake は 先頭の 0x19 を 読まずに 始める★★
+             ★entry 204 = fe 00 47 b1（doc の 0x47 warp と 整合）/ entry 178 = 1e 00 fe 00（0x19 なし）★
+```
+- ★★対処 = ★DEGIMON_FAITHFUL_BODYSTART=1 で 撮る = ★測定条件の 指定★★★ ⇒ ★★第 1 号 defect の 解凍では ない・default 化は 凍結継続★★
+- ★worker3 は ★4 本★ に 拡張（★player 2 + census 2★）= ★予測 2（join）は player では 測れない ため★ ⇒ ★私の 2 本 指示の 穴を 塞いだ★
+
+## ⓪-10 ★★schema w3-state-v2 = ★欄が 割れました★★★
+- ★★entry_running = 実際に 走って いる entry（[-1, ★177★]）★★ / ★scenario_state = CurrentScenario（[-1, 178] = 種が 居残る）★
+- ★★worker3 が 足したのは ★読取専用 getter 1 本★（★CurrentScenario を 書く code は 0 行★）★★ ⇒ ★私の『起動 path で 解ける』は ★誤り★★
+  ⇒ ★実測 = ★書き手 3 経路は すべて opcode handler の 中 ⇒ PlaySection は launch 時に 書かない / synth177 の 0xFB = 0 件★★
+  ⇒ ★★∴ ★私は ★配線の 存在から 到達可能性を 導いた★（= (728)『存在 ≠ 実行』を 中継便で 自分が 踏んだ）★★
+- ★★worker2 の 値ベース選定が ★header 申告と 独立に 一致★★★（★申告を 読まずに entry_running を 選定★）= ★独立確認と 追認の 差を 設計で 作った★
+
+## ⓪-11 ★★『未測定の 欄は null』（#144 (737)・3 者 全器）★★
+- ★★base の 書き手は ★ゼロ★。W3StateTrace.cs:121 の literal `"base":0` = ★計器が 置く 定数★★★ ⇒ ★★『判別不能』でも『意味は 正しい』でも なく ★『測って いない』★★★
+- ★★∴ 規範 = ★未測定の 欄は null。既定値（0 / -1 / 空）を 入れない★★（★既定値は『測って 一致した』と 読まれる★）
+- ★★∴ 残る 判別不能 = ★depth のみ★★ ⇒ ★D-1（push ≥ 1）は ★倒れた★ / ★3 サイト 未行使・★L1520 は log 無し = 未判定★★ ⇒ ★『1 回も 走って いない』とは 書かない★
+
+## ⓪-12 ★★runA / runB の 位置づけ が 精密化（#144 (740)(741)・私が 再測）★★
+```
+★runA / runB = pid ★539233★ / dur 45.0 / rows 23・25 / ★footer 無し★★
+★run1 = pid 1478360 / dur ★90.0★ / rows 96 / late 0★ / ★run4 = 同 pid / dur 60.0 / rows 545 / late 0★
+```
+- ★★別 process なのに flags 236 bit が 完全一致★★ ⇒ ★★1 process の memory 残留では 説明できない = ★同一 savestate の 独立裏付け★★★
+- ★★欠落は ★`late` だけ★★（requested = hz × duration = 45,000 / kept = 行数 は 復元可）⇒ ★★『対が 宣言できない』は 広すぎた ⇒ 正確には『★取りこぼしが 未知★』★★
+- ★★∴ ★verdict には 使えない が ★錨経路の 試験には 使える★★★
+
+## ⓪-13 ★★錨経路の 試験 = 発注済（#144 (742)）★★
+- ★対 = ★runA/runB★ 対 ★synth177_v2（bs_on）★ / ★目的 = ★錨が 取れるか だけ★★（N / states_6field / 整列の 成否）
+- ★★出さない = verdict / 一致率 /『忠実』『非忠実』の 語★★ / ★必須印字 = synthetic:true / late:unknown / origin:bs_on / ★base:null★★
+- ★★∴ ★v5 の 役割が 明確に = ★『footer つき・非合成の 原盤』を 供給する こと★★★
+
+## ⓪-14 ★★式 C の 誤差源 = ★6 件 生存 ⇒ 向きは 決まらない★（worker2 列挙）★★
+- ★消えた = StatOperandLen（worker1 が EXE と ★6/6 一致★）★
+- ★★① sub6 / 7 = ★未検証 かつ 実在★（sub6 13 件 / sub7 18 件）★★ ⇒ ★worker1 へ 発注（★母数は ★sub の 値域 0-7★・getter の 本数では ない★）
+- ★② guard 256 打切 11（過少）/ ③ body 末端 1（過少）/ ④ 式開始 pc が TEXT 内側 8（過大）/ ⑤ 到達 pc 5.1%（両方）/ ⑥ entry 境界（向き不明）/ ⑦ Len[]（盲点）★
+- ★★∴ ★過少源と 過大源が 同時に 生きて いる ⇒ ★『下界 89 / 参考値 152（向き不明）』を 維持★★★
 
 
 ## ⓪ ★★忠実性 verdict までの 1 本道（#134・★手段が 目的を 隠して いないか の 線★）★★
