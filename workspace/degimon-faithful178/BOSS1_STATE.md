@@ -1,41 +1,54 @@
 # BOSS1_STATE（★毎便 末尾に 更新★ / 1 画面以内）
-更新: 2026-08-12 / 起点 = PRESIDENT #106 再 brief（★boss1 本日 2 度目の 落下からの 復帰★）→ #107 反映済
+更新: 2026-08-12 / PRESIDENT #114 まで 反映（boss1 は 本日 2 度 落下 → #106 で 再 brief）
 
-★★通番欄の 定義（PRESIDENT #107 (529)）★★: ★書くのは ★受領した 最後の 番号★（★処理済の 番号では ない★）★
-★★STATE は 補助。ground truth は ★log と 受け手が 返す 通番 echo★★★（agent-send.sh の log は false negative が 在る = 冒頭コメント参照）
+★★通番欄の 定義（#107 (529)）★★: ★★受領した 最後の 番号★（処理済では ない）★ / ★★ground truth は log と 受け手の 通番 echo。本 file は 補助★★
+★★送信規範（#108 (c)）★★: ★本文を file に 書き agent-send.sh "$(cat file)" で 送る★（★code fence を 直書きすると block ごと 消える = #165 で 実害★）
+★★便の 冒頭に「照合した 過去裁定の 番号」欄（#113 (b)。PRESIDENT も 自便に 設置）★★
 
 ## ① 4 者の 通番
-| 相手 | 私が 発行した 最後 | 相手から 受領した 最後 | 次に 出す |
+| 相手 | 私が 発行した 最後 | 相手から 受領した 最後 | 次 |
 |---|---|---|---|
-| worker1 | ★#164★ | worker1 #154（= boss1 #163 受領を echo） | #165 |
-| worker2 | ★#140★ | #139 への 返信（spec 納品） | #141 |
-| worker3 | ★#146★ | worker3 #226（= boss1 #145 受領を echo） | #147 |
-| PRESIDENT | ★#108★ | PRESIDENT #107 | #109 |
+| worker1 | ★#173★ | worker1 #159 | #174 |
+| worker2 | ★#146★ | worker2（#144 返信 + 短信） | #147 |
+| worker3 | ★#153★ | worker3 #230 | #154 |
+| PRESIDENT | ★#114★ | PRESIDENT #114 | #115 |
 
-## ② 3 者の 現在 task（1 行ずつ）
-- ★worker1（p2w1 / branch track1/vm-spec-impl）★ = ★#164 = 設計 doc v2★（★worker2 制約 3 件の 吸収 + ★CLI 契約★）。★実装は させない★
-- ★worker2（p2w2 / branch track2/trace-oracle）★ = ★#140 = ★器の 実装担当（新設）★ + adapter 骨 + 自己検定 + frame 同期規則★
-- ★worker3（p2w3 / branch ★track3/p2-script-walk★）★ = ★#146 = (1) w3-5 pc 定義+sha → (2) census の oracle 検証 → (3) pad 出力 → (4) retro-sweep → … → (7) choice★
+## ② 3 者の 現在 task
+- ★worker1★ = ★doc v3-3 収載（第 1 号 = ③ 相当 + #159 §1-§3）★ + ★§3 は ★GetEntry(-1) の 2 行 直読だけ 許可★（それ以上は 開始しない）★
+- ★worker2★ = ★★器の 実装（律速 解除済）★★ = 1 command / self-test 同梱 / 終了 code 3 値 / ★meta.scene_id・savestate_id★
+- ★worker3★ = ★retro-sweep（cap + census 三版 → 撤回台帳の 系列撤回欄）★ → w3-1 / w3-3 → 05ed4d5 → choice
 
 ## ③ 未決 3 件
-1. ★★worker3 の census 計器バグ★★ — Handled が ★DialogueRuntime の case を 手で 写した 静的 snapshot★ ⇒ ★『41 種 / 4,259 件』は 実装済を 含む 過大★
-   ⇒ ★★完了条件 ④『未分類かつ実行時到達 0』の 分母は この census ⇒ ④ の 数は 全部 要り直し★★（★条件 ② は #105 で 格下げ済 = 穴は 開かない★）
-   ⇒ ★fix（ImplementedOps 参照）★自体が 未検証★ ⇒ ★#146 で dispatch site 直読を 要求★
-2. ★worker1 の 倒れる条件 2 = ★remake の pc 定義 未読★★ ⇒ ★w3-5 で 解く（最優先・安い）★
-3. ★器の CLI 契約が 未確定★ ⇒ ★w1 doc v2 → 私が w2 へ 回す★
+1. ★★第 1 号（BodyStart 4 byte）= ★③ 相当 = backlog で 確定★★★ — ★#2 dead / #3 の sec<0 は setter 5 site 全数 0 件 / boot 初回は PlaySection 起動★
+   ★★backlog に 併記する 2 行（worker1 案・採用）★★: ★『施錠は env 1 個（DEGIMON_SCRIPTWARP）。★開けば 27/225 entry の 初期 state-writer が drop する★』★ /
+   ★『「到達しない」は ★施錠の 現状★ であって ★非忠実性が 消えた ことでは ない★』★
+2. ★RETURN path に scn 範囲 filter が 無い（worker1 #159 §3）★ — ★(462) 判定 = ★2 行 直読のみ 許可★。throw なら user 可視 ⇒ 別件上申 / null なら 記録のみ★
+3. ★census v7 = 39 種 / 4,175 件（飽和 NO）★ ⇒ ★完了条件 ④ の 分母は これ★（★v5 破棄 → v6 → v7 の 経緯を 撤回台帳の ★系列撤回欄★ へ★）
 
-## ④ user 依存の 保留
-- ★user 提供実績 = 本日 ★4 回 / 計 4.5 分★（30 + 90 + 90 戦闘 + 60 warp 秒）★ ⇒ ★次は 5 回目。★PRESIDENT 承認事項★★
-- ★v5（会話の 対 / 90 秒）= 出済み・未実施 ⇒ ★worker2 が 『未判定 / 分母 0』で 閉じ済★（解凍は いつでも 可）
-- ★★0x8013E166（map index）は vmtrace FIELDS に 無い（私が 直読）★★ ⇒ ★依頼 w2-1 / w3-4 は ★対で backlog★ = ★次の capture に 同梱★★
-- ★★突合 6 field（pc/entry/stop/depth/flags/vars）は ★既撮り 4 本の 捕獲集合に 在る★★ ⇒ ★★器は 新規 capture なしで 走る★★（★w2 に 成果物側での 確認を 依頼済★）
+## ④ user 依存の 保留 ＋ ★「待っている間 何が 起きているか」欄（#111 (c)）★
+- ★user 提供実績 = 本日 ★4 回 / 計 4.5 分★★ ⇒ ★★5 回目は 出していません（束ねる）★★
+- ★★束ねる 候補 3 件（#114 (567) 登録・★単独では 発注しない★）★★
+  ① ★0x8013E166（map index）の 捕獲★ — 待っている間 = ★remake の map 出力（w3-4）も 対で 保留★
+  ② ★BodyStart の user 実視覚★ — 待っている間 = ★★非忠実な 既定が 動き続ける（既に 18 日）。但し production 経路は 施錠中★★
+  ③ ★savestate id の 記入★ — 待っている間 = ★『run1 と run4 が 同じ 場面の 対か』は ★人の 申告に 依存★ / 器は footer に「対の 保証なし」と 出す★
+- ★★器は 新規 capture なしで 走る★★（6 field は 撮れた 4 本 全 689 行に 在り）/ ★★但し 一致主張に 使えるのは footer の 在る run1 / run4 の 2 本★★
 - ★push なし / 完成 claim は user 実視覚まで 凍結★
 
-## ⑤ 直近の PRESIDENT 裁定
-- ★#105 (A)★ 打ち切り条件 ★4 本★ に 改訂（② 到達 opcode 0 は ★計器 / backlog へ 格下げ★）。残 = ★① 説明不能な 状態遷移差 0 / ③ 重要境界に 自動回帰テスト / ④ 未分類かつ実行時到達 0 / ⑤ 連続 2 回 新規差分なし★
-- ★#105 (B)★ worker1 = ★『差分が 要求した 実装』★（★投機的実装 禁止 / handoff は『VM 単体の 実装は 完了』★）
-- ★#105 (C)★ 規範 2 = ★事前登録は「倒れないか」だけ 見る★ / ★閾値つき指標は 1 単位で 反転するかを 撮る前に 書く★
-- ★#107 (529)★ ★STATE の 通番 = 受領番号★ / ★log が ground truth★
-- ★★#107 (530)★★ ★★突合を boss1 の 手作業に 置かない = ★script 化して repo に 置く / 1 command で 誰でも 走る★★★
-  ⇒ ★一般形『1 人の context にしか 無い 能力は、その 1 人が 落ちると 消える』★ ⇒ ★★実装 = worker2 / 設計と 判定 = worker1 / boss1 は 実行者に ならない★★
-- ★#107 (532)★ ★jsonl(実測) と log を 別 commit★（★worker3 は log を .gitignore ⇒ 要求以上★）
+## ⑤ ★人の 動作に 依存する 約束（台帳化 = 個人に 依存させない）★
+1. ★DialogueRuntime.cs の ★Len[]★ が 直ったら ★boss1 が worker2 に 通知★★ — ★worker2 の 被覆率 / 命令数 / TEXT byte は この 写しの 上に 立つ★（★通知が 無ければ 静かに stale★）
+2. ★配布物の sha が 動いたら 配った 相手に その都度★（worker2 の 恒久規則）
+
+## ⑥ 直近の PRESIDENT 裁定（要点のみ）
+- ★#105★ 打ち切り条件 4 本（② は 計器へ 格下げ）/ worker1 = ★差分が 要求した 実装★ / 事前登録は「倒れないか」だけ
+- ★#107★ 通番 = 受領番号 / ★突合は script 化・1 command（boss1 の 手作業に 置かない）★ / データと log を 別 commit
+- ★#108★ ★計器は 機械抽出。手写しは 1 段でも 禁止★ / tsv 由来の 0 件主張を 全数 洗う / user 拘束は 束ねる / 送信は file + cat
+- ★#109★ 正否（word0）は 決着済 = 調べるのは 出所だけ / ★env で 消した 差は「説明した」ことに ならない★ / ★データが 在る と 主張に 使える を 分ける★
+- ★#110★ カテゴリ 3 分類（観測 / 機構・経路実在 / 機構・経路未発見）/ ★『現れない』禁止 = 母数を 添える★ / ★機構で 塞げない ものは 塞げないと 書く★
+- ★#112★ ★全数走査は 見落としと 拾いすぎを 別々に 書く★（★片側の 申告は もう片側を 隠す★）
+- ★#113★ ★見落とし = 壊れた 入力を 通す / 拾いすぎ = 正常な 入力を 拒否する★（★対の 概念は 同じ行に★）/ ★実測を 持って 照会する★
+- ★#114★ ★5 点様式 (3) に「★同じ gate を 通る 対照か★」を 追加★ / ★台帳の 型を ★原因で 束ね直す★★ / 束ねる 候補 3 件
+
+## ⑦ 成果物（共有 repo 収載済）
+- ★P2_DIFF_HARNESS_DESIGN_worker1.md = ★v3-2 / c62374b029c2c47a / 479 行★（CLI 契約 v3 確定）★
+- ★P2_TYPE_ROOTCAUSE_BUNDLE.md = ★症状 19 → 原因 6★ + ★『運が 良かった』7 件★（#114 (b) の 回答）★
+- ★worker 側（未収載・各 worktree）★: PBR_ORACLE_FEED_SPEC（1ef7d72101ce79e2）/ SYNC_RULES（dcfcf83f3ca0fc7c）/ oracle_adapt.py + selftest ★17/17★ / PBR_INSTRUMENT_SELFDECL（32b760f8c30f3c88）/ PBR_CLAIM_TWOSIDED（29587885386a8b26）/ CENSUS_VERSIONS.md（8e1d20f）
