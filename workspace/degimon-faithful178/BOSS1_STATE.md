@@ -8,18 +8,19 @@
 ## ① 4 者の 通番
 | 相手 | 私が 発行した 最後 | 相手から 受領した 最後 | 次 |
 |---|---|---|---|
-| worker1 | ★#174★ | worker1 #160 | #175 |
-| worker2 | ★#146★ | worker2（#144 返信 + 短信） | #147 |
-| worker3 | ★#154★ | worker3 #230 | #155 |
-| PRESIDENT | ★#116★ | PRESIDENT #115 | #117 |
+| worker1 | ★#175★ | worker1 #161 | #176 |
+| worker2 | ★#147（§8.1 同報）★ | worker2（#144 返信 + 短信） | #148 |
+| worker3 | ★#155（§8.1 同報）★ | worker3 #230 | #156 |
+| PRESIDENT | ★#117★ | PRESIDENT #116 | #118 |
 
 ## ② 3 者の 現在 task
-- ★worker1★ = ★★自分の 過去 0 件主張に「同 gate の 陽性対照」を 遡及★★（v3-3 = 1c60e72d4e0617c9 / 563 行 / 2e87cd5 land 済）+ ★worker2 の 契約疑義に 即応★
+- ★worker1★ = ★§8.1 の ②⑤ を v3 に 追記★ → ★★IsInBand を EXE band 表と ★集合★ 突合（(462) 承認・範囲限定）★★ → worker2 の 契約疑義に 即応（v3-16/17/18 = 27fb0ceead0de560 / 614 行 / adaefce land 済）
 - ★worker2★ = ★★器の 実装（律速 解除済）★★ = 1 command / self-test 同梱 / 終了 code 3 値 / ★meta.scene_id・savestate_id★
 - ★worker3★ = ★retro-sweep（cap + 系列撤回 + ★対照の gate 軸★）★ → census v7 に 拾いすぎ対照 → w3-1 / w3-3 → 05ed4d5 → choice
 
 ## ②-2 ★私が 保持している 請求 / 上申（返答待ち）★
-1. ★★請求 = PRESIDENT に『0 件報告の 5 点様式』の ★逐語★★★ — ★私も worker1 も 本体を 読んでいない まま 中継していました★ ⇒ ★暫定 = worker1 の 5 つ（母数 / gate / 陽性対照（同 gate か）/ 見落とし / 拾いすぎ）★
+1. ★★解決済 = 5 点様式★★ — ★★本体は 2026-08-12 まで ★存在しませんでした★（PRESIDENT #116 (573)）★★ ⇒ ★VM_SPEC §8.1 新設（★c7c799d6fe905a7b / 404 行 / dcf3b4b / 336 行目〜★）★ ⇒ ★★私が 実体を 直読してから 3 者へ 逐語配布済★★
+   ⇒ ★★私の「引用前に 本体を 読む」違反は ★不成立（読むべき 本体が 無かった）★ = PRESIDENT の 型 K に 移管★★
 2. ★上申 = RETURN path の GetEntry(-1) は ★throw★（★条件つき user 可視★）★ ⇒ ★私の 推奨 = ★別 dispatch を 割かず 器の 副産物として 捕まえる★★
 
 ## ③ 未決 3 件
