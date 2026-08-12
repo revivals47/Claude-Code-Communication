@@ -1,5 +1,5 @@
 # BOSS1_STATE（★毎便 末尾に 更新★ / 1 画面以内）
-更新: 2026-08-12 19:38 / PRESIDENT #136 まで 反映（boss1 は 本日 3 度 落下、3 度目 = 17:35 / user 再起動 → 復帰）
+更新: 2026-08-12 19:48 / PRESIDENT #137 まで 反映（boss1 は 本日 3 度 落下、3 度目 = 17:35 / user 再起動 → 復帰）
 
 ★★通番の 定義★★: ★受領した 最後の 番号（処理済では ない）★ / ★★ground truth は log と ★受け手の 通番 echo★★
 ★★doc 参照 = ★4 点★（#131 (6-n)）★★: ★path + ★worktree★ + branch + sha★（★同じ path・同じ branch でも ★worktree が 違えば 中身が 違う★★）
@@ -9,10 +9,10 @@
 ## ① 4 者の 通番
 | 相手 | 発行した 最後 | 受領した 最後 | 次 |
 |---|---|---|---|
-| worker1 | ★#192★ | worker1 #176 | #193 |
-| worker2 | ★#167★ | worker2 #167 返信 | #168 |
-| worker3 | ★#170★ | worker3 #237 | #171 |
-| PRESIDENT | ★#136★ | PRESIDENT #135 | #137 |
+| worker1 | ★#193★ | worker1 #177 | #194 |
+| worker2 | ★#170★ | worker2 #170 返信 | #171 |
+| worker3 | ★#173★ | worker3 #239 | #174 |
+| PRESIDENT | ★#138★ | PRESIDENT #137 | #139 |
 
 ## ⓪-1 ★★(680) 判定 = ★v5 保持。run4 は ★代替では なく 補助★★★（#136）
 ```
@@ -26,15 +26,37 @@
 - ★残る未決 = ★remake が 実行時に entry 110/111/131/133 へ ★到達できるか★★（worker3・cherry-pick 後）
 - ★★entry 178 の join = 0 ⇒ ★worker1 と worker3 の A/B は ★どちらも 検出力ゼロの 実験★ だった★★
 
-## ⓪-2 ★★事前登録 2 件（#135 (681) / #136 (687)・★測る 前に 固定・★別の step を 指す★★）★★
-- ★★予測 A（flags / step 2 を 検算）★★ = ★step 2 後の remake trace で ★flags の distinct > 1★★（根拠 = ★0x1C 配線 確定 572 中 559★）
-  ⇒ ★倒れたら = ★remake は 到達したと 見えて ★実際には 別 path★ ⇒ ★step 2 の 手順 自体が 偽★★
-- ★★予測 B（join / step 1・3 を 検算）★★ = ★cherry-pick 後の ★entry 177★ の run で ★mode 0x28/0x30/0x38 の join が ★1 回以上 発火★★★（根拠 = ★entry 177 は join 20 件★）
-  ⇒ ★倒れたら 2 択 = ★(i) 20 件の 項を 踏んで いない ⇒ step 2 未達★ / ★(ii) cherry-pick が 効いて いない ⇒ step 1 未達★
-- ★★∴ ★2 つが ★別の step を 指す★ ⇒ ★片方だけでは どちらの 失敗か 分からない★★★ / ★予測 B の 計器 = ★mode 別 counter（worker3・GO 済）★★
+## ⓪-2 ★★事前登録（#137 (693) で ★強化★・★測る 前に 固定★）★★
+- ★★予測 A（★入口★ = step 2 の 状態を 置けたか）★★ = ★★remake の flag vector が ★236 id と 完全一致★★★（★部分一致は 不合格・★何個 合ったかを 出力★★）
+  ⇒ ★根拠 = ★原盤 4 本の flags は ★union distinct = 1・236 bit・id 4〜640★★（★成果物 = ORIGINAL_FLAG_VECTOR.md / sha 4eae79182ad56fd7 / 30 行★）
+  ⇒ ★★旧版（走らせれば distinct > 1）は ★破棄★★ — ★worker2 実測 = ★entry 177 の 0x1C site 3 つは runA/runB の 通過 pc 範囲の 外 ⇒ 走っても 変わらない★★
+  ⇒ ★★∴ ★236 flag は ★場面を 走った 結果では なく 事前の 進行状態★★★（★entry 178 の 0x1C = 0 件 = ★あの 場面は flag を 一度も set しない★★）
+- ★★予測 B（join / step 1・3）★★ = ★entry 177 の run で mode 0x28/0x30/0x38 が 1 回以上 発火★ ⇒ ★★★実測 = 0。★但し 落下は ★保留（計器の 疑い）★★★★（⓪-4）
+- ★★予測 C（★出口★ = 走らせて 動くか）★★ = ★vars distinct > 1★（★worker2 推奨・runA/runB とも distinct 2★）⇒ ★★感度は 1 byte のみ★★
+
+## ⓪-2b ★★合成 de-risk = ★GO（#137 (694)・私の 裁定）★★★
+- ★目的 = ★verdict では なく ★pipeline の 故障を user の 観測を 使う 前に 出す★★
+- ★★条件 1 = ★flags を 置いても entry は 変わらない★ ⇒ ★PlaySection で ★entry 177 を 出す section★ で 起動★★（★でないと 錨なし = 既知の 結果★）
+- ★条件 2 = ★synthetic:true 印字 / verdict 欄を 出さない★
+- ★★条件 3 = ★合成では 予測 A は ★入力であって 検査では ない★ ⇒『満たした』と 書かせない（★恒等式★）★★
+
+## ⓪-4 ★★予測 B の 落下を ★差し戻しました★（★周辺は 合うのに 同時分布が 退化★）★★
+| mode | worker3 % | worker2 静的 % |
+|---|---|---|
+| 0x00 | 36.29 | 38.58 |
+| 0x08 | 24.41 | 22.60 |
+| ★0x10★ | ★0.00★ | ★4.20★ |
+| 0x18 | 38.30 | 29.17 |
+| ★0x20★ | ★1.00★ | ★2.57★ |
+| ★0x28/0x30/0x38★ | ★0.00★ | 0.92 / 0.68 / 1.28 |
+- ★★bit 0x10 が 立つ 合計 = worker3 ★38.30%★ 対 静的 ★35.33%★ = ★ほぼ 一致★★ ⇒ ★★∴ ★周辺は 正しく 観測されて いる★★
+- ★★但し 内訳は 0x18 のみ★★（0x10 単独 = 0 / 0x30 = 0 / 0x38 = 0）/ ★★bit 0x20 族 67 件は ★すべて 0x20 単独★★（静的では 単独は 族の 47.2%）
+- ★★∴ ★局在（(i)）は この 形を 作れない★★（★局在なら 全 mode が 一様に 減る★）⇒ ★★∴ ★worker3 の `cond` は 静的 T byte と ★同じ 量では ない★ = ★(iii)★★★
+- ★★∴ ★『join 発火 0』は ★remake の 性質では なく 計器の 性質★ かも しれない★★ ⇒ ★worker3 に ★cond 生値（マスク前）分布★ を 発注（★合成 de-risk より 先★）
 
 ## ⓪-3 ★★step 1 = ★閉じました★（#238）★★
-- ★worker3 が 05ed4d5 を (A) ours で cherry-pick → ★0f37b8f★★ / ★★DialogueRuntime.cs は p2w1 と ★diff 0・sha 一致 874075bee8568681★★★
+- ★worker3 が 05ed4d5 を (A) ours で cherry-pick → ★0f37b8f★★ / ★DialogueRuntime.cs は p2w1 と ★diff 0・sha 一致★（★測った 時点で 真★）
+- ★★現況 = ★p2w1 + 計器 3 行★（worker3 の join counter・★既定 OFF・出力に 明記・revert 可★）★★ ⇒ ★★worker3 が 自分で 失効させた★★ = ★(6-e) 賞味期限★
 - ★★∴ ★diff 器の 検出力を ★先に★ 検めて から 報告（ours 解決した doc を 通し rc=1）★★ ⇒ ★★『差 0』は 静かな 0 では ない★★
 - ★★∴ 射程は worker3 が 自分で 狭めた★★ = ★『16/16』は ★DialogueRuntime.cs 1 file に ついて★★（Scripts 木 全体は 13 件 差・大半は GUID/各自の file）
 - ★★新規（未決）★★ = ★★W1GateCensus.cs が p2w1 のみ 2 行（W1_SKIP_SEC0B の env gate）★★ ⇒ ★取り込ませない（worker1 の 器・既定 OFF・由来が 説明できなく なる）★ ⇒ ★★worker1 の sweep 対象に 回付★★
