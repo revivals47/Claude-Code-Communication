@@ -4204,6 +4204,27 @@ D7 文字色（不一致）/ ★D8 強調の 方式（不一致）★ / D9 カ�
 - ★★∴ 残る 未判定 = ★`encounter_table` 1 件★★★（45 件 / version `1.0-provisional`）⇒ ★『"provisional" が 何を 指すかは ★私は 知りません★ ⇒ ★「発明した」とは 書きません★』★
   ⇒ ★★∴ boss1 の 追加★★ = ★★『★出所を 名乗らない★』と『★出所が 無い★』も ★別★★★ ⇒ ★★3 分の ★4 つ目★ に なり得ます★★
 
+## ⓪-340 ★★★★data 36 件の うち ★C# が 名指しで 読むのは 9 件★ = ★『参照が 無い』と『不要』は 別★★★★★（worker3 / ★全数 grep★）
+```
+★方法★ = ★C# の literal 文字列を 全数★（`grep -rhoP '"[A-Za-z_0-9]+\.json"' --include=*.cs`）
+★★C# が 名指しで 読む = ★9 件★★★ = dialogues_strict / digimon_base_stats / digimon_model_files / flag_mapping_complete / food_effects /
+　　　　　　　　　　　　map_connections_complete / map_entity_gating / species_care_params / species_model_codes
+★★∴ 名指しの 参照が 無い = ★27 件★★★
+```
+- ★★★∴ ★但し『不要』とは ★書きません★★★★（worker3 の 限定 3 つ）:
+  ★① この grep は ★C# の literal 文字列だけ★ ⇒ ★変数経由には 無感★★（★構築名は `maps/<dir>/<dir>.json` と `registry/maps.json` の ★2 経路のみ 確認★★）
+  ★② ★別 project（`dwr_RE/tools`）が 読んで います★★（★`skills.json` が その 実例★）/ ★③ ★人が 読む 資料★ であり得る★
+  ⇒ ★★∴ ★言えるのは ★『★game の C# は ★名指しでは★ 読んで いない★』まで★★★ = ★★★『参照が 無い』と『★不要★』は ★別★★★（★3 分と 同じ 精神★）
+
+## ⓪-341 ★★★★`skills` 3 版 = ★どれも 読まれて いない★ / ★+4 は tool にも 伝播★★★★★（worker3）
+- ★`skills.json` = 0 件 / `skills_authoritative_2026-06-13.json` = 0 件 / `skills_complete.json` = 0 件★
+  ⇒ ★★∴ ★boss1 の (b) が 成立★★ =『★直すべきは ★offset の 表記では なく ★古い版が 残って いる こと★』★ / ★★但し ★authoritative も 読まれて いない★ ⇒ ★『古い版』だけの 問題では ない★★
+- ★★★∴ ★+4 の 誤りは ★tool にも 伝播して います★★★★ = ★`dwr_RE/tools/s02_skill_analyzer.py:14` が ★`SKILL_NAME_OFFSET = 0xA03D0` を hardcode★★
+  ⇒ ★★∴ ★= ★★『★誤った 値は ★data だけで なく ★それを 読む 器★ にも 移る★』★★★ = ★★収載★★
+- ★★∴ worker3 は ★決めませんでした★★★ =『★どちらを 残すかは ★出荷物の 構成の 話★ = ★私の 座の 外★★』⇒ ★★∴ ★判断材料だけ 出した★★（★offset を 直す ⇒ ★効果は tool 側だけ★ / 古い版を 直す ⇒ ★但し authoritative も 読まれて いない★★）
+- ★★∴ PRESIDENT に 裁定を 上げました（3 点）★★ = ★① 27 件を どうするか★ / ★② `skills` 3 版を どうするか★ / ★③ `s02_skill_analyzer.py:14` の +4 を 直すか★
+  ⇒ ★★∴ boss1 の 推奨 = ★③ は 直す★★（★出荷物では なく ★我々の 解析 tool★★）⇒ ★★但し ★`dwr_RE/` が 誰の tree か★ を ★確かめて から★★（★#331 で ★.gitignore を 見ずに 提案した★ ばかり★）
+
 ## ⑩ ★★★保留中★★★ = ★★なし★★ / ★★∴ 律速 = ★v5（+1 行）= 唯一の user 待ち・催促せず★★★
 
 ## ⑨ 不変
