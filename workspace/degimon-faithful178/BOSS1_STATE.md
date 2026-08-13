@@ -1,4 +1,6 @@
 # BOSS1_STATE（★毎便 末尾に 更新★ / 1 画面以内）
+## ★★★★見出し（PRESIDENT (919)・2026-08-13）= ★remake は 我々が 思って いたより ★原盤に 近い★★★★★
+★★∴ ★1 日 かけて 追った『整列が 壊れて いる』は ★壊れて いたのが ★装置★ でした★★★ / ★★∴ v5 の 位置づけ = ★『壊れて いる 前提で 差を 探す』→『★どこまで 一致するかを 測る★』★★
 更新: 2026-08-13 13:5x / ★boss1 ★5 度目の 落下 = 13:2x 頃★ / user 再起動 → 復帰（PRESIDENT 復帰 brief 13:45 反映）★
 ★★★復帰の 実測（★私の 要約より 先に これ★）★★★: ★4 pane とも claude 生存★ / ★落下は 13:25:35（worker2 便 受信）〜13:45 の 間★ / ★★消えた dispatch = 0（残留 3 件で 全文 回収・⓪-55）★★
 
@@ -2203,6 +2205,40 @@
 - ★★∴ 残る 未特定（★埋めません★）★★ = ★★1 回目の runtime を ★どの 経路が 作ったか★★★（★非 Editor の 生成は TextboxView L156 / L174 の 2 本のみ・どちらも 直後に 注入が 在る★）
   ⇒ ★候補（推論・未検証）= ★`GameManager.Instance` が その 時点で null ⇒ 注入 skip ⇒ fresh★★（★点0 は `_ctx.Session` 経由で 書けて いる ⇒ ★`_ctx` 側は 生きて いた★★）
   ⇒ ★★∴ #220 で 発注（★(2) 欄 = ★『null で なかった』証拠を 先に★★）
+
+## ⓪-159 ★★★★★最終原因 = ★`StartScenario` の 1 行目が 呼ぶ ★`VerifyEntry`★★★★★（worker3 #278 / commit 0d5d33a）
+```
+★逐語（TextboxView.StartScenario）★:
+  // ★live-boot 証跡: 実 trigger 時に log-first verify(★別 runtime で 完走照合★)を 1 度 log★
+  ★DialogueRuntime.VerifyEntry(entry, out _, out _, out _);★   ← ★★1 回目★★
+  _rt = new DialogueRuntime();  _rt.Game = GameManager.Instance?.Session?.GameState;  ← 注入（点A）
+  ★_rt.Begin(entry);★                                          ← ★★2 回目★★
+★`VerifyEntry` 内部★: `var rt = new DialogueRuntime(); rt.Begin(entry);` ⇒ ★★`rt.Game = …` が ★無い★★★
+```
+- ★★∴ ★VerifyEntry の runtime は ★既定の fresh GameState（flags 0）★★★ ⇒ ★flag[225] を false ⇒ ★branch → 0x1E → 194 命令の linear walk★★
+- ★★★∴ ★code の comment 自身が『★別 runtime で 完走照合★』と ★明記して いました★★★★ = ★★『既に 書かれて いた』の ★7 例目★★（★これで この 系列は 全部 閉じました★）
+- ★★∴ (2) 欄で ★自分の 候補を 自分で 否定（2 便 連続）★★ = ★点A で gs_id が 出て いる ⇒ ★`GameManager.Instance` は 非 null★ ⇒ ★候補は 否定★★
+  ⇒ ★★∴ ★実体は ★注入 skip では なく ★そもそも 注入しない 経路★★★ ⇒ ★★型が 1 段 具体化 = ★『★注入する 経路の ★隣に★ 注入しない 経路が 在る★』★★
+- ★★∴ ★2 度目の 枠訂正（自己申告）★★ = ★彼の dispatch / 0x00 統計は ★VerifyEntry の 照合 walk と 実 walk の ★合算★★★
+  ⇒ ★★∴ ★#274『content-mode の 産物』は ★半分だけ 正しい★★★（★正確には ★VerifyEntry が 呼ぶ 別 runtime の walk★ / content-mode は その runtime の 既定★）
+- ★★∴ 彼の 見立て（★採用★）★★ =『★VerifyEntry が 実 trigger 時に 走る こと 自体は ★挙動の 欠陥では ない★（log-first の 設計）/ ★但し 測定者から 見ると 同じ entry を 2 回 歩く★ ⇒ ★remake の 欠陥では なく ★私の 器の 欠陥★』
+
+## ⓪-160 ★★★欠陥台帳の ★現在地★（PRESIDENT (919)）★★★
+```
+★#1 BodyStart★   = ★EXE 差 = ★実在★★ / ★効き幅の 数は ★汚染下★ ⇒ ★取り直し★
+★#2 0x10 の m★   = ★choice block 内に 閉じ ★累積しない★（再開点 3/3 一致）= ★不変★
+★#3 0x00 skip★   = ★EXE 差 = 実在★ / ★『露見』の 数は 汚染下 ⇒ 取り直し★（★但し ★単独適用不可★ は jumps と 独立に 立つ★）
+★★#4 選択肢ラベル★★ = ★★実在・視覚確認済・修正済（127 site / 100% / FIX4-EMPTY 0）★★ = ★★唯一 ★user 可視の 実害が 確定★ した もの★★
+★#5 先読み探索★  = ★EXE 差 = 実在★ / ★効き幅 = ★未測定★★
+★#6 / #7★        = ★小 / 縮小済★ ／ ★★#8 = ★立たず（装置）★★★
+```
+- ★★∴ ★★『第 3 の ずれ源』は ★存在しませんでした★★★ / ★★remake の VM は ★注入が 効いた 実行では 原盤と 同じ 経路を 歩きます★★★
+
+## ⓪-161 ★★★汚染下の 数の 洗い直し = ★worker1 に 発注（★利害が ない から★）★★★（PRESIDENT (918)(922)）
+- ★★出す もの★★ = ★① ★jumps=OFF / 注入 skip の 実行を 含む 数★ を ★全数 列挙（母数つき・doc:行）★★ / ★② 各々に ★汚染 / 非汚染 / 判定不能★★ / ★③ ★依存する 結論が 在るか★★
+- ★★∴ 判定の 目安★★ = ★★remake を ★実走させて 得た 数★ か どうか★★（★静的走査・EXE 直読は ★非汚染★★）
+- ★★∴ (2) 欄★★ = ★★『汚染は 少ない』は ★我々の 過去の 仕事を 守る 側★ ⇒ ★『広い』証拠を 先に★★
+- ★★∴ ★列挙まで★★（★枠の 書き換えと 取り直しは ★数を 出した 本人★★）/ ★★worker3 = ★VerifyEntry の walk を 分離して 数え直す★★★ / ★worker2 = ★退役解除 承認済★ + ★自分の 数に 汚染が 及ばない ことの 確認★★
 
 ## ⑩ ★★★保留中★★★ = ★★なし★★ / ★★∴ 律速 = ★v5（+1 行）= 唯一の user 待ち・催促せず★★★
 
