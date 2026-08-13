@@ -299,6 +299,33 @@
 
 ⇒ ★★∴ 測るには★★ = ★★時刻つきの 突合★★ が 要る ⇒ ★★材料は 在ります = ★runA は 1 kHz 標本★★★（worker2 の ★共有して いない 7 件★ の 1 つ）
 
+### ⑪-w3 ★★worker3 の 器に 時刻が 在るか = ★★★無い★★★★（boss1 #259 §5 / ★code と 実 log を 直読★）
+
+| 見た もの | 持って いる field | ★時刻★ |
+|---|---|---|
+| `[OPTRACE]` 行（`DialogueRuntime.cs:851`） | `pc` / `b0` / `len` / `bytes` / `pages` / `role` | ★★無し★★ |
+| `TraceStep`（`Fx` の 器） | `Pc` / `Op` / `Len` / `IsText` / `Fx` | ★★無し★★ |
+| Unity `-logFile` の 出力 | 行頭に stamp ★無し★（`fon.log` 実物で 確認） | ★★無し★★ |
+
+★★∴ 『時刻に 見える が 時刻で ない』もの 3 つ★★（★近いから こそ 誤用され得るので 名指しします★）:
+- ★`pages=`★ = ★確定した page 数★ = ★単調カウンタ★ ⇒ ★★順序の 別名★★（★時刻では ありません★）
+- ★`Tick` 回数★（C11 で ★8★）= ★★私が loop で 回した 回数★★ ⇒ batchmode に ★frame loop が 無く★、
+  ★1 Tick が 複数 opcode を 実行します★（28 dispatch / 8 Tick）⇒ ★★frame でも 時刻でも ありません★★
+- ★`_waitFrames`（`WaitingFrames`）★ = ★★frame 単位の 待ちは runtime に ★在ります★★★ ⇒ ★但し 下記★
+
+★★∴ ★★★ここが 一番 重い★★★★ = ★★私の 器は ★待ちを 測るどころか ★消して います★★★:
+```
+EventOracle.cs / W3UnsupportedOpcodeCensus.cs / DialogueRuntime.VerifyEntry …
+    else if (rt.State == DialogueState.WaitingFrames) rt.ForceClearWaitFrames();   ← ★待ちを 0 に する★
+```
+⇒ ★★∴ ★『時刻が 記録されて いない』の 前に ★『待ちが 実行されて いない』★★★
+⇒ ★★∴ ★★∴ ★④ を 測るのは ★field を 1 本 足す 話では ありません★★★ = ★★harness が ★潰して いる 量★ を 先に 復活させる 必要が あります★★
+
+★★∴ かつ `0x67`(FRAME_YIELD) は ★既定 OFF★★（`DEGIMON_OP67=1` の opt-in）⇒ ★frame yield も 既定では 起きません★。
+
+★★∴ 結論（★1 行★）★★ = ★★★worker3 の 器に 時刻は ★在りません★ / ★近い 3 量は どれも 順序 か 私の loop 回数★ /
+かつ ★待ち自体を 器が 消して います★★★ ⇒ ★★★= ★『測れない』では なく ★『測らない 設計に して あった』★★★★（★測れとは 言われて いないので 測って いません★）
+
 ---
 
 ## ⑧ ★未 記入★ の 扱い
