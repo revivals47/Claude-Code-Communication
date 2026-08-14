@@ -90,7 +90,8 @@
 ・★#277『0x4A = 対象 actor 指定』→ ★完了待ち★
 
 ### ★#293 で受領した事実（未消化・次に効く）★
-・★vmtrace.py の記録 key は 11 要素 ⇒ ★stack だけが動いた遷移は記録されない★★（key に無い = fb_entry / bank_ptr / pad_b / stack）
+・★vmtrace.py の記録 key は 11 要素 ⇒ ★stack だけが動いた遷移は記録されない★★
+　★★(訂正 2026-08-14 / #303 §3)★★ = ★『key に無い = fb_entry / bank_ptr / pad_b / stack』は ★誤り★★ ⇒ ★★worker2 の実測で ★base も entry も key に在る★★★（boss1 の中継誤り・本人が過失 4 件目として申告）⇒ ★★私の欄も同じ誤りを抱えていたので訂正★★ / ★『stack が key に無い』の部分は ★私は再確認していません = null★★
 ・★t = host の経過秒（time.perf_counter）= game frame ではない ⇒ 同じ host 条件の対でしか比べられない★
 
 ### ★不変（全便で保持）★
