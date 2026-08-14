@@ -64,7 +64,14 @@
  ★凍結した 状態★ = ★下界は ★stop=0 のみ★ / ★器の 沈黙は 修正済（send_verified 4/4）★ / ★出力 = `exchange/dwell_3runs.txt`・`stop_flag_audit.txt`★
  ★★再開点★★ = ★★『滞在の 下界を ★3 標本で 揃える』は ★値では 揃わない★ と 出た ところ★★★（★理由候補 3 = 標本の 粗さ / host 実時間 / 人手操作 ⇒ ★切り分け 未着手★★）
 ★★② 着手★★ = ★事前登録 = `P2_OP27_PREREG_worker2.md`（commit `6c8e478`・★仕様本体の 前★）★
- ⇒ ★成果物 = `P2_OP27_SPEC_worker2.md`（★未作成★）／★6 欄・各欄 ①逐語 / ②部分 / ③未取得★
+ ⇒ ★成果物 = `P2_OP27_SPEC_worker2.md`（★commit `b5168d7`★）／★6 欄 = ①逐語 5 / ②部分 1 / ③未取得 0★
+   ★handler = ★0x800ECA60★（dispatch の 算術を 実サイト直読 ⇒ index = op-0x10 / 上限 24 / stride 4 / 表 0x8011B0F8）★
+   ★Len = ★2★★（router +1 + fetch helper +1 / 他に PC 書きなし）／★operand = 1 byte・無変換★
+   ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
+     ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
+   ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★未取得 = 2 本目の helper 0x800F3038 の 効果★★（★worker3 に『実装しないでください』と 明記★）
+   ★事前登録 4 予測 = ★3 当たり / 1 外れ（退出）★★ / ★食い違い 1 = ★FIELD_TO_OPCODE L29 の 0x800F31F4 対 私が 引いた 0x800F31B4★★
 
 ## ⑤ 未解決の 問い（★答えでは なく 問い★）
 1. ★`escscan` の 歩幅（2 byte）は 原盤の renderer と 同じか★ — ★摂動（1 byte 刻みで +3.4%）しか 持って いません★
