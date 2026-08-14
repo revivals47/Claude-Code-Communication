@@ -70,6 +70,13 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★#385 ③ = ★flag を 立てる 命令（pointer 経由の 穴）★★★（結果 P2_FLAGSET_worker2.md・★観測より 前★）
+     ⇒ ★★eventBankPtr = `[gp-0x6cec]`★★（★0x800F0040-44 で 0x80163784 を 設定★ = ★#331 の『var bank』と 同じ cell★）
+     ⇒ ★load site = ★16 件 / 14 関数★（＋store 1 = 計 17 で #310 と 一致）★ / ★解決 0 件 = 4 site（未取得）★
+     ⇒ ★★bank + 0xD4 = nibble 配列★★ ⇒ ★書き = ★0x800F1330（lbu → andi 0xF0 → or → sb）★★ / ★読み = 0x800F12B4★
+     ⇒ ★★★∴ VM から 書くのは ★opcode 0x2F / 0x30★ だけ★★★（呼び元 0x800ECC9C / 0x800ECCF0）
+     ⇒ ★bit RMW 全走査 = ★35 件 / 14 関数★ / ★bank 経由は 0x800F1330 の 2 件だけ★★
+     ⇒ ★★予測は ★0 個の まま（更新せず・旧版 保持）★★★ = ★理由 = ★dump 元の address 未確認★ ＋ ★台詞の 場面で 0x2F/0x30 が 走るか 不明★
    ★★#380 / #382 = ★live 観測の 突合器（観測より 前に 作る）★★★（事前登録 P2_LIVEDIFF_PREREG_worker2.md / 器 p2w2 `cbcd951e`）
      ⇒ ★★器の 検定 = ★陰性（control 3 組 × 4 単位 = 全部 差 0）★ ＋ ★陽性（3 単位を 別々に 壊して それぞれ 発火・cross-talk なし）★★★
      ⇒ ★★単位は 畳みません★★ = ★(1) flag 集合 / (2) FLAGS_HEX bit / (3) VARS_HEX byte / ★(4) header（gp / scenario / story / eventBankPtr）★★
