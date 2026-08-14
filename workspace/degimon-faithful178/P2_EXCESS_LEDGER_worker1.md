@@ -39,9 +39,9 @@
 |---|---|
 | ★過剰の内容★ | ★remake は ★`speaker {id}` を文字で描く★★ ⇒ ★原盤は ★この経路で文字を一切作らない★（id = 0xFF のとき）★ |
 | ★原盤側の逐語★ | ★0x800F4304 ★beq 0xFF → 0x800F4424★ = ★話者欄の byte を 1 つも出さない★★ / ★0x800F4DBC 先頭 ★id==0xFF → return 0★★ / ★0x800F3B20 が 0 を返す ⇒ ★bit 0x80 が立たない = anchor 無しの窓★★ / ★0x800F41BC ★[0x80164198] := 0（else 0xD）= 版面の取り分も 0★★<br>★= ★4 経路すべてが『何も作らない』で一致★★ |
-| ★remake 側の逐語★ | ★path = p2w1/unity/Assets/Scripts/Dialogue/TextboxView.cs★ / ★L364 `GUI.Label(spkRect, $"speaker {_rt.CurrentSpeaker}", _speakerStyle);`★<br>★（★file sha / 行数は ★本台帳作成時に未取得★ ⇒ ★引用する前に取ること★★） |
+| ★remake 側の逐語★ | ★path = p2w1/unity/Assets/Scripts/Dialogue/TextboxView.cs★ / ★sha256[:16] = ★b1762368642f2c3d★★ / ★git hash-object = ★2c2e653dc7eb0dc0★★ / ★★403 行★★ / worktree = p2w1 / branch = track1/vm-spec-impl<br>★★L364 `GUI.Label(spkRect, $"speaker {_rt.CurrentSpeaker}", _speakerStyle);`★★（★取得日 = 2026-08-14 / HEAD = 017a7ae1★）<br>★（★共有 tree の版は未取得 ⇒ ★行番号は この sha でのみ有効★★） |
 | ★★実害の有無★★ | ★★有★★ |
-| ★実害の逐語★ | ★★到達枠 0x1B のうち id = 0xFF が ★625 site（17.7%）★★★ ⇒ ★★その全部で ★原盤に無い文字が出ます★★★（★件数の出所 = boss1 中継 = ★worker3 の枠★ ⇒ ★私の測定ではありません★） |
+| ★実害の逐語★ | ★★id = 0xFF の 0x1B site すべてで ★原盤に無い文字が出ます★★★<br>★★件数は載せません★★（#302 §1 ① = ★数は引き継がず枠の名だけ★）⇒ ★枠の名 = ★到達枠（worker3）★★ / ★★『整列-静的枠』とは ★別の数★★★<br>★私の測定 = ★原盤側の 4 経路の逐語のみ★（★件数は 1 つも測っていません★） |
 | ★測定時点★ | ★2026-08-14 / p2w1 HEAD = c3784ad5★ |
 | ★出所★ | ★worker1 v3-355 / v3-362（#265 / #270）★ |
 
