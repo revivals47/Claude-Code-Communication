@@ -59,7 +59,7 @@ savestate は zstd 展開 blob の先頭 = `0x80000000` ではない。この pr
 ## 2. 母集団【観測】
 
 - 全 map = **242**
-- `digimon` ≥ 1 件の map = **211**(31 map は 0 件)
+- `digimon` ≥ 1 件の map = **211**(31 map は 0 件) ★［母数 未記載 2026-08-15］★この 行の 0 は ★母数が 添えて いません★★ ⇒ ★★未測定 に 落とします★★
 - 総 entry = **966**
 - ★JSON の key は `digimon`。dispatch 文言の `npcs` という key は実 file に存在しない★
 

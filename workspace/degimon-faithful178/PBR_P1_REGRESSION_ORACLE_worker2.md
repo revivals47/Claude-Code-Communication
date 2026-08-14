@@ -54,7 +54,7 @@
 ### 1.1 ★数値不整合 A / B は解消済(経緯を残す)★
 
 - **不整合 A(解消)**: `gate ON = 223 / OFF = 21 / 空 = 11` で **合計 255 = table 全長**。★当初 boss1 から中継された「ON = 218」は誤り★で、worker3 の 223 が正しかった。
-- **不整合 B(解消)**: ★`966 json entry は全て gate ON map 由来であり、gate OFF 21 map の json entry は 0 件★【worker2 実測】。∴ 989 と 966 は **同じ母集団(gate ON)を見ており apples-to-apples**。`989 − 966 = 23 = MGEN06-10 の raw 合計 (6+3+4+3+7)` は偶然ではなく実質的な一致。
+- **不整合 B(解消)**: ★`966 json entry は全て gate ON map 由来であり、gate OFF 21 map の json entry は 0 件★【worker2 実測】。∴ 989 と 966 は **同じ母集団(gate ON)を見ており apples-to-apples**。`989 − 966 = 23 = MGEN06-10 の raw 合計 (6+3+4+3+7)` は偶然ではなく実質的な一致。 ★［母数 未記載 2026-08-15］★この 行の 0 は ★母数が 添えて いません★★ ⇒ ★★未測定 に 落とします★★
 
 ★解消の経緯 — この誤りがどう混入したか(再発防止のため残す)★:
 誤裁定の根拠は `PBR_P0_map_index_table.tsv` だったが、★その tsv は idx 0..238 の 239 entry で打ち切られていた★(最初の空 entry で走査停止)。tsv の **連続性(0..238 に穴なし)を見て「全体だ」と判断した**のが誤り。★連続性は「範囲内に穴が無い」ことしか言わず、「範囲が全体である」ことは言わない★(`feedback_absence_in_truncated_list`)。
@@ -167,7 +167,7 @@ boss1 から「YAKA01 / YAKA21 / YAKA25(idx65) は 3 件とも gate OFF かつ n
 
 ### P1c. ★map index の権威経路★(参考仕様、実装の照合先)
 
-【観測 = worker2 が savestate 10 件で検証】loader の `a1` に届くのは ★`gp-0x6ca6`(u16)経路★:
+【観測 = worker2 が savestate 10 件で検証】loader の `a1` に届くのは ★`gp-0x6ca6`(u16)経路★: ★［母数 未記載 2026-08-15］★この 行の 0 は ★母数が 添えて いません★★ ⇒ ★★未測定 に 落とします★★
 
 ```
 0x800EC47C  lhu a0,-0x6ca6(gp)  →  0x800DF7D0 → 0x800DFA20 → 0x800AC588
@@ -175,7 +175,7 @@ boss1 から「YAKA01 / YAKA21 / YAKA25(idx65) は 3 件とも gate OFF かつ n
 ```
 
 ★「loader/gating は `gp-0x6d90`」は誤り★(boss1 第 11 報の訂正を反映)。`6d90`(u8)は**別の読み手**であり、両者は map index の mirror。
-worker2 実測: savestate 10 件すべてで `6ca6` と `6d90` は同値、かつ `6ca6` の値が table index として ★entity 配列の内容から独立同定した map と一致★(例: `_1/_2/_9/_10` → 204 = TWNA01、`_3/_resume` → 179 = TWNA13)。
+worker2 実測: savestate 10 件すべてで `6ca6` と `6d90` は同値、かつ `6ca6` の値が table index として ★entity 配列の内容から独立同定した map と一致★(例: `_1/_2/_9/_10` → 204 = TWNA01、`_3/_resume` → 179 = TWNA13)。 ★［母数 未記載 2026-08-15］★この 行の 0 は ★母数が 添えて いません★★ ⇒ ★★未測定 に 落とします★★
 
 ### P2. json ↔ raw 同値性(P1 で json を oracle 代用する場合の前提)
 
@@ -223,7 +223,7 @@ worker2 実測: savestate 10 件すべてで `6ca6` と `6d90` は同値、か�
 ### P5. gating(`flags & 0x80`)
 
 - **手順**: `[0x8013541C + mapIdx*16].byte12 & 0x80` が 0 の map で NPC 配置数 = 0、≠0 の map で先頭 halfword 通りの配置
-- **pass**: OFF ★entry 基準 21 件★全件で 0 体、ON **223 entry** で P3 と整合。★name 基準では OFF は 20 件(§1.8)。どちらで数えたか併記すること★
+- **pass**: OFF ★entry 基準 21 件★全件で 0 体、ON **223 entry** で P3 と整合。★name 基準では OFF は 20 件(§1.8)。どちらで数えたか併記すること★ ★［母数 未記載 2026-08-15］★この 行の 0 は ★母数が 添えて いません★★ ⇒ ★★未測定 に 落とします★★
 - ★key は map index。map 名で引かないこと★: `YAKA25` は idx 65(OFF)と idx 232(ON)の **2 entry に存在する**(§1.3)。名前 key だとどちらを採ったかで結果が黙って変わる
 - **OFF 21 map 実名**【worker2 が EXE 直読で列挙】: `MAYO10` / `YAKA01` / `YAKA11B` / `YAKA12` / `YAKA15` / `YAKA18` / `YAKA21` / `YAKA22` / `YAKA23` / `YAKA24` / `YAKA25`(idx 65) / `KODA05` / `FRZL05` / `TUNN07_2` / `TUNN08_2` / `TUNN03_2` / `OGRE04` / `FACT05` / `MGEN14` / `MGEN15` / `MGEN16`
 - ★この緑が assert すること★: gate flag が配置有無を制御していること
@@ -254,7 +254,7 @@ worker2 実測: savestate 10 件すべてで `6ca6` と `6d90` は同値、か�
 
 ### P8. Unity ビルド
 
-- **pass**: **CS0 系 error = 0 件**
+- **pass**: **CS0 系 error = 0 件** ★［母数 未記載 2026-08-15］★この 行の 0 は ★母数が 添えて いません★★ ⇒ ★★未測定 に 落とします★★
 - ★この緑が assert すること★: compile が通ること。★correctness は一切 assert しない★
 
 ### P9. `ViseNpcBootstrap` の baked データ
@@ -457,7 +457,7 @@ inline scan は savestate 5 件について「211 map のどれとも一致せ�
 [ ] P5  gating flags&0x80         OFF 21 map 全件 0体 / ON 223 map(★key = map index。map 名禁止★)
 [ ] P6  debug-gate 独立判定       未設定=4体除外 / =1 で再出現、gating と別々に測定
 [ ] P7  OFF-inert                 before/after の dump sha256 一致
-[ ] P8  Unity CS0 error           0 件
+[ ] P8  Unity CS0 error           0 件 ★［母数 未記載 2026-08-15］★この 行の 0 は ★母数が 添えて いません★★ ⇒ ★★未測定 に 落とします★★
 [ ] P9  ViseNpcBootstrap 差分      起票済(適用は user 判断)
 [ ] P10 user 実視覚 gate          V1-V5 に user の明示回答  ★AI では close 不可★
 
