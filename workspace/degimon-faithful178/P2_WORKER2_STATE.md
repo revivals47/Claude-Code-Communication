@@ -1,6 +1,6 @@
 # P2 worker2 STATE（★先頭 30 行 = 現在地★ / ★以降 = 索引★）
 
-★worktree★ = `~/Desktop/Digimon/degimon_world_remake-p2w2` ／ ★branch★ = `track2/trace-oracle` ／ ★HEAD★ = `3964a63a03b3ce19`
+★worktree★ = `~/Desktop/Digimon/degimon_world_remake-p2w2` ／ ★branch★ = `track2/trace-oracle` ／ ★HEAD★ = `006ba9cf`（★#276 の 修正まで★）
 ★共有 docs★ = `Claude-Code-Communication/workspace/degimon-faithful178/`（★書込 可・#269 で 境界 固定★）
 ★不変★ = push しない／完成 claim 凍結／★degimon の 共有 tree は 読取のみ★／worker 間 直送 禁止／★STATE は 送信ごと★
 
@@ -28,7 +28,7 @@
 | `scn_walk_w2.load_len` | `Len[]` 256 | ★TSV guard つき（hash + 値・落ちる ことを 実測）★ / ★写し 154 項は 裏付け なし★ |
 | `frame_w3mech` | 整列-静的枠 | ★worker3 の code の 逐語 再実装★ = ★★一致では なく 再現★★ |
 | `exedis` | EXE disasm | ★素の 1 発は 94.1% 打ち切り★（実測）／`iter_insns` は 100% |
-| ★`tools/send_verified.sh:60`★ | 送信前の 残留捕獲 | ★★★危険（沈黙を 測定に して いる）= ★未修正★★★★ |
+| `tools/send_verified.sh:60` | 送信前の 残留捕獲 | ★★修正済（#276 §2）★★ = ★stderr を 残す / exit code を 見る / 失敗で ★exit 3★★ ⇒ ★★陽性対照で ★実際に 止まる ことを 実測★★（selftest 3/3） |
 
 ## ⑤ 未解決の 問い（★答えでは なく 問い★）
 1. ★`escscan` の 歩幅（2 byte）は 原盤の renderer と 同じか★ — ★摂動（1 byte 刻みで +3.4%）しか 持って いません★
@@ -43,4 +43,5 @@
 # 索引（★以降は 追記★ / ★1 便 1 行★）
 
 - ★#276 まで★: 詳細は worktree の `workspace/WORKER2_STATE.md`（★通番 -78 まで★）と `workspace/exchange/`（★103 file★）
+- ★#276★: ★STATE 新設（本 file・commit 447b092）★ / ★`send_verified.sh:60` 修正 + 陽性対照（commit 006ba9cf）★
 - ★直近の 出力★: `exchange/dwell_3runs.txt`（3 標本の 下界）/ `exchange/devnull_three.txt`（私の 沈黙 4 行）/ `exchange/runA_vs_ref28.txt`（23 標本 × 28 命令）
