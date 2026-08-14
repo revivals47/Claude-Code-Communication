@@ -1263,6 +1263,45 @@
 
 ---
 
+## ★★#378（2026-08-14）② index 表 0x8015F784 の 器 / 109 の 在否★★
+
+★出所 = v3-522 / 事前登録 = v3-521（sha 768e0340・測定より 前に commit）★ / ★emulator 非接触★
+
+★★(0) gp を ★独立に 検証★★★ = ★初期化 0x800F0010 が 書く 5 cell（0x8013E114/118/11C/120/124）で ★EXE 即値 と RAM 値が 5/5 一致★★ ⇒ ★gp = 0x80144E0C は ★私の 過去 claim を 経由せず 支持★★
+
+★★(1) (i) 幅 = ★4 byte★★★（★access を 全列挙してから 書きました★）
+★母集団 = EXE 全域の load/store ★45,011 件★★ / ★表 base の load/store = ★3 件・全部 lw★（lhu/lbu/sh/sb は 0 件）/ address-calc 1 / cell 自体 3★
+★飽和 = 窓 8 語で 2 件 ⇒ ★16・32・64・128・256・512 語で 3 件 一定★ = ★cap に 当たらず★
+
+★★(2) (i) record 形式（逐語 0x800F0988）★★ = ★★u32 1 本 = DG.SCN 内 byte offset / 索引 = entry id / 長さ = ★隣接差分 T[id+1] - T[id]★★★
+★空きマーカー = ★無し（sentinel 方式）★★ / ★cap 2,048 record = ★初期化の 即値 a3 = 8192★ が 決める★ / ★実長 = ★226 record（904 byte）★ ⇒ entry は ★0..224 の 225 個★★
+★★独立 oracle 2 本★★ = ★T[225] = 0xA9000 = ★DG.SCN の 実 file size と bit 一致★★ / ★RAM[0x8015F784..+8192] = ★DG.SCN[0..8192] と bit 一致★★
+★表の 後ろ 0x388〜0x7F7 = ★\SCN\MAPnnn.SCN の 文字列 36 本（141〜218・非連続）★
+
+★★(3) (ii)(iii) at-rest の 常駐 entry 集合 = ★{ 0, 177 } = 2 個★★★ ⇒ ★★109 は ★入りません★★★（母数 = 225 entry）
+★entry 109 は 表上 実在★ = offset 0x49000 / 長さ 2,048
+★★⚠ #293 の 訂正★★ = ★A（0x80159784）は ★entry 0 専用の 常駐★ では なく ★★MAPHEAD.SCN の 常駐 buffer★★（別 file / 別 loader 0x800A46DC / DG.SCN からは 読まない）★ / ★file と RAM は 23,094 byte 全域 bit 一致★
+
+★★(4) ★(iv) load の 単位 = ★entry★★★★ ⇒ ★★∴ ★(map, entry 集合) の 対は ★原理的に 出ません★★★★
+★loader は 1 回に [T[id], T[id+1]) を slot B へ ★1 枚★ しか 積まず slot B は 毎回 上書き★
+★★∴ 代わりに 出るもの = ★live 1 shot ごとに (map, entry) の 対が ★1 個★★★ ⇒ ★対を 積むには ★shot を 重ねる★ しか ありません★
+
+★★(5) ★器（PRESIDENT の live 1 shot 用・1 行）★★★
+★★『byte 1 個を ★0x8013E07C★ から（map 索引）、u16 1 個を ★0x8013E138★ から（slot B の entry id）読む。常駐 entry 集合 = { 0, その u16 }（0 は 常に slot A = MAPHEAD.SCN）』★★
+★健全性 check 用★ = 0x8013E118 = 表 base / 0x8013E114 = MAPHEAD base / 0x8013E11C = slot B base
+★⚠ 限定 = ★これは 器で あって 値の 主張では ありません★ / ★at-rest の 撮影時点 map は 未知★
+
+★★(6) (v) 間の 表 = ★在ります★（但し ★3 本目とは 書きません★）★★
+| # | address | 実体 |
+|---|---|---|
+| 1 | ★0x80159784★ | MAPHEAD.SCN 常駐 23,094 byte（先頭 u16 = 1,128 = 前置き 282 record × 4 byte / record = (u16 offset, u16 id)/ 0x800EF34C が VM の base・cursor に 据える） |
+| 2 | ★0x8015FB0C★ | index 表 buffer の 0x388 以降 = MAP 名 文字列 36 本 |
+★★⚠ ★MAPHEAD の id 欄は 先頭が 連番★ ⇒ ★『109 が 居る』は 索引ゆえ 当たり前で ★証拠に なりません★★★ / ★★entry → map を 結ぶ 命令は ★まだ 1 本も 測って いません★★★
+
+★★(7) 予測の 当否★★ = ★点 [5〜16] ⇒ ★3★ = 外れ★ / ★辺 [1〜2] ⇒ ★2★ = ★当たり★★ / ★判定 (iv) ② ⇒ ★当たり★★ / ★判定 (v) ② 無い ⇒ ★① 在る★ = 外れ★（★2 当たり 2 外れ★）
+
+---
+
 ## ★★不変（全便で保持）★★
 ★push しない / 完成 claim 凍結 / 共有 tree（degimon）読取のみ / p2w3 は触らない / 実行 trace は始めない / worker 間直送禁止 / STATE は送信ごと / backtick 不使用★
 
