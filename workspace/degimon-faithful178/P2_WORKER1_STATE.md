@@ -3,14 +3,15 @@
 ## ★★先頭 30 行 = 現在地★★（★ここだけ読めば復帰できる形★）
 
 ★① 今何を追っているか（1 文）★
-　★Q9（構造差が実害か）= ★slot B を指す word 7 件を特定・判定 C（跨ぐかは未提示）★★ ⇒ 次は ★pending=0x10 の間に loader を呼ぶ handler が走り得るか（VM driver の gating）★。
+　★★Q9 が閉じました = ★実害 無★★★（★0x800F0748 beqz pending でのみ opcode fetch へ falls through ⇒ pending 中は loader が呼ばれない★）⇒ 次は ★boss1 の次の発注★ か ★Q10（表 0x80157B38 の +0x2BE 消費先）★。
 
 ★② まだ boss1 に出していない観測★ = ★★0 件（v3-392 は #289 で送信済 / v3-393 は本便で送信）★★  ※過去分 = ★v3-392 = 初期値 50,000 / 初期名 しゅじんこう・デジモン / commit a937d39e★ = ★v3-392 = (b) の 3 型とも ★在った★ / ★初期値 50,000★ / ★初期名 = 名前表[0] ← 0x8013A13C「しゅじんこう」・partner ← 0x8013A14C「デジモン」★ / commit ★a937d39e★（p2w1）
 　★算法 = 1 語ずつ capstone disasm(count=1) + lui/addiu 即値解決 + cp932 decode★ / ★母数 = 作られる絶対 address 1,677 種 / image 177,664 語★
 
 ★③ 次の 3 手（順番つき）★
-　★1. ★VM driver の gating★ = ★pending([gp-0x6cbc])が非 0 の間 opcode を進めるか★（= Q9 の残り 1 手）★← 次はこれ★
-　★2. 表 0x80157B38 の +0x2BE / +0x2C0 の消費先（Q10・保留）★
+　★1. 表 0x80157B38 の +0x2BE / +0x2C0 の消費先（Q10・保留解除待ち）★
+　★2. Q8（kind 6/7/10/12 の要求元）★ / ★3. Q7（『仮定あり』の器の実地確認・boss1 が保留指示）★
+　★(済) VM driver の gating = ★判定 A★（v3-404 / commit 017a7ae1）⇒ ★Q9 = 実害 無★・過剰台帳 ① を null → 無 に更新★
 　★(済) 過剰台帳を新設（P2_EXCESS_LEDGER_worker1.md / commit d604cf3）= ① 全 entry 常駐(実害 null)/ ② speaker を文字で描く(実害 有・625 site)★
 　★(済) 表 0x80157B38 = ★実体は 0x80157B38+34*i+0x2BE 起点の 34 byte record★ / ★+0x2DD を触るのは image 全域で 3 件（読み 1 = 0x800BA2B4）★ / ★意味は null（判定 B）★（v3-400）★
 　★(済) script slot（#298）= ★述語は id==0 か否か / [gp-0x6cf8]=0x80159784(entry0 常駐) [gp-0x6cf4]=0x8015F784(index 表) [gp-0x6cf0]=0x80161784(可変)★ / ★remake は 1 slot★（v3-398 / commit 66593153）★
@@ -37,7 +38,7 @@
 　★Q6★ ★worker2 の帯 0x81-0x9F は ★他の site でも cp932 の 1 byte 目か★（★0x11DA の 1 例では text と確定・帯全体は null★）★
 　★Q7★ ★『opcode 境界を仮定あり』と判定された私の器は ★実際に標本 pc の byte を引いているか★（★語の有無で判定しただけ = v3-394 の null★）★
 　★Q8★ ★kind 6 / 7 / 10 / 12 を要求するのは誰か★（★21 site の直後 11 語・即値★ という走査型の外 = v3-396）★
-　★Q9★ ★原盤で『現に載っていない entry』を参照する操作は実在するか★（★在れば remake の全 entry 常駐が実害差になる = v3-398 の null★）★
+　★Q9★ = ★★解決（v3-404）= 実害 無★★（★pending 中は opcode fetch に到達しない ⇒ loader が呼ばれない★ / ★限定 = 『他の入口が無い』は即値 target のみ・jr は走査型の外★）★
 　★Q10★ ★表 0x80157B38 の record（+0x2BE/+0x2C0/+0x2C2/+0x2DA/+0x2DC/+0x2DD）は何か★（★subsystem 0x800B9FE8-0x800BADB0 に閉じている = v3-400 の null★）★
 
 ---
