@@ -6,10 +6,10 @@
 
 ---
 
-## 現在地（2026-08-14 / 受領した最後の boss1 番号 = ★#302★）
+## 現在地（2026-08-14 / 受領した最後の boss1 番号 = ★#303★）
 
 - ★worktree★ = `/home/ken/Desktop/Digimon/degimon_world_remake-p2w3`（branch `track3/p2-script-walk`）
-- ★HEAD★ = `96b6bcc4`
+- ★HEAD★ = `23601477`
 - ★直近の仕事★ = ★測定規律の retro-sweep★（#286〜#292）。degimon 本体の実装は ★#11b / #17 まで land 済で停止中★。
 - ★規範（#294 §5§6）★ = ★受領したら最初に `logs/recv_log.txt` に 1 行★ / ★commit は path 指定のみ（`-a`/`-am` 禁止）★
 - ★不変★ = push しない / 完成 claim 凍結 / ★degimon 共有 tree は読取のみ★ / ★vise も読取のみ（書込は機構で拒否）★ /
@@ -130,6 +130,21 @@
 - ★★言えること = 「到達枠 22.29% はこの 4 site に依存していない」★★ /
   ★言えないこと = 「器は正しい」★・parity は 4 site 分崩れたまま・
   ★★新たな無感 = `TraceEnabled` / `BehavioralMode` の A/B は未撮影★★（★計器を潰したら別の計器 2 つが残っていた★）
+
+### ★#303 §2 = ★Trace / Behav の A/B ⇒ 予測の向きが外れ・22.29% は条件つきの数★★（PREREG `ad911d44` → `23601477`）
+| run | Trace | Behav | steps | 未対応 |
+|---|---|---|---|---|
+| baseline | ON | ON | 17,334 | 38 種 / 3,864 |
+| TraceOFF | OFF | ON | 0 | ★0 種（= 器が盲目 = 判定不能）★ |
+| ★★BehavOFF★★ | ON | OFF | ★★648,278★★ | ★★49 種 / 61,762★★ |
+| bothOFF | OFF | OFF | 0 | 0 種 |
+- ★段 2（受け手 `if (BehavioralMode) _jumpsEnabled = true;` を除去）= 段 1 と完全一致★ ⇒ ★受け手は 1 site★
+  / 復元 sha 一致・`git status` 空 / ★Trace の段 2 は事前に「やらない」と宣言済★
+- ★★P-2 は外れ★★: ★減ると賭けたが 37.4 倍に増加★ ⇒ ★jump は「経路を増やすもの」ではなく ★終わらせるもの★ だった★
+  （★事後の説明であり、事前にそう読めていませんでした★）
+- ★★∴ 帰結 = 到達枠 22.29% は ★`BehavioralMode = true` の上の数★★★（false なら ★9.53%★）
+  ⇒ ★撤回ではなく条件つき★ ⇒ ★`REACH_300.md` と `ESCALATION_2frames.md` の数の隣に条件を追記済★
+- ★★「これで底に着いた」とは書きません★★ / ★他 flag（`_selectorForced` 等）は ★未走査★（0 件ではない）★
 
 ### ★開いている件★
 - ★未検 52 件★（#296・boss1 #297 §3 で ★追わない★ と決定 = ★開いたまま★）
