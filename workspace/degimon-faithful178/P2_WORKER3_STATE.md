@@ -157,6 +157,21 @@
 - ★109/5 の 10 枚は収録済★（`URGENT_INDEX_FIX.md` §6）/ ★★user には 1 枚目のみ = 盲検を user 側にも掛ける（PRESIDENT 指示）★★
 - ★file★ = `URGENT_INDEX_FIX.md` / `SEC5_DEF_AND_MASTER.md` / `W2_FLAG_XCHECK.md` / `CAND15_TABLE.md`
 
+## ★★①-k 看板の数の出所と帯の割れ（#411〜#413）★★
+
+- ★★算出器を特定（★出所不明ではない★）★★ = ★26.45%(8,706/32,917) = `W3AlignedSweep.cs` L409-417（整列-静的枠）★ /
+  ★22.29%(3,864/17,334) = `W3UnsupportedOpcodeCensus.cs` L274-286（到達枠）★ / ★log 再現 = static27.log L509・ab2_baseline.log L165544 ほか★
+- ★★32,917 の定義★★ = ★帯の中の ★opcode 実行点（静的）の延べ件数★★（225 entry × 全 section を BodyStart から線形 decode / 同じ (entry,pc) は 1 度 / 0x00 と SJIS は数えない）
+  ⇒ ★EXE の語でも DG.SCN の byte でもない★ / ★8,706 = inBand ∧ !IsKnown ∧ !IsJump（IsKnown は ★手書き 32 語★）★
+- ★★帯の定義が 2 つ併存していた（本日発見・台帳未記載）★★ = ★`W3AlignedSweep` のローカル inBand は ★5 帯 100 語★（0xFB を含まない）★ /
+  ★`DialogueRuntime.IsInBand` は ★6 帯★（0xFB 込み）★ / ★worker1 の逐語 = ★6 帯が原盤★★
+- ★★6 帯で数え直し（旧値は消さず併記）★★ = ★分母 32,917 → ★36,019★ / 未実装 53 種 8,706 → ★55 種 8,710★ / ★26.45% → 24.18%★★
+  ★0xFB 以上 = 0xFB:255 / 0xFC:1 / 0xFD:3 / 0xFE:2,843（計 3,102 = 分母増分と一致）★ / ★0xFF はこの枠で 0 件★
+- ★★26.45% に乗っていた判断は ★不変★★★（順位は分母を見ない・上位 10 も占有 74% も同じ ⇒ PRESIDENT #204 の裁定は不変）
+- ★★但し『帯外 6,046 件は同じに consume』は ★崩れます★★★ = ★6,046 のうち ★3,102 件が 0xFB 帯★・6 帯での帯外は 2,944★
+- ★section 起点 = ★lo + off（+4 しない）★★ = `int pc = tbl[key]` ＋ GetSectionTable の註「NOT 4+offset」⇒ ★worker1 / worker2 と同じ★
+- ★file★ = `HEADLINE_ORIGIN.md` / `BAND6_RECOUNT.md`
+
 ## ★★② 開いたまま（★私の座ではないもの★）★★
 
 - ★★実装の再開 = PRESIDENT の裁定待ち★★（★どちらの枠・どの軸で決めるか★ / 私の推奨 = ★到達枠 × 広さの軸 ⇒ 第 1 は 0x27★）
