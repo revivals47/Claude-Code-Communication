@@ -70,7 +70,7 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
-   ★★#308 §2/§3 = ★A（36 件の 帰属）＋ B（退出後処理 1 段）★★★（事前登録 `f0e…`→P2_EXIT_PREREG_worker2.md / 結果 P2_EXIT_MAP_worker2.md）
+   ★★#308 §2/§3 = ★A（36 件の 帰属）＋ B（退出後処理 1 段）★★★（事前登録 `be68c36` = P2_EXIT_PREREG_worker2.md・★着手前★ / 結果 `5161be5` = P2_EXIT_MAP_worker2.md）
      ⇒ ★★A = ★(α)単独 9 / (β)多重 7 / 0x64 の 二段目 12 / 深さ1 6 / VM 本体 2 = 36★★★（母数 = opcode 103 = 表 100 ＋ ★if-chain 3★）
      ⇒ ★★∴ ★0x64 は ★二段目の 表（0x8011B2BC / 57 entry / 800EDF20 jr）★を 持つ★★★ ⇒ ★最初の『γ 無帰属 12 件』は ★私の 打ち切り★ = ★発表前に 解消★★
      ⇒ ★★∴ ★上位 10 で ★自分の A(0x14) site を 持つのは 0x27 だけ★★★（★他 8 本は ★band 共有の 尾（a1=1 = 続行）★のみ★）
