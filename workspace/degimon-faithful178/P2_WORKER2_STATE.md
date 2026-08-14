@@ -70,6 +70,12 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★#392 ③④ = ★★★flag accessor を 見つけました★★★★（結果 P2_FLAGACCESSOR_worker2.md・★観測より 前★）
+     ⇒ ★★0x800F191C = ★bank + (i>>3) + 0xF5 の address★ と ★mask = 1<<(i&7)（★sll 1 の loop で 作る★）★ を 返す★★
+     ⇒ ★★∴ ★PRESIDENT の 読取器と ★幾何が 完全に 一致★ = ★address と 粒度は EXE で 裏が 取れました★★★（★意味（event flag か）は 中継の まま★）
+     ⇒ ★読 = 0x800F0C74（呼び元 47・opcode 36 個）★ / ★★立てる = 0x800F0F1C（呼び元 12・★opcode 0x1C / 0x28 / 0x2C ＋ 0x64副 2★）★★ / ★落とす = 0x800F0F84（31 個）★
+     ⇒ ★★∴ 前便の『0 件』は ★窓では なく ★形★ の 不足★★★（★sllv を 前提に した / address を 返すだけの 関数を 想定して いなかった★）
+     ⇒ ★★予測 = ★数字は 0 の まま・但し ★根拠は 消えた（= 慣性）★★★ / ★外れ時の 説明 = ★0x1C・0x28・0x2C の どれかが 走った★★
    ★★#388 ④ = ★800 bit / 236 個 / 最大 640 と 整合する 配列（2 仮説）★★★（結果 P2_ARRAYSHAPE_worker2.md）
      ⇒ ★★仮説 A（bit 配列 100 byte）= accessor ★0 件★★★（★緩めても ★sllv と andi 7 が 同居する 関数 0 本★★）
      ⇒ ★★仮説 B（nibble 配列 400 byte）= ★2 件 / 同一 base（bank + (n>>1) + 0xD4）★★★ = ★0x800F12B4（読）/ 0x800F1330（書）★
