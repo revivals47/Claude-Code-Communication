@@ -81,6 +81,22 @@
 - ★#338 ④★ = ★不一致時の 2 択判別を先に明記★（★0x800ECA60 末尾の a1=2 が無条件か分岐の下か★ / ★実機照合の前にできる★）
 - ★file★ = `workspace/w3_remake/WARP5_AND_TEXTPC.md` / `PREREG_text_and_warp.md`（★着手前 = 91d7c8a9★）/ 結果 = `fc7f0e67`
 
+## ★★①-e term 内訳 と ★私の oracle の欠陥★（#340〜#343）★★
+
+- ★★#339 の私の結論『どの launch も台詞に届く前に終わっている』は ★誤り★★★
+  ⇒ ★既定の walk は ★2,640 page / 48,369 文字★ を出している（763 / 1,556 launch）★
+  ⇒ ★正しい語 = ★私の oracle が ★画面に出る経路（EmittedPages = 0x1A/0x18 の text operand）を含んでいなかった★★
+  （Fx の `text` 型は ★bare な SJIS run だけ★）⇒ ★家族は『走査型の外』でなく ★器の欠陥★★
+- ★内訳（到達枠 / 貫通枠 / fix27 ON）★ = ★section_return 89.2%★ / harness 4.4% / 0x17 2.2% / script_end 1.0% /
+  ★未対応 gate は 1 種 1 件 × 39 = 2.5% ⇒ ★終わり方の主因ではない★★
+- ★★登録していなかった条件 = `Root`（既定 `NpcSection`）★★ ⇒ ★到達枠の数は全て『Root = NpcSection の上』★
+  ★1 回目の A/B は no-op（`PlaySection` 第 3 引数が上書き）= ★数が bit 同一ゆえ気づいた★★ / 配線後 fxTotal 7,510 → 103,553
+- ★★user に見せられる差 = ★5 件 → 28 launch★★★（page digest 比較・文字 48,369 → 43,920）
+- ★予測は ★4 つ外した★（P1 / P3 / Q2 ほか）⇒ ★3 つ外した時点で推論をやめ page を直接数えた★
+- ★#341 = ★a1 = 2 は無条件・回避不能（worker2）★ ⇒ ★私の case 0x27 は原盤の形と一致・不一致が出ても (ii) では説明できない★
+- ★#343 の訂正（map 表は 0..199）★ = ★私の doc には『表の外』を 1 件も書いていませんでした（grep 0 件）★
+- ★file★ = `workspace/w3_remake/TERM_BREAKDOWN.md` / `PREREG_term_breakdown.md`（着手前 = c400e761）/ 結果 = b1b31f7a
+
 ## ★★② 開いたまま（★私の座ではないもの★）★★
 
 - ★★実装の再開 = PRESIDENT の裁定待ち★★（★どちらの枠・どの軸で決めるか★ / 私の推奨 = ★到達枠 × 広さの軸 ⇒ 第 1 は 0x27★）
