@@ -70,6 +70,12 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★#401 ③④ = ★section 番号体系の 突合 ＋ 入口の 経路★★★（結果 P2_SEC5_ENTRY_worker2.md・★観測より 前★）
+     ⇒ ★★③ = ★section id は ★file 由来（body+2 / stride 4 / sid=u16・off=u16）★★★ ⇒ ★同じ 表を 読むなら 同じ 体系★
+        ⇒ ★★一意性★★ = ★flag 1 を 立てる 0x1C は entry 109 に ★1 件（pc 0x021E・sec 5 の 直線上）★★ ⇒ ★★『§5 = sec 5』と 見てよい★★
+     ⇒ ★★④ = ★0x17 の 全数 137 件 / 38 種★★★（逐語 = 2 半語 → loader 0x800F0988 → section 表 0x800F0A4C → PC）
+        ⇒ ★★★entry 109 を 指す 0x17 = ★0 件★★★★ ⇒ ★★∴ 入口は ★DG.SCN の 外（map / event が loader を 直呼び）★★★
+        ⇒ ★★但し ★到達枠の 中の 0★★（生 byte は 数えて いません）
    ★★#399 ③ = ★分岐に 依らず 走る 0x1C は 在るか★★★（結果 P2_E109_UNCOND_worker2.md・★観測より 前★）
      ⇒ ★★8 / 10 が ★section の 頭から 分岐なしで 到達★★★ = ★sec 6-12 が 各 1 件（flag 280×5 / 291×2）★ ＋ ★sec 5 → 0x021E（★flag 1★）★
      ⇒ ★★分岐の 下 = 2 件（0x0548 = 250 / 0x05C6 = 174）★★
