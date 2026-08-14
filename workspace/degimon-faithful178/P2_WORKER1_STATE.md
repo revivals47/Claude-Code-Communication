@@ -603,6 +603,26 @@
 
 ★★洗った範囲★★ = ★16 site と enclosing 4 関数の jal 全数★ / ★洗っていない = 0x800BA20C・0x800BA9EC の中身 / +0x2BE・+0x2C0 の読み手が出力に届くか / pointer を +0xE ずつ進める形★
 
+
+---
+
+## ★★#338（2026-08-14）② entry index と map id の対応★★
+
+★★判定 = ★④ 対応は EXE 内に無く script（DG.SCN）側に在る★★★
+・★map 名表 ★0x8013541C★ = ★16 byte record★（名前 8 + field）/ ★索引は ★[gp-0x6d90]（byte）★★（0x800AF2A8 lbu → sll 4 → 表）/ ★0x800B8BC4 sltiu 0x73 = map id < 115★
+・★22 site が表を引き、読む offset は +0xA(3)/+0xB(3)/+0xC(5)/+0xD(2)/+0xE(1)/+0xF(6)★ ⇒ ★★どれも script entry index には見えない★★（+0xE は MAYO 群 0〜4 / TROP 群 5〜6 = 地域の束ね）
+・★entry id [gp-0x6cd4] の store = ★2 件★★ = ★0x800F00C0（0xFFFF 初期化）★ と ★0x800F09D0（loader が a0 をそのまま書く）★ ⇒ ★★entry は呼び元の operand 由来★★
+・★★∴『entry index == map id』は成り立たない★★ / ★対応が在るとすれば script の operand★
+
+★★⚠ 私の doc の記述を 1 つ直した★★
+・★#44 の『0x800DF7D0（gp-0x6ca6）= .map loader』は不正確★ ⇒ ★[gp-0x6ca6] は ★gp store 0 件 / load 23 件★・絶対 store も窓 512 で 0 件★ ⇒ ★★名表を引く cell は [gp-0x6d90]★★
+
+★★限定★★ = ★★image 全域で『entry → map』の表を網羅的に探してはいない★★（探したのは名表の 6 field と entry cell の書き手まで）
+
+★★④(a) 予測の当否★★ = ★判定 ② ⇒ ④ = ★外れ★★ / ★n [3〜8] ⇒ 0 = ★外れ★★
+・★★∴ n を外した原因 = ★[gp-0x6ca6] を map id と思い込んでいた★★★ = ★doc の不正確な語をそのまま使った = ★3 分類の『枠』★★
+・★出所 = v3-466 / 事前登録 = v3-465（50e62222）/ 測定 = c49b37cd★
+
 ---
 
 ## ★★不変（全便で保持）★★
