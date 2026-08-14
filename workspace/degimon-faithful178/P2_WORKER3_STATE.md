@@ -108,6 +108,15 @@
 - ★話者 mode（0x1B/0x10/0x26 → cell、0x1A が読む）を実装（gate 既定 OFF）★ = ★remake は原盤が話者行を出さない場面で speaker 0 を描いていた（2 launch で実証）★
 - ★file★ = `LIVE_F_JUDGE.md` / `USERCHECK_SHEET.md` / `WHERE_TO_SEE.md` / `SPKMODE_RESULT.md` / `init_states.jsonl`
 
+## ★★①-g user 照合の手順（#376〜#381）★★
+
+- ★手順は ★2 版に分離★ = `p2w3:workspace/w3_remake/PROCEDURE_2VERSIONS.md`（★本線版 / 退路版★・分岐を混ぜない）
+- ★★『着いたらまだ話しかけない』は独立した 1 行★★ = ★1 回の観測に 4 つ載る（案の判定 / cell 同定 / 干渉の実測 / 道中 flag）ゆえ順序を落とすと 4 つ同時に落ちる★
+- ★slot は ★slot 2 に上書き★ と具体で書く（★空き slot は存在しない★ / ★slot 8 は唯一の復帰点ゆえ触らない★）
+- ★現在 map の oracle = ★-0x6ca6★（GameState L666 の逐語・maps.json と 255/255 一致）/ ★-0x6d90 は StoryState で今は偶然同値★
+- ★干渉計算は ★門ではなく予測★（門を閉じたのは退避手順 = 構造）★ / ★事前登録 = `PREREG_interference.md`（fa3f82ab・観測前）★
+- ★entry → map = ★remake data 37 file 全数で 0 件★・★worker1 の逐語（operand は entry id で map id でない）と両側一致 ⇒ 1 本目は死んだ★
+
 ## ★★② 開いたまま（★私の座ではないもの★）★★
 
 - ★★実装の再開 = PRESIDENT の裁定待ち★★（★どちらの枠・どの軸で決めるか★ / 私の推奨 = ★到達枠 × 広さの軸 ⇒ 第 1 は 0x27★）
