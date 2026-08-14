@@ -27,6 +27,7 @@
 | ★remake 側の逐語★ | ★path = p2w1/unity/Assets/Scripts/Dialogue/DialogueRuntime.cs★ / ★sha256[:16] = ★30fdeee499171f93★★ / ★★2,356 行★★ / ★L152 `byte[] _body;`（宣言 ★1 本★）★ / ★L454・L2287 `_body = entry.Raw;`（★差し替えるだけ★）★<br>★（共有 tree は ★2,088 行 / fadf6a522b826e2f★ で ★行番号が違います★ ⇒ ★結論『1 slot』は 3 者一致★） |
 | ★★実害の有無★★ | ★★null★★ |
 | ★null の判定路★ | ★★Q9 = 『原盤で ★slot B を指す値を保持したまま 別 entry を load する経路★ が実在するか』★★（= ★stale pointer★）⇒ ★★これが唯一の判定路★★ |
+| ★Q9 の進捗（2026-08-14 / v3-402）★ | ★★slot B を指す word = ★7 件★★（RAM 全 524,288 word 走査・decoder 非依存 / slot B = [0x80161784, 0x80163784) = 0x2000）<br>★うち ★0x8016418C / 0x80164190★ = ★0x10 handler が 0x800F413C / 0x800F41B8 で ★sw PC★ した固定 global★ ⇒ ★★別 entry を load すれば stale★★<br>★★但し『load が挟まる経路』は未提示 ⇒ ★実害は null のまま★★<br>★残り 1 手 = ★pending = 0x10 の間に loader を呼ぶ handler(0x13/0x14/0x16/0x17/0x18)が走り得るか = VM driver の gating★★ |
 | ★測定時点★ | ★2026-08-14 / p2w1 HEAD = c3784ad5★ |
 | ★出所★ | ★worker1 v3-398（#298）★ |
 
