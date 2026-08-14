@@ -142,6 +142,21 @@
 - ★★残る穴（私の器）★★ = ★★section を跨いだ実行を持っていない★★ ⇒ ★§6-12 が続けて走れば 280・291 も立つ = ★観測でしか判らない★★
 - ★file★ = `W2_FLAG_XCHECK.md` / `CAND15_TABLE.md` / `PROCEDURE_2VERSIONS.md`
 
+## ★★①-j 索引の訂正と目的地の確定（#403〜#406）★★
+
+- ★★目的地は ★MIST03（cell 117）★ に訂正★★（旧 = MIST04）/ ★45/60 は ★OGRE02（47）★★（旧 = OGRE03）
+  ★根拠★ = ★live の 2 cell（scenario 147 / map 179）を ★同時に★ 満たす MAPHEAD record は ★180 ただ 1 つ★★
+  ⇒ ★★map cell が持つのは ★record 番号 − 1（= op2）★★★ ⇒ ★名前表は ★cell 値で引く★★
+  ★★∴ 索引の決着は ★worker1 の逐語が主★・私の live 2 cell 拘束が 2 本目・★user 観測（街 A / 街 B）は弱い（接頭辞しか見ていない）★★
+- ★★『N / N 一致』の型★★ = ★★同じ出典から引いた 2 集合の一致は ★出典の誤りを検出できない★★★
+  ★同型（弱い）★ = ★私の 203/203★・★maps.json の 255/255（A も B も同じ表）★ / ★別型（強い）★ = SKILL_PARAM 64/64・SKILL_NAMES 105/105（★base をずらして落ちた★）
+  ⇒ ★以後『N / N』には ★起点をずらして落ちるか★ を添える★
+- ★★§5 の定義（確定・両側閉じた）★★ = ★`GetSectionTable(109)` の ★sid = 5★ を `PlaySection(109, 5, NpcSection)` で起動した 1 launch / ★起動 PC = off 0x0202★★
+  ⇒ ★worker2 の pc 0x021E（flag 1 の 0x1C）と ★同じ場所★★
+- ★master table 255/255★ = ★★検算を再現できません★★（主張は design draft L22 の 1 行・★対象 json は全 tree maxdepth 6 で 0 件★）
+- ★109/5 の 10 枚は収録済★（`URGENT_INDEX_FIX.md` §6）/ ★★user には 1 枚目のみ = 盲検を user 側にも掛ける（PRESIDENT 指示）★★
+- ★file★ = `URGENT_INDEX_FIX.md` / `SEC5_DEF_AND_MASTER.md` / `W2_FLAG_XCHECK.md` / `CAND15_TABLE.md`
+
 ## ★★② 開いたまま（★私の座ではないもの★）★★
 
 - ★★実装の再開 = PRESIDENT の裁定待ち★★（★どちらの枠・どの軸で決めるか★ / 私の推奨 = ★到達枠 × 広さの軸 ⇒ 第 1 は 0x27★）
