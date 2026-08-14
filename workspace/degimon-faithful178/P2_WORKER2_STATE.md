@@ -70,6 +70,12 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★#333 §3 = ★0x80144AF0 + 4*idx★★★（事前登録 着手前 / 結果 P2_44AF0_worker2.md）
+     ⇒ ★★書き 3 件 / 2 関数★★ = ★0x800BA5C4（sw $a0）・0x800BA898（sw $zero）= 0x800BA4D0★ / ★0x800B87B8（sw $zero）= ★0x800B83BC★★
+     ⇒ ★★読み 1 件★★ = ★0x800BA504 lw → ★800BA50C bnez で 別枝★★（= #332 の 分岐）/ ★(α) 16〜1024 で 不変★
+     ⇒ ★★★③ は frame で 変わります★★★ = ★call 辺だけなら ★0x800B83BC ← opcode 0xFB（1 個）★ / ★0x800BA4D0 ← ★0 個★★
+        ⇒ ★★∴ ★0x71 と 0x800BA4D0 は ★memory 辺（slot 0x80163F60）で 繋がり call 辺では 繋がって いません★★★（★私の 語は 元から『書いた cell が 寄与』★）
+     ⇒ ★事前登録（書き手 0 本 = 不利側）は ★外れ★★ ⇒ ★★4 便 連続で 不利側に 賭けて 外れ = ★線が 伸び続けて います★★
    ★★#332 §3 = ★(a) idx の 出所 / (b) 2 表の 初期値★★★（事前登録 着手前 / 結果 P2_IDX_INIT_worker2.md）
      ⇒ ★★(a) ★800EFC64 move $s2,$a0★ = hub の 第 1 引数★★ ⇒ ★2 表の idx = ★slot 番号 − 0xC★★ / ★hub の 呼び元は ★0x800EC3D8 の 1 件★★
         ⇒ ★★同じ 走査で 追加 2 件★★ = ★record 添字 = ★+1（0x71 が 書く cell）★★ / ★record stride = ★0x22（自前 逐語・worker1 の 中継と 同値）★★
