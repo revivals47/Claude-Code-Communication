@@ -70,6 +70,12 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★#395 ② = ★entry 109 に flag を 立てる opcode が 在るか★★★（結果 P2_E109_FLAGS_worker2.md・★観測より 前★）
+     ⇒ ★★在ります = ★0x1C が 10 件（到達枠）★★★ / ★0x28・0x2C・0x64 は ★整列 0 件★★（生 byte は 1 / 6 / 3）
+     ⇒ ★★flag index = ★{1, 174, 250, 280, 291}★（280×5 / 291×2 / 他 1 回ずつ）★★
+        ⇒ ★逐語 = handler 0x800EC7DC → 0x800F0E6C（PC+=1）→ lhu → ★0x800F0F1C（= 立てる 関数）★★
+     ⇒ ★entry 109 span = 0x049000..0x049800（2,048 byte）★ / ★最終 span 終端 = 0xA9000 = file size ⇒ ★worker1 と 独立に 一致★★
+     ⇒ ★★★予測を v3 に 更新（旧 v1 / v2 は 保持）★★★ = ★★『②→③ で ★1 個 以上 増える★（上限 5）』★★（★worker3 の {1} は 私の 5 個に 含まれます★）
    ★★#392 ③④ = ★★★flag accessor を 見つけました★★★★（結果 P2_FLAGACCESSOR_worker2.md・★観測より 前★）
      ⇒ ★★0x800F191C = ★bank + (i>>3) + 0xF5 の address★ と ★mask = 1<<(i&7)（★sll 1 の loop で 作る★）★ を 返す★★
      ⇒ ★★∴ ★PRESIDENT の 読取器と ★幾何が 完全に 一致★ = ★address と 粒度は EXE で 裏が 取れました★★★（★意味（event flag か）は 中継の まま★）
