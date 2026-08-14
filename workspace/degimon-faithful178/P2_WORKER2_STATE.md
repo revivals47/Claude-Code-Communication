@@ -70,6 +70,11 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★#388 ④ = ★800 bit / 236 個 / 最大 640 と 整合する 配列（2 仮説）★★★（結果 P2_ARRAYSHAPE_worker2.md）
+     ⇒ ★★仮説 A（bit 配列 100 byte）= accessor ★0 件★★★（★緩めても ★sllv と andi 7 が 同居する 関数 0 本★★）
+     ⇒ ★★仮説 B（nibble 配列 400 byte）= ★2 件 / 同一 base（bank + (n>>1) + 0xD4）★★★ = ★0x800F12B4（読）/ 0x800F1330（書）★
+     ⇒ ★★∴ ★B なら 候補は 1 つに 絞れる★ / ★A なら 候補集合は 空 = 『まだ 見つかって いない』が 正しい★★★
+     ⇒ ★★∴ ★どちらでも 予測『0 個』は 据え置き★★ / ★『同じ もの』とは 仮定して いません★
    ★★#385 ③ = ★flag を 立てる 命令（pointer 経由の 穴）★★★（結果 P2_FLAGSET_worker2.md・★観測より 前★）
      ⇒ ★★eventBankPtr = `[gp-0x6cec]`★★（★0x800F0040-44 で 0x80163784 を 設定★ = ★#331 の『var bank』と 同じ cell★）
      ⇒ ★load site = ★16 件 / 14 関数★（＋store 1 = 計 17 で #310 と 一致）★ / ★解決 0 件 = 4 site（未取得）★
