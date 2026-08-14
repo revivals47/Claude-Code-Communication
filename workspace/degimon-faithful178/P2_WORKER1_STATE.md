@@ -11,7 +11,7 @@
 | ★1★ | ★本 file（P2_WORKER1_STATE.md）★ | ★現在地・閉じたもの・未実施・自己申告★ |
 | ★2★ | ★P2_EXCESS_LEDGER_worker1.md★ | ★過剰（remake が原盤より広い差）★ = ★実害 3 値つき★ |
 | ★3★ | ★P2_AGREEMENT_LEDGER.md ⑯★ | ★予測（事前登録済・sha つき）と 説明（事後）の 2 欄★ |
-| ★4★ | ★P2_LEN_EXE_worker1.tsv★ | ★band 100 語の Len 表（data / git hash-object = fb8086670e419e78462f449cf880cc2ef7e21e9d）★ |
+| ★4★ | ★P2_LEN_EXE_worker1.tsv★ | ★Len 表（data / ★2026-08-15 更新: 101 行・帯 6 本 105 語★ / git hash-object = 5f18d9094ab6b66ca25c47b4f8fa38ff60a9d540 / 旧 = fb8086670e419e78462f449cf880cc2ef7e21e9d）★ |
 | ★5★ | ★degimon_world_remake-p2w1/workspace/degimon-faithful178/P2_DIFF_HARNESS_DESIGN_worker1.md★ | ★本体（v3-xxx の逐語・全部の測定）★ |
 
 ★引用 5 点（全項共通）★ = ★path = extracted/slps_017_97.bin（BASE 0x80090800 / ★177,664 語★）★ / ★RAM = SLPS3_atrest_ram.bin（sha256[:16] = ★7fa603a8fb515bbb★ / 2,097,152 byte / 0x80000000 起点）★ / ★SCN = DG.SCN（sha256[:16] = ★4d776b2c99755328★・読取のみ）★ / ★算法 = 1 語ずつ capstone disasm(count=1) / raw word decode(capstone 非依存) / byte 直読★ / ★p2w3 不参照★
@@ -22,7 +22,7 @@
 
 | # | 機構 | 節 |
 |---|---|---|
-| ★1★ | ★band = 5 帯 / 100 語★（表 0x8011B0F8 / B1A0 / B200 / B24C / B3A0） | v3-322/377 |
+| ★1★ | ★★band = 6 帯 / 105 語★★（0x8011B0F8 / B1A0 / B200 / B24C / B3A0 ＋ ★[0xFB,0x100) は 表なし・dispatch 0x800F07B8 → handler 0x800EC404★）／★帯の外 151 値は 停止路 0x800F08A4 = opcode でない★ | v3-322/377 ＋ ★v3-524 で 訂正★ |
 | ★2★ | ★Len 表 = ★固定 97 が全部一意 / 可変長 3（0x10・0x19・0x1A）★★（data 化済） | v3-377 |
 | ★3★ | ★Len[0x19] = 1 + 1(handler 0x800EC714) + Σ項長 + 2★ / ★終端 = cond byte 0x19（BIOS A(0x14) longjmp）★ / ★抜け口は 2 つだけ★ | v3-364 |
 | ★4★ | ★0x19 の項長・operand・getter・比較器（cond&7 の 6 種・全部 unsigned / op6・7 は arm 無し）★ | v3-357/370/371/385 |
