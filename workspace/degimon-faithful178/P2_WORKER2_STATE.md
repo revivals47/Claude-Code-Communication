@@ -70,6 +70,13 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★#380 / #382 = ★live 観測の 突合器（観測より 前に 作る）★★★（事前登録 P2_LIVEDIFF_PREREG_worker2.md / 器 p2w2 `cbcd951e`）
+     ⇒ ★★器の 検定 = ★陰性（control 3 組 × 4 単位 = 全部 差 0）★ ＋ ★陽性（3 単位を 別々に 壊して それぞれ 発火・cross-talk なし）★★★
+     ⇒ ★★単位は 畳みません★★ = ★(1) flag 集合 / (2) FLAGS_HEX bit / (3) VARS_HEX byte / ★(4) header（gp / scenario / story / eventBankPtr）★★
+     ⇒ ★★私の 独立予測（worker3 の fa3f82ab は ★未読★）★★ = ★★②→③ の flag 集合差 = ★0 個★★★（★不利側★ / 根拠 = ★flag bank を 絶対 address で 触る 命令が 私の 走査で 0 件★）
+     ⇒ ★★①→② の 受け皿を 用意（数だけ 出す）★★
+     ⇒ ★★#380 ③ = ★既定値の 全列挙★★★（P2_DEFAULTS_worker2.md）= ★母数 44（宣言型）/ ★一度も 振って いない 12 項★ / ★今回の 観測に 効き得る = 0 項★★
+        ⇒ ★★但し 数値 literal 570 個 ⇒ ★44 は 下界（飽和せず）★★★
    ★★#337 §2 = ★0x1A / 0x1B / 0x26 の 経路★★★（事前登録 着手前 / 結果 P2_LAST3PATH_worker2.md）
      ⇒ ★★★訂正 = #336 の『残る 3 本は 値 > 0 の 節点に 掛からない』は ★誤り★★★★ = ★0x1A / 0x1B は ★0x800FED94（値 2）が 必要条件★★
         ⇒ ★原因 = ★『覆えた』と『掛からない』を 混ぜました★★（別の 量）
