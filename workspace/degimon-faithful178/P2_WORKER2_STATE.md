@@ -70,6 +70,13 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★#407 ③(a) = ★入口の EXE 側 経路（sink 6 件の 出所 1 段）★★★（結果 P2_ENTRYPATH_worker2.md・★観測より 前★）
+     ⇒ ★6 件 とも ★lhu [gp-0x6cd6]（scenario）★ = ★worker1 と 一致★★ / ★包含関数 = 0x800EF39C ×2 / 0x800AE3DC ×3 / 0x800BBEA8 ×1★
+     ⇒ ★★loader 0x800F0988 を 呼ぶのは ★0x800EF39C の 2 site だけ★★★（他 2 関数は ★呼びません★）
+     ⇒ ★★逐語 = ★entry = scenario★ / ★section = 0xFE(254) 既定★ または ★呼び手の byte（0x27(sp)）★★★
+        ⇒ ★entry 109 の 表に ★254 → 0x0038★ が 実在★ / ★0x800EF39C の 呼び元 = 0x800EC438 = ★opcode 0xFE / 0xFF★★
+     ⇒ ★★∴ ★entry は ★命令の id★ では なく ★状態変数 scenario★ で 決まる★★★（#401 の 0 件と 整合）
+     ⇒ ★#407 ④ 自己点検 = ★私の doc に map 名の 引用は 0 件 ⇒ 索引ずれの 影響なし★★
    ★★#401 ③④ = ★section 番号体系の 突合 ＋ 入口の 経路★★★（結果 P2_SEC5_ENTRY_worker2.md・★観測より 前★）
      ⇒ ★★③ = ★section id は ★file 由来（body+2 / stride 4 / sid=u16・off=u16）★★★ ⇒ ★同じ 表を 読むなら 同じ 体系★
         ⇒ ★★一意性★★ = ★flag 1 を 立てる 0x1C は entry 109 に ★1 件（pc 0x021E・sec 5 の 直線上）★★ ⇒ ★★『§5 = sec 5』と 見てよい★★
