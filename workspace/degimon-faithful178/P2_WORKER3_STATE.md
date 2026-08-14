@@ -97,6 +97,17 @@
 - ★#343 の訂正（map 表は 0..199）★ = ★私の doc には『表の外』を 1 件も書いていませんでした（grep 0 件）★
 - ★file★ = `workspace/w3_remake/TERM_BREAKDOWN.md` / `PREREG_term_breakdown.md`（着手前 = c400e761）/ 結果 = b1b31f7a
 
+## ★★①-f user 照合の準備（#336〜#375）★★
+
+- ★live F = ★236 flag★（`LIVE_FLAGS_2026-08-14.txt`）= ★v5b と bit 単位で完全一致（236/236・差 0）★ ⇒ ★v5 の全 capture はこの状態の上★
+- ★この F での差 = ★15 launch★（fresh 全 0 では 28）/ page 減 67 / 文字減 1,430 / ★増加 0★
+- ★案 3 本 = ★109/5（10→1 = 二値で決着・第 1）★ / 192/6（13→4）/ 45/60（9→4 ＋ warp・★但し独立な証拠ではない★）★
+- ★素材 = `USERCHECK_SHEET.md`（消える台詞まで列挙）★ / ★★空欄 = 『どこで見るか』★★
+- ★★entry → map は未決着★★ = ★live の 1 例（entry 147 / map 179）が ★entry index == map id を反証★★
+  ⇒ ★hop の推定は ★対照（entry 147 に当てると 20 hop と答えるが実際は 0）★ により ★情報を持たない★★
+- ★話者 mode（0x1B/0x10/0x26 → cell、0x1A が読む）を実装（gate 既定 OFF）★ = ★remake は原盤が話者行を出さない場面で speaker 0 を描いていた（2 launch で実証）★
+- ★file★ = `LIVE_F_JUDGE.md` / `USERCHECK_SHEET.md` / `WHERE_TO_SEE.md` / `SPKMODE_RESULT.md` / `init_states.jsonl`
+
 ## ★★② 開いたまま（★私の座ではないもの★）★★
 
 - ★★実装の再開 = PRESIDENT の裁定待ち★★（★どちらの枠・どの軸で決めるか★ / 私の推奨 = ★到達枠 × 広さの軸 ⇒ 第 1 は 0x27★）
