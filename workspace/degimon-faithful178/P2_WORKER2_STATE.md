@@ -70,6 +70,12 @@
    ★★触る cell = `0x801640BC + 0x34×operand + 0x10` の 1 byte★★ = ★★私の 捕獲器の `win[operand]` と 同一★★
      ⇒ ★処理 = ★下位 4bit が 非 0 なら 下位 4bit を 0 に する★（0x800F32F4）
    ★★退出 = `jr ra` では なく ★A-table 0x14 で 抜ける★★★ ⇒ ★(o) = 0x800ECAAC の epilogue は ★副 router の frame★ / arm は 0x800ECA60..0x800ECA88★
+   ★★#409 ③④ = ★台帳 1 行の A 側 ＋ 観測の 事前登録★★★（結果 P2_ACTIVATE255_worker2.md）
+     ⇒ ★★ACTIVATE = opcode 0xFB★★（台帳 L11 の 逐語 / handler 0x800EC448 は 私も #308 で 確認）
+     ⇒ ★★entry 0 の 0xFB = ★到達枠 255 件（台帳と 差 0）★ / 生 byte 267★★ / ★★到達枠で ちょうど 255 の opcode は 0xFB のみ★★
+     ⇒ ★★起点 感度 = +0:255 / +1:75 / +2:88 / −1:164 / −2:4★★ ⇒ ★★∴ ★同型（弱い 一致）では ありません★★
+     ⇒ ★★∴ 行の 正しい 姿 = ★A は 真・★double-verified は 誤り（B の json は 不在＝中継）★★★
+     ⇒ ★★④ 事前登録（1 行）= ★到着 shot の scenario = 109★★★（★有利側の 予測と 明示 / 外れ時の 説明 2 つを 先に★）
    ★★#407 ③(a) = ★入口の EXE 側 経路（sink 6 件の 出所 1 段）★★★（結果 P2_ENTRYPATH_worker2.md・★観測より 前★）
      ⇒ ★6 件 とも ★lhu [gp-0x6cd6]（scenario）★ = ★worker1 と 一致★★ / ★包含関数 = 0x800EF39C ×2 / 0x800AE3DC ×3 / 0x800BBEA8 ×1★
      ⇒ ★★loader 0x800F0988 を 呼ぶのは ★0x800EF39C の 2 site だけ★★★（他 2 関数は ★呼びません★）
