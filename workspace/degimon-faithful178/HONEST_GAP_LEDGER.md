@@ -215,3 +215,30 @@ remake に名前入力 UI は ★在る★(★自前 IMGUI★・確定は ★Ret
 言えるのは ★code の形★ だけ = ★L96 `BindCareForm` → `DataRegistry.LoadJson` → **未 provision なら `throw new FileNotFoundException`**★
 ＋ ★例外が出れば L106 の `ChangeState` に到達しない★。
 ★**実際に出たかは player log を見る人しか言えない**★(worker3 は live を撮れない)。
+
+## 2026-08-15 追加(9) — ★★真因が出ました = 候補 A も B も外れ★★(log 直読)
+**出所**: PRESIDENT #383 / 器 = 実行時に捕った出力 `run_item22b.log`(14:55 = ★user が見た回★) / `run_c.log`(14:58)
+
+```
+FileNotFoundException: [MapLoader] map JSON not found: .../StreamingAssets/★maps/twna01/twna01.json★
+```
+⇒ ∴ ★14:55 の build には**地図 JSON が入っていなかった**★。14:58 では ★`[MapLoader] loaded 'TWNA01'`★ = 解消済。
+
+### ★user の 2 つの訴えは「1 つの欠陥」だった★
+log は**両方の回**で ★`[NAMEINPUT] confirmed name='ken' … → Field`★ を出している ⇒ ★**confirm は動いていた**★。
+⇒ ∴ ★「confirm で進まない」の正体 = **state は進んだが地図が無く真っ暗**★ = ★「セリフだけ真っ暗」と**同一事象**★。
+⇒ ∴ ★**user は見えたものを正確に述べており、2 件に見えたのは我々の側の誤読**★。
+
+### ★候補の顛末(両方 否定)★
+| 候補 | 内容 | 判定 |
+|---|---|---|
+| A | `species_care_params` 不足 → L96 で throw | ★**否定**★(当該 build の data は ★36 = 完全★) |
+| B | `textures 9/191` → 真っ暗 | ★**真因ではない**★(不足は事実だが原因は地図 JSON) |
+
+### ★今も残っている実欠陥(14:34 build の実測)★
+★textures **9/191**★ / ★models **0/19**★ / ★maps **485/521**★
+⇒ ★黒画面の原因ではなかったが、不足であることは事実★。★新 build には入る(供給元 tree は 191/19/521 に修正済)★。
+
+### ★★guard の価値が上がった★★
+今回の真因は ★**地図 JSON 1 本の不在**★ ⇒ ★旧基準「dir が空でない」では**通る**★。
+⇒ ∴ ★worker3 の新 guard(★1 file 欠で落ちる★)は**まさにこの事故を止めるもの**★。
