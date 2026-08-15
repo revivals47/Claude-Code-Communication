@@ -55,6 +55,36 @@ gp        = 0x80144E0C   ← 3 系統収束値(★中継。boss1 が本便で測
 
 ★**P-D を予測集合に必ず残す**★ — 3 択の全否定は失敗ではなく前進。
 
+> ### ★後追記(13:4x) — ★実験を差し替える★(より鋭い形が出た)★
+> worker3 の実測(remake 側、静的全数): 原盤の `0xFB` は ★**site 255 件・全部 entry 0(MAPHEAD)・op1 = 0..254 の 255 種で重複なし**★
+> ⇒ ∴ ★**`0xFB` は各 region の header にちょうど 1 つ**★(`168..179` = 12 件 / `180` = 1 件 / `204` = 1 件)。
+>
+> ⇒ ∴ ★**`0x800DFAFC`(A) が trap するのは「region に入った」という事実だけ**★ — ★**誰がその region を選んだかは分からない**★。
+> ∴ §4 の P-A/P-B を分ける実験としては**鈍い**。鎖はこう繋がる:
+>
+> ```
+> 誰かが section 1245 を走らせる → 0x4B <168> = warp 先 → region 168 へ移動
+>   → region 168 の header の 0xFB 168 → 0x800DFAFC が cell に 168 を書く
+> ```
+> (∴ 「1245 は cell を書かない」は正しいが、★**1245 は経路上にいる**★ — 1 段手前で warp 先を決める。)
+>
+> ### ★差し替え後の実験(推奨)★
+> ★**`0x800CD39C` に breakpoint**★ — ここは ★**section 1245 を呼ぶ唯一の site**★(EXE 全走査)。
+>
+> ```
+> gdb -batch \
+>   -ex 'target remote 127.0.0.1:2345' \
+>   -ex 'break *0x800CD39C' \
+>   -ex 'watch *(char*)0x8013E07C' \
+>   -ex 'continue' -ex 'info registers pc' -ex 'backtrace'
+> ```
+>
+> | 観測 | 読み |
+> |---|---|
+> | 加入直後に `0x800CD39C` が **hit する** | ★menu 経路が通常 play で走っている★ ⇒ 実装対象 = ★menu index → handler 表 → 1245★ |
+> | **hit しない**が cell は 168 に変わる | ★1245 は通常 play では走らない★ ⇒ warp 先を決めているのは**別**(次の標的が変わる) |
+> | どちらも起きない | ④ 判らない(そもそも live で街が変わる場面を踏めていない) |
+
 ## 5. 手順(★user session が要る。環境境界は `WATCHPOINT_gdb_procedure.md` に既出★)
 
 1. `settings.ini` の `[Debug] EnableGDBServer = true`(port 2345)、DuckStation 再起動。
