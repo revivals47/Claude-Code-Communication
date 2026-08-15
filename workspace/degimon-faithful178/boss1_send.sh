@@ -34,6 +34,15 @@ TARGET=$1
 BODY=$2
 [ -f "$BODY" ] || { echo "★本文 file が見つかりません: $BODY★" >&2; exit 66; }
 
+# ★★重要(2026-08-15 16:4x 実測)★★:
+#   agent-send.sh は ★log を **相対 path** で開く★。
+#   ⇒ cwd が repo 直下でないまま呼ぶと ★workspace/degimon-faithful178/logs/send_log.txt
+#     (2026-07-19 の古い同名 file)に書かれる★。★送信自体は成功する★ので気づけない。
+#   ⇒ ∴ 検証の grep は本物の log を見ているのに、書き込みは別 file に行き
+#     ★「送れているのに送れていない」と判定する★(実際に踏んだ)。
+#   ⇒ ∴ ★必ず repo 直下に cd してから呼ぶ★。
+cd "$ROOT" || { echo "★repo 直下に cd できません: $ROOT★" >&2; exit 66; }
+
 BEFORE=$(grep -c "SENT" "$LOG" 2>/dev/null || echo 0)
 
 if [ -x "$SEND_FILE" ]; then
