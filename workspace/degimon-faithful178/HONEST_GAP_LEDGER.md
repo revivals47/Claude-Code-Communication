@@ -17,6 +17,20 @@ honest透明化の単一source。進捗の過大表示を防ぐため、6次元�
 | ⑤ scale | ★native-uniform interim(faithful93%)★ | (A)/(B)判別: visible body0.574/total0.622 vs faithful0.67、bbox0.52より近 | ★完全faithful=残~1.1x per-species factor。源=user-session watchpoint(scale適用site) or per-species原盤frame★ |
 | ⑥ placement(位置) | ★村3種=RAM authoritative★ / 全map=未 | 村=RAM位置baked-in(json bug非依存) | ★全map per-NPC配置=loader RE gated(entity array書込みPC未取得、user-session watchpoint待ち)★ |
 
+## ★★★⚠ 2026-08-15 22:2x — 「live が要る」と書いた項の洗い出し(boss1・PRESIDENT (2147))★★★
+★動機★: ★**「1 本しか出来ないのは実機が足りないからだと思っていたが、表を読んでいなかっただけ」**★
+⇒ ★**user の観測は有限資源**★ ⇒ ★「表に在ったもの」で使っていたら**二重の損**★ = ★(6-cp)「不可能 claim を先に洗う」の**user 手番版**★。
+
+| 項 | 「live が要る」と書いた理由 | ★2026-08-15 時点の再評価★ |
+|---|---|---|
+| ★`FreeRoamScenario` が 1 本だけ★ | ★keystone は live でしか取れない★ | ★★**解消**★★ — ★DG.SCN entry 0 の region 表(`0xFB` 第 1 operand)に **255 行全部**が書いてあった★ |
+| ★⑥ placement(全 map per-NPC 配置)★ | ★entity array 書込み PC 未取得 ⇒ **user-session watchpoint 待ち**★ | ⚠ ★**要再検討**★ — ★PRESIDENT が `P2_MAP_NPC_ROSTER_president.tsv`(**966 行・242 地図全数**・type / ai_type / script_id / **x / y / z**)を**地図 json から**抽出済★ / ★かつ地図 json は disc 原本と **byte 一致(3/3 PASS)**・elements の unpack も **60/60 一致**★ ⇒ ★**配置は原本から直接読める公算**★ |
+| ★⑤ scale(完全 faithful の per-species factor)★ | ★user-session watchpoint(scale 適用 site)★ | ★**据え置き**★(★描画時の係数 = 実行時の量★・★但し「原本に無い」ことは未確認★) |
+| ★`0x4B` 前後の `[gp-0x6d90]` / 名前入力中の `[gp-0x6caa]` / `110-119` の表(BSS)★ | ★実行時にしか値が無い★ | ★**据え置き**★(★BSS / 実行時 cell = 静的に無いことが逐語で立っている★) |
+
+⇒ ∴ ★**「live が要る」は 2 種類ある**★: ★① **本当に実行時にしか無い量**(BSS / 実行時 cell)★ / ★② **手元の表を読んでいなかっただけ**★
+⇒ ∴ ★**②は user の観測を 1 回消費する前に必ず潰す**★。
+
 ## gap源(user-session gated、自律不可)
 - ★(b) placement層 / (c) faithful scale★ = 両方 DuckStation write-watchpoint(entity array/scale適用site)で解消。
   - feasibility実測: GDB server実在するが headless :1で DuckStation emulation走行不能→port未listen→自律不可。★user が real display で DuckStation(EnableGDBServer=true)+game走行させれば、準備済gdb scriptで非対話trap可★。
