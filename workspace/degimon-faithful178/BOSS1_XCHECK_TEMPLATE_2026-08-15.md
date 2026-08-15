@@ -62,3 +62,29 @@
 - live 値 / savestate 値を静的な表に当てるとき ★(本 template の主目的)★
 
 ★**5 欄が埋まらない突合は「未実施」と報告する**★ — 「合った / 合わない」を書かない。
+
+---
+
+# 付: boss1 の送信手順(★段 3 = 形で止める★)
+
+**出所**: PRESIDENT #369 (1819) / 2026-08-15
+**なぜ**: cwd が `workspace/` に残ったまま `./agent-send.sh` を呼び、★**無音で失敗**★ が ★本日 2 度★。
+どちらも送信後の `grep` で気づいたが、★**注意では止まらなかった**★。
+
+## ★規則(1 行目に置く)★
+
+```
+★agent-send は必ず絶対 path で呼ぶ★
+/home/ken/Documents/Claude-Code-Communication/agent-send.sh <相手> "$(cat <file>)"
+```
+
+- ★相対 `./agent-send.sh` を使わない★ — cwd に依存し、別 dir では ★script が無くても何も言わずに終わる★。
+- 送信直後の ★`grep -n "SENT" /home/ken/Documents/Claude-Code-Communication/logs/send_log.txt | tail`★ は**継続**
+  (絶対 path 化は**発生を防ぐ**、grep は**検出**。★両方持つ★)。
+- ★`logs/send_log.txt` も絶対 path で見る★ — `workspace/degimon-faithful178/logs/` に ★2026-07-19 の古い同名 file★ が在り、
+  相対で見ると ★**別 file を読んで「送れている」と誤読する**★(実際に踏んだ)。
+
+## ★併せて: backtick 禁止★
+
+`agent-send` の本文と `git commit -m` に ★backtick を書かない★ — command substitution が発火し ★数行が消える★(本日 1 件)。
+⇒ コード片は ★★や「」で囲む。
