@@ -302,3 +302,18 @@ log は**両方の回**で ★`[NAMEINPUT] confirmed name='ken' … → Field`�
 
 ⇒ ∴ ★**この 2 行が基準**★(実装は `workspace/guard_baselines.md` に worker3 が併置)。★build のたびに件数が印字される★ので、★1 → 2 になれば気づける★。
 ⇒ ∴ ★落とすのは「減ったこと」と「一度も無いこと」、warn は「余っていること」★ — ★3 つで補い合う★。
+
+### ★★2026-08-15 18:54 追加 — ★models / atlas にも「宣言 → 実体」検査を広げる★(worker3 `15539a2e`・★設計と件数だけ・実装なし★)★★
+★動機★: ★14:55 の黒画面は ★地図 JSON 1 本の不在★ = snapshot 型 guard では原理的にすり抜ける型★
+⇒ ★**同じ型の穴が `maps` 以外(textures / models)に残っていた**★ ⇒ ★次の黒画面はそこから来る★。
+
+| 対象 | 宣言(= 権威) | 宣言 → 実体 | ★実体 → 宣言(warn の基準値)★ |
+|---|---|---|---|
+| ★models★ | ★`data/digimon_model_files.json` の `model_index_to_file[]` = **178 件**(png)★ | ★欠け **0 件**★ | ★**2 件**(`taka.png` / `weag.png`)★ |
+| ★atlas★ | ★`textures/etcdat/atlas_regions.json` の `atlases[]` = **3 件**★ | ★欠け **0 件**★ | ★**5 件**(`system_w_clut4 / 8 / 9 / 10 / 11.png`)★ |
+
+⚠ ★**実測で判った罠**★: ★「models の実体」は `models/` ではなく **`textures/digimon/`** に在る★
+⇒ ★宣言 file の名(`digimon_model_files`)と置き場(textures 側)が食い違う★ ⇒ ★設計に「どちらを見るか」を明記★。
+★設計★: ★① 宣言 → 実体 = **落とす**(178 ＋ 3 件)★ / ★② 実体 → 宣言 = **warn ＋ 基準値**(2 件 / 5 件)★ / ★③ 置き場は `textures/digimon/`★ / ★④ 実装は GO 後★。
+★限定(worker3 の自己申告)★: ★宣言 file は**彼が grep で選んだ 2 本**(他に在れば漏れる)★ / ★`models/boys.obj`・`boys.png` の**宣言元は未発見**(別群として残す)★ / ★数は **item22 の現状**★。
+⚠ ★**保留中の build には混ぜない**★ — ★guard も同じ build に載るため、boss1 が交絡回避を広めに取った判断★(PRESIDENT (2068) の拡張適用)。
