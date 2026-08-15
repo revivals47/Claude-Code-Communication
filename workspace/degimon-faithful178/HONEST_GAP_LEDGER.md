@@ -407,9 +407,9 @@ log は**両方の回**で ★`[NAMEINPUT] confirmed name='ken' … → Field`�
 
 | 帯 | 何をするか |
 |---|---|
-| ★`t == 120`★ | ★flag bit 8 ＋ `[gp-0x6cb0]==1` ⇒ `jal 0x800F0188(0, **section 1250**, 0)` = **script 起動**★ |
+| ★`t == 120`★ | ★flag bit 8 ＋ `[gp-0x6cb0]==1` ⇒ `jal 0x800F0188(0, **section 1250**, 0)` = **script 起動**★ ⚠ ★**remake には `120` の handler が 1 つも無い**★(`MapData.cs:214` が `triggerValue < 120` で明示的に外す・非 Editor 全 source で 120 の分岐 **0 件**)⇒ ★**2,293 マス / 24 地図が踏んでも何も起きない** = 忠実性 gap 候補★ |
 | ★`110 ≦ t < 120`★ | ★表引き `0x80142038 + (t-110)*2` ＋ `0x8014204C + (t-110)*2` ⇒ cell 4 本書込 ⇒ `0x800ACE24(5)` / `0x800E3940` / `0x800E9A40`★ = ★**直接 warp・gate 無し**★ |
-| ★`80 ≦ t < 110`(★81-86 はここ★)★ | ★`[gp-0x6b44]&0x20` ＋ `[gp-0x6cb0]==1` ⇒ ★`jal 0x800F0188(entry = **tile 値そのもの**, section = `[gp-0x6cd6]`, 0)`★★ |
+| ★`80 ≦ t < 110`(★81-86 はここ★)★ | ★`[gp-0x6b44]&0x20` ＋ `[gp-0x6cb0]==1` ⇒ ★`jal 0x800F0188(a0, a1, 0)`★★ ⇒ ★★**a1 = section id = tile 値そのもの** / **a0 = どの script file を積むか = `[gp-0x6cd6]`**★★ ⚠ ★初報は a0/a1 を取り違えていた(worker2 が自己訂正・`0x800F01A4 a0 → jal 0x800F0988(loader) → [gp-0x6ccc]` / `0x800F01B8 a1 → jal 0x800F0A4C(section 引き) → [gp-0x6cc8]`)★ |
 | ★`51 ≦ t < 80`★ | ★同じ呼び出し(★bit gate が 1 つ少ない★)★ |
 
 ⇒ ∴ ★**「trigger 規約が 110-119 だけではない」は原盤側で立った**★ = ★worker3 の (b) 読み(66 % = 118/179)は**正しい向き**★。
