@@ -194,3 +194,24 @@ overlay から ★**4 site(`0x80082B6C` / `0x80082E28` / `0x800830C8` / `0x80087
   ★送る前に code を読んで自分で潰した★ = (6-bl))。
 - ⇒ ∴ shader strip は ★既に設計で塞がれている★(commit `5e9ac2cf`「build shader fix」)。
   ★黒画面の候補は `textures 9/191` のまま★(第 3 候補は**増えなかった**)。
+
+## 2026-08-15 追加(8) — ★名前入力の忠実性 gap(3 件・remake 側実測)★
+**出所**: worker3 `24a9619d`(remake `Flow/NameInputState.cs` ほか、共有 tree 読取のみ)
+
+remake に名前入力 UI は ★在る★(★自前 IMGUI★・確定は ★Return / KeypadEnter / Confirm ボタン★)。
+`TryConfirm()` の順 = ★① 空なら return → ② `Session.SetPlayer` → ③ `GameState.NewGame()` →
+★④ `Data.BindCareForm(pt, 1)`(≒L96)★ → ⑤ `SeedNewGameCare()` → ⑥ log 2 本 → ★⑦ `Flow.ChangeState(new FieldState())`(≒L106)★
+
+| # | 原盤(overlay 側・worker2 逐語) | remake | 判定 |
+|---|---|---|---|
+| 1 | ★`SetFlag(49)`★ | ★**0 件**★(`SetFlag(` 全 13 件の引数は**変数のみ**、定数 49 の site 無し) | ★未実装★ |
+| 2 | ★`strcpy(名前表[0] = 0x8013A924, 入力 buffer)`★ | ★`GameSession.PlayerName`(C# string)に入れるだけ★・読み手は ★`FieldState.cs:121` の log 実質のみ★ | ★未実装(別物)★ |
+| 3 | ★段階 cell `[gp-0x6caa]` を読む 32 arm★ | ★**0 件**★(`6caa` の出現は `DialogueRuntime.cs:1347` の ★comment 1 件だけ★・書く code も無し) | ★未実装★ |
+
+⇒ ∴ ★**remake の名前入力は「自前 IMGUI で state 遷移だけ」= 原盤の overlay 機構とは別物**★。
+⇒ ∴ ★**候補 A(data 不足)で「confirm で進まない」が直っても、この 3 件の gap は残る**★。
+
+### ★原因は決めていない(worker3 の申告)★
+言えるのは ★code の形★ だけ = ★L96 `BindCareForm` → `DataRegistry.LoadJson` → **未 provision なら `throw new FileNotFoundException`**★
+＋ ★例外が出れば L106 の `ChangeState` に到達しない★。
+★**実際に出たかは player log を見る人しか言えない**★(worker3 は live を撮れない)。
