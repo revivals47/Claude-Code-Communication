@@ -184,3 +184,13 @@ overlay から ★**4 site(`0x80082B6C` / `0x80082E28` / `0x800830C8` / `0x80087
 - jalr 98 件(両帯)と表引きは塞げない / overlay は 2 版だけ / ★静的到達可能性であって実行ではない★
 
 ⇒ ∴ 現状の分類: ★**「`0x4B` = map 指定」は ④ 判らない のまま**★(13/13 の operand 一致でも立たなかったもの、(6-aq))。
+
+## 2026-08-15 追加(7) — ★運用事実: build を走らせると `GraphicsSettings.asset` が M になる★
+★`LiveBootBuild.cs` L30 `RequiredShaders` ＋ L186 `Shader.Find` が **build 時に shader を自動登録**する★ ため、
+★build のたびに `ProjectSettings/GraphicsSettings.asset` が **M(未 commit)** になる★。
+
+- ★**これは人の編集ではなく build script の副作用**★。★guid が手書き風(連番 hex)に見えるのも自動生成のため★。
+- ⇒ ∴ ★**知らないと毎回誰かが「誰かが手で触った」と疑う**★(実際に PRESIDENT が黒画面の第 3 候補として疑い、
+  ★送る前に code を読んで自分で潰した★ = (6-bl))。
+- ⇒ ∴ shader strip は ★既に設計で塞がれている★(commit `5e9ac2cf`「build shader fix」)。
+  ★黒画面の候補は `textures 9/191` のまま★(第 3 候補は**増えなかった**)。
