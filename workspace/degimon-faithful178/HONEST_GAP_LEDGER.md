@@ -394,6 +394,38 @@ log は**両方の回**で ★`[NAMEINPUT] confirmed name='ken' … → Field`�
    ⇒ ★自己診断: **「StatLen 単独の 13,078 に引きずられた = 和で考えた誤り」**★。
 ⚠ ★この予行は **w2 の独立読み未着** ゆえ**暫定**★ — ★GO 時に撮り直す★。
 
+## ★★★★2026-08-15 23:4x — ★live で `MAYO00` の tile 51 → **TWNB01** に移動した★★★★
+**出所**: PRESIDENT が p2w3 で実行(★user 不使用★) / ★逐語 log★:
+```
+[TILE5179] tile=51 map=mayo00 → section 起動
+[DIALOGUE][SCRIPT] WARP_DEST(0x4B menu-idx) destIdx=0 @pc=0x5B8 map=180 spawn=0
+[SCRIPTWARP] queued -> map=180 → fire src=Script -> map=180
+★[MapLoader] loaded 'TWNB01' from 'maps/twnb01/twnb01.json'★ / [WARP] -> id=180 name='twnb01'
+```
+
+### ★★★user の症状 = ★3 つの欠落の重なり★★★★
+| # | 欠落 | env |
+|---|---|---|
+| ① | ★tile 帯 **51-79** を検出していない★(★12,224 マス / 156 地図★) | `DEGIMON_TILE_5179` |
+| ② | ★**map → loader の束縛が 1 本しか無い**★(`mayo00` が ★entry 178 に誤解決★ → section 51 が 0/2) | `DEGIMON_MAP_LOADER` |
+| ③ | ★`0x4B` の warp 発行が既定 OFF★(`_warpEmit`) | `DEGIMON_WARP_EMIT` |
+
+⇒ ∴ ★★**3 つ全部 ON で初めて動く。1 つでも欠けると無反応**★★ = ★**user が見ていた状態**★。
+⇒ ∴ ★**fresh(全 flag 0)の既定の行き先が `180` = TWNB01**★(5 つの `0x19` は ★加入 flag の OR 束★・fresh なら全部素通り)
+   ⇒ ★「何を満たせば行けるか」ではなく ★**何も満たさないときが 180**★★ ⇒ ★★**user は本来、最初から行けるはずだった**★★。
+
+### ★★worker1 の byte 予言が当たった★★
+★PRESIDENT の log が `RETURN(0xFE) @0x5BC` で終わっていたため ★「`0x4B` に到達していない」と読まれた★★
+⇒ ★worker1 が ★直前 pc `0x5B8` = **`4b b4 00 ff`** = `0x4B`(A = 180)★・★`0x16` で `0x5BC` を名指す site = **0 件**★ を示し ★**実行しているはず**と予言**★
+⇒ ★★**live で的中**★★(`WARP_DEST @pc=0x5B8 map=180`)⇒ ★**「log に無い = 実行していない」を否定したのが正しかった**★
+⇒ ★PRESIDENT: 「私の #432 は誤り・彼の訂正が正」★。
+
+### ★まだ立っていないもの(誰も崩していない)★
+- ★**3 つの gate を既定 ON にするか**★ = ★PRESIDENT は今夜決めない★(各々別の理由で OFF・1 つずつ検める)
+- ★**`0x4B` の忠実性**★ = ★原盤は **pending 方式** / remake は **直接 warp** ⇒ **形が違う**★(★③ を安易に ON にしない理由★)
+- ★**fresh で 180 が原盤どおりか**★ = ★④★(flag の初期値は実行時) / ★**`0x66` の枝の論理**★ = ★worker2 が追跡中★
+- ★**完成 claim は凍結**★(★user 実視覚はまだ★)。
+
 ## 2026-08-15 追加(12) — ★★user の訴え「TWNB へうまく移動できない」= 実欠陥候補(調査中)★★(PRESIDENT (2126)-(2130)、20:0x)
 
 **出所**: PRESIDENT の実測(材料つき) / ★分類 = **未決**(★(a) 原盤仕様 か (b) 我々の抽出・規約の欠落 か を決めていない★)
