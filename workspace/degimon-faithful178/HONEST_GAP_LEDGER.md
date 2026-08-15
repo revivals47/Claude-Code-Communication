@@ -420,6 +420,48 @@ log は**両方の回**で ★`[NAMEINPUT] confirmed name='ken' … → Field`�
    ⇒ ★**「110-119 の行き先が何本か」は静的には出ない = ④(b) live か savestate**★
    ⇒ ★user 手番の束に **3 件目**として積む(既に ① `0x4B` 前後の `[gp-0x6d90]` / ② 名前入力中の `[gp-0x6caa]`)★。
 
+### ★★★★軸が決まった(worker2 `ee29df3`、22:12) — ★`[gp-0x6cd6]` = `0xFB` の第 1 operand = 積む script file★★★★★
+★台帳 §8.2 が既にこの場所を名指ししていた★(★`0x800EC44C addiu a1,gp,-27814 → jal 0x800F0D10` / 所属 = **`0xFB` handler**★)= ★30 秒 grep の再演★
+
+★逐語(band 1 router 内・`0xFB` の arm)★:
+```
+800EC448  addiu $a0, $gp, -27862   = [gp-0x6cd6]   ← ★積む script file★
+800EC44C  addiu $a1, $gp, -27814   = [gp-0x6ca6]   ← ★region id★
+800EC450  jal 0x800F0D10                            ← script から u16 を 2 本
+800EC47C  lhu  $a0, -0x6ca6($gp)
+800EC480  jal  ★0x800DF7D0★                        ← map writer 3 本の 1 つ
+```
+⇒ ∴ ★**`0xFB` = region header = 「第 1 = 積む script file(loader) / 第 2 = region id」**★。
+⇒ ★全数(母数 = DG.SCN 全 1,559 section)★: ★先頭が `0xFB` = **256 件・全部 entry 0 の中**★ / ★第 2 operand = **0..254 の連番 255 個**★
+  ⇒ ★**entry 0 = region 表**(section id == region id)★ / ★第 1 operand = 1..219・相異なる 198・**256/256 が entry 番号の範囲に収まる**★。
+
+| region | map | loader(entry) | `81-86` |
+|---|---|---|---|
+| ★180★ | ★`TWNB01`★ | ★**148**★ | ★**有り**(entry 148 = `[5..12, 51..57, **81, 82**, 254]`)★ |
+| 181-203 | `TWNB02-24` | ★全部 148★ | 〃 |
+| 168-179 | `TWNA02-13` | ★147★ | ★81,82,83 有り★ |
+| ★204★ | ★`TWNA01`★ | ★**149**★ | ★**無し**★ |
+
+⇒ ★★**loader が 81-86 を持つ region = 99 / 255**★★ / ★`0xFB` header が無い region = **0 件**★。
+
+### ★★★★∴ 核心 — ★remake は別の軸で引いている★★★★★
+| | 引き方 | 結果 |
+|---|---|---|
+| ★原盤★ | ★`PlayMapSection(**loader 148**, 82)`★ | ★**在る**★ |
+| ★remake★ | ★`PlayMapSection(**registry id 180**, 82)`★ | ★entry 180 = `[51, 77, 254]` = **不在 no-op**★ |
+
+⇒ ∴ ★**worker3 の「(地図, tile 値) 167 組中 実在 34 = 20 % / no-op 133 = 80 %」は、軸の差で説明がつく形**★
+   (★**「原盤でも 80 %」ではない**★ — ★この 20/80 は **remake の軸**で引いた数★)。
+⇒ ∴ ★**remake 側に「map → loader」の束縛が無い**★ = ★現状は `FreeRoamScenario` に **`twna01 → 149` の 1 本だけ**・残 241 は fallback ＋ LogWarning★
+   ⇒ ★**実装すべきものの形**が出た★(★但し「だから user の訴えが直る」とは**まだ書けない**★ — worker2 も boss1 も書いていない)。
+
+### ★★独立 oracle が 1 本立った★★
+★worker2 の鎖(EXE 名表 → region → `0xFB` → loader)★ が ★region 204 `TWNA01` → loader **149**★ を出し、
+★remake が唯一持つ束縛 `twna01 → scenario 149`★ と ★**逐字一致**★
+⇒ ∴ ★**彼の鎖は我々の器の中で閉じておらず、外部の 1 点で裏づいた**★。
+⇒ ∴ ★併せて「entry 149 に 81-86 が無い」のも**同じ鎖で説明がつく**★ = ★**`TWNA01` には script-warp が無い**★
+   ⇒ ★「149 が持たない」は**異常の印ではなかった**★。
+
 ### ★PRESIDENT が送る前に潰した仮説((6-bl))★
 ★「着地点が戻り warp の上に載って即跳ね返る」★ ⇒ ★全 456 辺で**着地が trigger 上 = 0 本**★
 ⇒ ★code の「arrival は trigger 上でない(verify 済)」を**彼の器でも追認**★。
