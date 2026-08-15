@@ -35,7 +35,9 @@
 ## ★2. ★★(2) 走らせる 者 = `w2_runner.py`★★★
 
 ```
- ★実体★ = ★`degimon_world_remake-p2w2/workspace/tools/w2_runner.py`（`track2/trace-oracle` / ★35a7c844★）★
+ ★実体★ = ★`degimon_world_remake-p2w2/workspace/tools/w2_runner.py`（`track2/trace-oracle` の ★その 時点の HEAD★）★
+   ★★⚠ ★器に sha を 焼きません★★（★台帳 (6-de)★）= ★★pin すると ★古い 版を 読ませる 装置★ に なる★★
+   ⇒ ★★∴ ★sha を 焼くのは ★証跡（log / 数）★ の 側だけ★★（(6-dd)）
  ★叩き方★ = ★`python3 w2_runner.py`★ ／ ★`python3 w2_runner.py --control`（★陽性対照★）★
 ```
 
