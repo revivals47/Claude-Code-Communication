@@ -62,3 +62,65 @@
 a4d7ec57fea8d2d8360b122f53de6a25f32941535f14d81eb4b95b9f6a8d590f  vise_on_noframe.png
 6e191f00808347935a28436f76d26b895ca4af52ea79b14ba9179430b4eca382  vise_wide.png
 ```
+
+---
+
+# ★#455-C = user の 2 件を 直しました★
+
+## 6. ★① map を跨ぐと 白 Capsule に戻る = ★直った★★
+
+★真因★ = `ViseAvatarBootstrap.cs` の ★`bool _attached` = ★process 生存の 1 度きり latch★★
+⇒ ★map 変更で field が rebuild され `[Player]` は ★別の GameObject に 入れ替わる★★
+⇒ ★★latch の 寿命（process）と 追跡対象の 寿命（map ごとの rebuild）が 違う★★ = ★★h-8 と 同型★★
+
+★fix★ = ★★latch を 撤去し「★今の `[Player]` に component が 付いているか★」で 判定★★
+　（= ★本日の「焼かずに引く」を そのまま 当てただけ★）
+
+★★受理条件（boss1 指定）= 満たしました★★ — `cross_map.log`:
+```
+  171 行目: [MapLoader] loaded 'TWNB01'          ← ★map 跨ぎ★
+  182 行目: [VISE_BOOTSTRAP] attach [Player] … ★attach 回数=2★ frame=233 playerId=-690
+  183 行目: [VISE_CTRL] BOYS instantiated: worldPos=(-27.30, 0.00, 5.93) renderers=27
+```
+★★TWNB01 到達行より ★後★ の `VISE_*` = 2 行★★（★修正前は 0 行★）
+★playerId が `-254` → `-690`★ = ★★別の GameObject に 付き直した★★ ことが 数で 見えます。
+
+## 7. ★② 向きが逆 = ★実測してから 直しました★★
+
+★★決めつけていません★★ — ★先に 数えました★:
+
+| 実測 | 結果 |
+|---|---|
+| `Scripts/Field/` ＋ `ViseAvatar/` の rotation site 全数 | grep で 列挙 |
+| ★`PlayerController.cs` の rotation / forward / facing★ | ★★0 件★★ ⇒ ★player は 回らない★ |
+| 向きを 決める site | ★`ViseAvatarController.cs:51` の ★1 箇所だけ★★ |
+| その site の 更新 | ★★instantiate 時の 1 回だけ★★（`Update()` は Speed しか 触らない） |
+
+⇒ ★★∴ 「向きが 逆」の 実体 = ★向きを 決める logic が ★存在しない★★★★
+　= ★歩く方向に かかわらず ★固定 180°★ を 向き続ける★
+　（★user の「アニメーションは 正しい」と 整合★ = Speed 駆動の anim は 効いていた）
+⇒ ★★∴ 定数を 別の 定数に 替えても 直りません★★（★どの値でも 半分の 方向で 逆になる★）
+
+★fix★ = ★★移動 delta から yaw を 引く★★（★`Update()` が Speed 用に 既に 計算している 量★ = 新しい入力を 増やさない）
+　＋ ★`YawBase`（従来 180° を 既定）を offset として 残す★（★env `DEGIMON_VISE_YAWBASE` で 実測可★）
+　＋ ★停止中は 最後の 向きを 保つ★
+
+★★「別の 固定値に なっただけ」で ない ことの 対照★★:
+
+| png | 歩行方向 | 見え |
+|---|---|---|
+| ★`vise_yaw.png`★ | ★`WALK_DIR=1,-1`（camera へ 近づく）★ | ★★顔が こちらを 向く★★（帽子の goggles・黄の 上着の 意匠・顔が 見える） |
+| ★`vise_yaw_away.png`★ | ★`WALK_DIR=0,1`（camera から 離れる）★ | ★★背中★★（帽子の 後ろ・上着の 背・顔は 見えない） |
+
+⇒ ★★∴ yaw は ★移動方向に 追従★ しています★★（★固定値なら 両方 同じ 見えに なります★）
+★参考★ = ★修正前の `vise_wide.png` は ★同じ `WALK_DIR=1,-1` で 背中★★ ⇒ ★★逆だった★★。
+
+## 8. ★まだ 見ていないこと（母数の 申告）★
+
+1. ★★`YawBase` の 値が 忠実かは 決めていません★★ = ★既定 180° は ★従来値を 残しただけ★★。
+   ★原盤の 向きとの 突合は 未実施★ ⇒ 札 = ★材料★（env で 振れる形には しました）。
+2. ★斜め歩行の 中間角は 見ていません★（★2 方向だけ★）⇒ 札 = ★材料★
+3. ★NPC 136 種は 未実施★ / ★anim の Idle/Run 遷移は 未確認★ ⇒ 札 = ★材料★
+4. ★`VISE_AVATAR_MODE` は ★既定 OFF のまま★★（★PRESIDENT 裁定どおり 既定 ON に していません★）
+5. ★`FieldManager.cs` の Capsule は ★消していません★★（★判別を 残すため★）
+6. ★★user 実視覚 未★★ ⇒ ★完成 claim では ありません★・★「③ 完了」とも 書いていません★
