@@ -41,12 +41,12 @@ boss1 の依頼 = ★mayo00 の他 section を踏む筋書きを作る★。
 
 | # | 予想 | 根拠 | 結果 |
 |---|---|---|---|
-| O① | `-executeMethod` で ★runtime class の `DumpSections` を 叩ける★ | ★doc-comment が「Unity -executeMethod から呼ぶ」と 書いている★ / ★但し Unity の 通例は Editor assembly★ ⇒ ★自信は 低い★ | (未) |
-| O② | ★gate OFF で `[OPTRACE]` 0 行★ ＋ ★`[DUMP]` 行が 完全一致★ | #490-C の O② と 同形（受理条件 (2)） | (未) |
-| O③ | entry 101 の section は ★key 0-255 のうち 一部のみ 実在★ | ★section 表は 疎★ | (未) |
-| O④ | ★相異 pc は 78 点より 増える★ | ★新しい section を 踏むため★ | (未) |
-| O⑤ | ★`SJIS-text` 行が 出る★ | ★#490-C で 外した 予想の 再撃★ / ★worker2 の 51.9% は text★ | (未) |
-| O⑥ | ★叩いた section の 一部は `WaitingChoice` で 止まる★（= 全部は 走り切らない） | `DumpSections` は choice で break する | (未) |
+| O① | `-executeMethod` で ★runtime class の `DumpSections` を 叩ける★ | ★doc-comment が「Unity -executeMethod から呼ぶ」と 書いている★ / ★但し Unity の 通例は Editor assembly★ ⇒ ★自信は 低い★ | ★的中★（rc=0） |
+| O② | ★gate OFF で `[OPTRACE]` 0 行★ ＋ ★`[DUMP]` 行が 完全一致★ | #490-C の O② と 同形（受理条件 (2)） | ★的中★（0 行 / sha256 一致） |
+| O③ | entry 101 の section は ★key 0-255 のうち 一部のみ 実在★ | ★section 表は 疎★ | ★的中★（★8 / 65535★） |
+| O④ | ★相異 pc は 78 点より 増える★ | ★新しい section を 踏むため★ | ★的中★（78 → ★277★） |
+| O⑤ | ★`SJIS-text` 行が 出る★ | ★#490-C で 外した 予想の 再撃★ / ★worker2 の 51.9% は text★ | ★★外れ（0 行）★★ ⇒ ★2 択は 後者に 決定★ |
+| O⑥ | ★叩いた section の 一部は `WaitingChoice` で 止まる★（= 全部は 走り切らない） | `DumpSections` は choice で break する | ★★外れ（0 件）★★ |
 
 ★O⑤ が 当たれば★ = #490-C の 2 択のうち ★「経路を 走らせていなかった」側★ が 生きます。
 ★O⑤ が また 外れれば★ = ★「VM が trace 前に 消費する」側★ の 疑いが 上がります（★決めつけません★）。
@@ -69,3 +69,15 @@ boss1 の依頼 = ★mayo00 の他 section を踏む筋書きを作る★。
 | (4) `is_text` 列を 維持 | ★tsv の 列を 変えません★（★`run` 列の 値が 増えるだけ★） |
 | (5) user を 呼ばない | ★headless のみ★（★窓を 出す run を 使いません★） |
 | 「切った」と「出なかった」を 分ける | ★§1 の「落とした 梃子」＋ §2 の `run` 列★ |
+
+
+---
+
+## 6. ★結果（撃った 後に 追記）★
+
+★結果は README.md §34 に 書きました★。
+★★事前登録の 表（§3）だけ 埋めました★★ = ★予想を 書き換えていません★。
+
+★★§4 の 母数が 誤っていました★★:
+・★私は 「key 0-255」と 枠を 書きました★ が ★`sectionId` は U16★（`DialogueData.cs:181`）
+・⇒ ★★打ち切りでした★★ ⇒ ★全域 0-65534 を 掃き直し★（実在 8 ＋ 不在 65527 = 65535）
