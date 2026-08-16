@@ -93,6 +93,10 @@ HEAD = `3da7746`。未 commit = `BOSS1_ERROR_TO_TEST_2026-08-15.md` / `BOSS1_STA
   ⇒ ★main への merge は別便★（`integ..main` の 8 commit を誰も読んでいない ⇒ ★読まずに merge を勧めない★）。
   ⇒ ★push の可否は ★user の判断★・PRESIDENT が持ち出し中★。★boss1 も worker も push しない★。
   ⇒ ★★保全（push ではない）★★ = `/home/ken/Desktop/Digimon/SAFETY_integ_6862113e.bundle`（3.0 MB / `git bundle verify` = okay / 前提 ref = `origin/main`）。★同一 disk ゆえ hardware 故障には効きません★。
+    ・★PRESIDENT 承認済（消さない）★。★効くのは delete / reset / worktree remove に対してだけ★ ⇒ ★★残る risk（hardware）が ちょうど user の push 判断が覆う範囲★★。
+    ・⚠ ★★bundle は ★作った時点の snapshot★ ゆえ ★以後の commit は入っていません★★（★file 名の `6862113e` が中身★）
+      ⇒ ★★節目ごとに取り直す★★ — ★さもないと bundle 自身が「寿命の切れた保全」になります★ = ★★本節の型の自己適用★★。
+      ⇒ 取り直し = `git bundle create /home/ken/Desktop/Digimon/SAFETY_integ_<新 sha>.bundle ^origin/main track/measure-fade-tile`（★`git bundle verify` まで実施★）
   ⇒ ★型★ = ★★この誤りは boss1 が運んでいた「integ に触れるな」（③ の user 実視覚のための ★一時措置★）を ★寿命の切れた制約★ として運び続けたのと同根★★ = ★★`_attached`（process 生存 latch）と同じ形★★ ⇒ ★★制約を運ぶときは「発行時の目的がまだ生きているか」を毎回引く★★。
 - `git add` は ★パス指定のみ★（`-a` / `-am` 禁止）
 - backtick は ★agent-send と `git commit -m` の両方で禁止★
