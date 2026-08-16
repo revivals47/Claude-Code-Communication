@@ -224,3 +224,11 @@
 | データ来歴監査 | `workspace/w3_remake/DATA_PROVENANCE_AUDIT.md` |
 | 入力/出力 root 分離 | `dwr_RE/tools/vise_root.py` / `out_root.py` / `test_out_root.py` |
 | 捕獲器（凍結） | `p2w3:workspace/tools/vmtrace_ms.py` |
+
+> ★★限定の 追記 — #450-B 乙（worker2 / 2026-08-16・★元の 文は 1 文字も 変えて いません★）★★
+> ★★この doc が 引用する ★logs/recv_log.txt★ は ★repo に 在りません★★★
+> ・★実在★ = ★この disk 上のみ★ ／ ★tracked★ = ★否★ ／ ★消して いる 規則★ = ★`.gitignore:2:logs/`★
+> ・★∴ `git status` にも 出ません★ = ★★消えても 誰も 気づきません★★
+> ⇒ ★なぜ 追跡しないか★ = ★★通信 log★ であり ★観測の 根拠では ありません★★（#450-B 裁定 = ★甲は measure_logs の 計測 log に 限る★）
+> ⇒ ★★∴ この 引用は ★検算できません★★★ — ★★数や 判定を これに 依拠して 引かないで ください★★
+> ⇒ ★検出器★ = `degimon_world_remake-p2w2/workspace/tools/w2_ignore_guard.py`

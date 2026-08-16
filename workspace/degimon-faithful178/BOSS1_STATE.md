@@ -4660,3 +4660,11 @@ key = (pc, base, entry, stop, pending, depth, pad_held, pad_edge, tuple(win), fl
 - ★★確認依頼（PRESIDENT へ・1 件）★★ = ★user 手番の「実機 1 観測(束 3 件)」は ★原盤側★ か ★引き渡し済 build★ か★
   ⇒ 後者なら ★その build は 3 gate 既定 OFF ゆえ 同じ『無反応』を もう 一度 見る★（原因は 既知）⇒ ★束の 差し替え か gate 込み build の 渡し直し★ が 要る
 - ★★次の 発注（各 worker の 現便 完了後）★★ = ★w1 = `0x66` の 3 分岐 gap(remake は s2==−1 の 1 本だけ)★ / ★w2 = `0x800AECA8` の 3 枝の 効果を image 側で 読み切る★ / ★w3 = 全 242 地図の 帯 集計 ＋ 旧名 残骸 3 箇所★
+
+> ★★限定の 追記 — #450-B 乙（worker2 / 2026-08-16・★元の 文は 1 文字も 変えて いません★）★★
+> ★★この doc が 引用する ★LIVE_FLAGS_2026-08-14.txt / LIVE_FLAGS2_2026-08-14.txt★ は ★repo に 在りません★★★
+> ・★実在★ = ★この disk 上のみ★ ／ ★tracked★ = ★否★ ／ ★消して いる 規則★ = ★`.gitignore:4:*.txt`★
+> ・★∴ `git status` にも 出ません★ = ★★消えても 誰も 気づきません★★
+> ⇒ ★なぜ 追跡しないか★ = ★live 採取は ★同じ手順で 再生成できます★（savestate + DGDUMP）★（#450-B 裁定 = ★甲は measure_logs の 計測 log に 限る★）
+> ⇒ ★★∴ この 引用は ★検算できません★★★ — ★★数や 判定を これに 依拠して 引かないで ください★★
+> ⇒ ★検出器★ = `degimon_world_remake-p2w2/workspace/tools/w2_ignore_guard.py`
