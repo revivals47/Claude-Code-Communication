@@ -83,7 +83,17 @@ HEAD = `3da7746`。未 commit = `BOSS1_ERROR_TO_TEST_2026-08-15.md` / `BOSS1_STA
 - 共有 tree `/home/ken/Desktop/Digimon/degimon_world_remake` は ★読取のみ★
 - `workspace/build/` ★不可触★（user 引き渡し済の build が在る）
 - gate 3 つの ★既定値を変えない★（`DEGIMON_MAP_LOADER` のみ既定 ON 着地済）
-- `track/measure-fade-tile` は ★実測専用・main に入れない★
+- ~~`track/measure-fade-tile` は ★実測専用・main に入れない★~~
+  ⇒ ★★訂正（2026-08-16 19:4x / PRESIDENT 裁定 (甲)・boss1 実行）★★ = ★★この札は実体と合っていませんでした★★。
+  ★実測★: `main..track/measure-fade-tile` = ★614 commit★（`integ..main` = 8）。抱えているもの = ★TILE_5179 既定 ON(`f5924776`)★ / ★AVATAR_MODE 既定 ON(`6862113e`)★ / ★latch 撤去・yaw・unlit(`5c75de85` / `4c8d2afa`)★。
+  ⇒ ★★= user が実視覚で PASS した 2 件（TWNB01 到達 / BOYS 3D）の ★唯一の実体★★★。
+  ⇒ ★★現況の札 = 「事実上の統合 branch。user 実視覚 PASS 2 件の唯一の所在」★★
+  ⇒ ★★★かつ ★複製が 1 つしか無い★★★（PRESIDENT 実測・boss1 追認）= `git branch -r --contains f5924776` = ★0 本★ / remote branch ★14 本のどれにも無い★ / `origin/main..main` = 0。
+  ⇒ ★★∴ ★delete / reset / rebase / worktree remove をしない★★★（★worktree remove は branch が消える経路★）。
+  ⇒ ★main への merge は別便★（`integ..main` の 8 commit を誰も読んでいない ⇒ ★読まずに merge を勧めない★）。
+  ⇒ ★push の可否は ★user の判断★・PRESIDENT が持ち出し中★。★boss1 も worker も push しない★。
+  ⇒ ★★保全（push ではない）★★ = `/home/ken/Desktop/Digimon/SAFETY_integ_6862113e.bundle`（3.0 MB / `git bundle verify` = okay / 前提 ref = `origin/main`）。★同一 disk ゆえ hardware 故障には効きません★。
+  ⇒ ★型★ = ★★この誤りは boss1 が運んでいた「integ に触れるな」（③ の user 実視覚のための ★一時措置★）を ★寿命の切れた制約★ として運び続けたのと同根★★ = ★★`_attached`（process 生存 latch）と同じ形★★ ⇒ ★★制約を運ぶときは「発行時の目的がまだ生きているか」を毎回引く★★。
 - `git add` は ★パス指定のみ★（`-a` / `-am` 禁止）
 - backtick は ★agent-send と `git commit -m` の両方で禁止★
 - ★user の観測回数は有限資源★ = 依頼を作らない・催促しない。★現在 user 手番は 0★

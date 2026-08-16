@@ -23,4 +23,14 @@
 >   ⇒ ★∴ 器の側の remedy = ★`[WARP] queued` / `fire` に **frame 番号を印字**★（worker3 が撮り直しで足します・★挙動 code は変えない★）。
 > ⚠ ★`(B)` の **counter=20 で fire** と、worker3 の doc の「**21 tick 目**」の ±1 は ★**未決**★★ — ★実装を読んで確定させます★（★今はどちらとも言いません★）。
 
-⚠ この branch は**実測専用**であり統合の成果ではない（main に入れない）。gate 3 つの既定値は不変。
+~~⚠ この branch は**実測専用**であり統合の成果ではない（main に入れない）。~~ gate 3 つの既定値は不変。
+
+> ### ★★★訂正 — ★この札は実体と合っていませんでした★（2026-08-16 19:4x / PRESIDENT 裁定 (甲)・boss1 実行）★★★
+> ★書かれた時点★ = `901efaad` は base +1 commit で、★本当に 1 回の実測のためのものでした★。
+> ★現況の実測★ = `main..track/measure-fade-tile` = ★614 commit★。★TILE_5179 既定 ON / AVATAR_MODE 既定 ON / latch 撤去 / yaw / unlit★ を抱え、
+> ★★user が実視覚で PASS した 2 件（TWNB01 到達 / BOYS 3D）の唯一の実体★★ がここに在ります。
+> ⇒ ★★現況の札 = 「事実上の統合 branch」★★。★実測専用ではありません★。
+> ⇒ ★★かつ ★複製が 1 つしか無い★★★ = remote branch 14 本のどれにも含まれない（`git branch -r --contains f5924776` = 0）。
+> ⇒ ★★∴ delete / reset / rebase / worktree remove をしない★★。★merge は別便★。★push は user の判断★。
+> ⇒ ★型★ = ★★札は書かれた時点の実体を指す ⇒ ★実体が育っても札は育たない★★★
+>   = ★★「remedy の status を doc に持たせない」の ★branch 版★★★（★status でなく ★数を器で引く★: `git rev-list --count main..<branch>`）。
