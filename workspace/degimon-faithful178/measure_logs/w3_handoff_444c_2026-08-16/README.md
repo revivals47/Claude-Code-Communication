@@ -98,3 +98,22 @@ log = `H1_handoff_env_unset.log`（`sha256:a20693e3193342dd5b4b62a0990c9722380d0
 2. ★literal check の exit を pipe 越しに 読んだ★（SIGPIPE の 141 を 判定と 誤読）⇒ ★取り直して 0★。
 3. ★この README を 最初 ★非 quoted heredoc★ で 書き、backtick が command substitution として 走った★
    ⇒ ★★禁止していた形を 自分で 踏みました★★ ⇒ ★hash を 先に 変数へ 採り、quoted heredoc ＋ placeholder で 書き直し★。
+
+---
+
+## 12. ★★起動の 枠（★#453-C (b)★）★★
+
+★★H1 と USER_VISUAL は ★起動の 仕方が 違います★★★:
+
+| run | 起動 | 自動終了 |
+|---|---|---|
+| ★H1（私の 検証 run）★ | ★wrapper 経由★（`/tmp/w3_m437c_run.sh` = `env DISPLAY=:1 … -logFile`） | ★`DEGIMON_AUTOBOOT_SEC` で 終わる★ |
+| ★USER_VISUAL（user が 見た run）★ | ★bare 起動★（exe を 直接） | ★★同じでは ありません★★ |
+
+★★∴ 「30 秒で 自動終了します」は ★build の 性質では なく ★wrapper 側（env）の 性質★★★。
+★実際★ = ★user の run は ★16 分 生存★★（★案内と 食い違った★）。
+
+★★但し 4 数の 一致は 影響を 受けません★★ = ★同 build・同 env・warp 成立★ が 揃っているため
+（★終了の 仕方は ★測った 4 数の どれにも 入っていません★★）。
+
+★教訓★ = ★★wrapper が 与えた 性質を build の 性質と 読まない★★（= ★「どこで」の 枠★）。
