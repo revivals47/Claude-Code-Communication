@@ -238,3 +238,28 @@ env（★`[RUNBY]` に 全部 印字済★）:
 ・★latch の 寿命★ = ★process★（#477-C で 撤去済）
 ・★村人の 寿命★ = ★★map★ で あるべき★（#480-C で 与えた）
 ⇒ ★私は latch を 直しに 行って ★別の 寿命★ を 見つけました★。★後世が この 2 つを 混ぜないように★。
+
+## 18. ★★(次) 撮影器の 欠陥を 直しました — ★2 度の 失敗の 真因は こちら★★
+
+★欠陥★ = ★「1 枚 撮ったら 1.5s 後に Quit」★ ⇒ ★warp 後の 画が 2 度 撮れなかった★
+★★真因（実測）★★ = ★`ViseAvatarBootstrap` を 直しても まだ 撮れませんでした★
+⇒ ★★落としていたのは ★`ViseNpcBootstrap` 側の Quit（2 箇所）★★★
+　（★`DEGIMON_VISE_SHOT` を ★両方の bootstrap が 読む★ ため★ = ★依存列に 書いた とおり★）
+
+★処方★ = ★`DEGIMON_VISE_SHOT_AT="18,40"`（秒・複数）★
+・avatar 側 = ★指定時刻ごとに 撮り、★最後の 1 枚まで Quit しません★★
+・NPC 側 = ★`SHOT_AT` が 在るときは ★Quit しません★★（★時刻管理は avatar 側が 持つ★）
+・★未指定なら 従来どおり 1 枚で Quit★（★既定は 1 bit も 変えません★）
+
+★★結果 = 同じ run で 2 枚 ＋ warp ＋ despawn が 全部 撮れました★★:
+```
+  [VISE_BOOTSTRAP] screenshot … two.png   (frame=56)
+  [VISE_BOOTSTRAP] screenshot … two_1.png (frame=122)
+  191 行: [MapLoader] loaded 'TWNB01'
+  despawn = 1 行
+```
+
+★★∴ #477-C の 札（warp 後の 画が 未取得）が 閉じました★★:
+・`warp_before.png` = ★warp 前（mayo00・村人 在り）★
+・★`warp_after.png` = ★warp 後（TWNB01）= ★村人は 1 体も 居ません★★★
+⇒ ★★「log からの 論理」だった ものが ★直接 見た★ に なりました★★
