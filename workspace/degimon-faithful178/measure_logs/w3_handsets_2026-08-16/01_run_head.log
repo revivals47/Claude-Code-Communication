@@ -1,0 +1,643 @@
+Unity Editor version:    6000.4.11f1 (b0a1d6caadd2)
+Branch:                  6000.4/staging
+Build type:              Release
+Batch mode:              YES
+System name:             Linux
+Distro version:          #29~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Jun 26 14:16:59 UTC 2
+Kernel version:          6.11.0-29-generic
+Architecture:            x86_64
+Window Protocol:         Wayland (XWayland)
+Available memory:        32034 MB
+Date:                    2026-08-16T01:30:26Z
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Initialize udev device monitor.
+[Licensing::IpcConnector] Channel LicenseClient-ken doesn't exist
+[Licensing::Module] Successfully launched the LicensingClient (PId: 43247)
+
+COMMAND LINE ARGUMENTS:
+/home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Unity
+-batchmode
+-nographics
+-quit
+-projectPath
+/home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity
+-executeMethod
+DigimonWorld.EditorTools.W3HandwrittenSetsTest.Run
+-logFile
+/home/ken/Documents/Claude-Code-Communication/workspace/degimon-faithful178/measure_logs/w3_handsets_2026-08-16/01_run_head.log
+Successfully changed project path to: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity
+/home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Player connection [131446870682432]  Target information:
+
+Player connection [131446870682432]  * "[IP] 192.168.2.114 [Port] 55504 [Flags] 2 [Guid] 3726570059 [EditorId] 3726570059 [Version] 1048832 [Id] LinuxEditor(16,192.168.2.114) [Debug] 1 [PackageName] LinuxEditor [ProjectName] Editor" 
+
+Player connection [131446870682432]  * "[IP] 172.21.0.1 [Port] 55504 [Flags] 2 [Guid] 3726570059 [EditorId] 3726570059 [Version] 1048832 [Id] LinuxEditor(16,192.168.2.114) [Debug] 1 [PackageName] LinuxEditor [ProjectName] Editor" 
+
+Player connection [131446870682432]  * "[IP] 172.20.0.1 [Port] 55504 [Flags] 2 [Guid] 3726570059 [EditorId] 3726570059 [Version] 1048832 [Id] LinuxEditor(16,192.168.2.114) [Debug] 1 [PackageName] LinuxEditor [ProjectName] Editor" 
+
+Player connection [131446870682432]  * "[IP] 172.19.0.1 [Port] 55504 [Flags] 2 [Guid] 3726570059 [EditorId] 3726570059 [Version] 1048832 [Id] LinuxEditor(16,192.168.2.114) [Debug] 1 [PackageName] LinuxEditor [ProjectName] Editor" 
+
+Player connection [131446870682432]  * "[IP] 172.18.0.1 [Port] 55504 [Flags] 2 [Guid] 3726570059 [EditorId] 3726570059 [Version] 1048832 [Id] LinuxEditor(16,192.168.2.114) [Debug] 1 [PackageName] LinuxEditor [ProjectName] Editor" 
+
+Player connection [131446870682432]  * "[IP] 172.17.0.1 [Port] 55504 [Flags] 2 [Guid] 3726570059 [EditorId] 3726570059 [Version] 1048832 [Id] LinuxEditor(16,192.168.2.114) [Debug] 1 [PackageName] LinuxEditor [ProjectName] Editor" 
+
+Player connection [131446870682432] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [131446870682432] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-43236" after 0.2 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-ken" at "2026-08-16T01:30:26.603761Z"
+[SignatureVerifier] Application signature verification not supported on this platform.
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.1+9fbee8e
+  Session Id:              efd49fe4b7c24aa9a58d0f7a47bc29b6
+  Correlation Id:          dba509e864c25ce860ea294a639a3758
+  External correlation Id: 6424499337161991289
+  Machine Id:              YWwSF5q86eferpQXe1qMHmVij0w=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-ken" (connect: 0.57s, validation: 0.06s, handshake: 0.00s)
+[Licensing::IpcConnector] Channel LicenseClient-ken-notifications doesn't exist
+[Licensing::Module] Connected to LicensingClient (PId: 43247, launch time: 0.00, total connection time: 0.62s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 15669568421607-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.02
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.68s
+[Licensing::Module] Licensing is initialized (took 0.39s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.4.11f1 (b0a1d6caadd2)
+[Subsystems] Discovering subsystems at path /home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Initialize mono
+Mono path[0] = '/home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/Managed'
+Mono path[1] = '/home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-linux'
+Mono config path = '/home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56236
+CodeReloadManager initialized
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: /home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll
+Registered in 0.001691 seconds.
+Native extension for LinuxStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+[Licensing::Client] Successfully resolved entitlement details
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:False
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.652 seconds
+Domain Reload Profiling: 2136ms
+	BeginReloadAssembly (93ms)
+		CreateAndSetChildDomain (6ms)
+	RebuildCommonClasses (46ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (69ms)
+	LoadAllAssembliesAndSetupDomain (263ms)
+		LoadAssemblies (88ms)
+		AnalyzeDomain (250ms)
+			TypeCache.Refresh (249ms)
+				TypeCache.ScanAssembly (233ms)
+	FinalizeReload (1654ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (57ms)
+			BeforeProcessingInitializeOnLoad (105ms)
+			ProcessInitializeOnLoadAttributes (135ms)
+			ProcessInitializeOnLoadMethodAttributes (1272ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 46 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.cloud.gltfast@6.16.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.cloud.gltfast@126b20060ad6)
+    com.unity.burst@1.8.29 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.burst@6bb9aca3ef38)
+    com.unity.mathematics@1.3.3 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.mathematics@19a9377c4ffa)
+    com.unity.nuget.mono-cecil@1.11.6 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.test-framework.performance@3.5.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.test-framework.performance@8b56083ec0f0)
+  Built-in packages:
+    com.unity.multiplayer.center@1.0.1 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.multiplayer.center@53ad5a5c2bfb)
+    com.unity.ugui@2.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.ugui@0a0518ef1f7f)
+    com.unity.modules.accessibility@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.physics2d)
+    com.unity.modules.screencapture@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.terrainphysics)
+    com.unity.modules.tilemap@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.tilemap)
+    com.unity.modules.ui@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.video)
+    com.unity.modules.vr@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.vr)
+    com.unity.modules.wind@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.modules.hierarchycore)
+    com.unity.collections@6.4.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.collections@e5f7b8aa35d0)
+    com.unity.test-framework@1.6.0 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.test-framework@645e1dc04325)
+    com.unity.ext.nunit@2.0.5 (location: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity/Library/PackageCache/com.unity.ext.nunit@ec2d0043d6fc)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.01 seconds
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://unix:/tmp/ilpp.sock-f8986a11f1016dd675c582642b402cb7
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping - 200 - application/grpc 41.9706ms
+Starting: /home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/Tools/BuildPipeline/bee_backend --ipc --defer-dag-verification --dagfile="Library/Bee/2400b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: /home/ken/Desktop/Digimon/degimon_world_remake-p2w3/unity
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "/home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/Facades/System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "/home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "/home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/System.ComponentModel.Composition.dll" in favor of "/home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/NetStandard/compat/2.1.0/shims/netfx/System.ComponentModel.Composition.dll"
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Unity.Burst.Cecil, Version=0.11.6.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library/PackageCache/com.unity.burst@6bb9aca3ef38/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Mono.Cecil, Version=0.11.5.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library/PackageCache/com.unity.nuget.mono-cecil@ecb9724e46ff/Mono.Cecil.dll
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors - 200 - application/grpc 26.7219ms
+DisplayProgressbar: Compiling Scripts
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/2400b0aE.dag/Assembly-CSharp.dll, with 132 defines and 278 references
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      Processing assembly Library/Bee/artifacts/2400b0aE.dag/Assembly-CSharp-Editor.dll, with 130 defines and 293 references
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running Unity.Jobs.CodeGen.JobsILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running Unity.Jobs.CodeGen.JobsILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Unity.Collections, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null with Library/Bee/artifacts/2400b0aE.dag/Unity.Collections.dll
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved UnityEditor.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null with /home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null with /home/ken/Unity/Hub/Editor/6000.4.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingPipeline[0]
+      running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Unity.Burst.Cecil.Rocks, Version=0.11.6.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library/PackageCache/com.unity.burst@6bb9aca3ef38/Unity.Burst.CodeGen/Unity.Burst.Cecil.Rocks.dll
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/PostProcessAssembly'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly - 200 - application/grpc 513.4759ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/PostProcessAssembly - 200 - application/grpc 515.3587ms
+ExitCode: 0 Duration: 3s25ms
+[341/416    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[408/416    2s] Csc Library/Bee/artifacts/2400b0aE.dag/Assembly-CSharp.dll (+2 others)
+Assets/Scripts/Audio/SceneAudioManager.cs(41,17): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Assets/Scripts/Audio/SceneAudioManager.cs(51,23): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Assets/Scripts/Dialogue/DialogueRuntime.cs(1303,25): warning CS0162: Unreachable code detected
+Assets/Scripts/Dialogue/DialogueRuntime.cs(395,14): warning CS0414: The field 'DialogueRuntime._sectionScoped' is assigned but its value is never used
+[410/416    0s] ILPostProcess Library/Bee/artifacts/2400b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2400b0aE.dag/Assembly-CSharp-Editor.dll, with 130 defines and 293 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[411/416    0s] ILPostProcess Library/Bee/artifacts/2400b0aE.dag/post-processed/Assembly-CSharp.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2400b0aE.dag/Assembly-CSharp.dll, with 132 defines and 278 references
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[414/416    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.pdb
+[415/416    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
+*** Tundra build success (3.00 seconds), 6 items updated, 416 evaluated
+Assets/Scripts/Audio/SceneAudioManager.cs(41,17): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Assets/Scripts/Audio/SceneAudioManager.cs(51,23): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Assets/Scripts/Dialogue/DialogueRuntime.cs(1303,25): warning CS0162: Unreachable code detected
+Assets/Scripts/Dialogue/DialogueRuntime.cs(395,14): warning CS0414: The field 'DialogueRuntime._sectionScoped' is assigned but its value is never used
+Assets/Scripts/Dialogue/DialogueRuntime.cs(1303,25): warning CS0162: Unreachable code detected
+Assets/Scripts/Dialogue/DialogueRuntime.cs(395,14): warning CS0414: The field 'DialogueRuntime._sectionScoped' is assigned but its value is never used
+AssetDatabase: script compilation time: 3.529276s
+Total cache size 45198316
+Total cache size after purge 45198316, took 00:00:00.0274670
+Begin MonoManager ReloadAssembly
+Assembly Assembly-CSharp-Editor-firstpass.dll at Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll not valid. Loading of assembly skipped.
+Assembly Assembly-CSharp-firstpass.dll at Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll not valid. Loading of assembly skipped.
+Assembly TestNewCustomAssembly.dll at Library/ScriptAssemblies/TestNewCustomAssembly.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.BurstCompatibilityGen.dll at Library/ScriptAssemblies/Unity.Collections.BurstCompatibilityGen.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.DocCodeSamples.dll at Library/ScriptAssemblies/Unity.Collections.DocCodeSamples.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.PerformanceTests.dll at Library/ScriptAssemblies/Unity.Collections.PerformanceTests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.Tests.dll at Library/ScriptAssemblies/Unity.Collections.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.Tests.Playmode.dll at Library/ScriptAssemblies/Unity.Collections.Tests.Playmode.dll not valid. Loading of assembly skipped.
+Assembly Unity.Mathematics.Tests.dll at Library/ScriptAssemblies/Unity.Mathematics.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Multiplayer.Center.Editor.Tests.dll at Library/ScriptAssemblies/Unity.Multiplayer.Center.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Multiplayer.Center.Tests.dll at Library/ScriptAssemblies/Unity.Multiplayer.Center.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Nuget.Mono-Cecil.dll at Library/ScriptAssemblies/Unity.Nuget.Mono-Cecil.dll not valid. Loading of assembly skipped.
+Assembly Unity.TextMeshPro.Editor.Tests.dll at Library/ScriptAssemblies/Unity.TextMeshPro.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.TextMeshPro.Tests.dll at Library/ScriptAssemblies/Unity.TextMeshPro.Tests.dll not valid. Loading of assembly skipped.
+Assembly UnityEditor.UI.Common.Tests.dll at Library/ScriptAssemblies/UnityEditor.UI.Common.Tests.dll not valid. Loading of assembly skipped.
+Assembly UnityEditor.UI.EditorTests.dll at Library/ScriptAssemblies/UnityEditor.UI.EditorTests.dll not valid. Loading of assembly skipped.
+Assembly UnityEngine.UI.Tests.dll at Library/ScriptAssemblies/UnityEngine.UI.Tests.dll not valid. Loading of assembly skipped.
+Native extension for LinuxStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  2.152 seconds
+Domain Reload Profiling: 2710ms
+	BeginReloadAssembly (221ms)
+		DisableScriptedObjects (20ms)
+		CreateAndSetChildDomain (79ms)
+	RebuildCommonClasses (49ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (46ms)
+	LoadAllAssembliesAndSetupDomain (228ms)
+		LoadAssemblies (221ms)
+		AnalyzeDomain (73ms)
+			TypeCache.Refresh (50ms)
+				TypeCache.ScanAssembly (43ms)
+			BuildScriptInfoCaches (17ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (2153ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (32ms)
+			BeforeProcessingInitializeOnLoad (158ms)
+			ProcessInitializeOnLoadAttributes (1645ms)
+			ProcessInitializeOnLoadMethodAttributes (100ms)
+			AfterProcessingInitializeOnLoad (5ms)
+		AwakeInstancesAfterBackupRestoration (20ms)
+(Values over 0.050ms)
+Asset Pipeline Refresh (id=954b8bceac0a832c68b7add3172dc3f9): Total: 7.033 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=2589 ms
+		Asset DB Callback time: managed=321 ms, native=10 ms
+		Scripting: domain reloads=1, domain reload time=558 ms, compile time=3533 ms, other=18 ms
+		Project Asset Count: scripts=912, non-scripts=2850
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 1
+	InvokePackagesCallback: 7.990ms
+	ApplyChangesToAssetFolders: 0.518ms
+	Scan: 265.497ms
+	OnSourceAssetsModified: 0.884ms
+	CategorizeScriptCompilationAssets: 13.337ms
+	ProcessAssetsWithTransientArtifactChanges: 24.692ms
+	CategorizeAssets: 37.954ms
+	CompileScripts: 3532.684ms
+	ImportOutOfDateAssets: 2157.421ms (2155.233ms without children)
+		UnloadImportedAssets: 0.335ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.972ms
+		OnDemandSchedulerStart: 0.883ms
+	PostProcessAllAssets: 323.085ms
+		VCAutoAddAssetPostprocess 1.463ms
+		XRBuildSystem.XRAssetImported 0.172ms
+		MonoPostProcessAllAssets: 320.612ms
+			AssetPostprocessor.OnPostprocessAllAssets 249.430ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 21.519ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 12.010ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 9.745ms
+			AssetChangedListener.OnPostprocessAllAssets 1.628ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 1.530ms
+			SyncVS.PostprocessSyncProject 1.496ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.978ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 0.953ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.778ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.695ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.648ms
+			AssetEvents.OnPostprocessAllAssets 0.472ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.395ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.267ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.243ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.241ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.235ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.220ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.192ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.103ms
+	PostAssetChangesProfiler: 0.814ms
+	UnloadStreamsBegin: 1.678ms
+	PersistCurrentRevisions: 0.183ms
+	GenerateScriptTypeHashes: 1.548ms
+	GenerateScriptTypeSerializationHashes: 3.201ms
+	Untracked: 663.862ms
+
+Application.AssetDatabase Initial Refresh End
+Scanning for USB devices : 5.170ms
+Initializing Unity extensions:
+UpdateMenuTitleForLanguage: 10
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-unity
+Unloading 15 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1697 unused Assets / (2.3 MB). Loaded Objects now: 2313.
+Memory consumption went from 117.3 MB to 114.9 MB.
+Total: 11.761220 ms (FindLiveObjects: 0.511916 ms CreateObjectMapping: 0.453497 ms MarkObjects: 8.900379 ms  DeleteObjects: 1.893729 ms)
+
+[W3HandwrittenSetsTest] ★対象 = 4 site（A: Gamma1aSweep.cs:29 / B: W3ModeDefaultTest.cs の 2 集合 / C: DialogueRuntime.cs:94 は A-2 が代理）★ ／ ★これは 母数では ありません（下界）= 全数走査で 12 site / 10 file、残る 8 site は 未着手★
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:168)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 168)
+
+[W3HandwrittenSetsTest] ★PASS★ A-0 抽出が空でない（= 生成器が 効いている） → 抽出 = 8 種
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Check (string,bool,string) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:58)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunA () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:113)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:170)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 58)
+
+[W3HandwrittenSetsTest] ★PASS★ A-1 InterestOps 宣言 == ScanOps 実体（宣言 8 種 / 生成 8 種） → 差（宣言のみ）= なし ／ 差（生成のみ）= なし
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Check (string,bool,string) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:58)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:CheckSetEq (string,System.Collections.Generic.HashSet`1<byte>,System.Collections.Generic.HashSet`1<byte>) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:70)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunA () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:117)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:170)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 58)
+
+[LENGUARD] ★GUARD PASS★ 固定 Len ★97/97 一致★（対象外 = 可変長 3 項 0x10/0x19/0x1A + band 5 帯の外）/ TSV=workspace/degimon-faithful178/P2_LEN_EXE_worker1.tsv hash=fb8086670e419e78462f449cf880cc2ef7e21e9d
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.Dialogue.OpcodeTable:.cctor () (at Assets/Scripts/Dialogue/DialogueRuntime.cs:174)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunA () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:123)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:170)
+
+(Filename: Assets/Scripts/Dialogue/DialogueRuntime.cs Line: 174)
+
+[W3HandwrittenSetsTest] ★PASS★ A-2 Gamma1aSweep の jump 行 == DialogueRuntime.JumpOps（★盲点 C を塞ぐ★）（宣言 5 種 / 生成 5 種） → 差（宣言のみ）= なし ／ 差（生成のみ）= なし
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Check (string,bool,string) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:58)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:CheckSetEq (string,System.Collections.Generic.HashSet`1<byte>,System.Collections.Generic.HashSet`1<byte>) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:70)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunA () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:124)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:170)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 58)
+
+[W3HandwrittenSetsTest] 　A 生成 = 0x13,0x14,0x16,0x17,0x18,0x47,0x4B,0x4E（うち jump 行 = 0x13,0x14,0x16,0x17,0x18）
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunA () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:127)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:170)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 127)
+
+[W3HandwrittenSetsTest] ★PASS★ B-0 EXE 5 帯 = 100 種（TSV footer の『band 100 語』） → 100 種
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Check (string,bool,string) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:58)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunB () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:146)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:171)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 58)
+
+[W3HandwrittenSetsTest] ★PASS★ B-1 固定 Len = 97 種（TSV footer の『固定 Len を出したもの = 97』） → 97 種
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Check (string,bool,string) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:58)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunB () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:147)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:171)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 58)
+
+[W3HandwrittenSetsTest] ★PASS★ B-2 固定 Len 表は EXE 5 帯の内側（帯の外に 固定 Len 行が無い） → 帯の外 = なし
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Check (string,bool,string) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:58)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunB () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:148)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:171)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 58)
+
+[W3HandwrittenSetsTest] ★PASS★ B-3 VariableLenOps 宣言 == 帯 引く 固定 Len 表（宣言 3 種 / 生成 3 種） → 差（宣言のみ）= なし ／ 差（生成のみ）= なし
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Check (string,bool,string) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:58)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:CheckSetEq (string,System.Collections.Generic.HashSet`1<byte>,System.Collections.Generic.HashSet`1<byte>) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:70)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunB () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:154)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:171)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 58)
+
+[W3HandwrittenSetsTest] ★PASS★ B-4 FixedLenSample は 固定 Len 表の 部分集合 かつ 空でない（★標本ゆえ 等号は 要求しません★） → 標本 = 0x11,0x27,0x57 / 外れ = なし
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Check (string,bool,string) (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:58)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunB () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:158)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:171)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 58)
+
+[W3HandwrittenSetsTest] 　B 生成（可変）= 0x10,0x19,0x1A ／ 帯 = 100 / 固定 = 97
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:RunB () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:161)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:171)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 161)
+
+[W3HandwrittenSetsTest] ★★合計 PASS=8 / FAIL=0★★
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:172)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 172)
+
+[W3HandwrittenSetsTest] ★★PASS = ★宣言 == 実体★★★
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DigimonWorld.EditorTools.W3HandwrittenSetsTest:Run () (at Assets/Scripts/Editor/W3HandwrittenSetsTest.cs:179)
+
+(Filename: Assets/Scripts/Editor/W3HandwrittenSetsTest.cs Line: 179)
+
+Curl error 42: Callback aborted
+Request timed out while processing request "https://public-cdn.cloud.unity3d.com/config/production", HTTP error code 0
+.[UnityConnect] Request timed out.
+The command could not be loaded, possibly because:
+  * You intended to execute a .NET application:
+      The application 'build-server' does not exist.
+  * You intended to execute a .NET SDK command:
+      No .NET SDKs were found.
+
+Download a .NET SDK:
+https://aka.ms/dotnet/download
+
+Learn about SDK resolution:
+https://aka.ms/dotnet/sdk-not-found
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-ken channel disconnected successfully.
+AcceleratorClientConnectionCallback - disconnected - :0
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      ALC ILPP context 1 is unloading
+Cleanup mono
+CodeReloadManager destroyed
+debugger-agent: Unable to listen on 42
+Checking for leaked weakptr:
+  Found no leaked weakptrs.
+[Package Manager] Server process was shutdown
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1786843839647,"processId":43236,"allocatedMemory":12178099,"memoryLabels":[{"Default":203970},{"Permanent":16008},{"Thread":1084656},{"Manager":25121},{"VertexData":8},{"Geometry":408},{"Texture":24},{"Shader":849122},{"Material":24},{"GfxDevice":36096},{"Animation":456},{"Audio":3008},{"FreeType":8},{"FontEngine":736},{"Physics":2146},{"Physics2D":16},{"Serialization":816},{"Input":27232},{"JobScheduler":33024},{"TextLib":216},{"Mono":32},{"ScriptingNativeRuntime":155088},{"BaseObject":1623072},{"Resource":1008},{"Renderer":3000},{"Transform":4717},{"File":828},{"WebCam":80},{"Culling":32},{"Terrain":11298},{"Wind":24},{"String":14124},{"StaticString":7050},{"Utility":2672848},{"Curl":1664},{"PoolAlloc":2008},{"AI":80},{"TypeTree":14757},{"ScriptManager":448},{"RuntimeInitializeOnLoadManager":64},{"SpriteAtlas":120},{"GI":7384},{"Director":8288},{"CloudService":7840},{"WebRequest":845},{"VR":47810},{"SceneManager":536},{"Video":64},{"LazyScriptCache":32},{"Camera":17},{"Secure":10337},{"SerializationCache":1576},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57552},{"StaticSafetyDebugInfo":278528},{"Analytics":472},{"Hierarchy":1416},{"CoreStats":13112},{"Identifiers":12960},{"Gui":160},{"EditorUtility":73126},{"VersionControl":4},{"Undo":963},{"AssetDatabase":4795231},{"EditorGi":328},{"UnityConnect":37724},{"Upm":1760},{"UpmDiagnostics":8},{"AssetCompliance":64},{"DrivenProperties":72},{"LocalIPC":146},{"ProfilerEditor":9746},{"CoreBusinessMetrics":2369},{"Windowing":480},{"Licensing":1096},{"AssetReference":32},{"IPCStream":32}]}
