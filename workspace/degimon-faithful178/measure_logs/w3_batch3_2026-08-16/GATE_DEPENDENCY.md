@@ -10,10 +10,10 @@
 |---|---|---|---|
 | ★`VISE_AVATAR_MODE`★ | ★★効く（既定 ON）★★ | — / 退路 `=0` | `ViseAvatar/ViseAvatarBootstrap.cs:19-27` |
 | ★`DEGIMON_VISE_SHOT`★ | 効く | — （★`ViseAvatarBootstrap` と `ViseNpcBootstrap` の ★両方★ が 読みます★） | `ViseAvatarBootstrap.cs:20` / `ViseNpcBootstrap.cs:20` |
-| ★★`DEGIMON_VISE_VILLAGE`★★ | ★★★効かない★★★ | ★★`VISE_NPC_MODE` / `DEGIMON_VISE_SHOT` / `DEGIMON_VISE_GALLERY` の ★どれか 1 つ★ が 要る★★ | ★早期 return = `ViseNpcBootstrap.cs:19-23`★ ／ village を 読むのは ★その後の `:36`★ |
+| ★★`DEGIMON_VISE_VILLAGE`★★ | ★★★効かない★★★（＋#485-C: ★既定 ON に しません = 満たしても 出ないため★） | ★★`VISE_NPC_MODE` / `DEGIMON_VISE_SHOT` / `DEGIMON_VISE_GALLERY` の ★どれか 1 つ★ が 要る★★ | ★早期 return = `ViseNpcBootstrap.cs:19-23`★ ／ village を 読むのは ★その後の `:36`★ |
 | `DEGIMON_VISE_GALLERY` | 効く | — | `ViseNpcBootstrap.cs:21-23` |
-| `VISE_NPC_MODE` | 効く（Runner 生成） | ★marker 差替まで 至るには ＋`VISE_NPC_PREFAB` ＋`VISE_NPC_SCRIPT`★ | `ViseNpcBootstrap.cs:19` / 差替条件 = `:137`（`anchor != null && prefabPath != ""`） |
-| ★`DEGIMON_FIELD_MODELS`★ | ★効く★ | — | `Scripts/Field/EntityPlacer.cs:165` |
+| `VISE_NPC_MODE` | 効く（Runner 生成） | ★marker 差替まで 至るには ＋`VISE_NPC_PREFAB` ＋`VISE_NPC_SCRIPT` ＋★`DEGIMON_FIELD_MODELS=0`★★（#485-C 実測: ON だと model が 置かれ ★marker が 作られず anchor が null★） | `ViseNpcBootstrap.cs:19` / 差替条件 = `:137`（`anchor != null && prefabPath != ""`） |
+| ★`DEGIMON_FIELD_MODELS`★ | ★効く（★#485-C で 既定 ON へ★）★ | 退路 `=0` | `Scripts/Field/EntityPlacer.cs:165` |
 | ★`DEGIMON_TILE_5179`★ | ★効く（既定 ON）★ | 退路 `=0` | `Flow/TileBand5179.cs:25` |
 | ★`DEGIMON_MAP_LOADER`★ | ★効く（既定 ON）★ | 退路 `=0` | `Flow/MapLoaderBinding.cs:34` |
 | ★`DEGIMON_WARP_EMIT`★ | ★効く（既定 ON）★ | 退路 `=0` | `Dialogue/DialogueRuntime.cs:628` |

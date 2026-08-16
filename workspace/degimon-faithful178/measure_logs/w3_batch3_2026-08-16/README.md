@@ -367,3 +367,69 @@ env（★`[RUNBY]` に 全部 印字済★）:
 ⇒ ★★∴ 2 つは ★矛盾しません★★★ = ★村人は twna01 の もの / game は topn01 へ 行く★
 ⇒ ★★∴「村人が 出ない」は ★正常★ です★★（★twna01 に 居ないから★）
 ⇒ ★★∴ 残る 問いは 「★原盤の intro も topn01 へ 行くのか★」★★ ⇒ 札 = ★材料★（★実機 or EXE★）
+
+---
+
+# ★#485-C = 残り 2 件（既定 ON 3 条件 ／ (A) の 検定）★
+
+★事前登録★ = `PREREG_485C.md`（commit `610d9ba`・★撃つ前★）
+
+## 25. ★★(1a) `DEGIMON_FIELD_MODELS` = ★既定 ON に できます★★★
+
+反転 site = `Scripts/Field/EntityPlacer.cs:165`（`== "1"` → `!= "0"`）
+
+| # | 条件 | 結果 |
+|---|---|---|
+| ★F④★ | ★反復対照（unset vs unset）★ | ★★0.000%★★ ← ★雑音の 基準★ |
+| ★F①★ | ★unset vs `=1`★ | ★★0.000%（= 同じ）★★ |
+| ★F②★ | ★`=0` で 従来へ 戻る★ | ★★1.930%（5930 px）変化 ＋ `[FIELD-MODEL]` 0 行★★ |
+| ★F③★ | ★判定は 画面★ | ★満たす★（★log 行数では 判定していません★） |
+
+⇒ ★★4 条件とも 的中★★（★事前登録どおり★）
+★注★ = ★歩行を 止めて 撮っています★（★歩行つき game camera は 雑音 80% = #461-C の 実測★）
+
+## 26. ★★(1b) `DEGIMON_VISE_VILLAGE` = ★既定 ON に しません★★★
+
+★★理由 = ★満たしても 意味が 無い★ から★★（★条件を 満たせないから では ありません★）
+
+★実測（`V①`）★:
+```
+  DEGIMON_VISE_VILLAGE=1 / BOOT_MAP=twna01 で 起動
+  ⇒ ★village place = 0 行★
+  ⇒ 診断: CurrentMapName='topn01' 属する map='twna01' 一致=False
+```
+
+★機構（#481-C / #484-C で 実測済）★:
+・★村人の 座標は twna01(204) の record と 3/3 一致★
+・★script（DG.SCN entry0 §238 の `0xFB` op1）は 238 = topn01 へ 行く★（★EXE 逐語で 接地★）
+⇒ ★★∴ 既定 ON に しても ★1 体も 出ません★★★
+
+★★∴ これは ★欠陥では なく 現時点の 正常★★★:
+・★村人は twna01 の もの★ / ★game は topn01 に 居る★ ⇒ ★出ないのが 正しい★
+・★私が #480-C で 与えた map scope は ★正しく 働いています★★
+
+★★∴ 既定 ON に しない 判断の 理由★★ =
+★★「出ない gate を 既定 ON に すると ★『効いていない』と 誤読される 装置★ に なる」★★
+（★今日 何度も 踏んだ 型 = ★印字が 無いことを 0 と 読む★ の 逆向き★）
+⇒ ★★既定 OFF の まま★★ ／ ★出す条件が 揃ったら（原盤の intro 行き先が 決まったら）改めて★
+
+## 27. ★★(2) (A) の 検定 = ★今度は 検定に なりました★★★
+
+★#477-C で 「測れていない」と 申告した 分★ =
+★`VISE_NPC_PREFAB` / `VISE_NPC_SCRIPT` を 渡さず ★枝が 自分の 前提で 成立していなかった★★
+
+★今回★ = `VISE_NPC_SCRIPT=5` / `VISE_NPC_PREFAB=ViseNpc/AGUM_Avatar` / `DEGIMON_FIELD_MODELS=0`
+（★`FIELD_MODELS` を OFF に する 必要が あります★ = ★ON だと model が 置かれ ★marker が 作られない★★
+　⇒ ★`anchor` が null に なり 枝が 成立しません★ = ★これも 依存関係★）
+
+| # | 予想 | 結果 |
+|---|---|---|
+| ★A①★ | 差替の 枝が 成立する | ★★的中★★ `[VISE_NPC] attach script5 … prefab=ViseNpc/AGUM_Avatar renderers=17` |
+| ★A②★ | ★village と 同時に 両方 動く★ | ★★的中★★（差替 1 行 ＋ ★village place 3 行★） |
+
+⇒ ★★∴ #477-C の latch 撤去で ★相互排他は 解けています★★★（★(A) が ★実測で★ 閉じました★）
+⇒ ★#477-C の「(A) は測れていない」札は ★本便で 閉じます★★
+
+## 28. ★依存関係の 追補（`GATE_DEPENDENCY.md` へ）★
+★`VISE_NPC_MODE` の marker 差替は ★`DEGIMON_FIELD_MODELS` が OFF で ないと 成立しません★★
+（★ON だと model が 置かれ marker が 作られない★）= ★本便で 実測★
