@@ -71,6 +71,18 @@ remake 側の既存 infra 接地(boss1 直読): event-flag bank は C# GameState
 - 非退行: 既存 headless verify(CutsceneVerify178 等)緑 + care harness 19/19 緑 + ★OFF側=現行 bit 不変★。
 - 完成 claim=user live 実視覚まで凍結。
 
+> ★★限定の 追記 — #445-B 裁定 2（worker2 / 2026-08-16）★★　★★元の 文は 1 文字も 変えて いません★★
+> ★理由★ = ★『★直後に★ op を 実行しない』は ★制御流の 隣接★ であって ★tick 数★ では ない★
+> ⇒ ★∴ これは ★log 行の 隣接 / 記述の 順序★ からの 推論であって ★★frame の 測定では ありません★★
+>   （★型 (6-de-2)★ = ★log 行が 隣り合って いる ことは「同じ frame」でも「次の frame」でも ない★）
+> ⇒ ★閉じ方★ = ★時間を 主張する なら ★★読み取った counter の 名★★ を 併記する★（★撮り直しは integ 凍結中ゆえ しません★）
+> ⚠ ★★この 指摘は ★上限では なく 下限★ です★★ = ★★見落としは 数えられません★★
+>   ・★理由★ = ★種に 無い 時間語は ★見えない★★（★掃討は「何で 洗うか」を 決めた 範囲でしか 効かない★）
+>   ・★実例★ = ★★「20 周後」は 種に 無く ③対象外 に 落ちます★★ —
+>     ★しかも ★b013fb1 の 陽性対照 自身が「(B) は 20 周後」を 含みます★★（★対照の 半分が 種の 外★）
+>   ・★実測★ = ★種を 9 語 足しただけで ② が ★12 → 119★★（★同じ corpus・同じ 単位★）
+> ⇒ ★全体★ = `workspace/degimon-faithful178/W2_RETRO_SWEEP_TIME_2026-08-16.md`
+
 ## 5. open items(起票のみ)
 - OI-1: ★RESOLVED(2026-07-19 worker1 census、boss1 disasm裏取り済)★ — DF70 直接reader=2件のみ。核心=0x800F0214(fn 0x800F0188 section-init)が `lb DF70 → sh E104(0x8013E104)` 転写=★0x66 は E104 経由で DF70 値を間接消費★(census『0x66=DF70消費』は挙動として真・直接アクセスREFUTEも真=供給が section-init 経由の間接だった)。真経路=DF70→E104→scene selector。C# 設計影響なし(B4 stub は E104 log のまま正、DF70→E104 供給鎖は engine 側=宣言gap域)。残=pointer-base 間接readのゼロ証明不可(honest gap)+struct配列0x8016B104意味論(別arc)。
 - OI-2: ★RE+OPTRACE完了(2026-07-19 06:4x)★ — 0x67=『u16 set(reader#1、Len4)+ BIOS RestoreState/longjmp(0x800913c0=A0:0x14、jmp_buf=VM 0x80164068)で VM loop へ yield-continue』。reader#2=動的DEAD(11/11、静的無条件callだがlongjmpで非到達)。★遡及insight: 0x66 clear枝の『0x67 handlerへのfall-through』も直前0x800EE98Cの同一longjmp callにより動的DEAD=census idle_stopの機構的説明。c5の両枝launch停止=原盤実挙動に一致(Option S宣言gapは実質解消、実装対象でなかった)★。0x67実装=次opcode scoping上申へ。

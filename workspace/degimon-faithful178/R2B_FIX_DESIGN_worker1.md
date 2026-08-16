@@ -27,6 +27,18 @@
 - 想定: fire(0x800cf0e4→0x800a49a4 header register + 音楽 body 転送 chain)が SpuMalloc/Free で簿記 0x8013F1A8 を操作し、音楽域の占有記録を解放/上書き → 直後の SB alloc がそこを取得。
 - ★fix 標的 = fire 内 alloc chain(音楽域を解放させない/SB alloc を音楽域外へ)★。
 
+> ★★限定の 追記 — #445-B 裁定 2（worker2 / 2026-08-16）★★　★★元の 文は 1 文字も 変えて いません★★
+> ★理由★ = ★『★直後の★ SB alloc が そこを 取得』は ★因果の 順序★ からの 推論★
+> ⇒ ★∴ これは ★log 行の 隣接 / 記述の 順序★ からの 推論であって ★★frame の 測定では ありません★★
+>   （★型 (6-de-2)★ = ★log 行が 隣り合って いる ことは「同じ frame」でも「次の frame」でも ない★）
+> ⇒ ★閉じ方★ = ★時間を 主張する なら ★★読み取った counter の 名★★ を 併記する★（★撮り直しは integ 凍結中ゆえ しません★）
+> ⚠ ★★この 指摘は ★上限では なく 下限★ です★★ = ★★見落としは 数えられません★★
+>   ・★理由★ = ★種に 無い 時間語は ★見えない★★（★掃討は「何で 洗うか」を 決めた 範囲でしか 効かない★）
+>   ・★実例★ = ★★「20 周後」は 種に 無く ③対象外 に 落ちます★★ —
+>     ★しかも ★b013fb1 の 陽性対照 自身が「(B) は 20 周後」を 含みます★★（★対照の 半分が 種の 外★）
+>   ・★実測★ = ★種を 9 語 足しただけで ② が ★12 → 119★★（★同じ corpus・同じ 単位★）
+> ⇒ ★全体★ = `workspace/degimon-faithful178/W2_RETRO_SWEEP_TIME_2026-08-16.md`
+
 ### P-b': DG_RESTORE 起点で malloc 簿記が resident bank と不整合(起点 artifact)
 - 想定: DG_RESTORE(savestate 直挿し)が SPU RAM の bytes(音楽 body resident)は復元するが、main RAM の malloc 簿記 0x8013F1A8(占有記録)を音楽 bank と整合させない → 簿記が音楽域を「空き」と認識 → SB alloc が奪う。
 - ★fix 標的 = capture harness 起点(savestate 復元時に malloc 簿記へ音楽 bank 占有を注入/整合)★。
@@ -241,6 +253,18 @@
 - 層1 = KON write 全長継続 / 層2 = v2 oracle(絶対 floor)/ 層4 = user 耳。
 - 4 variant = forced fire で form/flag を振り各 variant 発火 + [0x801EE184]←0 で各 crash 回避 → 4本 clean 採取。
 - ★注入検証 = worker3 DG_RESTORE_INJ run(層0-2)+ 独立 cross-check(worker3 healthy dump vs 本静的導出)。run PASS → provision → v2 oracle → user 耳 → gate① 再上申★。
+
+> ★★限定の 追記 — #445-B 裁定 2（worker2 / 2026-08-16）★★　★★元の 文は 1 文字も 変えて いません★★
+> ★理由★ = ★『injection run ★直後判定★』は ★手順の 順序★ であって frame では ない★
+> ⇒ ★∴ これは ★log 行の 隣接 / 記述の 順序★ からの 推論であって ★★frame の 測定では ありません★★
+>   （★型 (6-de-2)★ = ★log 行が 隣り合って いる ことは「同じ frame」でも「次の frame」でも ない★）
+> ⇒ ★閉じ方★ = ★時間を 主張する なら ★★読み取った counter の 名★★ を 併記する★（★撮り直しは integ 凍結中ゆえ しません★）
+> ⚠ ★★この 指摘は ★上限では なく 下限★ です★★ = ★★見落としは 数えられません★★
+>   ・★理由★ = ★種に 無い 時間語は ★見えない★★（★掃討は「何で 洗うか」を 決めた 範囲でしか 効かない★）
+>   ・★実例★ = ★★「20 周後」は 種に 無く ③対象外 に 落ちます★★ —
+>     ★しかも ★b013fb1 の 陽性対照 自身が「(B) は 20 周後」を 含みます★★（★対照の 半分が 種の 外★）
+>   ・★実測★ = ★種を 9 語 足しただけで ② が ★12 → 119★★（★同じ corpus・同じ 単位★）
+> ⇒ ★全体★ = `workspace/degimon-faithful178/W2_RETRO_SWEEP_TIME_2026-08-16.md`
 
 ### 10-4. ★Run A 実測=全層 PASS=機構最終実証(2026-07-20 worker3)★
 - **fix 確定 = `DG_LATE_INJ 0x801EE184:0:8900`**(clean-skip、[P+0x90]←0、frame 8900 注入)。1 word 除去で crash 消滅 + 音楽不変。
