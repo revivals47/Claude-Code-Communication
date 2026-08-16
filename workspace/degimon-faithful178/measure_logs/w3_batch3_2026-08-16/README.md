@@ -314,3 +314,56 @@ env（★`[RUNBY]` に 全部 印字済★）:
 2. ★(4) (A) の 検定 = ★未実施★★（律速でない・最後）
 3. ★P5（戻れば また 置く）= 材料が 無く 本便でも 扱っていません★
 4. ★★session map が topn01 である こと自体★★ ⇒ 札 = ★材料★（★本便で 開いた 新しい 問い★）
+
+---
+
+# ★#484-C = ★誰が topn01 へ 切り替えたか★（code で 読みました）★
+
+## 22. ★★答 = ★script 由来★（hardcode では ありません）★★
+
+★母数の 申告★ = `unity/Assets/Scripts` の `.cs` ★67 本★ ＋ `ViseAvatar` ★11 本★ を 走査
+★① hardcode 検索★ = `topn01`（大小無視）⇒ ★runtime code に literal ★0 件★★
+　（当たったのは ★私の comment★ と `Editor/W1FbMapWireCheck.cs:7` の ★comment★ のみ）
+
+★② 実 log で 連鎖を 追いました★（`show2.log` の 87 → 122 行）:
+```
+  [FIELD] intro trigger → ScenarioVM.Boot()(data 駆動 master-walk)
+  [SCENARIO-VM] Boot(…)=RunScene(238)(entry0.sec238 ACTIVATE 178 …)
+  [DIALOGUE] PlaySection entry=0 section=238 → pc=0x3518
+  ★[PROGRESSION][0xFB MAP] map index(op1)=238 → OnMapChangeRequested(spawn=0,mode=0)@pc=0x3518★
+  [SCRIPTWARP] src=SCRIPT(0x47) request targetMap=238 → QueueWarp(deferred)
+  [SCRIPTWARP] fire … -> map=238
+  ★[MapLoader] loaded 'TOPN01'★
+```
+
+★★切替の site★★ = ★`Scripts/Dialogue/DialogueRuntime.cs:1897`★（`EmitMapChangeFromScenarioJump`）
+★★分類★★ = ★★script（DG.SCN `entry0` の `section 238` の `0xFB` op1）★★
+　= ★hardcode でも `.MAP` 由来でも ありません★
+
+★index の 解決★（registry 実測）= ★`238` = `topn01`★ / ★`twna01` = `204`★
+⇒ ★★∴ script が 指しているのは ★238 = topn01★ で、204(twna01) では ありません★★
+
+## 23. ★★根拠の 強さ（★私の 判定★）★★
+
+★code に 書かれた EXE 根拠★（`DialogueRuntime.cs:1880-1884` 逐語）:
+・「★EXE 根拠★: `0x800EC448-0x800EC484` に 分岐なし ⇒ `lhu a0, gp-0x6CA6` → `jal 0x800DF7D0` は ★無条件★」
+・「★spawn / mode は operand が 無い ⇒ 0★（EXE 側も 引数は map index 1 本 = ★捏造しない★）」
+
+⇒ ★★∴「op1 = map index」は ★EXE 逐語で 接地されています★★★（★私の 推測では ありません★）
+⇒ ★★∴ 分類は ★原盤の 筋★★★（remake の artifact では ない）
+
+★★但し 私が 気づいた 1 点（申告）★★:
+★同じ `op1=238` が ★2 つの 役で 使われています★★:
+・`[PROGRESSION][0xFB MAP] map index(op1)=238` = ★map index★
+・`[PROGRESSION] SCENARIO_JUMP(0xFB) … scenario(op0)=178 ctx(op1)=238` = ★scenario の ctx★
+⇒ ★★1 つの operand が 2 つの 意味を 持つ★★
+⇒ ★これが 正しいか（原盤も そうか）は ★私は 検めていません★★ ⇒ 札 = ★材料★
+　（★`:1897` の comment は「旧 code は この値を `CurrentSection` に 入れ map 変更を 配線していなかった」と 書いており、
+　　★かつて 別の 役で 使われていた★ ことが 判ります）
+
+## 24. ★★∴ 村人の 帰属 との 関係★★
+・★村人の 座標 = twna01(204) の record と 3/3 一致★（#481-C）
+・★script は 238(topn01) へ 行く★（本節）
+⇒ ★★∴ 2 つは ★矛盾しません★★★ = ★村人は twna01 の もの / game は topn01 へ 行く★
+⇒ ★★∴「村人が 出ない」は ★正常★ です★★（★twna01 に 居ないから★）
+⇒ ★★∴ 残る 問いは 「★原盤の intro も topn01 へ 行くのか★」★★ ⇒ 札 = ★材料★（★実機 or EXE★）
