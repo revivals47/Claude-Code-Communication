@@ -119,3 +119,71 @@ env（★`[RUNBY]` に 全部 印字済★）:
 　⇒ ★同一 GPU / 同一 sink を 共有していた★ ⇒ ★★#461-C の 音の 測定に 影響した 可能性は 否定できません★★
 　（★但し 陽性対照は 同じ条件で RMS>0 を 出しています★）⇒ 札 = 材料
 3. ★既定 ON にできるかの 3 条件（②）は ★本便では 撃っていません★★ ⇒ ★画を 先に 出しました★
+
+---
+
+# ★#477-C = latch 撤去（(A)(B)(C)）＋ 真因の 特定★
+
+## 10. ★★(2) `VISE_NPC_MODE` は ★設定していませんでした★（実物で 回答）★★
+
+★早期 return（`ViseNpcBootstrap.cs:19-23`）★ = `mode` / `shot` / `gallery` の ★3 つとも 空なら return★
+★私の mayo00 run（#461-C `d_vil.log`）★ = ★`VISE_NPC_MODE` 未設定★ ／ ★`DEGIMON_VISE_SHOT` は 設定★
+⇒ ★★∴ 早期 return を 迂回したのは ★`DEGIMON_VISE_SHOT`★ でした★★
+★証拠（log 行）★ = `[VISE_NPC] screenshot -> …`（= `ViseNpcBootstrap` の Runner が 生きていた）
+⇒ ★★これが「PRESIDENT は 0 行・私は 2 tag」の 食い違いの 説明です★★
+
+## 11. ★★§5 = 真因は ★早期 return★（fix 前に 1 度だけ 測りました）★★
+
+| run | env | village place |
+|---|---|---|
+| `x_a` | VILLAGE + SHOT | ★3 行★ |
+| `x_b` | VILLAGE + SHOT + `VISE_NPC_MODE=on` | ★3 行★ |
+| ★`x_c`★ | ★VILLAGE ★のみ★（SHOT も MODE も 無し）★ | ★★0 行★★ |
+
+⇒ ★★∴ 真因 = ★早期 return★★★
+
+★★但し (A) は ★測れていません★（0 を 埋めません）★★ =
+`x_b` は `VISE_NPC_MODE=on` を 足しましたが ★`VISE_NPC_PREFAB` / `VISE_NPC_SCRIPT` を 渡していない★ ため
+★marker 差替の 枝（`:137` の `anchor != null && prefabPath != ""`）が ★自分の 前提で 成立せず★★
+⇒ ★★`_attached` の 奪い合いに ならなかった = (A) の 検定に なっていません★★
+
+## 12. ★(1) latch 撤去 = ★直す前に 落ちる test を 先に 置きました★★
+
+器 = `p2w3/workspace/tools/★w3_visenpc_latch_tests.py★`（★(A)(B)(C) を 別々の test★）
+
+| | 直す前 | 直した後 |
+|---|---|---|
+| (A) 1 latch が 複数機構の gate | ★FAIL（`!_attached` 3 件）★ | ★PASS（0 件）★ |
+| (B) 逆向き 2 意味の 同居 | ★FAIL（否定 3 / 肯定 3）★ | ★PASS★ |
+| (C) prefab 失敗でも latch | ★FAIL（1 件）★ | ★PASS（0 件）★ |
+| 合計 | ★★0 / 3 PASS★★ | ★★3 / 3 PASS★★ |
+
+★被覆を 印字しています★ = 実 code 217 行 →（修正後）226 行 を 走査 / 内訳も 印字。
+
+★置換の 形（★use ごとに★・一律に 消していません）★:
+・village = `!VillagePlaced()` / gallery = `!GalleryPlaced(gallery)` / 差替 = `!NpcPlaced(scriptId)`
+　⇒ ★機構ごとに ★別の 問い★ = ★(A) の 相互排他も 同時に 解けます★
+・撮影の 前提（`:148` / `:189`）= ★`AnythingPlaced` に 置換して ★残しました★★（(B)）
+・`prefab == null` では ★数えません★（(C)）／ ★`_placeCount` を 印字★
+
+## 13. ★★P4 = 的中 / P5 = ★外れました★（事前登録どおり 報告します）★★
+
+★P4（`VISE_NPC_MODE=on` を 足しても 村人が 出る）★ = ★★的中★★（village place ★3 行★）
+⇒ ★(A) の 相互排他は 直っています★
+
+★★P5（map を 跨いだ 後も 出る / `_placeCount` ≥ 2）= ★外れました★★★
+　`p5b.log` = ★TWNB01 到達 = 189 行★ ／ ★その後の village place = ★0 行★★
+
+★★外れた 理由（★私の 予想の 前提が 誤り★）★★:
+　★再配置しなかったのは ★述語が「今 在るか」を 訊いて ★在ると 答えた★★ から★
+　⇒ ★★∴ ★村人は map を 跨いでも 破棄されていません★★★
+　（★village は `Instantiate(prefab, pos, …)` で ★親が 居ない★★ = `[Player]` の 子である avatar と 違う）
+⇒ ★★∴ P5 の 予想は ★latch の 話と 取り違えていました★★★ = ★私の 誤り★
+
+★★但し これは ★log からの 論理★ であって ★直接 見ていません★★★:
+　★撮影経路が 撮った 1.5s 後に Quit する★ ため ★warp 後の 画が 撮れませんでした★（2 度 試行）
+⇒ ★★札 = 材料★★（★warp 後に 村人が TWNB01 に 居るかの 画は 未取得★）
+⇒ ★★かつ 新しい 問いが 立ちました★★ = ★★村人が map を 跨いで 残るのは 正しいのか★★
+　（座標は twna01 由来ゆえ ★別 map では 宙に 浮く 公算★）⇒ ★これは latch とは 別の 論点★
+
+## 14. ★(5) gate の 依存関係 列★ = `GATE_DEPENDENCY.md`（★値の 出所を file:行 で 各行に★）
