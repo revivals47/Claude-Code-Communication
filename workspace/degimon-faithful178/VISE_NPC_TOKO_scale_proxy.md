@@ -163,6 +163,9 @@ proxyは native(1.03)でなくdownscale(~0.58)を**弱く**支持。ただしcri
 - ★worker1確定: phase1結論=native k=1.03、but出荷code=ViseAvatarController.modelScale 0.2(debunk値未反映)=boy 5x under-scale BUG★。k=1.03が正値(誤引用でなくcode未反映)。gap真因=boy小さすぎ確定。
 - ★私の全boy render=DEGIMON_VISE_SCALE=1.03 override(bounds3.55)=faithful基準★。∴TOKO/boy比0.67は正しいboy(1.03)基準でrobust。出荷code 0.2は私のrender外。
 - 原盤boy px(worker1逆算用): orig_ss1(care HUD twna01)=boy≈63px native(frac0.281≈0.290、feet113)。
+  - ★★#457-C 訂正(worker3): この行は ★帰属が 逆★★★ — 原典 `VISE_AVATAR_scale_measurement.md:32` = ★**原盤_1 frac = 0.290** / **remake game-cam(k=1) frac = 0.281**★。
+    ★算術で 決着★: `k = 0.290/0.281 = 1.032` ≈ 1.03。逆に取ると `0.281/0.290 = 0.969` で ★1.03 に ならない★。
+    ⇒ ★結論(k=1.03)は 無傷 / ★どちらが 原盤かの ラベルだけ 逆★★（★逆のまま 3 段を 通っていました★）。
 - ★『tunnel過大』=framing artifact確定★: [FIELD] backdrop値完全faithful(size60.6,50.5/depth143.1/factor2.40,2.67/worldPerPx0.0789=worker1一致)+camera faithful(fov7.57/eye0,86,-119/pitch37°)。remake tunnel大=scroll/moment差(覚醒spawn近接view vs 原盤wide view)、backdrop scale bugでない。私の早合点訂正。
 - ★fix path: code boy 0.2→1.03(5x)、TOKO=0.67x boy維持(=1.13)→再render→boss1直視→user視覚gate(全体proportion)★。
 - STATUS: TOKO scale=0.67x boy比CLOSE(robust)。boy絶対fix(0.2→1.03)+TOKO絶対再算出=worker1 grounding+code fix待ち。
