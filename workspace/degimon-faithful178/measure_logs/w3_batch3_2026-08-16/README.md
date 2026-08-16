@@ -433,3 +433,58 @@ env（★`[RUNBY]` に 全部 印字済★）:
 ## 28. ★依存関係の 追補（`GATE_DEPENDENCY.md` へ）★
 ★`VISE_NPC_MODE` の marker 差替は ★`DEGIMON_FIELD_MODELS` が OFF で ないと 成立しません★★
 （★ON だと model が 置かれ marker が 作られない★）= ★本便で 実測★
+
+---
+
+# ★#490-C = VM を 計測器に する★
+
+## 29. ★★§2 の 検算 = ★boss1 の 主張は 正しい★★★
+
+★code 直読★:
+・`DialogueRuntime.cs:837` = ★`int len = OpcodeTable.Length(c);`★（★VM の pc 進行★）
+・`DialogueRuntime.cs:94` = ★`public static int Length(byte op) => Len[op];`★
+⇒ ★★∴ VM の pc 進行は `Len` 表に 依っています★★
+⇒ ★★∴ ★`Len` の 正しさの oracle には なりません★★★（★boss1 の §2 は 額面どおり 正しい★）
+
+## 30. ★★既存の 器が 在りました（新しく 作っていません）★★
+
+★`DEGIMON_OPTRACE=1`★ = ★既に 実装済★（`:679` env 読取 / `:809` 印字 / ★既定 OFF★ / window `_LO` `_HI`）
+⇒ ★boss1 の 規律「★その場で 走査器を 書かない・既存の 器を 通す★」に 従いました★
+★私が 足したのは ★`entry` / `section` の 併記★ だけ★（★印字のみ★ = boss1 (2) の 要求分）
+
+## 31. ★事前登録（`PREREG_490C.md` / `15eba90`）との 突合★
+
+| # | 予想 | 結果 |
+|---|---|---|
+| ★O①★ | gate OFF で 0 行 | ★的中★（0 行） |
+| ★O②★ | ★gate OFF/ON で 画が 1 bit も 変わらない★ | ★★的中（0.000%）★★ = ★挙動 不変★ |
+| ★O③★ | `=1` で 行が 出る（★数は 先に 埋めない★） | ★的中★（★合計 80 行 / 相異 pc 78 点★） |
+| ★O④★ | pc が body 長 以内 | ★的中★（0x10 - 0x3544 / entry 0 の len=24576 内） |
+| ★★O⑤★★ | ★SJIS-text 行が 在る★ | ★★外れました（0 行）★★ |
+
+★★O⑤ が 外れた 意味（★0 を 埋めません★）★★:
+・★私が 走らせた 経路（entry 101 §51 / entry 178 §254 / entry 0 §238）は ★text を 1 byte も 実行していません★★
+・⇒ ★★「text を 通る 経路を 私が 走らせていない」のか
+　　「VM が text を trace 前に 消費する」のか ★私は 分けていません★★★ ⇒ 札 = ★自分の器★
+・★但し これ自体が (A) の 側面を 支持します★ =
+　★worker2 の「DG.SCN の 51.9% は SJIS text」★ に対し ★実行された 78 点は ★text を 含まない★★
+
+## 32. ★★出力（worker2 へ）★★ = `W3_OPTRACE_for_worker2.tsv`
+
+★列★ = `entry / section / pc_hex / opcode_hex / opcode_name / len / is_text / run`
+★母数★ = ★80 行 / 相異 pc 78 点★
+
+| entry / section | 行数 |
+|---|---|
+| 0 / 238 | 5 |
+| 101 / -1（`Begin` 経由ゆえ section 不明） | 6 |
+| 101 / 51 | 13 |
+| 178 / 254 | 56 |
+
+## 33. ★★限定（★これが 一番 大事です★）★★
+1. ★★実行した 範囲しか 出ません★★ = ★全数では ありません★（★78 点は DG.SCN 全体の ごく一部★）
+2. ★★`Len` の oracle では ありません★★（§29）
+3. ★得られるのは ★どの byte 範囲が 実際に code として 実行されたか★ の ground truth★ = ★(A) のみ★
+4. ★(B)（挙動が 正しい ⇒ 実行経路上の `Len` は 概ね 正しい）は ★弱い 証拠★★ =
+　★間違った `Len` でも たまたま 動く 経路は 在り得ます★
+5. ★`section=-1` は ★`Begin` 経由で section が 無い★ という 意味★（★捏造していません★）
