@@ -1,0 +1,174 @@
+Processor: Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz, 8 core(s) @ 3857 MHz 
+Available Memory: 32034 MB 
+Linux Kernel and distribution: Linux 6.11 Ubuntu 24.04 64bit
+System Language: ja_JP
+Keyboard Layout: jp
+Selected window backend: x11 
+Mono path[0] = '/home/ken/Desktop/Digimon/degimon_world_remake-integ/workspace/build_m437c/DegimonLive/DegimonLive_Data/Managed'
+Mono config path = '/home/ken/Desktop/Digimon/degimon_world_remake-integ/workspace/build_m437c/DegimonLive/DegimonLive_Data/MonoBleedingEdge/etc'
+CodeReloadManager initialized
+Input System module state changed to: Initialized.
+Display 0 'HDMI-1 22"': 1920x1080 (primary device).
+Display 1 'DP-2 22"': 1920x1080 (secondary device).
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Desktop is 1920 x 1080 @ 60 Hz
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+Initialize engine version: 6000.4.11f1 (b0a1d6caadd2)
+[Subsystems] Discovering subsystems at path /home/ken/Desktop/Digimon/degimon_world_remake-integ/workspace/build_m437c/DegimonLive/DegimonLive_Data/UnitySubsystems
+kGfxThreadingModeClientWorkerNativeJobs is not supported on OpenGL Core. Reverting to kGfxThreadingModeClientWorkerJobs instead.
+GfxDevice: creating device client; kGfxThreadingModeClientWorkerJobs
+Renderer: NVIDIA GeForce RTX 4070/PCIe/SSE2
+Vendor:   NVIDIA Corporation
+Version:  4.5.0 NVIDIA 580.173.02
+GLES:     0
+ GL_AMD_multi_draw_indirect GL_AMD_seamless_cubemap_per_texture GL_AMD_vertex_shader_viewport_index GL_AMD_vertex_shader_layer GL_ARB_arrays_of_arrays GL_ARB_base_instance GL_ARB_bindless_texture GL_ARB_blend_func_extended GL_ARB_buffer_storage GL_ARB_clear_buffer_object GL_ARB_clear_texture GL_ARB_clip_control GL_ARB_color_buffer_float GL_ARB_compressed_texture_pixel_storage GL_ARB_conservative_depth GL_ARB_compute_shader GL_ARB_compute_variable_group_size GL_ARB_conditional_render_inverted GL_ARB_copy_buffer GL_ARB_copy_image GL_ARB_cull_distance GL_ARB_debug_output GL_ARB_depth_buffer_float GL_ARB_depth_clamp GL_ARB_depth_texture GL_ARB_derivative_control GL_ARB_direct_state_access GL_ARB_draw_buffers GL_ARB_draw_buffers_blend GL_ARB_draw_indirect GL_ARB_draw_elements_base_vertex GL_ARB_draw_instanced GL_ARB_enhanced_layouts GL_ARB_ES2_compatibility GL_ARB_ES3_compatibility GL_ARB_ES3_1_compatibility GL_ARB_ES3_2_compatibility GL_ARB_explicit_attrib_location GL_ARB_explicit_uniform_location GL_ARB_fragmen
+t_coord_conventions GL_ARB_fragment_layer_viewport GL_ARB_fragment_program GL_ARB_fragment_program_shadow GL_ARB_fragment_shader GL_ARB_fragment_shader_interlock GL_ARB_framebuffer_no_attachments GL_ARB_framebuffer_object GL_ARB_framebuffer_sRGB GL_ARB_geometry_shader4 GL_ARB_get_program_binary GL_ARB_get_texture_sub_image GL_ARB_gl_spirv GL_ARB_gpu_shader5 GL_ARB_gpu_shader_fp64 GL_ARB_gpu_shader_int64 GL_ARB_half_float_pixel GL_ARB_half_float_vertex GL_ARB_imaging GL_ARB_indirect_parameters GL_ARB_instanced_arrays GL_ARB_internalformat_query GL_ARB_internalformat_query2 GL_ARB_invalidate_subdata GL_ARB_map_buffer_alignment GL_ARB_map_buffer_range GL_ARB_multi_bind GL_ARB_multi_draw_indirect GL_ARB_multisample GL_ARB_multitexture GL_ARB_occlusion_query GL_ARB_occlusion_query2 GL_ARB_parallel_shader_compile GL_ARB_pipeline_statistics_query GL_ARB_pixel_buffer_object GL_ARB_point_parameters GL_ARB_point_sprite GL_ARB_polygon_offset_clamp GL_ARB_post_depth_coverage GL_ARB_program_interface_query GL_ARB_provoki
+ng_vertex GL_ARB_query_buffer_object GL_ARB_robust_buffer_access_behavior GL_ARB_robustness GL_ARB_sample_locations GL_ARB_sample_shading GL_ARB_sampler_objects GL_ARB_seamless_cube_map GL_ARB_seamless_cubemap_per_texture GL_ARB_separate_shader_objects GL_ARB_shader_atomic_counter_ops GL_ARB_shader_atomic_counters GL_ARB_shader_ballot GL_ARB_shader_bit_encoding GL_ARB_shader_clock GL_ARB_shader_draw_parameters GL_ARB_shader_group_vote GL_ARB_shader_image_load_store GL_ARB_shader_image_size GL_ARB_shader_objects GL_ARB_shader_precision GL_ARB_shader_storage_buffer_object GL_ARB_shader_subroutine GL_ARB_shader_texture_image_samples GL_ARB_shader_texture_lod GL_ARB_shading_language_100 GL_ARB_shader_viewport_layer_array GL_ARB_shading_language_420pack GL_ARB_shading_language_include GL_ARB_shading_language_packing GL_ARB_shadow GL_ARB_sparse_buffer GL_ARB_sparse_texture GL_ARB_sparse_texture2 GL_ARB_sparse_texture_clamp GL_ARB_spirv_extensions GL_ARB_stencil_texturing GL_ARB_sync GL_ARB_tessellation_shader GL_A
+RB_texture_barrier GL_ARB_texture_border_clamp GL_ARB_texture_buffer_object GL_ARB_texture_buffer_object_rgb32 GL_ARB_texture_buffer_range GL_ARB_texture_compression GL_ARB_texture_compression_bptc GL_ARB_texture_compression_rgtc GL_ARB_texture_cube_map GL_ARB_texture_cube_map_array GL_ARB_texture_env_add GL_ARB_texture_env_combine GL_ARB_texture_env_crossbar GL_ARB_texture_env_dot3 GL_ARB_texture_filter_anisotropic GL_ARB_texture_filter_minmax GL_ARB_texture_float GL_ARB_texture_gather GL_ARB_texture_mirror_clamp_to_edge GL_ARB_texture_mirrored_repeat GL_ARB_texture_multisample GL_ARB_texture_non_power_of_two GL_ARB_texture_query_levels GL_ARB_texture_query_lod GL_ARB_texture_rectangle GL_ARB_texture_rg GL_ARB_texture_rgb10_a2ui GL_ARB_texture_stencil8 GL_ARB_texture_storage GL_ARB_texture_storage_multisample GL_ARB_texture_swizzle GL_ARB_texture_view GL_ARB_timer_query GL_ARB_transform_feedback2 GL_ARB_transform_feedback3 GL_ARB_transform_feedback_instanced GL_ARB_transform_feedback_overflow_query GL_ARB_t
+ranspose_matrix GL_ARB_uniform_buffer_object GL_ARB_vertex_array_bgra GL_ARB_vertex_array_object GL_ARB_vertex_attrib_64bit GL_ARB_vertex_attrib_binding GL_ARB_vertex_buffer_object GL_ARB_vertex_program GL_ARB_vertex_shader GL_ARB_vertex_type_10f_11f_11f_rev GL_ARB_vertex_type_2_10_10_10_rev GL_ARB_viewport_array GL_ARB_window_pos GL_ATI_draw_buffers GL_ATI_texture_float GL_ATI_texture_mirror_once GL_S3_s3tc GL_EXT_texture_env_add GL_EXT_abgr GL_EXT_bgra GL_EXT_bindable_uniform GL_EXT_blend_color GL_EXT_blend_equation_separate GL_EXT_blend_func_separate GL_EXT_blend_minmax GL_EXT_blend_subtract GL_EXT_compiled_vertex_array GL_EXT_Cg_shader GL_EXT_depth_bounds_test GL_EXT_direct_state_access GL_EXT_draw_buffers2 GL_EXT_draw_instanced GL_EXT_draw_range_elements GL_EXT_fog_coord GL_EXT_framebuffer_blit GL_EXT_framebuffer_multisample GL_EXTX_framebuffer_mixed_formats GL_EXT_framebuffer_multisample_blit_scaled GL_EXT_framebuffer_object GL_EXT_framebuffer_sRGB GL_EXT_geometry_shader4 GL_EXT_gpu_program_parameters 
+GL_EXT_gpu_shader4 GL_EXT_multi_draw_arrays GL_EXT_multiview_texture_multisample GL_EXT_multiview_timer_query GL_EXT_packed_depth_stencil GL_EXT_packed_float GL_EXT_packed_pixels GL_EXT_pixel_buffer_object GL_EXT_point_parameters GL_EXT_polygon_offset_clamp GL_EXT_post_depth_coverage GL_EXT_provoking_vertex GL_EXT_raster_multisample GL_EXT_rescale_normal GL_EXT_secondary_color GL_EXT_separate_shader_objects GL_EXT_separate_specular_color GL_EXT_shader_image_load_formatted GL_EXT_shader_image_load_store GL_EXT_shader_integer_mix GL_EXT_shadow_funcs GL_EXT_sparse_texture2 GL_EXT_stencil_two_side GL_EXT_stencil_wrap GL_EXT_texture3D GL_EXT_texture_array GL_EXT_texture_buffer_object GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_latc GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc GL_EXT_texture_cube_map GL_EXT_texture_edge_clamp GL_EXT_texture_env_combine GL_EXT_texture_env_dot3 GL_EXT_texture_filter_anisotropic GL_EXT_texture_filter_minmax GL_EXT_texture_integer GL_EXT_texture_lod G
+L_EXT_texture_lod_bias GL_EXT_texture_mirror_clamp GL_EXT_texture_object GL_EXT_texture_shadow_lod GL_EXT_texture_shared_exponent GL_EXT_texture_sRGB GL_EXT_texture_sRGB_R8 GL_EXT_texture_sRGB_decode GL_EXT_texture_storage GL_EXT_texture_swizzle GL_EXT_timer_query GL_EXT_transform_feedback2 GL_EXT_vertex_array GL_EXT_vertex_array_bgra GL_EXT_vertex_attrib_64bit GL_EXT_window_rectangles GL_EXT_x11_sync_object GL_EXT_import_sync_object GL_NV_robustness_video_memory_purge GL_IBM_rasterpos_clip GL_IBM_texture_mirrored_repeat GL_KHR_context_flush_control GL_KHR_debug GL_EXT_memory_object GL_EXT_memory_object_fd GL_NV_memory_object_sparse GL_KHR_parallel_shader_compile GL_KHR_no_error GL_KHR_robust_buffer_access_behavior GL_KHR_robustness GL_EXT_semaphore GL_EXT_semaphore_fd GL_NV_timeline_semaphore GL_KHR_shader_subgroup GL_KTX_buffer_region GL_NV_alpha_to_coverage_dither_control GL_NV_bindless_multi_draw_indirect GL_NV_bindless_multi_draw_indirect_count GL_NV_bindless_texture GL_NV_blend_equation_advanced GL_NV_
+blend_equation_advanced_coherent GL_NVX_blend_equation_advanced_multi_draw_buffers GL_NV_blend_minmax_factor GL_NV_blend_square GL_NV_clip_space_w_scaling GL_NV_command_list GL_NV_compute_program5 GL_NV_compute_shader_derivatives GL_NV_conditional_render GL_NV_conservative_raster GL_NV_conservative_raster_dilate GL_NV_conservative_raster_pre_snap GL_NV_conservative_raster_pre_snap_triangles GL_NV_conservative_raster_underestimation GL_NV_copy_depth_to_color GL_NV_copy_image GL_NV_depth_buffer_float GL_NV_depth_clamp GL_NV_draw_texture GL_NV_draw_vulkan_image GL_NV_ES1_1_compatibility GL_NV_ES3_1_compatibility GL_NV_explicit_multisample GL_NV_feature_query GL_NV_fence GL_NV_fill_rectangle GL_NV_float_buffer GL_NV_fog_distance GL_NV_fragment_coverage_to_color GL_NV_fragment_program GL_NV_fragment_program_option GL_NV_fragment_program2 GL_NV_fragment_shader_barycentric GL_NV_fragment_shader_interlock GL_NV_framebuffer_mixed_samples GL_NV_framebuffer_multisample_coverage GL_NV_geometry_shader4 GL_NV_geometry_sha
+der_passthrough GL_NV_gpu_program4 GL_NV_internalformat_sample_query GL_NV_gpu_program4_1 GL_NV_gpu_program5 GL_NV_gpu_program5_mem_extended GL_NV_gpu_program_fp64 GL_NV_gpu_program_multiview GL_NV_gpu_shader5 GL_NV_half_float GL_NV_light_max_exponent GL_NV_memory_attachment GL_NV_mesh_shader GL_NV_multisample_coverage GL_NV_multisample_filter_hint GL_NV_occlusion_query GL_NV_packed_depth_stencil GL_NV_parameter_buffer_object GL_NV_parameter_buffer_object2 GL_NV_path_rendering GL_NV_path_rendering_shared_edge GL_NV_pixel_data_range GL_NV_point_sprite GL_NV_primitive_restart GL_NV_primitive_shading_rate GL_NV_query_resource GL_NV_query_resource_tag GL_NV_register_combiners GL_NV_register_combiners2 GL_NV_representative_fragment_test GL_NV_sample_locations GL_NV_sample_mask_override_coverage GL_NV_scissor_exclusive GL_NV_shader_atomic_counters GL_NV_shader_atomic_float GL_NV_shader_atomic_float64 GL_NV_shader_atomic_fp16_vector GL_NV_shader_atomic_int64 GL_NV_shader_buffer_load GL_NV_shader_storage_buffer_obje
+ct GL_NV_shader_subgroup_partitioned GL_NV_shader_texture_footprint GL_NV_shading_rate_image GL_NV_stereo_view_rendering GL_NV_texgen_reflection GL_NV_texture_barrier GL_NV_texture_compression_vtc GL_NV_texture_dirty_tile_map GL_NV_texture_env_combine4 GL_NV_texture_multisample GL_NV_texture_rectangle GL_NV_texture_rectangle_compressed GL_NV_texture_shader GL_NV_texture_shader2 GL_NV_texture_shader3 GL_NV_transform_feedback GL_NV_transform_feedback2 GL_NV_uniform_buffer_unified_memory GL_NV_uniform_buffer_std430_layout GL_NV_vdpau_interop GL_NV_vdpau_interop2 GL_NV_vertex_array_range GL_NV_vertex_array_range2 GL_NV_vertex_attrib_integer_64bit GL_NV_vertex_buffer_unified_memory GL_NV_vertex_program GL_NV_vertex_program1_1 GL_NV_vertex_program2 GL_NV_vertex_program2_option GL_NV_vertex_program3 GL_NV_viewport_array2 GL_NV_viewport_swizzle GL_NVX_conditional_render GL_NV_gpu_multicast GL_NVX_progress_fence GL_NVX_gpu_memory_info GL_NVX_nvenc_interop GL_NV_shader_thread_group GL_NV_shader_thread_shuffle GL_KHR_b
+lend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_OVR_multiview GL_OVR_multiview2 GL_SGIS_generate_mipmap GL_SGIS_texture_lod GL_SGIX_depth_texture GL_SGIX_shadow GL_SUN_slice_accum
+OPENGL LOG: Creating OpenGL 4.5 graphics device ; Context level  <OpenGL 4.5> ; Context handle 221538984
+Begin MonoManager ReloadAssembly
+- Finished resetting the current domain, in  0.003 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Default vsync count 1
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+requesting resize 640 x 480
+requesting fullscreen 640 x 480 at 0/1 Hz
+Setting up downscaled viewport at 640 x 480
+Desktop is 1920 x 1080 @ 60 Hz
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+UnloadTime: 0.698345 ms
+[BOOT] AUTOBOOT=1 — headless live-boot verification (Title/NameInput auto-advance)
+[MapRegistry] ★name 重複 YAKA25: id=65 と id=232★ — id=232 を name 引きの解決先にする(id 引きなら両方に到達可)。gating/placement は name でなく MapIndex で引くこと
+[MapRegistry] loaded 244 entries (242 shipped) from 'registry/maps.json'
+[BOOT] services ready: Session, DataRegistry, MapRegistry(entries=244, shipped=242), MapLoader, GameSceneManager
+[FLOW] (start) → TitleState
+[TITLE] enter
+[BOOT] GameFlow started → Title
+[BOOT] Bootstrap created GameManager (scene-independent, DontDestroyOnLoad)
+[DIALOGUE] DB loaded (DG.SCN)
+[TITLE] AUTOBOOT → New Game
+[TITLE] New Game → NameInput
+[TITLE] exit
+[FLOW] TitleState → NameInputState
+[NAMEINPUT] enter
+[BOOT] FieldPresenter registered: FieldManager
+[BOOT] Dialogue facade registered: TextboxView
+[NAMEINPUT] AUTOBOOT → confirm name='TESTBOY'
+[DataRegistry] loaded 'data/species_care_params.json' (SpeciesCareFile)
+[NEWGAME] InitializeNewGame: flags/vars/inventory reset, clock=Day0 08:00(placeholder), partner init(EXE 0x80110AF4): id=0 stage=1 discipline=8, care(baby form1): max=25 thr=6 decay/h=3 fav=-1
+[NAMEINPUT] confirmed name='TESTBOY' partner=pending(intro) → Field
+[NAMEINPUT] exit
+[FLOW] NameInputState → FieldState
+[FIELD] enter (player='TESTBOY')
+[MapLoader] loaded 'MAYO00' from 'maps/mayo00/mayo00.json'
+[FIELD] map loaded name='mayo00' spawns=10 rawCamOrigin=(0.00, -3391.00, -3270.00) viewerDist=1511
+[FIELD] HandleMapLoaded name=mayo00 arrival=-1 — building field
+[FIELD] backdrop full-map billboard size=(39.9,47.9) depth=94.2 factor=(2.00,3.20) worldPerPx=0.0624 shader='Degimon/BackdropBackground' renderQueue=1000
+[YINV] OK: canonical 単一反転 + 投影 path world-Y→viewport-Y 単調(vHi.y=0.971>vLo.y=0.092)。consumer flip は grep+review。
+[CAMERA] eye=(0.00, 67.82, -65.40) fwd=(0.00, -0.72, 0.69) fov=9.08(=2atan(120/1511)=9.08) aspect=1.333(=1.333) ortho=False near=0.30 far=1000.0 | scrollPx=(0.00, 0.00) scrollNdc=(0.00, 0.00) maxScrollPx=(320.00, 528.00) (3D transform は不動=GS_VIEWPOINT write0 相当)
+[PLACE] player initial spawn[0] ps1=(264.00, 0.00, 3585.00) -> world=(2.64, 0.00, 35.85) (canonical 地面 Y=0.00)
+[PLACE-GATE] entity gating 表 load: OFF index 32 / name 20
+[PLACE] entities placed=8 (spawn markers + NPC=5、全 ToWorld 経由)
+[PLACE] coplanar check: player Y=0.000 entities maxΔY=0.000 -> OK(coplanar、生spawn y=0)
+[MAPLOADER] ★region → loader = 255 行★(DG.SCN entry 0 の 0xFB section 直読)
+[MAPLOADER] ★shipped の 地図 242 本のうち ★loader が 決まる = 242 本★ / 表に 無い = 0 本★(★従来は twna01 の 1 本だけが 確定・残りは fallback★)
+[MAPLOADER] map='mayo00'(region 109) → loader 101(★表で 解決★ / 従来は placeholder)
+[TILE5179] map='mayo00' entry=101: ★帯のマス = 56★ / 値の種類 = 2（51,52）/ ★★section が 実在する 種類 = 2 / 2★★（★全 242 地図の 集計は Editor の W3TileBandCoverage★）
+[TILE5179] arrival init map='mayo00' tile=0 → ★immediate=False / script=False★(兄弟と同規則)
+[FIELD] intro trigger(legacy override DEGIMON_INTRO_ENTRY)→ dialogue.PlayMap(101)
+[DIALOGUE] Begin entry=101 headerValid=True word0=0x24 bodyStart=0x28 len=2048
+[VM-GATE] ★BAND-OUT(EXE も停止=実装対象外)★ op=0x0A len=1 entry=101 pc=0x29 prevOp=0x01 stackDepth=0 ctx=07 FF FF 19 00 0D 00 01 [0A] 18 00 3C 00 19 00 57 00  ⇒ ★停止(初回)★
+[DIALOGUE] VerifyEntry 101: prefix-match=MISMATCH matchedChars=0 emitted=0 oracle=277 warns=1 jumpNotTaken=0
+[DIALOGUE] Begin entry=101 headerValid=True word0=0x24 bodyStart=0x28 len=2048
+[FIELD] dialogue started → InputLocked=true (player frozen)
+[VM-GATE] ★BAND-OUT(EXE も停止=実装対象外)★ op=0x0A len=1 entry=101 pc=0x29 prevOp=0x01 stackDepth=0 ctx=07 FF FF 19 00 0D 00 01 [0A] 18 00 3C 00 19 00 57 00  ⇒ 記録のみ(2 回目以降、続行)
+[JUMP-SKIPPED narrow-mode] op=0x18(TABLE) @pc=0x2A clampMax=60 fall-through(full-len=124、未実装 selector の blind-take 回避)。take は DEGIMON_DIALOGUE_CHOICE(γ/test)。
+[VM-GATE] UNSUPPORTED op=0x57 len=4 entry=101 pc=0xA6 prevOp=0x0A stackDepth=0 ctx=57 00 1F 00 57 00 20 00 [57] 00 21 00 FE 00 1B 05 1A  ⇒ ★停止(初回)★
+[DIALOGUE] scenario finished → OnFinished(player 操作復帰)
+[FIELD] dialogue finished → InputLocked=false (player control restored)
+[WARP] queued frame(Time.frameCount)=5 trigger=110 exitId=0 -> map=112 spawn=0 at world=(2.64, 0.00, 41.18)
+[MOVE] player pos=(2.64, 0.00, 41.18) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(127.52, 0.00) max=(320.00, 528.00) playerPx=(192.48, 484.76) -> Y不変(落下ゼロ)
+[WARP] fire frame(Time.frameCount)=6 queued(_pendingFrame)=5 Δ(frame)=1 src=Auto -> map=112 spawn=0 mode=0
+[MapLoader] loaded 'TRAI00' from 'maps/trai00/trai00.json'
+[WARP] -> id=112 name='trai00' spawn=0 mode=0
+[FIELD] HandleMapLoaded name=trai00 arrival=0 — building field
+[FIELD] backdrop full-map billboard size=(44.2,53.0) depth=104.2 factor=(2.00,3.20) worldPerPx=0.0690 shader='Degimon/BackdropBackground' renderQueue=1000
+[YINV] OK: canonical 単一反転 + 投影 path world-Y→viewport-Y 単調(vHi.y=0.938>vLo.y=0.124)。consumer flip は grep+review。
+[CAMERA] eye=(0.00, 79.84, -78.78) fwd=(0.00, -0.77, 0.64) fov=9.08(=2atan(120/1511)=9.08) aspect=1.333(=1.333) ortho=False near=0.30 far=1000.0 | scrollPx=(0.00, 0.00) scrollNdc=(0.00, 0.00) maxScrollPx=(320.00, 528.00) (3D transform は不動=GS_VIEWPOINT write0 相当)
+[PLACE] player warp-arrival spawn[0] -> world=(4.75, 0.00, -32.99)
+[PLACE] entities placed=5 (spawn markers + NPC=3、全 ToWorld 経由)
+[PLACE] coplanar check: player Y=0.000 entities maxΔY=0.000 -> OK(coplanar、生spawn y=0)
+[MAPLOADER] map='trai00'(region 112) → loader 104(★表で 解決★ / 従来は placeholder)
+[TILE5179] arrival init map='trai00' tile=0 → ★immediate=False / script=False★(兄弟と同規則)
+[MOVE] player pos=(4.75, 0.00, -27.66) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(83.66, 459.67) max=(320.00, 528.00) playerPx=(236.34, -75.67) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, -22.32) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(86.35, 389.45) max=(320.00, 528.00) playerPx=(233.65, -5.45) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, -16.99) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(88.85, 324.00) max=(320.00, 528.00) playerPx=(231.15, 60.00) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, -11.66) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(91.19, 262.85) max=(320.00, 528.00) playerPx=(228.81, 121.15) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, -6.32) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(93.38, 205.60) max=(320.00, 528.00) playerPx=(226.62, 178.40) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, -0.99) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(95.44, 151.88) max=(320.00, 528.00) playerPx=(224.56, 232.12) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 4.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(97.37, 101.37) max=(320.00, 528.00) playerPx=(222.63, 282.63) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 9.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(99.19, 53.80) max=(320.00, 528.00) playerPx=(220.81, 330.20) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 15.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(100.90, 8.91) max=(320.00, 528.00) playerPx=(219.10, 375.09) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 20.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(102.53, 0.00) max=(320.00, 528.00) playerPx=(217.47, 417.51) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 25.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(104.06, 0.00) max=(320.00, 528.00) playerPx=(215.94, 457.66) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 31.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(105.52, 0.00) max=(320.00, 528.00) playerPx=(214.48, 495.73) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 36.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(106.90, 0.00) max=(320.00, 528.00) playerPx=(213.10, 531.86) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 41.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(108.22, 0.00) max=(320.00, 528.00) playerPx=(211.79, 566.20) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 47.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(109.47, 0.00) max=(320.00, 528.00) playerPx=(210.53, 598.89) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 52.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(110.66, 0.00) max=(320.00, 528.00) playerPx=(209.34, 630.04) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 57.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(111.79, 0.00) max=(320.00, 528.00) playerPx=(208.21, 659.75) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 63.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(112.88, 0.00) max=(320.00, 528.00) playerPx=(207.12, 688.12) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 68.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(113.92, 0.00) max=(320.00, 528.00) playerPx=(206.08, 715.24) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 73.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(114.91, 0.00) max=(320.00, 528.00) playerPx=(205.09, 741.20) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 79.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(115.86, 0.00) max=(320.00, 528.00) playerPx=(204.14, 766.06) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 84.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(116.77, 0.00) max=(320.00, 528.00) playerPx=(203.23, 789.89) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 89.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(117.65, 0.00) max=(320.00, 528.00) playerPx=(202.35, 812.76) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 95.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(118.49, 0.00) max=(320.00, 528.00) playerPx=(201.51, 834.72) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 100.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(119.29, 0.00) max=(320.00, 528.00) playerPx=(200.71, 855.83) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 105.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(120.07, 0.00) max=(320.00, 528.00) playerPx=(199.93, 876.13) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 111.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(120.82, 0.00) max=(320.00, 528.00) playerPx=(199.18, 895.67) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 116.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(121.54, 0.00) max=(320.00, 528.00) playerPx=(198.46, 914.49) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 121.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(122.23, 0.00) max=(320.00, 528.00) playerPx=(197.77, 932.64) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 127.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(122.90, 0.00) max=(320.00, 528.00) playerPx=(197.10, 950.14) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 132.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(123.55, 0.00) max=(320.00, 528.00) playerPx=(196.45, 967.03) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 137.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(124.17, 0.00) max=(320.00, 528.00) playerPx=(195.83, 983.34) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 143.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(124.77, 0.00) max=(320.00, 528.00) playerPx=(195.23, 999.11) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 148.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(125.36, 0.00) max=(320.00, 528.00) playerPx=(194.64, 1014.35) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 153.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(125.92, 0.00) max=(320.00, 528.00) playerPx=(194.08, 1029.10) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 159.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(126.47, 0.00) max=(320.00, 528.00) playerPx=(193.53, 1043.37) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 164.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(127.00, 0.00) max=(320.00, 528.00) playerPx=(193.00, 1057.19) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 169.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(127.51, 0.00) max=(320.00, 528.00) playerPx=(192.49, 1070.59) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 175.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(128.00, 0.00) max=(320.00, 528.00) playerPx=(192.00, 1083.57) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 180.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(128.49, 0.00) max=(320.00, 528.00) playerPx=(191.51, 1096.17) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 185.68) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(128.95, 0.00) max=(320.00, 528.00) playerPx=(191.05, 1108.39) -> Y不変(落下ゼロ)
+[MOVE] player pos=(4.75, 0.00, 191.01) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(129.41, 0.00) max=(320.00, 528.00) playerPx=(190.59, 1120.25) -> Y不変(落下ゼロ)
+[LIVEBOOT] field reached via real boot path; ran 30.0s — live [CAMERA]/[PLACE]/[MOVE]/[SCROLL] emitted by FieldManager. Quitting.
+[MOVE] player pos=(4.75, 0.00, 196.34) ΔXZ=2.667 Y=0.000 groundY=0.000 ΔY=0.0000 scroll.Current=(129.85, 0.00) max=(320.00, 528.00) playerPx=(190.15, 1131.77) -> Y不変(落下ゼロ)
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+CodeReloadManager destroyed

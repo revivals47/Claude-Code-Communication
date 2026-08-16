@@ -1,0 +1,216 @@
+Processor: Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz, 8 core(s) @ 3923 MHz 
+Available Memory: 32034 MB 
+Linux Kernel and distribution: Linux 6.11 Ubuntu 24.04 64bit
+System Language: ja_JP
+Keyboard Layout: jp
+Selected window backend: x11 
+Mono path[0] = '/home/ken/Desktop/Digimon/degimon_world_remake-integ/workspace/build_m437c/DegimonLive/DegimonLive_Data/Managed'
+Mono config path = '/home/ken/Desktop/Digimon/degimon_world_remake-integ/workspace/build_m437c/DegimonLive/DegimonLive_Data/MonoBleedingEdge/etc'
+CodeReloadManager initialized
+Input System module state changed to: Initialized.
+Display 0 'HDMI-1 22"': 1920x1080 (primary device).
+Display 1 'DP-2 22"': 1920x1080 (secondary device).
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Desktop is 1920 x 1080 @ 60 Hz
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+Initialize engine version: 6000.4.11f1 (b0a1d6caadd2)
+[Subsystems] Discovering subsystems at path /home/ken/Desktop/Digimon/degimon_world_remake-integ/workspace/build_m437c/DegimonLive/DegimonLive_Data/UnitySubsystems
+kGfxThreadingModeClientWorkerNativeJobs is not supported on OpenGL Core. Reverting to kGfxThreadingModeClientWorkerJobs instead.
+GfxDevice: creating device client; kGfxThreadingModeClientWorkerJobs
+Renderer: NVIDIA GeForce RTX 4070/PCIe/SSE2
+Vendor:   NVIDIA Corporation
+Version:  4.5.0 NVIDIA 580.173.02
+GLES:     0
+ GL_AMD_multi_draw_indirect GL_AMD_seamless_cubemap_per_texture GL_AMD_vertex_shader_viewport_index GL_AMD_vertex_shader_layer GL_ARB_arrays_of_arrays GL_ARB_base_instance GL_ARB_bindless_texture GL_ARB_blend_func_extended GL_ARB_buffer_storage GL_ARB_clear_buffer_object GL_ARB_clear_texture GL_ARB_clip_control GL_ARB_color_buffer_float GL_ARB_compressed_texture_pixel_storage GL_ARB_conservative_depth GL_ARB_compute_shader GL_ARB_compute_variable_group_size GL_ARB_conditional_render_inverted GL_ARB_copy_buffer GL_ARB_copy_image GL_ARB_cull_distance GL_ARB_debug_output GL_ARB_depth_buffer_float GL_ARB_depth_clamp GL_ARB_depth_texture GL_ARB_derivative_control GL_ARB_direct_state_access GL_ARB_draw_buffers GL_ARB_draw_buffers_blend GL_ARB_draw_indirect GL_ARB_draw_elements_base_vertex GL_ARB_draw_instanced GL_ARB_enhanced_layouts GL_ARB_ES2_compatibility GL_ARB_ES3_compatibility GL_ARB_ES3_1_compatibility GL_ARB_ES3_2_compatibility GL_ARB_explicit_attrib_location GL_ARB_explicit_uniform_location GL_ARB_fragmen
+t_coord_conventions GL_ARB_fragment_layer_viewport GL_ARB_fragment_program GL_ARB_fragment_program_shadow GL_ARB_fragment_shader GL_ARB_fragment_shader_interlock GL_ARB_framebuffer_no_attachments GL_ARB_framebuffer_object GL_ARB_framebuffer_sRGB GL_ARB_geometry_shader4 GL_ARB_get_program_binary GL_ARB_get_texture_sub_image GL_ARB_gl_spirv GL_ARB_gpu_shader5 GL_ARB_gpu_shader_fp64 GL_ARB_gpu_shader_int64 GL_ARB_half_float_pixel GL_ARB_half_float_vertex GL_ARB_imaging GL_ARB_indirect_parameters GL_ARB_instanced_arrays GL_ARB_internalformat_query GL_ARB_internalformat_query2 GL_ARB_invalidate_subdata GL_ARB_map_buffer_alignment GL_ARB_map_buffer_range GL_ARB_multi_bind GL_ARB_multi_draw_indirect GL_ARB_multisample GL_ARB_multitexture GL_ARB_occlusion_query GL_ARB_occlusion_query2 GL_ARB_parallel_shader_compile GL_ARB_pipeline_statistics_query GL_ARB_pixel_buffer_object GL_ARB_point_parameters GL_ARB_point_sprite GL_ARB_polygon_offset_clamp GL_ARB_post_depth_coverage GL_ARB_program_interface_query GL_ARB_provoki
+ng_vertex GL_ARB_query_buffer_object GL_ARB_robust_buffer_access_behavior GL_ARB_robustness GL_ARB_sample_locations GL_ARB_sample_shading GL_ARB_sampler_objects GL_ARB_seamless_cube_map GL_ARB_seamless_cubemap_per_texture GL_ARB_separate_shader_objects GL_ARB_shader_atomic_counter_ops GL_ARB_shader_atomic_counters GL_ARB_shader_ballot GL_ARB_shader_bit_encoding GL_ARB_shader_clock GL_ARB_shader_draw_parameters GL_ARB_shader_group_vote GL_ARB_shader_image_load_store GL_ARB_shader_image_size GL_ARB_shader_objects GL_ARB_shader_precision GL_ARB_shader_storage_buffer_object GL_ARB_shader_subroutine GL_ARB_shader_texture_image_samples GL_ARB_shader_texture_lod GL_ARB_shading_language_100 GL_ARB_shader_viewport_layer_array GL_ARB_shading_language_420pack GL_ARB_shading_language_include GL_ARB_shading_language_packing GL_ARB_shadow GL_ARB_sparse_buffer GL_ARB_sparse_texture GL_ARB_sparse_texture2 GL_ARB_sparse_texture_clamp GL_ARB_spirv_extensions GL_ARB_stencil_texturing GL_ARB_sync GL_ARB_tessellation_shader GL_A
+RB_texture_barrier GL_ARB_texture_border_clamp GL_ARB_texture_buffer_object GL_ARB_texture_buffer_object_rgb32 GL_ARB_texture_buffer_range GL_ARB_texture_compression GL_ARB_texture_compression_bptc GL_ARB_texture_compression_rgtc GL_ARB_texture_cube_map GL_ARB_texture_cube_map_array GL_ARB_texture_env_add GL_ARB_texture_env_combine GL_ARB_texture_env_crossbar GL_ARB_texture_env_dot3 GL_ARB_texture_filter_anisotropic GL_ARB_texture_filter_minmax GL_ARB_texture_float GL_ARB_texture_gather GL_ARB_texture_mirror_clamp_to_edge GL_ARB_texture_mirrored_repeat GL_ARB_texture_multisample GL_ARB_texture_non_power_of_two GL_ARB_texture_query_levels GL_ARB_texture_query_lod GL_ARB_texture_rectangle GL_ARB_texture_rg GL_ARB_texture_rgb10_a2ui GL_ARB_texture_stencil8 GL_ARB_texture_storage GL_ARB_texture_storage_multisample GL_ARB_texture_swizzle GL_ARB_texture_view GL_ARB_timer_query GL_ARB_transform_feedback2 GL_ARB_transform_feedback3 GL_ARB_transform_feedback_instanced GL_ARB_transform_feedback_overflow_query GL_ARB_t
+ranspose_matrix GL_ARB_uniform_buffer_object GL_ARB_vertex_array_bgra GL_ARB_vertex_array_object GL_ARB_vertex_attrib_64bit GL_ARB_vertex_attrib_binding GL_ARB_vertex_buffer_object GL_ARB_vertex_program GL_ARB_vertex_shader GL_ARB_vertex_type_10f_11f_11f_rev GL_ARB_vertex_type_2_10_10_10_rev GL_ARB_viewport_array GL_ARB_window_pos GL_ATI_draw_buffers GL_ATI_texture_float GL_ATI_texture_mirror_once GL_S3_s3tc GL_EXT_texture_env_add GL_EXT_abgr GL_EXT_bgra GL_EXT_bindable_uniform GL_EXT_blend_color GL_EXT_blend_equation_separate GL_EXT_blend_func_separate GL_EXT_blend_minmax GL_EXT_blend_subtract GL_EXT_compiled_vertex_array GL_EXT_Cg_shader GL_EXT_depth_bounds_test GL_EXT_direct_state_access GL_EXT_draw_buffers2 GL_EXT_draw_instanced GL_EXT_draw_range_elements GL_EXT_fog_coord GL_EXT_framebuffer_blit GL_EXT_framebuffer_multisample GL_EXTX_framebuffer_mixed_formats GL_EXT_framebuffer_multisample_blit_scaled GL_EXT_framebuffer_object GL_EXT_framebuffer_sRGB GL_EXT_geometry_shader4 GL_EXT_gpu_program_parameters 
+GL_EXT_gpu_shader4 GL_EXT_multi_draw_arrays GL_EXT_multiview_texture_multisample GL_EXT_multiview_timer_query GL_EXT_packed_depth_stencil GL_EXT_packed_float GL_EXT_packed_pixels GL_EXT_pixel_buffer_object GL_EXT_point_parameters GL_EXT_polygon_offset_clamp GL_EXT_post_depth_coverage GL_EXT_provoking_vertex GL_EXT_raster_multisample GL_EXT_rescale_normal GL_EXT_secondary_color GL_EXT_separate_shader_objects GL_EXT_separate_specular_color GL_EXT_shader_image_load_formatted GL_EXT_shader_image_load_store GL_EXT_shader_integer_mix GL_EXT_shadow_funcs GL_EXT_sparse_texture2 GL_EXT_stencil_two_side GL_EXT_stencil_wrap GL_EXT_texture3D GL_EXT_texture_array GL_EXT_texture_buffer_object GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_latc GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc GL_EXT_texture_cube_map GL_EXT_texture_edge_clamp GL_EXT_texture_env_combine GL_EXT_texture_env_dot3 GL_EXT_texture_filter_anisotropic GL_EXT_texture_filter_minmax GL_EXT_texture_integer GL_EXT_texture_lod G
+L_EXT_texture_lod_bias GL_EXT_texture_mirror_clamp GL_EXT_texture_object GL_EXT_texture_shadow_lod GL_EXT_texture_shared_exponent GL_EXT_texture_sRGB GL_EXT_texture_sRGB_R8 GL_EXT_texture_sRGB_decode GL_EXT_texture_storage GL_EXT_texture_swizzle GL_EXT_timer_query GL_EXT_transform_feedback2 GL_EXT_vertex_array GL_EXT_vertex_array_bgra GL_EXT_vertex_attrib_64bit GL_EXT_window_rectangles GL_EXT_x11_sync_object GL_EXT_import_sync_object GL_NV_robustness_video_memory_purge GL_IBM_rasterpos_clip GL_IBM_texture_mirrored_repeat GL_KHR_context_flush_control GL_KHR_debug GL_EXT_memory_object GL_EXT_memory_object_fd GL_NV_memory_object_sparse GL_KHR_parallel_shader_compile GL_KHR_no_error GL_KHR_robust_buffer_access_behavior GL_KHR_robustness GL_EXT_semaphore GL_EXT_semaphore_fd GL_NV_timeline_semaphore GL_KHR_shader_subgroup GL_KTX_buffer_region GL_NV_alpha_to_coverage_dither_control GL_NV_bindless_multi_draw_indirect GL_NV_bindless_multi_draw_indirect_count GL_NV_bindless_texture GL_NV_blend_equation_advanced GL_NV_
+blend_equation_advanced_coherent GL_NVX_blend_equation_advanced_multi_draw_buffers GL_NV_blend_minmax_factor GL_NV_blend_square GL_NV_clip_space_w_scaling GL_NV_command_list GL_NV_compute_program5 GL_NV_compute_shader_derivatives GL_NV_conditional_render GL_NV_conservative_raster GL_NV_conservative_raster_dilate GL_NV_conservative_raster_pre_snap GL_NV_conservative_raster_pre_snap_triangles GL_NV_conservative_raster_underestimation GL_NV_copy_depth_to_color GL_NV_copy_image GL_NV_depth_buffer_float GL_NV_depth_clamp GL_NV_draw_texture GL_NV_draw_vulkan_image GL_NV_ES1_1_compatibility GL_NV_ES3_1_compatibility GL_NV_explicit_multisample GL_NV_feature_query GL_NV_fence GL_NV_fill_rectangle GL_NV_float_buffer GL_NV_fog_distance GL_NV_fragment_coverage_to_color GL_NV_fragment_program GL_NV_fragment_program_option GL_NV_fragment_program2 GL_NV_fragment_shader_barycentric GL_NV_fragment_shader_interlock GL_NV_framebuffer_mixed_samples GL_NV_framebuffer_multisample_coverage GL_NV_geometry_shader4 GL_NV_geometry_sha
+der_passthrough GL_NV_gpu_program4 GL_NV_internalformat_sample_query GL_NV_gpu_program4_1 GL_NV_gpu_program5 GL_NV_gpu_program5_mem_extended GL_NV_gpu_program_fp64 GL_NV_gpu_program_multiview GL_NV_gpu_shader5 GL_NV_half_float GL_NV_light_max_exponent GL_NV_memory_attachment GL_NV_mesh_shader GL_NV_multisample_coverage GL_NV_multisample_filter_hint GL_NV_occlusion_query GL_NV_packed_depth_stencil GL_NV_parameter_buffer_object GL_NV_parameter_buffer_object2 GL_NV_path_rendering GL_NV_path_rendering_shared_edge GL_NV_pixel_data_range GL_NV_point_sprite GL_NV_primitive_restart GL_NV_primitive_shading_rate GL_NV_query_resource GL_NV_query_resource_tag GL_NV_register_combiners GL_NV_register_combiners2 GL_NV_representative_fragment_test GL_NV_sample_locations GL_NV_sample_mask_override_coverage GL_NV_scissor_exclusive GL_NV_shader_atomic_counters GL_NV_shader_atomic_float GL_NV_shader_atomic_float64 GL_NV_shader_atomic_fp16_vector GL_NV_shader_atomic_int64 GL_NV_shader_buffer_load GL_NV_shader_storage_buffer_obje
+ct GL_NV_shader_subgroup_partitioned GL_NV_shader_texture_footprint GL_NV_shading_rate_image GL_NV_stereo_view_rendering GL_NV_texgen_reflection GL_NV_texture_barrier GL_NV_texture_compression_vtc GL_NV_texture_dirty_tile_map GL_NV_texture_env_combine4 GL_NV_texture_multisample GL_NV_texture_rectangle GL_NV_texture_rectangle_compressed GL_NV_texture_shader GL_NV_texture_shader2 GL_NV_texture_shader3 GL_NV_transform_feedback GL_NV_transform_feedback2 GL_NV_uniform_buffer_unified_memory GL_NV_uniform_buffer_std430_layout GL_NV_vdpau_interop GL_NV_vdpau_interop2 GL_NV_vertex_array_range GL_NV_vertex_array_range2 GL_NV_vertex_attrib_integer_64bit GL_NV_vertex_buffer_unified_memory GL_NV_vertex_program GL_NV_vertex_program1_1 GL_NV_vertex_program2 GL_NV_vertex_program2_option GL_NV_vertex_program3 GL_NV_viewport_array2 GL_NV_viewport_swizzle GL_NVX_conditional_render GL_NV_gpu_multicast GL_NVX_progress_fence GL_NVX_gpu_memory_info GL_NVX_nvenc_interop GL_NV_shader_thread_group GL_NV_shader_thread_shuffle GL_KHR_b
+lend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_OVR_multiview GL_OVR_multiview2 GL_SGIS_generate_mipmap GL_SGIS_texture_lod GL_SGIX_depth_texture GL_SGIX_shadow GL_SUN_slice_accum
+OPENGL LOG: Creating OpenGL 4.5 graphics device ; Context level  <OpenGL 4.5> ; Context handle 576024872
+Begin MonoManager ReloadAssembly
+- Finished resetting the current domain, in  0.003 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Default vsync count 1
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+requesting resize 640 x 480
+requesting fullscreen 640 x 480 at 0/1 Hz
+Setting up downscaled viewport at 640 x 480
+Desktop is 1920 x 1080 @ 60 Hz
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (HDMI-1 22"): Couldn't get DPI
+Could not fetch DPI for display (DP-2 22"): Couldn't get DPI
+UnloadTime: 0.527052 ms
+[BOOT] AUTOBOOT=1 — headless live-boot verification (Title/NameInput auto-advance)
+[MapRegistry] ★name 重複 YAKA25: id=65 と id=232★ — id=232 を name 引きの解決先にする(id 引きなら両方に到達可)。gating/placement は name でなく MapIndex で引くこと
+[MapRegistry] loaded 244 entries (242 shipped) from 'registry/maps.json'
+[BOOT] services ready: Session, DataRegistry, MapRegistry(entries=244, shipped=242), MapLoader, GameSceneManager
+[FLOW] (start) → TitleState
+[TITLE] enter
+[BOOT] GameFlow started → Title
+[BOOT] Bootstrap created GameManager (scene-independent, DontDestroyOnLoad)
+[DIALOGUE] DB loaded (DG.SCN)
+[AUTOADV] enabled — continuation auto-advance (real logic, device-read bypass; shot@dwell8 advance@dwell30)
+[TITLE] AUTOBOOT → New Game
+[TITLE] New Game → NameInput
+[TITLE] exit
+[FLOW] TitleState → NameInputState
+[NAMEINPUT] enter
+[BOOT] FieldPresenter registered: FieldManager
+[BOOT] Dialogue facade registered: TextboxView
+[NAMEINPUT] AUTOBOOT → confirm name='TESTBOY'
+[DataRegistry] loaded 'data/species_care_params.json' (SpeciesCareFile)
+[NEWGAME] InitializeNewGame: flags/vars/inventory reset, clock=Day0 08:00(placeholder), partner init(EXE 0x80110AF4): id=0 stage=1 discipline=8, care(baby form1): max=25 thr=6 decay/h=3 fav=-1
+[NAMEINPUT] confirmed name='TESTBOY' partner=pending(intro) → Field
+[NAMEINPUT] exit
+[FLOW] NameInputState → FieldState
+[FIELD] enter (player='TESTBOY')
+[MapLoader] loaded 'TWNA01' from 'maps/twna01/twna01.json'
+[FIELD] map loaded name='twna01' spawns=10 rawCamOrigin=(0.00, -4301.00, -5973.00) viewerDist=1813
+[FIELD] HandleMapLoaded name=twna01 arrival=-1 — building field
+[FIELD] backdrop full-map billboard size=(60.6,50.5) depth=143.1 factor=(2.40,2.67) worldPerPx=0.0789 shader='Degimon/BackdropBackground' renderQueue=1000
+[YINV] OK: canonical 単一反転(焦点近傍点が viewport 外ゆえ投影 path check skip)。consumer flip は grep+review。
+[CAMERA] eye=(0.00, 86.02, -119.46) fwd=(0.00, -0.60, 0.80) fov=7.57(=2atan(120/1813)=7.57) aspect=1.333(=1.333) ortho=False near=0.30 far=1000.0 | scrollPx=(0.00, 0.00) scrollNdc=(0.00, 0.00) maxScrollPx=(448.00, 400.00) (3D transform は不動=GS_VIEWPOINT write0 相当)
+[PLACE] player initial spawn[0] ps1=(440.00, 0.00, -3715.00) -> world=(4.40, 0.00, -37.15) (canonical 地面 Y=0.00)
+[PLACE-GATE] entity gating 表 load: OFF index 32 / name 20
+[PLACE] entities placed=8 (spawn markers + NPC=3、全 ToWorld 経由) — debug NPC 4体除外(map=twna01、DEGIMON_DEBUG_NPCS=1 で表示)
+[PLACE] coplanar check: player Y=0.000 entities maxΔY=0.000 -> OK(coplanar、生spawn y=0)
+[FIELD] intro trigger → ScenarioVM.Boot()(data 駆動 master-walk)
+[SCENARIO-VM] Boot(production faithful awakening, flag OFF)=RunScene(238)(entry0.sec238 ACTIVATE 178→deferred-load→Jijimon 178、worker1/worker2 CONFIRMED ra=0x800EF408)
+[SCENE-PROG] RunScene(238) → entry0.section[238](scene-transition driver、ACTIVATE/JMP は Advance)
+[DIALOGUE] Begin entry=0 headerValid=False word0=0x468 bodyStart=0x46C len=24576
+[DIALOGUE] PlaySection entry=0 section=238 root=NpcSection → pc=0x3518
+[FIELD] dialogue started → InputLocked=true (player frozen)
+[PROGRESSION][0xFB MAP] map index(op1)=238 → OnMapChangeRequested(spawn=0,mode=0)@pc=0x3518 ★§225: 旧 code は この値を CurrentSection に入れ map 変更を配線していなかった★
+[SCRIPTWARP] src=SCRIPT(0x47) request targetMap=238 spawn=0 mode=0 → QueueWarp(deferred)
+[SCRIPTWARP] queued -> map=238 spawn=0 mode=0 src=Script
+[PROGRESSION] SCENARIO_JUMP(0xFB) @pc=0x3518 scenario(op0)=178 ctx(op1)=238 → Pending body-load(deferred、ACTIVATE=PlayMap)
+[VM-GATE] UNSUPPORTED op=0x5D len=2 entry=0 pc=0x3522 prevOp=0x1E stackDepth=0 ctx=B2 00 EE 00 1E 00 F5 00 [5D] 1C 19 00 00 00 37 00 18  ⇒ 記録のみ(2 回目以降、続行)
+[DIALOGUE][SCRIPT] JUMP(0x19) 0x3524 -> 0x3544
+[DIALOGUE] RETURN(0xFE) NpcSection @pc=0x3544 → Finished(single-section bound, pages=0)
+[DIALOGUE] scenario finished → OnFinished(player 操作復帰)
+[SCENARIO-VM] load scenario=178 section=254(ACTIVATE(section 0xFE)) [SceneCutscene]
+[DIALOGUE] Begin entry=178 headerValid=True word0=0x10 bodyStart=0x14 len=6144
+[DIALOGUE] PlaySection entry=178 section=254 root=SceneCutscene → pc=0x10 contentEnd=0x1316
+[FIELD] dialogue started → InputLocked=true (player frozen)
+[PROGRESSION] scenario-VM advanced @OnFinished → 次 scenario 実行(InputLocked 維持)
+[SCRIPTWARP] fire frame(Time.frameCount)=4 queued(_pendingFrame)=3 Δ(frame)=1 src=Script -> map=238 spawn=0 mode=0
+[MapLoader] loaded 'TOPN01' from 'maps/topn01/topn01.json'
+[WARP] -> id=238 name='topn01' spawn=0 mode=0
+[FIELD] HandleMapLoaded name=topn01 arrival=0 — building field
+[FIELD] backdrop full-map billboard size=(60.6,50.5) depth=143.1 factor=(2.40,2.67) worldPerPx=0.0789 shader='Degimon/BackdropBackground' renderQueue=1000
+[YINV] OK: canonical 単一反転(焦点近傍点が viewport 外ゆえ投影 path check skip)。consumer flip は grep+review。
+[CAMERA] eye=(0.00, 86.02, -119.46) fwd=(0.00, -0.60, 0.80) fov=7.57(=2atan(120/1813)=7.57) aspect=1.333(=1.333) ortho=False near=0.30 far=1000.0 | scrollPx=(0.00, 0.00) scrollNdc=(0.00, 0.00) maxScrollPx=(448.00, 400.00) (3D transform は不動=GS_VIEWPOINT write0 相当)
+[PLACE] player warp-arrival spawn[0] -> world=(4.40, 0.00, -37.15)
+[PLACE] entities placed=13 (spawn markers + NPC=8、全 ToWorld 経由)
+[PLACE] coplanar check: player Y=0.000 entities maxΔY=0.000 -> OK(coplanar、生spawn y=0)
+[VM-GATE] UNSUPPORTED op=0x6C len=8 entry=178 pc=0x1A prevOp=0xFE stackDepth=0 ctx=FE 00 64 19 FE 00 FE 00 [6C] FC E5 00 53 F5 02 00 4D  ⇒ 記録のみ(2 回目以降、続行)
+[VM-GATE] UNSUPPORTED op=0x4D len=4 entry=178 pc=0x22 prevOp=0x6C stackDepth=0 ctx=6C FC E5 00 53 F5 02 00 [4D] FD 00 08 4C 00 0A FD 67  ⇒ 記録のみ(2 回目以降、続行)
+[VM-GATE] UNSUPPORTED op=0x4C len=4 entry=178 pc=0x26 prevOp=0x4D stackDepth=0 ctx=53 F5 02 00 4D FD 00 08 [4C] 00 0A FD 67 00 05 00 56  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x2Eから再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x2E prevOp=0x4C stackDepth=0 ctx=4C 00 0A FD 67 00 05 00 [56] 00 FD 12 67 00 05 00 4F  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x36から再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[VM-GATE] UNSUPPORTED op=0x4F len=6 entry=178 pc=0x36 prevOp=0x56 stackDepth=0 ctx=56 00 FD 12 67 00 05 00 [4F] 1E C8 00 30 F8 4A C8 67  ⇒ 記録のみ(2 回目以降、続行)
+[VM-GATE] UNSUPPORTED op=0x4A len=2 entry=178 pc=0x3C prevOp=0x4F stackDepth=0 ctx=05 00 4F 1E C8 00 30 F8 [4A] C8 67 00 14 00 67 00 3C  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0014→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x42から再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[OP67] FRAME_YIELD u16=0x003C→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x46から再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x46 prevOp=0x4A stackDepth=0 ctx=67 00 14 00 67 00 3C 00 [56] 00 08 1D 67 00 05 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x4Eから再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[AUTOADV] page=1 ENTER frame=10 sessionMap='topn01' speaker=8 text='「む…気がついたか？\n　どうやら成功のようじゃぞ！」\n'
+[AUTOADV] page=1 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=17 sessionMap='topn01'
+[AUTOADV] page=1 ADVANCE frame=39 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x8A prevOp=0x1B stackDepth=0 ctx=81 49 81 76 0D 00 00 00 [56] 00 08 00 56 00 0A 0B 56  ⇒ 記録のみ(2 回目以降、続行)
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x8E prevOp=0x56 stackDepth=0 ctx=0D 00 00 00 56 00 08 00 [56] 00 0A 0B 56 00 0C 0B 67  ⇒ 記録のみ(2 回目以降、続行)
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x92 prevOp=0x56 stackDepth=0 ctx=56 00 08 00 56 00 0A 0B [56] 00 0C 0B 67 00 05 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x9Aから再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[AUTOADV] page=2 ENTER frame=41 sessionMap='topn01' speaker=12 text='「にんげん…\n　じっちゃんの言ってたとおりだー。」\n'
+[AUTOADV] page=2 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=48 sessionMap='topn01'
+[AUTOADV] page=2 ADVANCE frame=70 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0xD4 prevOp=0x1B stackDepth=0 ctx=81 42 81 76 0D 00 00 00 [56] 00 0A 00 56 00 0C 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0xD8 prevOp=0x56 stackDepth=0 ctx=0D 00 00 00 56 00 0A 00 [56] 00 0C 00 1B FD 1A 00 81  ⇒ 記録のみ(2 回目以降、続行)
+[AUTOADV] page=3 ENTER frame=71 sessionMap='topn01' speaker=253 text='「うーーん…」\n'
+[AUTOADV] page=3 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=78 sessionMap='topn01'
+[AUTOADV] page=3 ADVANCE frame=100 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0xF2 prevOp=0x1B stackDepth=0 ctx=81 63 81 76 0D 00 00 00 [56] 00 08 1D 67 00 05 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0xFAから再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[AUTOADV] page=4 ENTER frame=102 sessionMap='topn01' speaker=8 text='「しっ、起きるぞ！」\n'
+[AUTOADV] page=4 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=109 sessionMap='topn01'
+[AUTOADV] page=4 ADVANCE frame=131 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x11C prevOp=0x64 stackDepth=0 ctx=00 00 1E 00 FE FD 64 37 [56] 00 08 00 1B FD 1A 00 81  ⇒ 記録のみ(2 回目以降、続行)
+[AUTOADV] page=5 ENTER frame=132 sessionMap='topn01' speaker=253 text='「うん…？ここ…どこ？」\n'
+[AUTOADV] page=5 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=139 sessionMap='topn01'
+[AUTOADV] page=5 ADVANCE frame=161 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x140 prevOp=0x1B stackDepth=0 ctx=81 48 81 76 0D 00 00 00 [56] 00 08 1D 67 00 05 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x148から再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[AUTOADV] page=6 ENTER frame=163 sessionMap='topn01' speaker=8 text='「ようこそ、デジモンワールドへ！」\n'
+[AUTOADV] page=6 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=170 sessionMap='topn01'
+[AUTOADV] page=6 ADVANCE frame=192 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x172 prevOp=0x1B stackDepth=0 ctx=81 49 81 76 0D 00 00 00 [56] 00 08 00 1B FD 1A 00 81  ⇒ 記録のみ(2 回目以降、続行)
+[AUTOADV] page=7 ENTER frame=193 sessionMap='topn01' speaker=253 text='「へ？」\n'
+[AUTOADV] page=7 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=200 sessionMap='topn01'
+[AUTOADV] page=7 ADVANCE frame=222 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x4C len=4 entry=178 pc=0x186 prevOp=0x1B stackDepth=0 ctx=81 48 81 76 0D 00 00 00 [4C] 00 FD 08 67 00 05 00 56  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x18Eから再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x18E prevOp=0x4C stackDepth=0 ctx=4C 00 FD 08 67 00 05 00 [56] 00 FD 0F 67 00 0A 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x000A→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x196から再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[AUTOADV] page=8 ENTER frame=225 sessionMap='topn01' speaker=253 text='「わぁーー！！！」\n'
+[AUTOADV] page=8 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=232 sessionMap='topn01'
+[AUTOADV] page=8 ADVANCE frame=254 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x1B0 prevOp=0x1B stackDepth=0 ctx=81 49 81 76 0D 00 00 00 [56] 00 0A 05 67 00 05 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x1B8から再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[AUTOADV] page=9 ENTER frame=256 sessionMap='topn01' speaker=10 text='「えっ？何？何？」\n'
+[AUTOADV] page=9 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=263 sessionMap='topn01'
+[AUTOADV] page=9 ADVANCE frame=285 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x1D2 prevOp=0x1B stackDepth=0 ctx=81 48 81 76 0D 00 00 00 [56] 00 0A 00 56 00 FD 14 1B  ⇒ 記録のみ(2 回目以降、続行)
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x1D6 prevOp=0x56 stackDepth=0 ctx=0D 00 00 00 56 00 0A 00 [56] 00 FD 14 1B FD 1A 00 81  ⇒ 記録のみ(2 回目以降、続行)
+[AUTOADV] page=10 ENTER frame=286 sessionMap='topn01' speaker=253 text='「な、な、なんだよお前らは！？」\n'
+[AUTOADV] page=10 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=293 sessionMap='topn01'
+[AUTOADV] page=10 ADVANCE frame=315 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x202 prevOp=0x1B stackDepth=0 ctx=81 48 81 76 0D 00 00 00 [56] 00 FD 00 4C 00 FD 0A 67  ⇒ 記録のみ(2 回目以降、続行)
+[VM-GATE] UNSUPPORTED op=0x4C len=4 entry=178 pc=0x206 prevOp=0x56 stackDepth=0 ctx=0D 00 00 00 56 00 FD 00 [4C] 00 FD 0A 67 00 0A 00 4C  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x000A→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x20Eから再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[VM-GATE] UNSUPPORTED op=0x4C len=4 entry=178 pc=0x20E prevOp=0x4C stackDepth=0 ctx=4C 00 FD 0A 67 00 0A 00 [4C] 00 FD 08 67 00 0A 00 56  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x000A→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x216から再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x216 prevOp=0x4C stackDepth=0 ctx=4C 00 FD 08 67 00 0A 00 [56] 00 08 1D 67 00 05 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x21Eから再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[AUTOADV] page=11 ENTER frame=319 sessionMap='topn01' speaker=8 text='「デジモンじゃ。」\n'
+[AUTOADV] page=11 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=326 sessionMap='topn01'
+[AUTOADV] page=11 ADVANCE frame=348 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x238 prevOp=0x1B stackDepth=0 ctx=81 42 81 76 0D 00 00 00 [56] 00 08 00 1B FD 1A 00 81  ⇒ 記録のみ(2 回目以降、続行)
+[AUTOADV] page=12 ENTER frame=349 sessionMap='topn01' speaker=253 text='「デジモン！？って…」\n'
+[AUTOADV] page=12 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=356 sessionMap='topn01'
+[AUTOADV] page=12 ADVANCE frame=378 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x25A prevOp=0x1B stackDepth=0 ctx=81 63 81 76 0D 00 00 00 [56] 00 08 1D 67 00 05 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x0005→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x262から再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[AUTOADV] page=13 ENTER frame=380 sessionMap='topn01' speaker=8 text='「ん？おぬしはデジモンを知っておる\n　はずじゃが…？」\n'
+[AUTOADV] page=13 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=387 sessionMap='topn01'
+[AUTOADV] page=13 ADVANCE frame=409 sessionMap='topn01'
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x2A0 prevOp=0x1B stackDepth=0 ctx=81 48 81 76 0D 00 00 00 [56] 00 08 00 56 00 FD 10 67  ⇒ 記録のみ(2 回目以降、続行)
+[VM-GATE] UNSUPPORTED op=0x56 len=4 entry=178 pc=0x2A4 prevOp=0x56 stackDepth=0 ctx=0D 00 00 00 56 00 08 00 [56] 00 FD 10 67 00 0A 00 1B  ⇒ 記録のみ(2 回目以降、続行)
+[OP67] FRAME_YIELD u16=0x000A→E164 / marker E150=0x67 / ★frame-yield=このtick終了・次tick pc=0x2ACから再開(State=Running維持=0x66 idle_stop/launch停止とは別次元)★ @entry=178 sec=0xFE
+[AUTOADV] page=14 ENTER frame=411 sessionMap='topn01' speaker=253 text='「ん？ははーん、そっか、これって\n　夢だろ？そーかそーか。」\n'
+[AUTOADV] page=14 SHOT(skip: DEGIMON_PAGE_SHOT_DIR 未設定) frame=418 sessionMap='topn01'
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+CodeReloadManager destroyed
