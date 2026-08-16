@@ -124,3 +124,65 @@ a4d7ec57fea8d2d8360b122f53de6a25f32941535f14d81eb4b95b9f6a8d590f  vise_on_nofram
 4. ★`VISE_AVATAR_MODE` は ★既定 OFF のまま★★（★PRESIDENT 裁定どおり 既定 ON に していません★）
 5. ★`FieldManager.cs` の Capsule は ★消していません★★（★判別を 残すため★）
 6. ★★user 実視覚 未★★ ⇒ ★完成 claim では ありません★・★「③ 完了」とも 書いていません★
+
+---
+
+# ★#456-C = ③ material / ④ 切り分け(a)★
+
+## 9. ★★③ material は lit か unlit か（★逐語★）★★
+
+★★lit です★★ — ★但し boss1 の 推定した 経路とは 違いました★:
+
+| 見たもの | 実測 |
+|---|---|
+| `ViseAvatar` 配下の `.mat` | ★★0 件★★（boss1 の 申告と 一致） |
+| `BOYS.fbx.meta` の importer | `materialImportMode: 2` / `materialName: 0` / `materialSearch: 1` / `materialLocation: 1` |
+| ★★prefab の `m_Materials`★★ | ★★`{fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}`★★ |
+
+★`guid: 0000…f000…` = ★Unity 内蔵 resources★ / `fileID: 10303` = ★★`Default-Material`（Standard shader）★★
+⇒ ★★∴ ★lit★★（★白 Capsule の `Unlit/Color` と 対照的★）
+
+★★訂正 1 点★★ = boss1 は「material は ★FBX import 由来★」と 推定されましたが、
+★実測では ★import された material は 1 つも 作られておらず（`.mat` 0 件）★、
+prefab は ★Unity 内蔵の `Default-Material` を 直接 指しています★★。
+⇒ ★★結論（lit）は 同じ / 経路が 違います★★。
+
+★★∴ 「光源 0 の field に lit の model」は 整合します★★（暗いことの 説明として）。
+
+### ★原盤の 陰影を 見る 手順の 提案（★決め打ちません★）★
+★★screenshot で 暗さを 確認しない★★ = `ViseAvatarBootstrap.cs:89-90` の Directional Light は
+★`mode=="on" && (gameCam || !noFrame)` のときだけ 作られる★ ⇒ ★撮影経路が 光源を 足す★。
+提案（★安い順★）:
+1. ★DuckStation で 原盤の 同一 map・同一 時間帯を 出し、★同一 pixel 位置の 明度を 数で★ 比べる★
+   （★「明るい/暗い」でなく ★数★★ = memory `reference_duckstation_live_ram_capture` の 経路）
+2. ★原盤に ★時間帯で 明度が 変わるか★ を 見る★ ⇒ ★変われば 光源が 在る / 変わらねば baked★
+3. ★1-2 の 結果で ★unlit に 寄せるか 光源を 足すか★ を PRESIDENT が 決める★
+⇒ ★★私は どちらにも 寄せていません★★（★code を 触っていません★）。
+
+## 10. ★★④ 切り分け (a) = avatar を付けずに 同じ map・同じ地点★★
+
+| png | `VISE_AVATAR_MODE` | 見え |
+|---|---|---|
+| ★`vise_off.png`★ | ★未設定（= avatar OFF）★ | ★★草地が 画面いっぱいに 広がる★★ / ★白 Capsule は 小さい★ |
+| `vise_on_noframe.png` | `on` | ★同じ 広さ★ ＋ ★小さい 少年★ |
+
+★★∴ ★avatar 無しでは 「ズームされ過ぎ」に 見えません★★★
+⇒ ★boss1 の 判定規則に 当てると ★「人が 大きい」側★★。
+
+★支える 数★:
+・★BOYS `boundsSize.y = 3.55`★（log 実測）対 ★Capsule = `localScale=(0.6, 1.0, 0.6)` の 既定 capsule = ★高さ 2.0★★
+　⇒ ★★約 1.78 倍★★
+・★`modelScale` の 既定 = ★1.03★★（comment に ★faithful=1.03★ と 在る）
+　⇒ ★★∴ scale 1.03 の まま 3.55 になる = ★model 自体の 素の 高さが 3.45 相当★★★
+　⇒ ★「1.03 が 忠実」と ★3.55 が 大き過ぎる★ は ★両立しません★★ ⇒ ★どちらかの 前提が 誤り★
+
+★★但し 私は ここで 止めます★★ = ★「見た目で 調整」しない★（PRESIDENT 裁定）
+⇒ ★次は ★原盤の 人の高さ ÷ 画面の高さ★ の 比で 合わせる★ ⇒ ★DuckStation 比較が 要る★ ⇒ 札 = ★実機★
+
+★★抜き取り検算（全数は 再測していません）★★ = `mayo00` の `viewer_distance` を 1 件だけ 読み直し
+⇒ ★`H=1511` / `fov = 2·atan(120/1511) = 9.08°`★ = ★★boss1 申告と 一致★★。
+
+★sha256★
+```
+bcadd2ad945e4ca88b0eff6c6cc14fec79a07dab111cc2ee2d94129b5017d48b  vise_off.png
+```
