@@ -4629,3 +4629,22 @@ key = (pc, base, entry, stop, pending, depth, pad_held, pad_edge, tuple(win), fl
 ★★∴ ★worker3 待ちの 回付が ★2 件★★★ = ★① (872) の 再枠づけ + 規範 (a)(c)(d)（⓪-87）★ / ★② #6 の 実害 site（★entry 129 / 0x009E / index 19・但し書きごと 私が 預かり中★）★
 ★★∴ ★worker3 待ちの 回付が ★2 件★★★ = ★① (872) の 再枠づけ + 規範 (a)(c)(d)（⓪-87）★ / ★② #6 の 実害 1 site の 実測★
 ★★∴ ★worker3 待ちの 回付が ★2 件★ 溜まって います★★ = ★① (872) の 再枠づけ + 規範 (a)(c)(d)（⓪-87）★ / ★② ★#6 の 実害 1 site の 実測★★ / ★完成 claim は ★user 実視覚まで 凍結★★ / ★共有 tree /home/ken/Desktop/Digimon/degimon_world_remake は ★読取のみ★★
+
+## ⓪-386 ★★★#434 受領（boss1 再起動・文脈ゼロからの 復帰 / 2026-08-15 夜）★★★
+- ★復帰手続き★ = ★git HEAD `b7c3c55` 確認 / §8.0 桁表 + §8.1 様式 読了 / HONEST_GAP_LEDGER 末尾 読了 / tmux で worker 3 名の 生存と 作業中を 実見★（要約でなく 実物）
+- ★通信★ = ★本便から `agent-send-file.sh president <絶対 path>` に 統一★（inline backtick を caller の shell が 食う 事故の 段 3 対処）
+- ★★訂正 1 件（PRESIDENT ⑤w3 の 記述に 対し）★★ = 「51-79 が `LaunchTransporterMenu` を 通って いる」は ★#735 で 処置済★
+  = ★`FieldScriptBridge.LaunchTileSection` へ 改名済★（p2w3 / 旧名は 由来 comment のみ 残置）/ ★経路は 1 本の まま★
+  ⇒ 理由（w3・私も 検分して 同意）= ★menu が 開くのは section 内に `0x4E` が 在って `WaitingChoice` に 入る ときだけ = **data 駆動** であって 経路の 違いでは ない★
+  ⇒ ★分かれて いるのは 検出側★ = `DetectImmediateScriptTrigger`(51-79・★入力 bit を 読まない★) / `DetectScriptTrigger`(80-109・bit が 要る) / ★合流点は 起動だけ★
+  ⚠ ★残骸 1 件（実害なし）★ = `FieldState.cs` に 旧名 3 箇所・うち ★1 つは `Debug.Log` の 文面(L637)★ ⇒ ★w3 の 次便で 掃除★
+- ★★3 gate の 裁定（PRESIDENT へ 単一推奨で 上申済）★★ = ★3 つ 同時 ON は しない★
+  | gate | 裁定 | 根拠 |
+  |---|---|---|
+  | ★② `DEGIMON_MAP_LOADER`★ | ★既定 ON 推奨★ | ★w3 全数 167 組 = registry id 軸 **20 %** / loader 軸 **100 %**★ ⇒ ★誤解決の 修正であって 発明では ない★ |
+  | ★① `DEGIMON_TILE_5179`★ | ★ON 可・ただし 集計 1 本の 後★ | ★原盤の 起動条件が 逐語(w1・母数 `0x800AE3DC` 全 234 語)★ / ★条件 = `W3TileBandCoverage` で 全 242 地図の 帯マス・種類・section 実在数★(§8.1 母数の 申告) |
+  | ★③ `DEGIMON_WARP_EMIT`★ | ★ON しない★ | ★原盤 `0x4B` = pending を 立て 次 tick で `0x800E3DA0` が 3 出力・完了まで 毎 tick 再試行 = **remake に 無い**(8cc845a)★ ⇒ ★pending 形を 埋めてから★ |
+  ⇒ ★∴ 順序 = ③ を 1 dispatch で 埋める → ★3 つ まとめて 既定 ON★ ⇒ ★user の 観測を 1 回で 済ませる★
+- ★★確認依頼（PRESIDENT へ・1 件）★★ = ★user 手番の「実機 1 観測(束 3 件)」は ★原盤側★ か ★引き渡し済 build★ か★
+  ⇒ 後者なら ★その build は 3 gate 既定 OFF ゆえ 同じ『無反応』を もう 一度 見る★（原因は 既知）⇒ ★束の 差し替え か gate 込み build の 渡し直し★ が 要る
+- ★★次の 発注（各 worker の 現便 完了後）★★ = ★w1 = `0x66` の 3 分岐 gap(remake は s2==−1 の 1 本だけ)★ / ★w2 = `0x800AECA8` の 3 枝の 効果を image 側で 読み切る★ / ★w3 = 全 242 地図の 帯 集計 ＋ 旧名 残骸 3 箇所★
