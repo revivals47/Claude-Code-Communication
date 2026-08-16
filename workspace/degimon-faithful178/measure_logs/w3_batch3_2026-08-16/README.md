@@ -74,3 +74,48 @@
 2. ★★scene 33 に 到達する 筋書きは 未特定★★ ⇒ ★これが 音の 律速★ ⇒ 札 = 材料
 3. ★`VISE_VILLAGE` の 0.115% は 小さい★ = ★この地点では 村人が 遠い 公算★（★別地点 未測定★）⇒ 札 = 材料
 4. ★user 実視覚 / 実聴取 は 未★
+
+---
+
+# ★#472-C = 村 map の 特定 ＋ 3 つ ON の 1 枚★
+
+## 7. ★★`VISE_VILLAGE` は ★map gate では ありません★★★
+
+★逐語★ = `ViseNpcBootstrap.cs:56-70` の `PlaceVillage` は
+★★固定 world 座標★★ に 置きます（★worker1 の RAM 実測値★）:
+```
+  TOKO (-13.72, 0, -29.91) facing 315°
+  YURA ( -1.03, 0, -16.23) facing 342.8°
+  TANE (  7.98, 0, -16.56) facing 45°
+```
+⇒ ★★∴「村 map で ON にする」gate では なく ★どの map でも その 座標に 置く★★★
+　= ★座標の 出所が ★twna01 の 村★★ ゆえ ★twna01 でないと 意味の ある 位置に なりません★
+★発火条件★ = `village && !_attached && Camera.allCamerasCount > 0 && _t > 1.5f`
+⇒ ★★`_t > 1.5f` に 届く前に run が 終わると 1 行も 出ません★★（★「0 行」の 説明に なり得ます★）
+
+★★申告★★ = boss1 は「PRESIDENT が mayo00 で ON にして ★0 行★」と 伝えられましたが、
+★私の mayo00 実測では ★`[VISE_NPC]` `[VISE_EMIT]` の 2 tag が 出ました★★（#461-C）。
+⇒ ★★0 行では ありません★★ ⇒ ★差は ★run の 長さ（`_t > 1.5f`）★ の 公算★（★私は 断定しません★）。
+
+★twna01 での 実測★ = ★3 体とも 配置★（renderers 139 / 154 / 132）／ 画面差 ★1.069%★
+
+## 8. ★★3 つ ON の 1 枚 = `all3b.png`★★
+
+env（★`[RUNBY]` に 全部 印字済★）:
+`DEGIMON_BOOT_MAP=twna01 / DEGIMON_FIELD_MODELS=1 / DEGIMON_VISE_VILLAGE=1 /`
+`VISE_AVATAR_MODE=（未設定 = 既定 ON）/ DEGIMON_VISE_NOFRAME=1 / CAPSEC=26 / WALK_DIR=0,1`
+
+★写っているもの★:
+・★boy（3D・黄の 上着）★ が ★緑の tunnel 建物の 前★（= ★原盤 screenshot と 同じ 場所★）
+・★Mojyamon 風（角と 白毛）★ / ★Tokomon 風（白・耳）★ / ★Tanemon 風（緑・葉）★ = ★3D model★
+・★街の 造作（tunnel 小屋 / 青い 遊具 / 花壇）★
+
+★`all3.png`★ = 同 env・`WALK_DIR=0,-1`・CAPSEC=32 の 別枚（★村人 4 体以上が 広く 写る★ / boy は 画角外）
+
+## 9. ★見ていないこと★
+1. ★どの 個体が `FIELD_MODELS` 由来で どれが `VISE_VILLAGE` 由来かは ★画では 分けていません★★
+　（★log では 分かれています★: village = TOKO/YURA/TANE の 3 体固定）⇒ 札 = 自分の器
+2. ★★他の player run が 3 本 走っていました★★（`/tmp/degimon_user3.log` 等 = ★PRESIDENT 側・私は 触っていません★）
+　⇒ ★同一 GPU / 同一 sink を 共有していた★ ⇒ ★★#461-C の 音の 測定に 影響した 可能性は 否定できません★★
+　（★但し 陽性対照は 同じ条件で RMS>0 を 出しています★）⇒ 札 = 材料
+3. ★既定 ON にできるかの 3 条件（②）は ★本便では 撃っていません★★ ⇒ ★画を 先に 出しました★
