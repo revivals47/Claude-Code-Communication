@@ -1419,3 +1419,54 @@ boss1 #516-C §3 = 「★`_9` で 時計が 進むなら そこで 第 2 段を 
 - ★★切ったもの★★ = ★(a)(b) の 実撃★（★指示は 「読むだけ・撃たない」★）
 - ★★出なかったもの★★ = ★帯が 割れた 同一 map の 組★（★12 本に ★存在しません★★ = ★私が 切ったのでは ありません★）
 - ★元 savestate 読取のみ★ / ★user を 呼んでいません★
+
+---
+
+# §47 — #525-C ★(a)(b) を 読む（撃っていません）★（worker3）
+
+## 47.1 ★★1 行の答★★
+
+★★「dialogue entry の launch」は 組めます／「map load を 起こす」ところは ★まだ 組めていません★★★
+
+## 47.2 ★(a) `DGSWEEP` ＋ `DGSTATE`★ = ★★半分 組めます★★
+
+★逐語★:
+- `OnLaunchSite`（`:1283`）の comment = ★★「this BP is the field-loop top, ★hit every frame★」★★
+- ⇒ ★★∴ ★入力が 無くても 毎 frame 発火します★★★ = ★#520-C の 「歩けない」を ★迂回できます★★
+- 発火時に ★`a0 = scn` / `a1 = key` / `a2` / `ra = resume_pc` を 立てて ★game 自身の launcher へ 飛ばす★★
+- phase 機械 = ★`SW_RELOAD`（`DGSTATE` を load）→ `SW_SETTLE`（既定 12 frame・★game が 走る★）→ `SW_RUN`（launch）★
+
+⇒ ★★∴ ★任意の (scn, key) を 入力なしで 撃てます★★★
+
+★★但し 埋まっていない ことが 2 つ★★:
+1. ★★warp（`0x4B`）を 含む section が 実際に ★map load を 起こすか★ を 私は 見ていません★★
+2. ★★mist04 で ★warp を 含む (scn, key) を 特定していません★★★（★特定には DG.SCN 走査が 要ります★）
+
+## 47.3 ★(b) `DG_RESTORE_*`★ = ★★単独では 発火しません★★
+
+★発火点★ = `OnVMFetch`（`:1706`）の 中（`:1735`）
+⇒ ★★∴ ★dialogue VM が 走っていないと 発火しません★★★
+⇒ ★★∴ idle な field state では ★1 度も 撃たれません★★★
+⇒ ★★∴ (b) は ★(a) と 併用でのみ 意味を 持ちます★★★（★PC を 特定 opcode へ 向ける 用途★）
+
+## 47.4 ★★見た が 採らない もの（★同一視しません★）★★
+
+★`DGPERTURB_EARLY`（`:1203`）★ = ★`SW_RELOAD` 直後・★SETTLE の field Init copy の 前★ に 注入★
+⇒ ★★一見 「入場前に 時刻を 入れる」に 見えます★★
+⇒ ★★但し comment の 「field Init copy」は ★eventBank への copy★ の 話で
+　★NPC 充填 `0x800BAE54` を 指すとは 書かれていません★★★
+⇒ ★★∴ 私は 同一視しません★★（★「そう読めるから そうだ」を しません★）
+
+## 47.5 ★★次に 要るもの（★1 つだけ★）★★
+
+★★mist04 の loader entry で ★`0x4B` を 含む section を 1 つ 特定する★★★
+⇒ ★手段は ★既に 在ります★★ = ★`DEGIMON_OPTRACE=1` ＋ `DEGIMON_DUMP_ENTRY` ＋ `DEGIMON_DUMP_SECTIONS`★
+　（★#496-C で 使った 既存器・headless・window なし★）
+⇒ ★★これは 「撃つ」では なく 「材料を 特定する」段です★★ ⇒ ★指示を 待ちます★
+
+## 47.6 ★母数 / 切ったもの★
+
+- ★(a)(b) とも ★実撃 0★★（★指示 =「読むだけ」★）
+- ★★切ったもの★★ = ★mist04 の section 走査★（★次段の 材料・指示待ち★）
+- ★★出なかったもの★★ = ★方向入力★（#520-C で 全数 grep 0 件・★私が 切ったのでは ありません★）
+- ★元 savestate 読取のみ★ / ★user を 呼んでいません★
