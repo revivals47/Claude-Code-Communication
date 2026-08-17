@@ -1945,3 +1945,65 @@ boss1 #516-C §3 = 「★`_9` で 時計が 進むなら そこで 第 2 段を 
 - ★★切ったまま★★ = ★MAYO00 の 入口探索（残り 234 map）★ = ★★launch で 迂回したので 不要に なりました★★
 - ★★後回し★★ = ★#543-C 追補（log に species を 載せる）★（boss1 =「この後で結構」）
 - ★user を 呼んでいません★ / ★window を 出していません★
+
+---
+
+# §55 — #547-C ①② ★build 修復 ＋ species 印字が 通りました★（worker3）
+
+★★「完成」とは 書きません★★ / ★★条件の 実装は 入れていません（印字のみ）★★
+★事前登録★ = `PREREG_543C.md`（★0ea5b2b★・撃つ前）
+
+## 55.1 ★① build 修復 = ★私の 誤りでした★★
+
+★`W3MeasureBuild437C` の method は ★`Build`★★（私は `Run` と 打っていました）
+⇒ ★`W3_MEASURE_OUT` を scratchpad に 向けて build ⇒ ★`result=Succeeded`★★
+⇒ ★★∴ ★`EntityPlacer.cs` の 編集は compile を 通りました★★★
+
+## 55.2 ★★② species 印字（★対照 2 本とも 通過★）★★
+
+| 対照 | 結果 |
+|---|---|
+| ★U3: gate OFF で 行が 増える★ | ★★否定★★ = `PLACE-SPECIES` ★0 行★ |
+| ★U4: 既存 `[PLACE]` 行が 変わる★ | ★★否定★★ = ★7 行が 逐字 同一★（sha256 `c2a8c8e05a80c570`） |
+| ★gate ON★ | `PLACE-SPECIES` ★15 行★ |
+
+⇒ ★★∴ ★挙動 code を 1 bit も 変えていません★★★
+
+## 55.3 ★★U1 = 的中（★逐字 一致★）★★
+
+```
+  map=mayo00 idx=109 slot=0 type=★74★ script_id=5 ps1=(594,2347)
+  map=mayo00 idx=109 slot=1 type=★74★ script_id=8 ps1=(327,-1500)
+  map=mayo00 idx=109 slot=2 type=★3★  script_id=6 ps1=(-226,1688)
+  map=mayo00 idx=109 slot=3 type=★83★ script_id=7 ps1=(594,2347)
+  map=mayo00 idx=109 slot=4 type=★83★ script_id=9 ps1=(327,-1500)
+  map=mayo00 ★合計 5 体★
+```
+⇒ ★★`74,74,3,83,83` = ★`MAYO00.MAP` の record★ ＝ ★私の #544-C の 実機測定★ と 三者 一致★★
+
+★★併せて 出た こと（★私は 探していませんでした★）★★:
+- ★★slot 0 と slot 3 が ★同一座標 (594,2347)★★★
+- ★★slot 1 と slot 4 が ★同一座標 (327,-1500)★★★
+⇒ ★★∴ ★昼夜で 入れ替わる 2 対は ★同じ場所に 立ちます★★★★
+　= ★★worker1 の 昼 slot3,4 / 夜 slot0,1 と ★座標で 対に なります★★★
+
+★他 map の 対照★ = `topn01` = ★8 体★（`117,30,117,117,43,30,44,29`）⇒ ★器は mayo00 専用では ありません★
+★boss1 の ④ 基準★ = ★体数 5 / 総数 8★ ⇒ ★★一致★★
+
+## 55.4 ★★③ boss1 の 懸念（mayo00 に 入れない）は ★remake 側では 解消しました★★★
+
+★★`DEGIMON_BOOT_MAP=mayo00`★★（`FieldState.cs:143`）で ★直接 boot できます★
+⇒ ★★∴ remake 側の ①②③④ は ★warp も launch も 要りません★★★
+⇒ ★実機側（regtest）は #544-C の launch で 撃ち済★
+
+## 55.5 ★次（③④⑤）★
+
+- ★worker2 の commit を ★cherry-pick★（★file を copy しません★）★ ⇒ ★★待ちです★★
+- ★★slot 反転（昼=3,4 / 夜=0,1）は ★私の #544-C の 実測と 一致する 向き★★★ ⇒ ★受領時に 確認します★
+- ★★compile は 私が 通します★★（★worker2 は Unity build を 持っていません★）
+
+## 55.6 ★母数 / 切ったもの★
+
+- ★player run = ★gate OFF / ON の 2 本★★（★headless `-batchmode -nographics`・★window を 出していません★）
+- ★★切ったもの★★ = ★時刻を 変えた run★（★実装が まだ 無いので 変える口が ありません★）
+- ★元 savestate 読取のみ★ / ★code を land していません★ / ★user を 呼んでいません★
