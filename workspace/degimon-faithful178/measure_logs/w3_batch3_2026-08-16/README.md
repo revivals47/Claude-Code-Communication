@@ -2067,3 +2067,71 @@ boss1 #516-C §3 = 「★`_9` で 時計が 進むなら そこで 第 2 段を 
 - ★run = ★4 本★★（★headless `-batchmode -nographics`・★window を 出していません★）
 - ★★切ったもの★★ = ★worker2 の anomaly 系 refactor★（★別 commit chain★・★申告済★）
 - ★user を 呼んでいません★
+
+---
+
+# §57 — #550-C ★★画面 2 枚（★条件 4 つ★）★★（worker3）
+
+★★「完成」とは 書きません★★（user の 実視覚まで 凍結）／★★land していません★★（integ `30f307fc` は 保全）
+
+## 57.1 ★★2 枚★★
+
+| file | env |
+|---|---|
+| ★`mayo00_day_h12.png`★ | `DEGIMON_START_HOUR=12` |
+| ★`mayo00_night_h22.png`★ | `DEGIMON_START_HOUR=22` |
+
+★★差は `START_HOUR` だけ★★（他 env は 逐字 同一）:
+`DEGIMON_VISE_SHOTDIST=40` / `DEGIMON_INTRO_ENTRY=101` / `DEGIMON_AUTOBOOT_SEC=20` /
+`DEGIMON_TIME_PLACEMENT=1` / `DEGIMON_PLACE_SPECIES=1` / `DEGIMON_FIELD_MODELS=1` /
+`VISE_AVATAR_MODE=on` / `DEGIMON_VISE_SHOT_AT=8` / `DEGIMON_BOOT_MAP=mayo00`
+
+## 57.2 ★条件 4 つの 充足★
+
+| 条件 | 結果 |
+|---|---|
+| ★(1) 同一地点・同一 camera・同一 seed★ | ★★充足★★（★差は `START_HOUR` のみ★・後述の 画素差が 裏づけ） |
+| ★(2) 3D gate ON★ | ★★充足★★（`DEGIMON_FIELD_MODELS=1` / `VISE_AVATAR_MODE=on` / ★field-model 3/3★） |
+| ★(3) log と画面が 同じ run★ | ★★充足★★（★同 run の log を 下に 引きます★） |
+| ★(4) 昼 12 / 夜 22★ | ★★充足★★ |
+
+## 57.3 ★★画素差（★数で 押さえました★）★★
+
+| 量 | 値 |
+|---|---|
+| ★差画素（\|ΔRGB\| 合計 > 18）★ | ★★1,777 / 307,200 = 0.578 %★★ |
+| ★差の 範囲★ | ★★x=[217,277] / y=[301,380]★★ = ★1 体分の 領域に 限局★ |
+| ★★左下（species 3 の 位置）の 差画素★★ | ★★0★★ |
+
+⇒ ★★∴ ★同じ場所の 生き物だけが 入れ替わり★ ★無条件の species 3 は 画素まで 同一★★★
+⇒ ★★= 内部対照が ★画面でも 効きました★★★
+
+## 57.4 ★同 run の log（★条件 (3)★）★
+
+```
+  ★HOUR=12★  rec=2 type=3   / rec=3 type=★83★ / rec=4 type=★83★
+  ★HOUR=22★  rec=0 type=★74★ / rec=1 type=★74★ / rec=2 type=3
+```
+⇒ ★★worker1 の slot 対応（昼 3,4 / 夜 0,1 / 2 は 無条件）と ★逐字 一致★★★
+
+## 57.5 ★★`slot=` の 改名（#550-C §2b）★★
+
+★`slot={i}` を 廃し ★`rec=`（record 添字 = 原盤 `0x47` の slot）★ ＋ `print_i=`（印字添字）に 分けました★
+⇒ ★★同じ語で 別の数、を 潰しました★★（★`rec` が 原盤・`print_i` が 詰めた後★）
+★doc の 1 行★ = ★★species で 読んでください★★（★`print_i` で 読むと 誤ります★）
+
+## 57.6 ★★撮影で 詰まった 2 点（★器の 情報★）★★
+
+1. ★★既定の 撮影は ★avatar 至近の 点検 camera★★★ ⇒ ★★NPC が 画角に 入らず ★2 枚が byte 同一★ に なりました★★
+　⇒ ★`DEGIMON_VISE_SHOTDIST=40` で 画角が 開きました★
+　⇒ ★★「log は 83 と 74 で 違うのに 画面が 同一」= ★あなたが 警告した 穴★ を ★実際に 踏みました★★★
+2. ★★`DEGIMON_BOOT_MAP=mayo00` だけでは ★数 frame で topn01 へ 移ります★★★（`[FIELD] intro trigger → ScenarioVM.Boot()`）
+　⇒ ★`DEGIMON_INTRO_ENTRY=101`（★section 238 を 持たない entry★）で ★mayo00 に 留まりました★★
+　⇒ ★`DEGIMON_WARP_EMIT=0` では ★止まりません★★（★別機構★）
+
+## 57.7 ★母数 / 切ったもの★
+
+- ★★画角に 入っている 対は ★1 組だけ★★★ = ★もう 1 組（ps1 `594,2347`）は ★画面外★★
+　⇒ ★★∴ 画面で 見えるのは ★2 対のうち 1 対★ です★★（★log は 2 対とも 出ています★）
+- ★★land していません★★ / ★★「完成」と 書いていません★★
+- ★user を 呼んでいません★（★boss1 が 先に 読む 順序★）
