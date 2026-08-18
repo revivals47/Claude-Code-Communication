@@ -67,7 +67,21 @@ is_idle() {
     #   pipe で繋ぐと capture の失敗が握り潰され、★存在しない pane が idle と判定される★。
     pane="$(tmux capture-pane -p -t "$target" 2>/dev/null)" || return 1
     [[ -n "$pane" ]] || return 1
-    ! printf '%s\n' "$pane" | tail -3 | grep -q 'esc to interrupt'
+    printf '%s\n' "$pane" | tail -3 | grep -q 'esc to interrupt' && return 1
+
+    # ★★第 2 の信号（PRESIDENT (2401) の着想・boss1 が対照つきで検めた）★★
+    #   走っている pane は ★秒針が動く★(`Herding… 17s`)= ★相手が 自分で 印字してくれる★
+    #   ⇒ 1.6 秒あけて 2 回 capture し ★差が出れば busy★。
+    #   ★marker と OR★ = ★どちらかが busy と言えば 送らない★(安全側へ倒す)。
+    #   検定(boss1・3 round) = ★busy pane 3/3 で差あり★ / ★idle pane 6/6 で同一★ = ★marker と一致★。
+    #   ⚠ ★これは「marker が見逃す例」を捕まえたのではありません★ = ★2 つ目の独立な信号を足しただけ★。
+    #   ⚠ ★既知の取り逃し★ = ★許可 prompt で止まっている pane は 静止する★ ⇒ ★両方の信号とも idle と言う★
+    #      (★marker 単独でも同じく取り逃す = 新しい穴ではない★)。
+    local a b
+    a="$(printf '%s\n' "$pane" | md5sum)"
+    sleep 1.6
+    b="$(tmux capture-pane -p -t "$target" 2>/dev/null | md5sum)" || return 1
+    [[ "$a" == "$b" ]]
 }
 
 # ★★marker 自体の生存確認（PRESIDENT (2385) の指摘）★★
