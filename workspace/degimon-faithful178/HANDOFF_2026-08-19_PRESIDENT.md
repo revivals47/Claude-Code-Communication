@@ -98,3 +98,10 @@ cd /home/ken/Documents/Claude-Code-Communication
 ### ★新しく効いた型★
 ・★★引き渡す artifact を ★揮発する器★ に置かない★★ — ★PASS の証跡ではなく ★PASS した器そのもの★ が 消える★
 ・★★`byte 不一致 = FAIL` に しない★★ — Unity 生成物の byte 再現性を 我々は測っていない ⇒ ★挙動同一 + 差分の在り処★ で退く
+
+### ★02:5x 追記 — boss1 は 529 で 落ちました（★私の便は 未処理★）★
+・pane 0.0 逐語 = "API Error: 529 Overloaded" ／ "Churned for 3m 10s" ⇒ ★doc 読了も ack も していません★
+・★PRESIDENT session は健在★（同時刻に tool を連続実行できている）⇒ ★529 は 我々の側の問題ではない★
+・★再開時に投げ直す本文 2 通は send_log の この行から★: 731139 731183 
+　　復元 = §4 の awk（agent 名 = boss1）
+・★次に boss1 が立ったら 順序は 変えない★ = ①自分の doc を読む ②3 行 ack ③worker3 に rebuild（§8）
