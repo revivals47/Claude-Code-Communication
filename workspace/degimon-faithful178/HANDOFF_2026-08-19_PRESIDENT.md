@@ -80,3 +80,21 @@ cd /home/ken/Documents/Claude-Code-Communication
 ★観測★ = ★1 往復 ≒ 40 秒・★5 往復（≒3 分半）で 落ちます★★ / ★context の 大小では ありません（clear 後も 落ちた）★
 ★手当て★ = ★★① 1 turn = tool 3 回以内 ② doc を commit してから ack ③ ack は 3 行★★
 ∵ ★★2 回とも ★完成した報告が 送信の段で★ 消えました★★ ⇒ ★commit を 先に すれば 消えるのは ack だけ★
+
+---
+
+## 8. ★再起動後に器で採った事実（2026-08-19 02:5x・PRESIDENT）★
+
+・★OS 再起動 = 02:46:45★（`uptime -s`）／ tmux は 02:47:33 に作り直し済 = ★4 pane とも履歴ゼロの新規 session★
+・★★#582-C の引き渡し build は 消えました★★ = README §2 の出力先が ★scratchpad(/tmp 配下)★ だったため
+　　実測 = `find /tmp -maxdepth 8 -name 'build582*'` → ★0 件★ ／ `/tmp/claude-1000/` 配下は本 session の dir のみ
+・★source は無事★ = `track3/w3-582c-userbuild` HEAD `152885f9` は git に在る ／ `origin/main` = `ca34f972` のまま
+・★README の実体★ = ★comms 側 `workspace/degimon-faithful178/USER_RUN_README_581C_DRAFT.md`★（degimon repo 側ではない）
+　　§2 branch+sha / §4 根拠 3 系統 / §5 限定と `_3` の落ち方 まで揃っている。★但し file 名が 581C のまま（中身は #582-C）★
+
+⇒ ★★§2 の user 手番は 「build の作り直し」が済むまで 呼べません★★（3 条件のうち ②が 器ごと 消えたため）。
+　 02:5x に boss1 へ割り直しを 1 便（rebuild 先を ★/tmp 配下にしない★・S1-S5 は ★消えた器の PASS を使い回さず 全部撃ち直す★）。
+
+### ★新しく効いた型★
+・★★引き渡す artifact を ★揮発する器★ に置かない★★ — ★PASS の証跡ではなく ★PASS した器そのもの★ が 消える★
+・★★`byte 不一致 = FAIL` に しない★★ — Unity 生成物の byte 再現性を 我々は測っていない ⇒ ★挙動同一 + 差分の在り処★ で退く
