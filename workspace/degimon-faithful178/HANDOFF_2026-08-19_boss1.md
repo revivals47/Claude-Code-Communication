@@ -49,6 +49,12 @@
 | 本体 doc | `degimon_world_remake/docs/TIME_PLACEMENT_DEFAULT_ON_2026-08-18.md`（★§3.1-3.20★） |
 | 台帳 | `workspace/degimon-faithful178/P2_VM_SPEC_2026-08-11.md` §6-de（★本日 (6-de-29)〜(6-de-54)★） |
 
+## 4-b. ★worker の 座（2026-08-19 02:3x）★
+
+・★worker1 / worker2 は PRESIDENT が /clear して 再発進★（529 で 出力ゼロの turn が 2 度・抱えた context の処理に 3 分半）
+  ⇒ ★★彼らの context は 空★★ = ★報告が薄くても 経緯を知らないため★ ／ ★★以後の dispatch は doc を 絶対 path で・前提を 本文に 書く★★
+・★worker3 は 継続★（#578-C 系の branch `track3/w3-578c-measure-flagport`）
+
 ## 5. ★対象と 例外（★段★）★
 
 ・★段が 有効 = ★7 map★★（`mayo00` `mist07` `gias02` `gias03` `koda00` `mist02` `mist04`）
