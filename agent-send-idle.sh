@@ -1,0 +1,77 @@
+#!/bin/bash
+# 🚦 ⓪ を器で強制する送信口 — ★相手が idle のときだけ送る★
+#
+# ============================================================================
+# なぜ在るか (2026-08-18・PRESIDENT が script を読んで確定)
+# ============================================================================
+# agent-send.sh は send_message() の冒頭で ★必ず C-c を打つ★(L116)。
+#   :116  tmux send-keys -t "$target" C-c
+#   :120  tmux send-keys -t "$target" "$message"
+#   :124  tmux send-keys -t "$target" C-m
+# C-c の目的は ★composer 残留を消す★ ことで、これは正当。
+# ★但し 相手が走行中に打つと ★その turn が中断される★★ = 目的外の害。
+#
+# ∴ 配達 oracle は 5 段に成った:
+#   ★⓪ 送る前に相手が idle か★ / ① SENT 行 / ② 本文の実内容 / ③ 相手の応答開始 / ④ 同一宛への間隔
+#
+# 本 script は ⓪ を ★器の側で強制する★(段 3)。
+# ★agent-send.sh も agent-send-file.sh も 1 行も変更していない★
+#   = 「今 依存している通信路を、依存しながら書き換えない」(agent-send.sh L9) を尊重する。これは追加の口。
+#
+# 使い方:
+#   ./agent-send-idle.sh worker1 /tmp/msg.txt          # busy なら送らず exit 3
+#   ./agent-send-idle.sh --wait 300 worker1 /tmp/msg.txt  # idle に成るまで最大 300 秒待つ
+# ============================================================================
+
+set -u
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+WAIT=0
+if [[ "${1:-}" == "--wait" ]]; then WAIT="${2:-0}"; shift 2; fi
+
+if [[ $# -lt 2 ]]; then
+    echo "使用方法: $0 [--wait 秒] [エージェント名] [file path]"
+    exit 1
+fi
+
+agent="$1"; msg_file="$2"
+
+case "$agent" in
+    president) target="president" ;;
+    boss1)     target="multiagent:0.0" ;;
+    worker1)   target="multiagent:0.1" ;;
+    worker2)   target="multiagent:0.2" ;;
+    worker3)   target="multiagent:0.3" ;;
+    *) echo "❌ 不明なエージェント: $agent"; exit 1 ;;
+esac
+
+[[ -f "$msg_file" ]] || { echo "❌ file が在りません: $msg_file"; exit 1; }
+[[ -s "$msg_file" ]] || { echo "❌ file が空です: $msg_file"; exit 1; }
+
+# ★idle 判定★ = pane 末尾に 'esc to interrupt' が無いこと。
+#   ⚠ これは ★見た目の判定★ であって turn 状態の直読ではない(TUI の表示に依存する)。
+#      表示が変われば黙って壊れる ⇒ 壊れたら ★busy 側に倒れる★ 向きに書いてある(grep 不発 = idle 判定に成るため
+#      逆向き)。∴ 表示変更時は ★この 1 行を必ず見直す★。
+is_idle() {
+    local pane
+    # ★capture の成否を先に見る★ = ★陰性対照で見つけた穴★:
+    #   pipe で繋ぐと capture の失敗が握り潰され、★存在しない pane が idle と判定される★。
+    pane="$(tmux capture-pane -p -t "$target" 2>/dev/null)" || return 1
+    [[ -n "$pane" ]] || return 1
+    ! printf '%s\n' "$pane" | tail -3 | grep -q 'esc to interrupt'
+}
+
+waited=0
+while ! is_idle; do
+    if (( waited >= WAIT )); then
+        echo "🚦 ★送りませんでした★: $agent は ★走行中★ です(⓪ 不成立)"
+        echo "   ∵ agent-send.sh は本文の前に C-c を打つため、★送ると相手の turn を殺します★"
+        echo "   → idle に成ってから再実行するか、--wait 秒 を付けてください"
+        exit 3
+    fi
+    sleep 5
+    waited=$((waited + 5))
+done
+
+[[ "$waited" -gt 0 ]] && echo "🚦 ⓪ 成立(${waited} 秒待機) — 送信します"
+exec "$SCRIPT_DIR/agent-send-file.sh" "$agent" "$msg_file"
