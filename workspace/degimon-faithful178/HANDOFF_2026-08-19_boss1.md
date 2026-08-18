@@ -40,6 +40,7 @@
 
 | 知りたいこと | 呼ぶもの |
 |---|---|
+| ★★失った dispatch の 本文★★（★本日 3 度目の 救出路★） | ★`logs/send_log.txt` から 逐字 復元できます★ = `awk 'NR>=<行>' logs/send_log.txt | sed '1s/^\[[^]]*\] <agent>: SENT - "//' | awk 'NR>1 && /^\[2026-/{exit} {print}'`（★#577-A = 729599 から 30 行 / #576-B = 729661 から 32 行★） |
 | ★worker が 動いているか★ | `tmux capture-pane -p -t multiagent:0.N \| tail -3` に ★`esc to interrupt`★ が 在るか |
 | ★★送ってよいか★★ | ★`./agent-send-idle.sh <agent> <file>`★（★busy なら 送らず exit 3★・`--wait 秒` 可） |
 | 送信が 届いたか | `logs/send_log.txt` の ★`SENT` 行★ ＋ ★本文★ ＋ ★相手の 応答開始★ ＋ ★同一宛への 間隔★ |
@@ -54,6 +55,15 @@
 ・★worker1 / worker2 は PRESIDENT が /clear して 再発進★（529 で 出力ゼロの turn が 2 度・抱えた context の処理に 3 分半）
   ⇒ ★★彼らの context は 空★★ = ★報告が薄くても 経緯を知らないため★ ／ ★★以後の dispatch は doc を 絶対 path で・前提を 本文に 書く★★
 ・★worker3 は 継続★（#578-C 系の branch `track3/w3-578c-measure-flagport`）
+
+## 4-c. ★走行中 dispatch の 受理条件（★log から 復元済・boss1 が 判定に 使う★）★
+
+・★#577-A（worker1）★ = ★(1) `opcode 0x75`（NPC スポーン・12 byte 固定）を 5 entry で 数える★ ＋ ★#572-A の「5 entry は NPC を置く entry ではない」を ★維持するか 撤回するか★★
+　　★陽性対照★ = ★doc の 3 体（グレイモン `0x2C2` / ベーダモン `0x2B3` / ティラノモン `0x2BA`）を 自分の器が `DG.SCN` から 拾えるか★ ⇒ ★拾えなければ 数を出さない★
+　　＋ ★(2) ガード flag 4 組（`0xAE`↔`0xFA` / `0xE5`↔`0xE9` / `0x257`↔`0xE3`・`0xEF` / `0x81`・`0x10A`↔`0xE2`）が 我々の code で 参照されているか★ = ★組ごと★ ＋ ★段の表（9 map）と 重なるか★
+・★#576-B（worker2）★ = ★落とした 5 map（`fact02` `fact04` `frzl08` `mist03`段2 `stic02`）を 実装できる形に できるか★
+　　★受理 4 本★ = ★(1) 事前登録＋探索集合の定義★ ／ ★(2) remake に `var` を読む口が在るか（`GetVar` 相当・手がかり `EventOracle.cs:118` = eventBank +0x159 の 256 byte）★ ／ ★(3) 各 map の条件を ★演算子つき★ で（`0x0A`=`>=` / `0x8B` `0x08` `0x0B` は ?・判らないなら 判らないと書く）★ ／ ★(4) 陽性対照 = 既に載せた 9 map の どれかを 同じ器に通し 同じ答（bit の OR）に成るか ⇒ 通らなければ 5 map の答を出さない★
+　　★『表に足すべき』の判断は boss1 が持つ★（足すなら ★生成器の側★・手で直さない）
 
 ## 5. ★対象と 例外（★段★）★
 
