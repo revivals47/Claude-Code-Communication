@@ -61,6 +61,35 @@ is_idle() {
     ! printf '%s\n' "$pane" | tail -3 | grep -q 'esc to interrupt'
 }
 
+# ★★marker 自体の生存確認（PRESIDENT (2385) の指摘）★★
+#   限定「表示が変われば黙って壊れる」の ★帰結★ = ★表示が変わると 全 pane が idle に見え、
+#   器は何も拒否しなくなり ★旧挙動に黙って戻る★★ = ★「無出力は合格でなく異常」の この器版★。
+#   ∴ ★どの pane にも marker が 1 度も見つからないなら 異常として止める★。
+#   ⚠ 4 pane 全部が同時に idle は ★起こり得る★ ゆえ、「今 idle か」ではなく
+#     ★『marker という文字列が どの pane にも 1 度も現れない』★ で判定する。
+#     busy な pane が 1 つでも在れば marker は必ず現れる ⇒ 全部 idle のときだけ この検査は素通りする。
+#     その素通りを ★沈黙させない★ ため、全部 idle のときは ★1 行 警告を出す★(送信は止めない)。
+marker_alive() {
+    local p out found=0 anyidle=0
+    for p in president multiagent:0.0 multiagent:0.1 multiagent:0.2 multiagent:0.3; do
+        out="$(tmux capture-pane -p -t "$p" 2>/dev/null)" || continue
+        [[ -z "$out" ]] && continue
+        anyidle=1
+        printf '%s\n' "$out" | grep -q 'esc to interrupt' && { found=1; break; }
+    done
+    if [[ "$anyidle" -eq 0 ]]; then
+        echo "🚨 ★異常★: どの pane も capture できません — ★idle 判定は信用できません★" >&2
+        return 1
+    fi
+    if [[ "$found" -eq 0 ]]; then
+        echo "⚠️  ★marker 'esc to interrupt' が ★どの pane にも在りません★★" >&2
+        echo "    = ★全員 idle★ か ★TUI の表示が変わって器が壊れた★ かの ★どちらかです（区別していません）★" >&2
+        echo "    → 表示が変わっていた場合、この口は ★何も拒否しません★。疑わしければ手で確かめてください。" >&2
+    fi
+    return 0
+}
+marker_alive || exit 4
+
 waited=0
 while ! is_idle; do
     if (( waited >= WAIT )); then
