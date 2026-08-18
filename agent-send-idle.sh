@@ -48,6 +48,15 @@ esac
 [[ -f "$msg_file" ]] || { echo "❌ file が在りません: $msg_file"; exit 1; }
 [[ -s "$msg_file" ]] || { echo "❌ file が空です: $msg_file"; exit 1; }
 
+# ⚠★★2026-08-18 追記(PRESIDENT の実測): `capture-pane` は ★空の箱に 古い frame を 残したまま返す★ ことが在る★★
+#   実例 = 箱を C-c で空にした後も 4 回連続で ★同じ文字列★ が返り、`ZZTEST` と 1 文字打って初めて
+#          ★最初の C-c で既に空だった★ と判った。∴ ★「変化しない」は「効いていない」ではない★。
+#   本 script への含意 = ★idle 判定が ★古い frame★ を読む可能性が在る★:
+#     ・古い frame が busy を示す → ★送らない(安全側)★
+#     ・古い frame が idle を示す → ★送ってしまい turn を殺す(危険側)★  ← ★★この穴は 塞げていません★★
+#   確実にしたいときの手 = ★1 文字 印字させてから読む★(send-keys 'Q' → capture → BSpace)。
+#   ★本 script は それをしていません★(打鍵が 相手の composer を汚すため)。∴ ★限定として明記する★。
+#
 # ★idle 判定★ = pane 末尾に 'esc to interrupt' が無いこと。
 #   ⚠ これは ★見た目の判定★ であって turn 状態の直読ではない(TUI の表示に依存する)。
 #      表示が変われば黙って壊れる ⇒ 壊れたら ★busy 側に倒れる★ 向きに書いてある(grep 不発 = idle 判定に成るため
