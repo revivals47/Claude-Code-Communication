@@ -21,15 +21,17 @@
 
 | 項目 | 値 |
 |---|---|
-| 出力 | `<scratchpad>/build581/DegimonLive/DegimonLive.x86_64` |
-| ★`Assembly-CSharp.dll`★ | ★257,536 byte / sha256 `32695e919af59e95e26394faba60de4bfa9deabf615c948442234901dd5d7a25`★ |
-| 元 branch | `track3/w3-578c-measure-flagport` / HEAD ★`616418ae`★ |
-| ★main との 差★ | ★`11df0b88`（land 済）＋ 4 commit★ |
+| 出力 | `<scratchpad>/build582/DegimonLive/DegimonLive.x86_64` |
+| ★`Assembly-CSharp.dll`★ | ★256,512 byte / sha256 `98ae149939343d8958933aa21ac46e8be38cef6557247425f0fe8b32cbaf3032`★ |
+| 元 branch | `track3/w3-582c-userbuild` / HEAD ★`152885f9`★ |
+| ★main との 差★ | ★`11df0b88`（land 済）＋ 2 commit（★同じ 1 file だけ★）★ |
 
-★★⚠ この build に 入っている ★main に 無い もの★（★申告★）★★:
-1. ★`DEGIMON_PLACE_SPECIES` を ★既定 ON★ にした 差分★（`9c1f23da`）= ★★本 README の 目的そのもの★★
-2. ★測定専用の flag 口 `W3_MEASURE_FLAGS`★（`90926aba` / `b0dcfcab`）= ★★env を 設定しなければ 1 回も 動きません★★
-　⇒ ★★user 向けとしては 2 が 余分です★★ ⇒ ★★2 を 抜いた build が 要るかは ★PRESIDENT の 判断★★★（★私は 決めません★）
+★★main に 無いものは ★1 つだけ★ です★★:
+- ★`DEGIMON_PLACE_SPECIES` を ★既定 ON★ にした 差分★（= ★本 README の 目的そのもの★）
+
+★★以前の draft に 入っていた ★測定用の 近道（`W3_MEASURE_FLAGS`）は ★抜きました★★★★
+　★実測★ = ★build 対象 source を grep して ★0 件★★（★同じ command を 口が 在る branch に 当てると 2 件 出ます = 陽性対照★）
+　★理由★ = ★測定用の 口が 同居していると ★何を 見た 結果か★ が 割れるため★
 
 ## 3. ★起動手順★
 
@@ -53,8 +55,8 @@ DISPLAY=:1 DEGIMON_BOOT_MAP=mayo00 DEGIMON_INTRO_ENTRY=101 DEGIMON_AUTOBOOT=1 \
 - ★`rec=`★ = ★原盤の 枠（slot）番号★ / ★`type=`★ = ★species★
 - ★印字を 止めたい とき★ = `DEGIMON_PLACE_SPECIES=0`
 
-★★進行後の 絵を 見る には★★ = ★物語を 進める か ★`W3_MEASURE_FLAGS=203`★ を 付ける★
-　（★後者は ★測定用の 近道★ で ★製品の 挙動では ありません★）
+★★この build で 見ていただくのは ★新規開始の `mayo00`★ です★★
+　（★進行後の 絵は ★物語を 進めた 先★ に 在ります・★近道の 口は 入れていません★★）
 
 ## 4. ★★根拠 3 系統★★
 
@@ -88,6 +90,10 @@ DISPLAY=:1 DEGIMON_BOOT_MAP=mayo00 DEGIMON_INTRO_ENTRY=101 DEGIMON_AUTOBOOT=1 \
 　 ⇒ ★★∴ ★この build で 似た 落ち方が 出たら それは ★我々の bug の 候補★ です★★
 5. ★★「完成」とは 書きません★★ = ★見ていただいて 初めて 判ることが 残っています★
 
-## 6. ★お願い（★boss1 / PRESIDENT へ★）★
-- ★§2 の ⚠2（測定専用 口を 抜くか）★ の 判断
-- ★user に お渡しするか どうか★ = ★★PRESIDENT★★（★worker3 も boss1 も user を 呼びません★）
+## 6. ★お願い★
+- ★★user に お渡しするか どうか★★ = ★★PRESIDENT の 判断★★（★worker3 も boss1 も user を 呼びません★）
+
+## 7. ★★私（worker3）が 確かめた 範囲★★
+- ★`DISPLAY=:1` で 1 回 起動し ★窓が 出ること★ と ★`[PLACE-SPECIES]` が 出ること★ を 確認しました★
+- ★★これは ★絵の 忠実さの 検証では ありません★★★ = ★★「起動して 何も 出ない」を 潰す ためだけ★★
+- ★画面には ★1 体★ 描かれていました★ ⇒ ★★それが 何かの 同定は しません★★（★同定は 我々が 一度 誤りました★）
