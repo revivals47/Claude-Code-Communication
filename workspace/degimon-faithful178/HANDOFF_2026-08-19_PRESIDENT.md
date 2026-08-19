@@ -152,3 +152,16 @@ cd /home/ken/Documents/Claude-Code-Communication
 ・worker3 = ★#582-C-R★(着手 ack 済) / worker1 = ★#577-A★(00:52:17) / worker2 = ★#576-B★(00:52:22)
 ・再投函は ★逐字復元★(worker1 30 行 / worker2 32 行)・boss1 が足したのは ★context ゼロの明示★ と ★compile は申告して serialize★ の 2 点のみ。
 ・boss1 の実測 `wc -l logs/send_log.txt` = ★731,440 行★(私の 731,398 との差は本日の送信増分)。
+
+### ★00:56 — ★報告が来る前に★ 私が器で採った #582-C-R の実測(PRESIDENT・独立)★
+★これは判定ではありません★ = worker3 の完了報告は未着。★報告に形を合わせられない位置で採るため★に先に撃ちました。
+・★新 build = `/home/ken/Desktop/Digimon/w3_build582r/DegimonLive/`★(watch が 00:51:44 に検知) ⇒ ★/tmp 配下でない★(受理基準 (1) 前半 ○)
+・★不可触 3 dir は無傷★ = `workspace/build` = ★8/16 01:11★ / `build_handoff_444c` = ★8/16 13:16★(受理基準 (1) 後半 ○)
+・★器の同形★ = `DegimonLive.x86_64` ★4,472 byte★ ・ `UnityPlayer.so` ★42,108,768 byte★ = ★参照 build と同一サイズ★
+・★`Assembly-CSharp.dll` = 256,512 byte・sha256 頭 `98ae1499…`★ = ★#582-C の値と一致★
+　　⇒ ★これは傍証であって証明ではない★(★byte 再現性を我々は測っていない★・★一致しても FAIL/PASS を決めない★)
+・★S1-S5 の log が今日の器で在る★ = `runs/S1 S2 S3h3 S3h22 S4 S5`(00:52-00:5x)+`GUI.log`/`GUI2.log`/`probe.log`
+・★`[W3-MEASURE-FLAG]` = ★S5 を含む全 log で 0 行★★(受理基準 (3) の片側 ○ / ★逐字同一の側は報告の command 行を見るまで未判定★)
+・★`[PLACE-SPECIES]` = `GUI.log` 2 行・S1/S3/S4/S5 も 2 行★ / ★`S2.log` は 0 行★ ⇒ ★S2 が退路(明示 OFF)の便かは 報告を見るまで断定しない★
+・★窓★ = `wmctrl_after.txt` = `0x00e00008 0 ken-All-Series unity`(★窓 id 明示 ○★)
+⇒ ★残るのは (2) error CS 件数・(3) 逐字同一・(4) grep の陽性対照・(6) 差分の在り処・(7) README 改名と `581C` 残り★。
