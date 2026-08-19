@@ -16,3 +16,5 @@
 
 ## 追加 queue(2026-08-20 01:2x)
 | worker2 | #578-A の retro-sweep で ★#576-A の数が 43 件中 35 → 21 に減った★(食い違いではなく母数減)。あなたの 8 件検算は ★一致 6 / 食い違い 0 / 出なかった 2(0xE3=fact02・0xE7=gias03)★。原因は新しい器が site に届かなかった分(被覆 61.7%)。★var gate の判断に効く可能性があるので #577-B の報告時に渡す★ | ★渡済(01:2x)★ = #578-B 本文の §0 に載せて発行 |
+
+| worker1 | ★#579-A の追い口(便 0820-14)★ = (C) は現物照合で成立 / ★実測 = entry101 で 0x57(pc=0xA6) と 0x0A(pc=0x29) が停止・0x75 の VM-GATE 行は 0 本だが★log は 0xA6 より先を走っていない = 母数の限定★★ / 初回は★process 単位★(_gateSeen は static・W1AbReset 呼び元ゼロ) / ★DEGIMON_VM_GATE は未配線の comment・実在は W1_GATE_NEVERSTOP=1(起動前 env)★ / 追い口 = NEVERSTOP 1 run で (A)(B) 同時取得・★但し run は boss1 の GO を待つ(user の観測を汚さないため)★ / 0x0A は PC 整合ずれの札 | 全文 = QUEUED_579A_ADDENDUM_2026-08-20.md | ★保留★ = exit 3(busy)。#579-A の報告時か申告時に渡す |
