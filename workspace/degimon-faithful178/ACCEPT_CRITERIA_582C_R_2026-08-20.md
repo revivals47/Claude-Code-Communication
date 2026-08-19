@@ -170,3 +170,15 @@ worker1 への PRESIDENT 伝言は agent-send-idle が★exit 3(busy)で送り�
 ∵ ★user が手に持つ値が後から動くと、user の観測がどの器のものか判らなくなる★(器が消えた時に 1 度やっている)。
 ・worker3 §1 = commit 79c7b32(README §7(3) に 1 行・原因は書かない)。01:11:41 / 195 行 / sha ade78986…(前 194 行 da5693ec… ⇒ 差は +1 行)。build は不変。
 ・worker3 の「command 隣にも足すか」の問い = ★足さない(推奨は取り下げ)★ = boss1 の判断。
+
+### 器の瑕疵 7 例目(便 0820-13・PRESIDENT 申告)= ★filter が本物の行を落とした★
+・PRESIDENT の測り方 = git diff … | grep -E '^[+-]' | grep -v '^[+-][+-]' ⇒ ★差分 0 行★と読んだ。
+・真因 = ★追加行の中身が markdown の箇条書き「- 」で始まる★ ⇒ diff 行が「+- ★私の…」になり、
+  ★+++/--- を落とすつもりの filter が本物の追加行を落とした★。
+・現物 = 195 行 / sha ade78986… / mtime 01:11:41 / commit 79c7b32 = 1 file・1 insertion・末尾 195 行目のみ
+  ⇒ ★worker3 の値が正しい★・★command / §2 / log の見かたは不動 = 0820-12 の制約は守られている★。
+・remedy = ★diff は git show の生で読む・filter で削らない★。
+・型 = 台帳の『★引いた線自体を検証★(除外/filter は最も検証されない)』。本日の同型 = 囮 log / 語尾切れ / 一度きりの process 計数 /
+  comm で数えた player / 書き足し中の file / 読まずに出した推奨 / ★この filter★。
+・★boss1 も同じ族を踏んでいる★(grep -c 'esc to interrupt' の語尾一致) ⇒ ★私の側の規範 = 除外や整形を挟んだら、
+  同じ問いを生のまま 1 度撃って答が変わらないことを見る(陽性対照の filter 版)★。
