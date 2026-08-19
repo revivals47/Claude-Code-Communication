@@ -508,3 +508,25 @@
   ★段 2★ = ★★entry 176 のみ★★ × ★section 6 本★ × ★JUMPS 2 arm★（= ★walk 12 本★）＋ 被覆と crossed 印
   ★落としたもの★ = ★entry 175 の section 入口★（§21 の 根拠）／ ★全 1,559 section★ ／ ★content mode の 全 entry 段 2★
 ```
+
+---
+
+## 25. ★★確定（boss1 が v5 を採用・★私の見立てが 判定を 上書き★）★★
+
+```
+  ★確定した run の 形（★裁可待ち・撃って いません★）★:
+      ★段 0★ = 4 対照（0xB2@0x1C e154 / 0x06@0x8B e154 / 0x7A@0x20 e176 / 0x81@0x28 e176）
+              ＋ ★entry 175 の [VM-GATE] 0 行★ ＋ ★VerifyEntry(entry 101) を 2 arm★
+      ★段 1★ = entry 154 × ★JUMPS 2 arm★ ＋ var_w{110} の pc / 単調性 / 相異なり数
+              ＋ ★op histogram（実行回数・arm ごと）★ ＋ ★entry 離脱 counter★
+      ★段 2★ = ★entry 176 のみ × section 6 本 × JUMPS 2 arm = walk 12 本★ ＋ 被覆と crossed 印
+      ★落とした もの★ = ★entry 175 の section 入口★ / ★全 1,559 section★ / ★content mode の 段 2★
+  ★boss1 が 受け入れた 私の 訂正 2 件★:
+      ① ★175 の 第一の 壁は `WaitingChoice(0x10)`★（未実装 opcode では ない）
+      ② ★38 件を 1 札で 括ったのは 誤り★ ⇒ ★2 札に 割る★（175 = BAND-OUT / 176 = 実装対象）
+  ★私が 直された 側（忘れずに 残します）★:
+      ・★「残り 45」は 私の 足し算の 誤り（正 = 46 / 厳しい枠 44）★
+      ・★「選択の 列」の 段 1 は 識別力ゼロ★（★掃引が 舐めた だけ★）⇒ ★JUMPS 2 arm へ 差し替え★
+      ・★#584-C / #585-C の 「0 件」は ★器の 打ち切り★★ ⇒ ★#586-C で 48 件★
+  ★裁可待ち = 5 件★（①land 418 行版 ②compile 1 本 ③run 1 本 ④母数 (甲)/(乙) ⑤AUTOADVANCE 可否）
+```
