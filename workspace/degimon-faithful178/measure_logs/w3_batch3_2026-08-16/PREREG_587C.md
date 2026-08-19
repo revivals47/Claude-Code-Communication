@@ -530,3 +530,111 @@
       ・★#584-C / #585-C の 「0 件」は ★器の 打ち切り★★ ⇒ ★#586-C で 48 件★
   ★裁可待ち = 5 件★（①land 418 行版 ②compile 1 本 ③run 1 本 ④母数 (甲)/(乙) ⑤AUTOADVANCE 可否）
 ```
+
+---
+
+# ★★事前登録 v6 — ★arm の 定義を 直します（★JUMPS では `0x18` は take されません★）★★（★run 0 本★）★★
+
+## 26. ★★boss1 の 5 件を 私の器で 当たり直しました（★integ tree★）★★
+
+| 主張 | ★私の器（`integ`）★ | 判定 |
+|---|---|---|
+| `if (BehavioralMode) _jumpsEnabled = true;` が ★唯一の 読み★ | ★`:615` が 唯一の 読み★（`:165` 宣言 / `:612` `:614` comment / ★`:2340` は `VerifyNarrow` の setter★） | ★正★ |
+| `_gateSeen` は static | ★`:1751` static★ | ★正★ |
+| `W1AbReset` は 在るが (c) では 呼んで いない | ★`:1763` に 在る★／★`W3Cand86Decode` に 参照 0★ | ★正★ |
+| `0x10 = CHOICE → WaitingChoice`・harness は break | ★`:136 OP_CHOICE = 0x10`★／★`State = WaitingChoice` は `:1371` の 1 箇所★／私の `Walk` は break | ★正★ |
+| `TermReason` の 代入は 4 箇所・VM-GATE は 記録しない | ★`:792 op_guard` `:801 content_end_guard` `:976 section_return` `:1575 script_end` の 4 箇所★／★`:1731` の VM-GATE は どちらも 触らない★ | ★正★ |
+
+★★私が 足す 1 件（★4 箇所とも `TraceEnabled` gate の 内側★）★★ = ★`TermReason` は ★`TraceEnabled==true` の ときだけ 入ります★★
+　⇒ ★私の harness は `TraceEnabled=true` ゆえ 使えます★（★他の 呼び手が 使うと 常に null★ = ★恒久の器には ならない★）
+
+## 27. ★★★新しく 判った 機構 — ★`JUMPS` では `0x18` は take されません★★★★
+
+```
+  ★逐語（`:1630`-`:1650`・`:156`・`:662`）★:
+      `_jumpsEnabled`（= `BehavioralMode` ★または★ `DEGIMON_DIALOGUE_JUMPS=1`）
+          ⇒ ★`0x14` / `0x17` / `0x19` / `0xFB` は take★
+          ⇒ ★★`0x18` は ★`_selectorForced` が false なら fall-through★★★（`:1644`）
+      `_selectorForced` は ★`DEGIMON_DIALOGUE_CHOICE=<idx>` でしか true に なりません★（`:662`・★毎 `Begin` 読み★）
+  ★source の 註★ = 「narrow-mode = BehavioralMode: ★0x14/0x17/0x19/0xFB take、0x18 のみ fall-through★」（`:2329`）
+```
+⇒ ★★∴ ★私が v2 で 書いた 「arm 1 = jump を 実際に 取る」は ★不正確★ でした★★★
+　 = ★正しくは ★『0x18 を除く 決定的 jump だけ take』★★
+⇒ ★★∴ ★knob は 2 つでは なく ★3 つ★ です★★:
+```
+  ★knob-J★ = `_jumpsEnabled`      → `0x14` `0x17` `0x19` `0xFB`
+  ★knob-S★ = `_selectorForced`    → ★`0x18`★（`DEGIMON_DIALOGUE_CHOICE`）
+  ★knob-C★ = harness の `ConfirmChoiceIndex(0)` → ★`0x10`（WaitingChoice）★
+```
+
+### ★★∴ 採点枠の 訂正（★先に 直します★）★★
+```
+  ★私の U3（「0x18 の 実行回数は arm0 ≫ arm1」）★ ⇒ ★★取り下げます★★
+      ∵ ★0x18 は ★どちらの arm でも take されません★★ ⇒ ★jump policy の 判別子に なりません★
+  ★worker1 の W-5（「通る `0x18` は 1 件」）★ ⇒ ★★我々の VM では knob-S を 立てない限り ★0 件★★★
+      ⇒ ★★∴ 採点は ★knob-S を 立てた arm でのみ★ 意味を 持ちます★★（★枠を 先に 書きました★）
+```
+
+## 28. ★★arm の 定義（★2 arm → 2×2 ＋ 1★・★run 本数は 増えません★）★★
+
+```
+  ★段 1 = entry 154 を 下の 5 arm で 歩く（walk 5 本）★・★arm ごとに `W1AbReset()`★
+      ★A★ J=off S=off C=break     … ★#585-C の pass L 相当★（★reset 込み★）
+      ★B★ J=ON  S=off C=break     … ★#585-C の pass B 相当★（★交絡を 外した 形★）
+      ★C★ J=off S=off ★C=続行★    … ★#586-C の pass L 相当（★48 件が 出た 形★）★
+      ★D★ J=ON  S=off ★C=続行★    … ★C との 差 = knob-J の 純効果★
+      ★E★ J=ON ★S=ON★ C=続行     … ★`0x18` も take = ★最も 実プレイに 近い★★
+  ⇒ ★★これで 「48 件は 何によって 届いたのか」が ★要因ごとに 分離できます★★★
+     （★v2 の 私の 読み「掃引が 舐めた」は ★A/C の 比較で 検定されます★）
+  ★段 2 = entry 176 × section 6 本 × 上の 5 arm = ★walk 30 本★★（★walk ごとに reset★）
+  ★★entry 175 は 撃ちません★★ = ★§29★
+```
+
+## 29. ★★`entry 175` は ★撃つ前に 構造的に 確定★★★
+```
+  ★止め手★ = ★`0x10`（CHOICE）→ `WaitingChoice`★ ⇒ ★harness が break★ = ★knob-J と 無関係★
+  ★停止 pc = 0x2B★（BodyStart 0x10 ＋ 覆った 27 byte）／ ★候補 最小 pc = 0x1042★
+  ★section は 2 本とも 0x0C / 0x0E＝BodyStart の 手前★
+  ⇒ ★★∴ ★U1（段 2 で 1 件も 届かない）は 175 について ★構造的に 確定★★★★（★run で 確かめる 価値が ありません★）
+  ⇒ ★但し ★knob-C（選択に 答えて 再開）を 入れれば 0x2B を 越えます★★ ⇒ ★★その 先の 壁が `0x03`（BAND-OUT）★★
+     ⇒ ★★∴ ★175 を 動かすなら 段 1 と 同じ 5 arm を 175 にも★★（= ★walk 5 本★・★安い★）
+     ⇒ ★★私の 推奨 = ★175 も 段 1 と 同じ 5 arm で 1 度だけ 撃つ★★★（★段 2（section 入口）は 落としたまま★）
+        ∵ ★#586-C の pass L（= arm C）で 175 が 0 件だった のは 実測ですが、★arm D / E は 未撃★★
+```
+
+## 30. ★★停止理由の 印字（boss1 §4 の 具体形）★★
+```
+  ★足す 1 行★ = ★walk ごとに `rt.TermReason` ＋ `rt.Trace` 末尾の `(Pc, Op, IsText, Len)` ＋ `rt.State`★
+  ★＋ 私の 分類★ = ★`TermReason` が null かつ gate counter が 増えて いれば ★"vm_gate"★★
+                  ／ ★`WaitingChoice` で 抜けたら ★"choice_break"★★
+                  ／ ★どれでも 無ければ ★"unclassified"（★数えます★）★★
+  ★限定★ = ★`TermReason` は `TraceEnabled` gate の 内側★ ⇒ ★★恒久の器としては ★案 A（`State` setter）が 要ります★★★
+           （★案 A は 別便で land 提案・本便は 案 B の 具体形★）
+```
+
+## 31. ★★事前登録 v6（予測）★★
+
+| # | 予測 | 結果 |
+|---|---|---|
+| ★S1★ | ★entry 154 の 48 件は ★arm C / D / E で 出る・arm A / B では 出ない★★（= ★knob-C が 効いた★） | (未) |
+| ★S2★ | ★arm A と arm B の 差（step / 覆った byte）は ★reset 後は #585-C より 小さい★★ | (未) |
+| ★S3★ | ★`0x18` の take は ★arm E だけ 非 0★★ | (未) |
+| ★S4★ | ★entry 175 は arm C でも 0 件・★arm D / E で 変わるかは 予測を 立てません★★（★材料が 無い★） | (未) |
+| ★S5★ | ★段 2（176）は ★`id11@0x7EA` / `id7@0xA68` / `id12@0xD02` 起点で 候補に 届く★★ | (未) |
+| ★S6★ | ★"unclassified" の 停止は ★全 walk の 1 割 未満★★ | (未) |
+
+★外れ方（追加）★:
+```
+  ★戌★ ★arm A / B でも 48 件が 出る★   ⇒ ★★「掃引が 舐めた」= knob-C 無しでも 届く ⇒ 私の v2 の 読みを 直します★★
+  ★亥★ ★arm E で `0x18` take が 0★    ⇒ ★★`DEGIMON_DIALOGUE_CHOICE` の 効き方を 疑います★★（★env の 読み時点 = 毎 Begin★）
+  ★子2★ ★"unclassified" が 過半★      ⇒ ★★案 A（恒久の器）の land を 先に 上げます★★
+```
+
+## 32. ★★∴ 確定形（v6・★裁可待ち・撃って いません★）★★
+```
+  ★段 0★ = 4 対照 ＋ entry 175 の [VM-GATE] 0 行 ＋ VerifyEntry(101)（★arm A / B の 2 本★）
+  ★段 1★ = ★entry 154 × 5 arm（walk 5）★ ＋ ★entry 175 × 5 arm（walk 5）★
+           ＋ var_w{110} の pc / 単調性 / 相異なり数 ＋ op histogram（★実行回数★）＋ 離脱 counter ＋ ★停止理由★
+  ★段 2★ = ★entry 176 × section 6 × 5 arm（walk 30）★
+  ★合計 walk ≒ 42 本★（★1 process・run 1 本★）／ ★落としたもの = 175 の section 入口 / 全 1,559 section★
+```
