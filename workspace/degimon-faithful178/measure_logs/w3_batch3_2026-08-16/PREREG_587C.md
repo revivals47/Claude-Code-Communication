@@ -240,3 +240,94 @@
   ・★「48 = 48 distinct × 各 1 回」★（★私は まだ 数えて いません★）
   ★consistent は proof では ありません★
 ```
+
+---
+
+# ★★改訂 v3 — ★worker2 の 突合 2 依頼を 組み込みました★（★run 0 本・Unity 未起動★）★★
+
+## 12. ★★★依頼 2 つは ★run 0 本で 出ました★★★★
+
+★boss1 §2 の 「worker2 が 自分で 検めて いない 仮定」★ = ★`0x47` の 3 byte 目と placer の record 添字が ★同じ次元か★★
+⇒ ★★我々の map data（`StreamingAssets/maps/<map>/<map>.json` の `digimon` 配列）を 直読して 突き合わせました★★
+　（★Unity も DuckStation も 起動して いません★ = boss1 が 認めた 「原盤 byte 直読」と 同じ 種類の 器）
+
+### ★(1) 陽性対照 = `mayo00` — ★2 通りで 済んで います★
+```
+  ★① data 側★  mayo00.json の digimon 配列（★record 5 件★）:
+        idx0 type=74 / idx1 type=74 / ★idx2 type=3★ / idx3 type=83 / idx4 type=83
+     ★原盤 逐語(#571-C)★ 47 4A 00 01・47 4A 01 01（74→slot 0,1）/ ★47 03 02 01（3→slot 2）★
+                          47 53 03 01・47 53 04 01（83→slot 3,4）
+     ⇒ ★★5 / 5 とも (species, slot) が record 添字に そのまま 乗ります★★
+  ★② live 側（★既に 撮って あります★）★ #582-C-R の S1 log:
+        `[PLACE] … pre-gate 不通過(map=mayo00、ElsePlace 1slot のみ・除外4体)`
+        `[PLACE-SPECIES] map=mayo00 idx=109 ★rec=2★ print_i=0 ★type=3★`
+     ⇒ ★★段を 落として 置かれた record は ★添字 2★・species 3★★ = ★依頼の 陽性対照 そのもの★
+```
+⇒ ★★∴ ★仮定は 成立します（`mayo00` について data と live の 2 系統）★★★
+
+### ★(2) 段ごとの record 添字集合 — ★14 map / 27 腕 を 突合★
+```
+  ★規則（boss1 §2）★ = ★worker2 の slot 集合 == 我々の record 添字集合★（species は 参考）
+  ★出所は 別 file★ = ★worker2 の 腕 = `DG.SCN` の 逐語 decode★ / ★我々の record = 原盤 `.map` 由来の JSON★
+                    ⇒ ★★同じ disc の ★別の file★ から 来た 2 系統★★（★循環では ありません★）
+```
+| 群 | 母数 | ★一致★ | 不一致 | 添字外 |
+|---|---|---|---|---|
+| ★`mayo00` 全 record（陽性対照）★ | 5 | ★5★ | ★0★ | ★0★ |
+| ★landed 9 map（main の 平坦 `ElsePlace`）★ | 12 腕 | ★12★ | ★0★ | ★0★ |
+| ★落とした 5 map（worker2 §2 の 段ごと実測）★ | 10 腕 | ★10★ | ★0★ | ★0★ |
+| ★★合計★★ | ★★27★★ | ★★27★★ | ★★0★★ | ★★0★★ |
+
+★段ごとの 内訳（★和では なく 段ごと★・boss1 指定の 形）★:
+```
+  fact02 段1 = {4}（species 149 ↔ record[4].type=149）
+  fact04 段1-4 = ★腕 0 本（置かずに 終わる）★ / ★段5 = {6,7}★（92 ↔ record[6] record[7]）
+  frzl08 ★段1 = {5}★（144 ↔ record[5]）/ ★段2 = {0}★（144 ↔ record[0]）  ← ★段で 別の slot★
+  mist03 ★段1 = {0}★（168 ↔ record[0]）/ ★段2 = {1,2,3}★（80 ↔ record[1..3]）← ★段で 別の 体★
+  stic02 段1 = {4}（109 ↔ record[4]）
+  ─ landed 9 ─
+  gias02={0} gias03={0} ★gias04=腕 0 本★ koda00={0} mayo00={2}
+  mist02={0,1,2} mist04={0} mist07={0,1,2} trop04={0}
+```
+
+### ★★この 突合が 言って いないこと★★
+```
+  ・★「placer が 実際に その 添字を 置いた」★ = ★`mayo00` だけ live で 見て います★
+    （残り 13 map は ★同じ loop（`placedRec.Add(i)`）に 乗る という 構造からの 推論★）
+  ・★worker2 の 腕の 値そのもの★ = ★私は DG.SCN を 逐語 decode して いません★（★彼の 実測を 参考として 使いました★）
+  ・★到達可能性★ / ★昼夜との 交わり★ / ★原盤の 主張★
+  ★consistent は proof では ありません★
+```
+
+## 13. ★★boss1 §3（land gate の 母数）への 応答★★
+```
+  ★確認しました★ = `p2w2` の v2（★398 行★）★330 行 = `if (map == null || StageHold.Contains(map)) return NotApplicable;`★
+                  ⇒ ★`gias04` / `trop04` は getFlag を 呼びません★ = ★裸の `Passes` 同士なら 割れます★（boss1 の 指摘は 正）
+  ⇒ ★★(乙) 呼び元 guard 込みの 合成で 突き合わせる（2,304 のまま）★ に 同意します★★
+  ★私の build 検収では `EntityPlacer.cs:370` の guard を harness が 再現して いるか を 見ます★（★受領★）
+  ★退路 3 本は 表駆動では 1 件も 踏まれない★ ⇒ ★★「全数 assert が 緑」は 退路の 正しさの 証拠に なりません★★（★受領・別建てに 同意★）
+```
+### ★★私の 前の 数の 更新（★古い数を 残しません★）★★
+```
+  ★#584-C で 私は 「worker2 の Hold は 4 本」と 書きました★
+  ★今の v2 では★ ★`StageHold` = 2 本（`gias04` / `trop04`）★・★`Stages` の key = 9（= landed 9 と 同一）★
+      ⇒ ★`frzl08` / `mist03` が 消えたのは ★表から 落ちたから★★（= boss1 §4(B) 不承認と 整合）
+  ⇒ ★★∴ 私の 「4 本」は ★その 時点の 4 本★ で、★今は 2 本★ です★★
+  ★∴ 私の 述語 `LegacyFlagOnly` は 今 ★Stages の key と 恒等★★ ⇒ ★assert の 値は 「今 一致」では なく
+     ★将来 生成器の 入力が 動いた ときに 赤に する★ ことに 在ります★（= 格下げの 趣旨どおり）
+```
+
+## 14. ★★1 process に 収まるか（boss1 §4 の 問い）★★
+```
+  ★答★ = ★★収まります★★。★但し 中身が 変わりました★:
+    ・★依頼 2 つ（陽性対照・段ごとの 添字集合）は ★run 0 本で 既に 出ました★★（§12・27/27）
+    ・★残るのは 「placer が 実際に その 添字を 置く」の 実行確認（13 map ぶん）★
+      ⇒ ★これは ★land（待ち ①）の 後★ でないと 撃てません★
+        ∵ ★① 5 map は 表に 在りません（Stages = 9）★
+          ★② Editor から 段を 落とすには getFlag の 注入口が 要る★
+             = 今の `CurrentFlagGetter()` は `GameManager.Instance?.Session?.GameState` を 読み
+               ★両方 private setter ゆえ Editor では null → 段が 適用されません★
+               （`CruxM3Gate:240` が `new EntityPlacer().Place(md)` を 呼びますが ★GameState を 用意して いません★）
+  ⇒ ★★∴ 次の 1 本（run 1 本）は ★段 0 + 段 1(JUMPS 2 arm) + 段 2★ のまま で 変えません★★
+     ★段ごとの 添字は ★land 後の 別 1 本★ に 回します★（★今 撃っても 段が 適用されず 空振り★）
+```
