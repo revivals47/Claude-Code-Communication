@@ -192,3 +192,4 @@ DISPLAY=:1 DEGIMON_BOOT_MAP=mayo00 DEGIMON_INTRO_ENTRY=101 DEGIMON_AUTOBOOT=1 \
 - ★`DEGIMON_AUTOBOOT_SEC` の 秒数どおりに 終わるか★（§3 の 申告）
 - ★build log の summary が `errors=3` と 出ている ★その 3 件の 中身★★
 　（★`error CS` は 0 件★・log 中の `Error` 表記は ★Licensing の 1 行だけ★ ／ ★残りが 何かは 判っていません★・★build は `Succeeded`★）
+- ★私の 長め（`DEGIMON_AUTOBOOT_SEC=30`）の run で ★player の 座標が (2.64,0,35.85) → (5.19,0,21.16) に 動きました★★（★私は 入力を 送っていません／他からの 入力が 無かったことは 確かめていません／★理由は 判っていません★）
