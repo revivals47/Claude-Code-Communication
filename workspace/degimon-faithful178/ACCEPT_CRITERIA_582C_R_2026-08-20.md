@@ -40,3 +40,25 @@
 
 ★同型 3 例目★: (1) 囮 log(workspace 側 send_log.txt) (2) 語尾切れ (3) 一度きりの process 計数。
 共通形 = ★測った対象/範囲が違うのに測定は沈黙する★ ⇒ ★不在を主張する前に、測った対象そのもの(pwd・wc -l・pattern・陽性対照)を並べて示す★。
+
+---
+
+## PRESIDENT が★報告の前に★器で採った分(便 0820-07・00:56・commit 363bbac)
+
+★判定ではない★。★報告に形を合わせられない位置で採るため★の先行観測。worker3 は止めていない。
+
+| 受理基準 | PRESIDENT の器で採れた分 | 残り |
+|---|---|---|
+| (1) path と不可触 | 新 build = /home/ken/Desktop/Digimon/w3_build582r/DegimonLive/ (watch 検知 00:51:44) = /tmp 外 ○ / workspace/build = 8/16 01:11・build_handoff_444c = 8/16 13:16 = 無傷 ○ | — |
+| (2) error CS | — | ★件数を報告で★ |
+| (3) S1-S5 | log が今日の器で在る(runs/S1 S2 S3h3 S3h22 S4 S5・00:52-00:5x)+GUI.log/GUI2.log/probe.log / [W3-MEASURE-FLAG] は S5 含む全 log で 0 行 ○ | ★逐字同一の側(S5 の command 行と diff)★ |
+| (4) grep | — | ★実行行・件数・陽性対照が非ゼロ★ |
+| (5) GUI | 窓 = wmctrl_after.txt = 0x00e00008 0 ken-All-Series unity = 窓 id 明示 ○ / [PLACE-SPECIES] = GUI.log 2 行・S1/S3/S4/S5 も 2 行 | process 数の差 +1 / ★S2.log だけ 0 行の意味★ |
+| (6) sha | Assembly-CSharp.dll = 256,512 byte・sha256 頭 98ae1499… = #582-C と一致 ⇒ ★傍証(証明ではない・PASS も FAIL も決めない)★ | 一致以外の差分の在り処 |
+| (7) README | — | ★改名 commit と 581C 残り 0 件の grep★ |
+
+★S2.log の [PLACE-SPECIES] 0 行★ = ★退路(明示 OFF)の便なのか別の理由かを報告に書かせる★。PRESIDENT も boss1 も断定しない。
+⇒ boss1 の一次照合は★この 5 つ + S2 の理由★に絞る。既に器で採れた分を報告の額面で上書きしない。
+
+## 走行判定の規範(確定形・便 0820-07 で支持)
+★幅で場合分けしない★ / ★常に前方一致で採る★ / ★陽性対照(同じ pattern が他 pane で 1 を返すか)を同時に撃つ★。
