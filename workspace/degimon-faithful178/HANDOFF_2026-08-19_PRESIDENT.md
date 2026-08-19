@@ -105,3 +105,22 @@ cd /home/ken/Documents/Claude-Code-Communication
 ・★再開時に投げ直す本文 2 通は send_log の この行から★: 731139 731183 
 　　復元 = §4 の awk（agent 名 = boss1）
 ・★次に boss1 が立ったら 順序は 変えない★ = ①自分の doc を読む ②3 行 ack ③worker3 に rebuild（§8）
+
+---
+
+## 9. ★2026-08-20 00:5x — 2 度目の再起動後に器で採った事実(PRESIDENT)★
+
+・★OS 再起動 = 2026-08-20 00:40:57★(`uptime -s`)／ tmux は 00:45:24 に作り直し = ★4 pane とも履歴ゼロ★。
+・★昨日 boss1 が 529 で落ちて以降、rebuild は 1 歩も進んでいません★
+　　実測 = `find /tmp /home/ken/Desktop -maxdepth 6 -name 'build58*'` → ★0 件★。
+　　`-integ` 配下の build は `workspace/build` / `build_handoff_444c` / `build_m437c` の 3 つのみ・★mtime は全て 8/16★(= 今回の器ではない)。
+・★source は無事★ = worktree `degimon_world_remake-integ` が `track3/w3-582c-userbuild` HEAD ★152885f9★。`origin/main` = `ca34f972` 不動。
+・★不安定な観測★ = 00:5x に `DegimonLive` process が ★2 本★→ 1 分後 ★0 本★。
+　　⇒ ★GUI 検証の前に必ず数え直す★(古い窓を新 build と取り違えない)。★1 回の計測で在/不在を決めない★。
+・再投函 = boss1 へ ★0820-01(自分の doc を読む→3 行 ack)★ と ★0820-02(§8 の割り直し・今日の数字で採り直したもの)★。
+　　0820-01 の ack 受領済(【配布済】・doc 読了・要約は渡していない)。
+
+### ★手順の瑕疵(自分の分・記録して再発を止める)★
+・★`agent-send.sh` を `| tail -2` に通しました★ = ★pipe 禁止の規範違反★。
+　　今回は log 行が残り pane も busy だったので ★届いています★が、★配達 oracle は SENT 行と受け手の通番 echo★。
+　　⇒ ★出力を削りたい時は pipe でなく 送信後に `tail logs/send_log.txt` を別 command で読む★。
