@@ -297,3 +297,70 @@ $ grep -rn "TraceEnabled *=" unity/Assets --include=*.cs
   ★94 候補の framed 判定（§13 の token 待ち）★ / ★`0x25` を 実装すべきか の 判断★
 - ★push なし・land なし・`git add -A` 不使用・savestate と `.bak` は 触って いません★
 - ★出力先は `/tmp` 配下では ありません★（本 doc は repo 内）
+
+---
+
+# ★(B) 続き — ★compile token を 1 回 使って 撃ちました★（01:47-01:49）★
+
+## 15. ★撃った もの（★§9 / §13 で 先に 登録した とおり★）★
+
+```
+  器 = ★新規 Editor script `W3Var110Census.cs`（115 行）★
+       ★player build に 入らない Editor assembly 側★ ⇒ ★`Assembly-CSharp.dll` を 触りません★
+       ★写し★ = `workspace/degimon-faithful178/W3_584C_var110_census_harness.md`（本 repo に 保存・★`.gitignore` が `*.txt` を 弾くので `.md` で 置きました★）
+       ★走り終えた後 Unity tree から 撤去★ ⇒ ★untracked `.cs` は 元どおり 1 本★・★HEAD = 152885f9 不動★
+  実行 = Unity 6000.4.11f1 -batchmode -nographics -quit -executeMethod …W3Var110Census.Run
+         ★DISPLAY なし・窓なし★ ／ ★error CS = 0 件★（build log を grep -c）
+  出力 = /home/ken/Desktop/Digimon/w3_584c/{census.txt, unity_census.log, W3Var110Census.cs}（★/tmp 配下では ない★）
+  ★引き渡し build は 無傷★ = `Assembly-CSharp.dll` sha256 `98ae1499…3032` / mtime 08/20 00:51（★変わって いません★）
+```
+
+## 16. ★★結果★★
+
+| pass | 歩き方 | entry | ★打ち切り★ | step | var_w | ★idx=110★ | ★陽性対照★ |
+|---|---|---|---|---|---|---|---|
+| ★L★ | jump fall-through | 225/225 | op0 / content0 / tick0 / ★WaitingChoice 37★ | 8,314 | 183 | ★★0 件★★ | `0x6F=2` `0xFE=12` `0x1F=0` `0x1C=0` |
+| ★B★ | `BehavioralMode=true`（jump take） | 225/225 | op0 / content0 / tick0 / ★WaitingChoice 57★ | 14,111 | 600 | ★★0 件★★ | ★`0x1F=1` `0x1C=4`★ `0x6F=2` `0xFE=16` |
+
+⇒ ★★∴ ★登録した 判定の 2 番目★ = ★`idx=110` が 0 件 かつ 陽性対照が 非 0★★
+⇒ ★★∴ ★`fact02` / `stic02` は ★`frzl08` と 同じ 保留の 箱★★★
+
+## 17. ★★★この 0 が 言って いないこと（★被覆の 限定★）★★★
+
+★★これは 「site が 無い」では ありません★★ = ★★「この 歩き方では 踏まなかった」★★:
+```
+  ① ★WaitingChoice で 止まった entry が 37 / 57 本★ ⇒ ★選択肢の 先は 歩いて いません★
+  ② ★入口は 各 entry の body 先頭だけ★ ⇒ ★section 表（`FB`/(scn,key)）経由の 入口は 踏んで いません★
+  ③ ★state は 既定（`new GameState()`）★ ⇒ ★flag 依存の 腕は 片側しか 通りません★（pass B）
+```
+★★∴ この 0 は ★下界（実行された 回数）★ であって ★site の census では ありません★★
+
+### ★★校正（★器が 盲目で ない ことの 別の 出し方★）★★
+```
+  ★生 byte 上界★ と ★枠つき walk★ を 同じ 形で 並べます:
+      idx=0x6F(111) : 生 byte 候補 ★3 件★（entry 0 に 1・entry 67 に 2） → ★walk は 2 件 捕まえた★
+      idx=0x6E(110) : 生 byte 候補 ★94 件★                              → ★walk は 0 件★
+  ⇒ ★★∴ ★候補が 実際の opcode site で 歩いた 範囲に 在れば walk は 拾えて います★★（0x6F で 2/3）
+```
+★★94 件の 置き場所（★私の器で 数えました★）★★:
+```
+  entry 0:1 / 135:2 / 136:2 / 137:2 / 148:1 / ★154:48★ / ★175:24★ / ★176:14★   ← ★8 entry に 集中★
+  ⇒ ★86 / 94 が 3 entry に 固まって います★ ⇒ ★text / data の 偶然一致（枠外）を 強く 疑います★
+  ⇒ ★★但し ★疑うだけで 確かめて いません★★★（★枠を 与えられるのは VM だけ★）
+```
+
+## 18. ★★∴ 出す 答 と 出さない 答★★
+```
+  ★出す★   ★remake が var[110] を 書くのを ★私は 1 度も 捕まえられませんでした★★
+           ⇒ ★登録どおり ★保留の 箱★（`fact02` / `stic02` は `frzl08` と 同じ 扱い）★
+           ⇒ ★向きは 安全側★（★落とした方が 無害・載せる方が 有害★ = boss1 §1(B)）
+  ★出さない★ 「remake は var[110] を ★書かない★」 ← ★★被覆が 足りません★★
+           「94 件は 全部 false positive」        ← ★★疑いまで★★
+```
+★★閉じ方の 札（★材料★）★★:
+```
+  (a) ★選択肢を 自動応答して 先へ 歩く★（`DEGIMON_DIALOGUE_CHOICE` 相当）
+  (b) ★section 表の 全 (scn,key) を 入口にして 歩く★（= `DumpJsonlSections` の 形）
+  (c) ★entry 154 / 175 / 176 を 名指しで 枠つき decode★（★94 件の 86 件が そこ★）
+  ⇒ ★どれも Editor batchmode 1 本で 足ります★（★token を もう 1 回 いただければ 撃ちます★）
+```
