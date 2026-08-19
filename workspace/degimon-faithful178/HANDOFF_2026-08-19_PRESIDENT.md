@@ -213,3 +213,16 @@ cd /home/ken/Documents/Claude-Code-Communication
 ・渡した先 = ★user 本人★(2026-08-20 の 1 通目の返信)。★4 件とも逐語で★ + ★「アグモン（パートナー）」の同定は引用しない★も併記。
 ・★user からの応答は まだ ありません★ ⇒ ★「受け取られた」とは書きません★(★送達 ≠ 受領★)。
 ・★次 session は 再送しないこと★(★同じ訂正を 2 度渡すのは 台帳の腐り★)。★但し user が同じ誤りを再び前提にしたら その場で 1 件だけ★。
+
+## 10. ★01:10 — ★#582-C-R を 受理(7/7)・user 手番を 開きました★(PRESIDENT 判定・便 0820-11)★
+★報告と独立に私が撃った 4 つ★(全部一致):
+・(1) ★不可触 3 dir = 8/16 のまま★ / (7) ★README は at-rest★(mtime 01:01:00・194 行・sha `da5693ec…`・01:01:53 と 01:08:48 で不変)・★581 = 3 件 全て来歴★・★§2 は新 path★
+・(3) ★S1 と S5 の全文 diff を 私自身が撃った = 4 行 = 2 対だけ(Processor MHz 3948/3839 と UnloadTime)★・★`^\[PLACE` 行 diff は空 = 逐字同一★
+・(5) ★pid 57829 の exe = 新 build★ = ★私は worker3 の census を見る前に採った★ ⇒ ★独立に一致★
+★boss1 の判定材料 1(AUTOBOOT_SEC=60)は 器の上で既に満たされていた★ = 申告は ★100-107 行 = command block(85-97)の直後★。★§6 まで読まれなくても届く★ ⇒ 追加要求なし。
+★足させた 1 行★ = ★GUI3 の run で player 座標が (2.64,0,35.85)→(5.19,0,21.16) に動いた★を「確かめられていないこと」へ(★原因は書かない★)。
+★errors=3★ = ★README に既出(開示済)★ゆえ ★札のまま受理★。
+★解除★ = #580-C を worker3 に積んでよい(★§3 の 1 行が先★) / worker1 #578-A・worker2 #577-B を承認 / 時刻 gate を bit と混ぜない draft 先行を承認(★land は私の承認★)。
+### ★user 手番の中身(私が渡すもの)★
+・★build = /home/ken/Desktop/Digimon/w3_build582r/DegimonLive/DegimonLive.x86_64★ / README = ★workspace/degimon-faithful178/USER_RUN_README_582C_DRAFT.md★
+・★見せるのは mayo00 1 map だけ★ / ★新規開始は 昼も夜も 1 体 = 変わらないことも仕様★ / ★絵の忠実さの検証ではない・同定はしない★
