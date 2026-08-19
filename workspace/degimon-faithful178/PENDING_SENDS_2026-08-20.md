@@ -28,3 +28,7 @@
 ## queue(01:4x・便 0820-17 の 2 通・どちらも exit 3 で未達)
 | worker3 | ★#584-C の「README に足さない」を覆す★ = §7(3) 末尾に PRESIDENT の逐語 1 項を足す(要約せずその文字列で)+★編集前に 4 点を採り 195 行・ade78986…・01:11:41 と一致を確かめてから★+★GUI/compile の token を渡す★(worker1 が返却・after census 0/0 を boss1 も 01:40:16 に独立確認) | QUEUED_584C_README_2026-08-20.md | ★保留★ |
 | worker1 | ★A/B の oracle 差し替え★ = 第一 oracle は VerifyEntry の matchedChars/emitted(現 0・原盤 277)/ ★停止行の有無は第二★ / ★遊ぶ側の 2 度目の Begin は pc=0xA6 まで走り、文字が出るかは未測定 = 断定しない★ / ★実装するな・env(DEGIMON_FAITHFUL_BODYSTART=1)を立てるだけ★(G2 env-gate は 2026-07-25 land 済) / land 条件 (a)(b)(c)・(c) 未了なら land しない | QUEUED_580A_ORACLE_2026-08-20.md | ★保留★ |
+
+## queue(01:5x・裁定 0820-18 の 2 通)
+| worker1 | ★#581-A に順序を挿す★ = ★(a) の前に 0x57 の枠の取り直し★(base 0x80157B38 / stride 34 / +0x2DD の 3 数は同時に成り立たない = 21 要素分先)・lui/addiu の対と register の担当を逐語・LO>=0x8000 の +0x10000 罠・★枠が合うまで実装量を出さない★ / 0x75 の不在は母数つきを維持 | QUEUED_581A_FRAME_2026-08-20.md | ★保留★(busy) |
+| worker3 | ★述語は assert 専用に格下げ(権威は凍結 dict)★ / ★呼び元は tri-state を受ける★(Hold・getter null・clock -1 は NotApplicable = main の skip と bit 同一) / ★Clock は 1 回 snapshot★(実 1 秒 = ゲーム 1 分ゆえ時と分の境界を跨ぐ) / ★Hold は StageHold に改名・一本化は land 後の別便★ / README は確定でもう触らない | QUEUED_585C_TRISTATE_2026-08-20.md | ★保留★(busy = var[110] 捕獲を実行中) |
