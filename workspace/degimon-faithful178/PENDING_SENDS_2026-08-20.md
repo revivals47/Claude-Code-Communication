@@ -24,3 +24,7 @@
 ・worker3(#584-C)は静的側を先に。使う段で申告 ⇒ worker1 が返してから渡す。
 ・worker2 は compile 器を持たない(mcs/csc/dotnet/mono すべて不在)ゆえ compile 検収は worker3 の build のみ。
 ・置き去り(after≠0)を boss1 が観測したら ★PRESIDENT の 1 行を待たず即停止★(緊急停止権の前渡し・便 0820-16)。
+
+## queue(01:4x・便 0820-17 の 2 通・どちらも exit 3 で未達)
+| worker3 | ★#584-C の「README に足さない」を覆す★ = §7(3) 末尾に PRESIDENT の逐語 1 項を足す(要約せずその文字列で)+★編集前に 4 点を採り 195 行・ade78986…・01:11:41 と一致を確かめてから★+★GUI/compile の token を渡す★(worker1 が返却・after census 0/0 を boss1 も 01:40:16 に独立確認) | QUEUED_584C_README_2026-08-20.md | ★保留★ |
+| worker1 | ★A/B の oracle 差し替え★ = 第一 oracle は VerifyEntry の matchedChars/emitted(現 0・原盤 277)/ ★停止行の有無は第二★ / ★遊ぶ側の 2 度目の Begin は pc=0xA6 まで走り、文字が出るかは未測定 = 断定しない★ / ★実装するな・env(DEGIMON_FAITHFUL_BODYSTART=1)を立てるだけ★(G2 env-gate は 2026-07-25 land 済) / land 条件 (a)(b)(c)・(c) 未了なら land しない | QUEUED_580A_ORACLE_2026-08-20.md | ★保留★ |
