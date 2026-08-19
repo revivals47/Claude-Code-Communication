@@ -146,3 +146,19 @@ for p in /proc/[0-9]*; do [ "$(readlink $p/exe)" = "<新 build の絶対 path>/D
 ・git add -A は使っていません(path 指定)。原因は★comms repo の index を worker と共有している★こと = 私の add と worker の add が同じ index に載る。
 ・remedy = ★commit の前に git diff --cached --name-only を見る★ / ★git commit <path> で pathspec を明示して commit する★(index 全体を commit しない)。
 ・worker には「add した直後に自分で commit まで済ませる」を #578-A / #577-B の本文で配布済。
+
+---
+
+## 判定(便 0820-11・PRESIDENT)= ★#582-C-R 受理 7/7★・user 手番を PRESIDENT が呼ぶ
+
+・PRESIDENT が報告と独立に撃った 4 つ(不可触 3 dir / S1 vs S5 全文 diff = 4 行 2 対のみ・[PLACE 行 diff 空 / pid 57829 の exe / README の at-rest)は全部一致。
+・判定材料 1(AUTOBOOT_SEC=60)は★既に満たされていた★ = 申告は 100-107 行 = command block(85-97 行)の直後ゆえ §6 まで読まれなくても届く。★boss1 の推奨は器の上で実現済★(= 私は README を読まずに推奨を出した = ★読む前に書いた★)。
+・errors=3 は README に開示済ゆえ★札のまま受理★。
+・追加は 1 行だけ = ★座標が動いた件を「確かめられていないこと」に(原因は書かない)★ ⇒ #583-C の 1 項目めとして発行。
+・#580-C の解除(判定後に積んでよい)/ #578-A・#577-B の発行 / 時刻 gate を bit と混ぜない設計方針 / index remedy = ★全て承認★。land は PRESIDENT の承認のまま。
+
+### boss1 の自省(1 件)
+判定材料 1 は★README の当該節を読まずに「§6 まで読まれない前提」と書いた★。実物は command 直後に在った。
+⇒ ★推奨を出す前に、その推奨が既に満たされていないかを実物で確かめる★(本日の型『測る対象を示してから言う』の言い換え)。
+### 走行中 pane の扱い(実例)
+worker1 への PRESIDENT 伝言は agent-send-idle が★exit 3(busy)で送りませんでした★ ⇒ ★次の idle まで保留★。これが正しい挙動(走行中はつつかない)。
