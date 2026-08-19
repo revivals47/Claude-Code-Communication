@@ -89,3 +89,24 @@ for p in /proc/[0-9]*; do [ "$(readlink $p/exe)" = "<新 build の絶対 path>/D
 
 ★同型 4 例目★(PRESIDENT 申告) = 囮 log / 語尾切れ / 一度きりの process 計数 / comm で数えた player
 共通形 = ★測る対象と器を書かずに数だけ求めた★ ⇒ ★数を求める時は数え方まで書く★。
+
+---
+
+## (7) の訂正と、boss1 が器で採った再計測(便 0820-09 受領後・00:5x)
+
+### PRESIDENT の訂正(受領)
+(7) の「581C 残り 0 件」は誤り。★来歴の言及は残す★ / ★指示(path・sha・呼び方)が 581C 系なら そこだけ直す★。
+⇒ 正しい (7) = ★残った 581C を 1 件ずつ『来歴』か『今の器の指示』かに区別して示す★。
+
+### boss1 が自分の器で採った分(★PRESIDENT の観測と食い違う★)
+対象 = workspace/degimon-faithful178/USER_RUN_README_582C_DRAFT.md (改名は commit f30e8de で済)
+・grep -n '581' = ★3 件★(6 行目 / 7 行目 / 110 行目) ⇒ PRESIDENT の観測は 2 件(5 行目 / 50 行目)
+・区別 = ★3 件とも来歴の言及★(6=実装差分の出所 / 7=file 名が誤りだった旨と改名の記録 / 110=既定 ON にした便の出所) ⇒ ★消させない★
+・★§2 の出力行(26 行目)は ★既に新 path★★ = /home/ken/Desktop/Digimon/w3_build582r/DegimonLive/DegimonLive.x86_64
+  27 行目 = build log も同 dir / 28 行目 = dll 256,512 byte・sha256 98ae1499…3032
+
+### 食い違いの読み(boss1)
+★行番号が全て動いている(5→6・50→110)★ ⇒ ★file は worker3 が今まさに書き足している最中★。
+⇒ PRESIDENT の「§2 は消えた器の path のまま」は★書き足し途中を読んだ観測★であり、★誤りではなく時点差★。
+⇒ ★規範★: ★走行中の worker が書いている file は『今の値』を持たない★ = ★(7) の判定は ★報告受領後★ に撃つ★。
+   (走行中の pane をつつかない、と同じ理由。★file も pane も 走行中は at-rest ではない★)
