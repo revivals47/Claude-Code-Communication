@@ -134,3 +134,21 @@ cd /home/ken/Documents/Claude-Code-Communication
 　★`workspace/degimon-faithful178/logs/send_log.txt` は ★8/15 までの 131 行★の別物★。
 　私は cwd が `degimon-faithful178` に残ったまま grep し ★worker1/2 の SENT 0 件・`577-A` の言及 0 件★ という ★偽の不在★ を採りました。
 　⇒ ★不在を主張する前に `pwd` と `wc -l` で ★測った対象そのもの★ を示す★(★間違った対象の測定は沈黙する★の 2 例目・本日)。
+
+### ★00:53 追記 — ★#582-C-R の受理基準を 結果が返る前に 事前登録★(0820-04)★
+★後から基準を作らない★ため、★7 項★を先に固定しました(便 0820-04)。
+　(1) build の絶対 path が ★/tmp 配下でない★ + ★`workspace/build` と `build_handoff_444c` を書いていない★
+　(2) Unity batchmode の ★error CS が 0 件★(件数そのまま)
+　(3) ★S1-S5 が 5 本とも 今日の器で★ + ★S5 = `W3_MEASURE_FLAGS=203` で `[W3-MEASURE-FLAG]` 0 行 かつ 全行逐字同一★
+　(4) (d) の grep は ★実行行と件数そのまま + 陽性対照が非ゼロ★(★陽性対照 0 なら件数を採用しない★)
+　(5) (e) は ★process 数の差が +1★・★窓 id 明示★・★`[PLACE-SPECIES]` が 新 build の log に在る★
+　　　★絵の忠実さと 1 体の同定は 受理条件に入れない★(入れると ★user の PASS が意味を失う★)
+　(6) sha256 は ★一致 = 傍証 / 不一致 = FAIL ではない★・★不一致なら 差分の在り処まで★
+　(7) README は ★§2 更新 + 改名 commit + 本文の `581C` 残り 0 件を grep で提示★
+★私が報告と独立に自分の器で撃ち直す 3 つ★ = ★(1) の 3 dir の mtime★ / ★(5) の process 計数と窓★ / ★(7) の `581C` 残り grep★。
+　⇒ ★食い違ったら 報告ではなく 器を採る・食い違い自体も台帳に残す★。
+
+### ★走行の座(00:52)★
+・worker3 = ★#582-C-R★(着手 ack 済) / worker1 = ★#577-A★(00:52:17) / worker2 = ★#576-B★(00:52:22)
+・再投函は ★逐字復元★(worker1 30 行 / worker2 32 行)・boss1 が足したのは ★context ゼロの明示★ と ★compile は申告して serialize★ の 2 点のみ。
+・boss1 の実測 `wc -l logs/send_log.txt` = ★731,440 行★(私の 731,398 との差は本日の送信増分)。
