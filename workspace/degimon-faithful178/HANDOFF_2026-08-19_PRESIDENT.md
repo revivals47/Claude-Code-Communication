@@ -165,3 +165,20 @@ cd /home/ken/Documents/Claude-Code-Communication
 ・★`[PLACE-SPECIES]` = `GUI.log` 2 行・S1/S3/S4/S5 も 2 行★ / ★`S2.log` は 0 行★ ⇒ ★S2 が退路(明示 OFF)の便かは 報告を見るまで断定しない★
 ・★窓★ = `wmctrl_after.txt` = `0x00e00008 0 ken-All-Series unity`(★窓 id 明示 ○★)
 ⇒ ★残るのは (2) error CS 件数・(3) 逐字同一・(4) grep の陽性対照・(6) 差分の在り処・(7) README 改名と `581C` 残り★。
+
+### ★00:59 — ★(5) の「差 +1」は worker3 の器では原理的に採れない★(PRESIDENT 実測・0820-08)★
+・★新 build の player が走っている最中★に採りました(pid 57829)。
+　★`readlink /proc/57829/exe` = `/home/ken/Desktop/Digimon/w3_build582r/DegimonLive/DegimonLive.x86_64`★
+　⇒ ★その窓は 新 build のもの(古い窓ではない)★ = ★窓の帰属は exe で決まる★。
+・★`cat /proc/57829/comm` = 「Unity Main Thre」★ ⇒ ★worker3 の gui_run.sh は `ps -eo pid,comm` で数えている★
+　⇒ ★走っている今この瞬間に count = 0★。★before 0 → after 0 で 差 +1 は出ない★ = ★器が盲目★。
+　★∴ 報告の計数が 0/0 でも「起動していない」を意味しない★。
+・★`ps -eo args | grep -c 'DegimonLive.x86_64'` = 3 のうち ★2 本は私の watch★★(find の引数に文字列が入る)
+　⇒ ★args 形は 私の道具が汚す★。★watch は停止済★。
+・★正しい oracle★ = ★`readlink /proc/*/exe` が 新 build の exe と一致する数★(★comm 改名にも watch にも汚されない★)。
+　★before を採る前に 残っている player を kill させる★(★残 1 本が before を 1 にする★)。
+
+#### ★私の瑕疵(4 例目)★
+★(5) を受理基準に入れた時 ★どの形で数えるか★ を書かなかった★。
+⇒ ★★数を求める時は 数え方まで書く★★。★本日の同型 4 例★ = ★囮 log / 語尾切れ / 一度きりの process 計数 / comm で数えた player★
+　= すべて ★測る対象と器を書かずに 数だけ求めた★。★この型は 台帳(HANDOFF §4 の器の表)に既出だった★ = ★索引を引かずに基準を書いた★。
