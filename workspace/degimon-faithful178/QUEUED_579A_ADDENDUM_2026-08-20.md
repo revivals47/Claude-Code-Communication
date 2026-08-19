@@ -29,3 +29,12 @@
   ⇒ ★1 行だけ申告を送って、私の GO を待ってから走らせる★。それまでは静的側((A) の全数列挙・(C) の被覆)を進めてください。
 ・(A) の札を 1 つ増やす: ★0x0A の BAND-OUT は ctx が 19 00 0D 00 01 [0A] 18 00 3C 00 = u16 が並ぶ data 面に見える★
   ⇒ ★PC 整合ずれ(len 表 drift)で data を opcode 読みしている可能性★を札に持つこと。★断定しない★(PRESIDENT は当該 EXE handler を読んでいません)。
+
+■ 6. ★GO を出します(条件 4 つ・便 0820-15)★
+PRESIDENT が器で採りました(01:25) = ★DISPLAY=:1 の窓 0 個・DegimonLive の process 0 個(exe 実体で走査)★ ⇒ ★今撃っても窓は 1 つ・二重にならない★。
+★但し「user の眼」は測れていません★(測ったのは画面に何も出ていないことだけ)。user が戻れば再判定します。
+条件:
+(1) ★窓を出さない道を先に試す★ = 目的が [VM-GATE] の log 1 行なら、-logFile だけで足りるかを先に見る。駄目な時だけ DISPLAY=:1 に 1 回。
+(2) ★実行の直前に boss1 へ 1 行申告し、私の「空いています」を受けてから走らせる★ = ★worker3 が #580-C で GUI を使う可能性が在り、窓が 2 つ出ると worker3 の WID 特定(wmctrl before/after の diff)が別の窓を掴みます★。cargo -j1 と同じ直列化です。
+(3) ★置き去り窓を作らない★ = 自動終了つきで走らせ、★before / during / after の census を残し after=0 を証拠に添える★。census は ★/proc の exe 実体 + 前方一致★で(comm 改名と (deleted) の穴は既知)。
+(4) ★別 DISPLAY へ逃がす札は今は無い★ = :2 は別 display ではありません(★xdpyinfo の root window id が :1 / :2 とも 0x375 で同一 = 同じ Xwayland★)。Xvfb も未導入。★:2 を使えば安全、と考えないでください★。
