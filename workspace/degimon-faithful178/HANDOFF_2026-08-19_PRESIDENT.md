@@ -124,3 +124,13 @@ cd /home/ken/Documents/Claude-Code-Communication
 ・★`agent-send.sh` を `| tail -2` に通しました★ = ★pipe 禁止の規範違反★。
 　　今回は log 行が残り pane も busy だったので ★届いています★が、★配達 oracle は SENT 行と受け手の通番 echo★。
 　　⇒ ★出力を削りたい時は pipe でなく 送信後に `tail logs/send_log.txt` を別 command で読む★。
+
+### ★00:5x 追記 — 割り当ての順序(0820-03)と ★囮 log★★
+・boss1 は #582-C-R を worker3 へ発行(00:49・着手 ack あり・本文は commit c4b198e で保全)。本文を送信 log から復元して検収 = ★条件 (a)-(f) 保持・(e) に process 計数と窓 id を追加★ ⇒ ★差し戻し無し★。
+・★順序の裁定★ = ★worker3 は #582-C-R 専任★(★#580-C 反復は rebuild 判定の後★ ∵ user 手番を最短で開ける + ★Unity batchmode compile と DISPLAY=:1 を 1 本ずつ★)。
+　★worker1/worker2 は #577-A / #576-B を再投函★・★受理条件は逐字復元★(worker1 = `729599` 行 / worker2 = `729661` 行。02:31 の便は /clear 通知ゆえ本体ではない)。
+　★compile が要る段は boss1 に申告させて serialize★。
+・★★同名の囮 log★★ = ★復元用は repo root の `logs/send_log.txt`(★731,398 行★)★。
+　★`workspace/degimon-faithful178/logs/send_log.txt` は ★8/15 までの 131 行★の別物★。
+　私は cwd が `degimon-faithful178` に残ったまま grep し ★worker1/2 の SENT 0 件・`577-A` の言及 0 件★ という ★偽の不在★ を採りました。
+　⇒ ★不在を主張する前に `pwd` と `wc -l` で ★測った対象そのもの★ を示す★(★間違った対象の測定は沈黙する★の 2 例目・本日)。
