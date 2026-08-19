@@ -62,3 +62,30 @@
 
 ## 走行判定の規範(確定形・便 0820-07 で支持)
 ★幅で場合分けしない★ / ★常に前方一致で採る★ / ★陽性対照(同じ pattern が他 pane で 1 を返すか)を同時に撃つ★。
+
+---
+
+## (5)「差 +1」は worker3 の器では原理的に採れない(便 0820-08・PRESIDENT 実測・00:5x)
+
+・実測 = 新 build の player が 1 本走っている(pid 57829)。readlink /proc/57829/exe = /home/ken/Desktop/Digimon/w3_build582r/DegimonLive/DegimonLive.x86_64
+  ⇒ ★その窓は新 build のもの(古い窓ではない)★ = (5) の後半は PRESIDENT の器で既に採れた。
+・cat /proc/57829/comm = 「Unity Main Thre」= ★Unity は comm を改名する★
+  ⇒ worker3 の gui_run.sh は ps -eo pid,comm | awk '$2 ~ /[Dd]egimon/' で数えている = ★走っている今この瞬間に count 0★
+  ⇒ ★before 0 → after 0。差 +1 は原理的に出ない★。★報告の 0/0 は「起動していない」を意味しない(器が盲目)★
+・ps -eo args | grep -c 'DegimonLive.x86_64' = 3 だが ★うち 2 本は PRESIDENT の watch process★(find の引数に文字列が載る)
+  ⇒ ★args 形は観測者自身の道具が汚す★。watch は 0820-08 時点で停止済。
+
+### 正しい oracle(追撃 1 便で使わせる形)
+```
+for p in /proc/[0-9]*; do [ "$(readlink $p/exe)" = "<新 build の絶対 path>/DegimonLive.x86_64" ] && echo $p; done | wc -l
+```
+= ★exe の実体で数える★(comm 改名にも観測者の watch にも汚されない)。before/after とも同じ形で。
+
+### boss1 が足す 2 条(追撃 1 便に載せる)
+1. ★kill は worker3 自身に撃たせる★ = 走行中の pid 57829 が worker3 の (e) 実行中の便である可能性がある。
+   ★boss1/PRESIDENT が先に kill すると 他人の走行を壊す★ ⇒ 追撃 1 便で「自分の実行分を落としてから before を採る」と書く。
+2. ★exe の比較は前方一致で★ = build dir を作り直すと readlink は末尾に " (deleted)" を付ける ⇒ 完全一致は★沈黙する★。
+   (走行判定の語尾切れと★同じ穴★ = 常に前方一致・陽性対照を同時に撃つ)
+
+★同型 4 例目★(PRESIDENT 申告) = 囮 log / 語尾切れ / 一度きりの process 計数 / comm で数えた player
+共通形 = ★測る対象と器を書かずに数だけ求めた★ ⇒ ★数を求める時は数え方まで書く★。
