@@ -119,3 +119,30 @@ for p in /proc/[0-9]*; do [ "$(readlink $p/exe)" = "<新 build の絶対 path>/D
     26 行 = 新 path・581 = 3 件 ⇒ ★boss1 の値と一致・PRESIDENT の 01:00 観測は書き足し途中の 1 時点として撤回(commit a56c178)★)
 ★台帳既出の型の file への拡張★ = 「live RE は at-rest で読む・遷移途中 read は stale mirror」。本日 6 例目(器の都合で偽の差を作った)。
 ★boss1 の自省★ = 私の 0820-09 の grep も mtime/行数/sha を添えていなかった ⇒ ★私の 3 件も『その時点の 3 件』★。以後は必ず添える。
+
+---
+
+## boss1 の一次照合(#582-C-R・報告受領後・01:0x)★判定は PRESIDENT★
+
+| 項 | 一次照合 | 根拠 |
+|---|---|---|
+| (1) | 満たす | path=/home/ken/Desktop/Digimon/w3_build582r/… ・不可触 3 dir mtime 8/16 のまま(PRESIDENT の器と独立に一致) |
+| (2) | ★満たすが穴 1 つ★ | grep -c "error CS" = 0・Succeeded。★但し summary errors=3 の中身が判っていない★(worker3 が自主申告) |
+| (3) | 満たす | S1-S5 を今日の器で 5 本。S5 = W3-MEASURE-FLAG 0 行 + [PLACE*] 全行 diff 空 = ★逐字同一の側も埋まった★ |
+| (4) | 満たす | 3 command を実行行そのまま(0 件)+ ★陽性対照 4 行 / 2 行 = 非ゼロ★ + untracked 込みで撃っている |
+| (5) | 満たす | ★差 +1★(exe 実体で数え直し・comm 計数の穴は worker3 自身が申告)/ 窓 id 0x00e00008 / [PLACE-SPECIES] は新 build log。S2 の 0 行 = ★明示 OFF の退路便★(EntityPlacer.cs:442 の != "0")= (3) の PASS 側の証拠 |
+| (6) | 満たす | sha 一致は傍証止まりと明記 + ★差分の在り処 = 全文 diff 2 行(CPU clock / UnloadTime)のみ・挙動行は不変★ |
+| (7) | 満たす | 改名 f30e8de(pure rename)/ 581 = 3 件・★全て来歴・今の器の指示は 0 件★ / 4 点添付(01:04:07・mtime 01:01:00・194 行・sha da5693ec) |
+
+### boss1 が上げる 3 点(FAIL ではない・PRESIDENT の判定材料)
+1. ★user に渡す README の §3 に、確かめていない値が入っている★ = DEGIMON_AUTOBOOT_SEC=60(90-96 行の command)。
+   worker3 の =30 の run は 77 秒で終了行を出さず、★秒数どおり終わるかは未確認★(申告は 100-104 行と 192 行に在る)。
+   ⇒ ★推奨★ = command のすぐ隣に「秒数どおり閉じるかは未確認・見終わったら窓を閉じてください」を置く(§6 まで読まれない前提)。数値の削除までは要らない。
+2. ★build summary errors=3★ = 中身不明のまま。user 手番は塞がないが、★次の build 便で閉じる札★として残す。
+3. ★AUTOBOOT_SEC=30 の run で player 座標が動いた★(2.64,0,35.85 → 5.19,0,21.16)。worker3 は入力を送っていないが他からの入力は未確認。★見せる前に知っておく量★。
+
+### ★boss1 の器の瑕疵(自主申告)★
+私の commit ★b3e7bc1★ が、worker3 が add 済だった 3 file(README / W3_582CR_REBUILD / png)を巻き込みました。
+・git add -A は使っていません(path 指定)。原因は★comms repo の index を worker と共有している★こと = 私の add と worker の add が同じ index に載る。
+・remedy = ★commit の前に git diff --cached --name-only を見る★ / ★git commit <path> で pathspec を明示して commit する★(index 全体を commit しない)。
+・worker には「add した直後に自分で commit まで済ませる」を #578-A / #577-B の本文で配布済。
