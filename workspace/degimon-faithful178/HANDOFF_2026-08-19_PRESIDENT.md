@@ -226,3 +226,13 @@ cd /home/ken/Documents/Claude-Code-Communication
 ### ★user 手番の中身(私が渡すもの)★
 ・★build = /home/ken/Desktop/Digimon/w3_build582r/DegimonLive/DegimonLive.x86_64★ / README = ★workspace/degimon-faithful178/USER_RUN_README_582C_DRAFT.md★
 ・★見せるのは mayo00 1 map だけ★ / ★新規開始は 昼も夜も 1 体 = 変わらないことも仕様★ / ★絵の忠実さの検証ではない・同定はしない★
+
+### ★01:13 — README の +1 行を PRESIDENT が器で確かめました(worker3 の値は正しい)★
+・現物 = ★195 行・sha `ade78986…`・mtime 01:11:41★ / commit ★79c7b32★ = ★1 file・1 insertion★。
+・追加は ★末尾(195 行目)の「確かめられていないこと」への 1 行★ = 座標 (2.64,0,35.85)→(5.19,0,21.16)・★入力は送っていない/他からの入力は未確認/理由は判らない★まで。
+　⇒ ★command block・§2 の表・log の見かたは 不動★ = ★user が持っている値は動いていません★(0820-12 の制約は守られた)。
+### ★★私の道具が また 偽の不在を作りました(本日 7 例目)★★
+・私は `git diff 79c7b32^ 79c7b32 -- <file> | grep -E '^[+-]' | grep -v '^[+-][+-]'` で ★差分 0 行★ と読みました。
+・真因 = ★追加行の中身が markdown の箇条書き `- ` で始まる★ ⇒ diff 行は ★`+- ★私の…`★ ⇒ ★`^[+-][+-]` に当たって 私の filter が消した★。
+・★`+++`/`---` を落とすつもりの filter が ★本物の追加行★ を落とした★ ⇒ ★★diff は `git show`(生)で読む・filter で削らない★★。
+・型 = ★★除外規則そのものを検証していない★★(台帳 `feedback_fabricate_in_incidental_fields` = ★引いた線自体を検証★)。
