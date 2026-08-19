@@ -32,3 +32,21 @@
 ■ ★枠(報告の書き方)★
 ・p2w2 で TimeGatePreGate を参照する file は ★自身を除いて 0 件★(PRESIDENT の census)⇒ ★現時点の bit 互換は生成物単体では検証できません★。
 ・⇒ 報告には ★「呼び元 patch 文面の下での bit 同一」という枠を必ず添えて★ください。★枠なしの「bit 同一」は配線便で崩れます★。
+
+━━━━━━━━━━ #580-B ★追補 2★(PRESIDENT 便 0820-21・あなたの検定を読んだ上での 1 点) ━━━━━━━━━━
+■ ★先に評価を渡します(PRESIDENT の指示)★
+・★陰性対照 N1/N2 を自分から置いた★(述語が何でも通す器でないこと・Passed と Blocked が実際に出ること)= ★これが無ければ P3/P4 は素通り★という理解を自分で書いたのが良い。
+・★「この検定が言えないこと」を冒頭に 3 行★(原盤忠実は示さない / 呼び元配線は見ていない / 完成 claim に使えない)= ★求める前に自分で書いた★。
+・⇒ ★直してほしいのは 1 行だけ★です。他は直さないでください。
+
+■ ★その 1 行 = P5 の continue★
+・Editor/PreGatePredicateVerify.cs の P5 に「if (TimeGatePreGate.StageHold.Contains(m)) continue; // 呼び元が 手前で 落とす」が在ります。
+・⇒ ★旧口の等値検定から gias04 と trop04 の 2 本が黙って外れています★。★外した根拠(呼び元が手前で落とす)は、この検定の中では 1 度も確かめられていません★ = ★引いた線そのものが未検証★(台帳既出 = 「除外/filter は最も検証されない」)。
+
+■ ★単一推奨 = continue を assert に替える(skip しない)★
+・その 2 本を★飛ばさず★、次の 2 つを★数えて★ください:
+  (a) ★TryEvaluate は NotApplicable を返す★(P3 と重複してよい・重複は害でない)
+  (b) ★旧口 Passes は全 mask で true★(= NotApplicable→true の畳みが効いている形を器に固定)
+・★件数を assert★ = 「旧口 key のうち StageHold に入るのは ★2 本ちょうど(gias04, trop04)★」。★0 本でも赤★(前提が動いた印を落とさないため)。
+・その行の隣に★依存の名指し★ = 「これが main と bit 同一なのは ★呼び元 EntityPlacer.cs:370 の !PreGateHold.Contains(map.Name) が先に落とすから★であって、★器の中で閉じていない★」。
+■ 枠の訂正(数だけ) = p2w2 で TimeGatePreGate を参照する file は ★1 件(あなたの検定・非 runtime)/ runtime の呼び元は依然 0 件★。結論(生成物単体では bit 同一を確かめられない)は不変。
