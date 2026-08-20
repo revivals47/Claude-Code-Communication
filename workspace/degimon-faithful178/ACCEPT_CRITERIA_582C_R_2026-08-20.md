@@ -182,3 +182,11 @@ worker1 への PRESIDENT 伝言は agent-send-idle が★exit 3(busy)で送り�
   comm で数えた player / 書き足し中の file / 読まずに出した推奨 / ★この filter★。
 ・★boss1 も同じ族を踏んでいる★(grep -c 'esc to interrupt' の語尾一致) ⇒ ★私の側の規範 = 除外や整形を挟んだら、
   同じ問いを生のまま 1 度撃って答が変わらないことを見る(陽性対照の filter 版)★。
+
+---
+
+## land 記録(2026-08-20)+ 学び 1 行
+・★land commit = 9f1215a4★(degimon repo・branch main・HEAD 6980befd → 9f1215a4・★push していません(HOLD)★)。
+・land した artifact = ★422 行 / sha256 3edd9231…★ / 裁可を受けた artifact = ★418 行 / sha256 9d25933b…★ / ★差は comment のみ(非 comment diff 0 行)を worker3 の器で独立確認★ — 3 点とも commit message に明記。
+・消えない限定 3 つ(message と生成物 header の両方)= ★runtime 呼び元 0 件 = 呼び元 patch 文面の下での bit 同一★ / ★合成 data は忠実性を示さない★ / ★退路は表駆動では到達しない(ゆえに PGRT を別建て)★。
+・★学び(台帳 1 行)★ = ★抽出 script が comment 中の token を掴んで別 block を拾い、誤った値を出しかける★(worker3 が『StageHold = 9 map 全部』と読みかけ、source を直に開いて 2 本と確認し★報告前に潰した★ = 出していれば『序盤で 4 体出る』という偽の重大警報)。★remedy = 抽出結果は source の当該行を直に開いて 1 度当てる★。
