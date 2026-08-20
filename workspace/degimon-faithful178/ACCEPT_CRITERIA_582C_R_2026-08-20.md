@@ -190,3 +190,18 @@ worker1 への PRESIDENT 伝言は agent-send-idle が★exit 3(busy)で送り�
 ・land した artifact = ★422 行 / sha256 3edd9231…★ / 裁可を受けた artifact = ★418 行 / sha256 9d25933b…★ / ★差は comment のみ(非 comment diff 0 行)を worker3 の器で独立確認★ — 3 点とも commit message に明記。
 ・消えない限定 3 つ(message と生成物 header の両方)= ★runtime 呼び元 0 件 = 呼び元 patch 文面の下での bit 同一★ / ★合成 data は忠実性を示さない★ / ★退路は表駆動では到達しない(ゆえに PGRT を別建て)★。
 ・★学び(台帳 1 行)★ = ★抽出 script が comment 中の token を掴んで別 block を拾い、誤った値を出しかける★(worker3 が『StageHold = 9 map 全部』と読みかけ、source を直に開いて 2 本と確認し★報告前に潰した★ = 出していれば『序盤で 4 体出る』という偽の重大警報)。★remedy = 抽出結果は source の当該行を直に開いて 1 度当てる★。
+
+### post-land 検収(2026-08-20・worker3 doc 5eb87bf)
+・(d) main tree で fixture 3 本を撃ち直し = ★3 本とも緑・error CS は 3 invocation とも 0★
+  PGEQ 26/0(2,304 通り・★Blocked 突合 704★・裸の食い違い 256 = gias04/trop04・★退路は Var 0/Clock 0 で未踏★)/ PGPRED 18/0(未実施 3 本)/ PGRT 24/0(掃引 5・NotApplicable 経路 5)
+・(e) build = Succeeded / error CS 0 / dll 260,096 byte・sha e26201af… / 出力先 = w3_588c(/tmp 配下でない)
+  ★headless と live(DISPLAY=:1・1 回)の [PLACE*] 6 行が #582-C-R の S1 と逐字同一★ = ★6 行 block の sha256 598f979b… が 3 つとも同じ★
+  ★枠★ = 「DEGIMON_PLACE_SPECIES=1 を明示した run どうし」の比較(main は == "1" 既定 OFF / userbuild branch は != "0" 既定 ON)= ★『挙動が変わった』ではなく『起点の env が違う』★ / ★data provision を足した run★
+・census = before 0 → during 1(pid 845520)→ after 0・窓 0x00a00008 / ★最終 census = process 0・窓 0★
+・★引き渡し build の dll sha 98ae1499… 不変・branch track3/w3-582c-userbuild HEAD 152885f9 不動・land 後の tracked 変更 0★
+・★額面 = VM 次元で bit 不変・fixture 緑まで★(視覚忠実は user 実視覚まで凍結)
+
+### 別の札(land 起因ではない)
+★main worktree の data provision 欠落★ = StreamingAssets/data が ★main 24 本 / integ 36 本・不足 12 本(species_care_params.json 含む)★・★git 管理外(git ls-files = 0)で provision_curated_data.py で再生成する設計★。
+1 回目の headless は ★FileNotFoundException → NameInput の BindCareForm で例外★で field に届かなかった。
+★worker3 は『main の既存不具合』とは断定していない★ = ★worktree の provision 状態の差であることまで(HEAD~1 の baseline build は撃っていない)★。
