@@ -15,5 +15,10 @@
 ・★worker1 の札 3 本★ = ①0x80157B38 の同定(候補 2 + 反証材料)②+0x2DD の consumer(器の外に在る可能性)③0x24 の決定性(seed と draw 順)。
 ・★worker1 の採点待ち固定予測★ = W-3 / W-4 / W-5 / W-6' / W-7' / W-9(静的側)・W-1 / W-2(reset ありの run でのみ採点可)。★後から動かさない★。
 
+・★worker2 の retro-sweep 札(2026-08-20 12:06 追加・worker2 自身の申告)★ = ★彼の器(docs/opcode_lengths_exe.json)も 0x10 = 1 の誤りを持つ★ ⇒ ★命令境界を使った彼の過去の数は 0x10 を含む区間で影響を受け得る★。
+  影響し得る先 = ★var[110] 93 件 / var[29] 0 件 / 0x25 A の境界検め / entry 175 の候補 24/24 / 線形復号の 99.7% 被覆★。
+  ★今は数え直していない(停止指示に従った)★ ⇒ ★次 session で retro-sweep する札★。★閉じ忘れではなく、表が直った今日はじめて過去の数に効くと判った型★(= ★機構確定後は retro-sweep★ の実例)。
+・★worker2 の自己訂正 1 件★ = #587-B の残り「⑤ 段ごとの腕の突合は未突合」は★古い申告★で、★27 腕 = 27 一致(slot ↔ record 添字)は済★。★live 確認は mayo00 のみ★の限定はそのまま。
+
 ## 3. 不変(次 session へ引き継ぐ)
 ★push は HOLD(local commit まで)★ / ★land は PRESIDENT の承認★ / ★引き渡し build(w3_build582r)は不可触・userbuild branch HEAD 152885f9 不動★ / ★README(c661db4)は追記のみ・command block と §2 の表と log の見かたは不動★ / ★視覚忠実は user 実視覚まで凍結★。
