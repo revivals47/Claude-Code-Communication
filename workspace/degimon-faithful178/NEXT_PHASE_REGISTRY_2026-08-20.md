@@ -26,3 +26,30 @@
 
 ## 3. 不変(次 session へ引き継ぐ)
 ★push は HOLD(local commit まで)★ / ★land は PRESIDENT の承認★ / ★引き渡し build(w3_build582r)は不可触・userbuild branch HEAD 152885f9 不動★ / ★README(c661db4)は追記のみ・command block と §2 の表と log の見かたは不動★ / ★視覚忠実は user 実視覚まで凍結★。
+
+## 4. Phase 1 受理条件の事前登録(2026-08-22・PRESIDENT・両 Phase 0 返着後に確定)
+起点 = 0x57(worker1 #595-A・587bac3c)/ 0x24(worker2 #594-B・3021b607)。★実装着手はこの版を worker に配ってから★。採点値は後から動かさない(measurement discipline)。
+
+### 4.1 共通の型(両 opcode)
+- ★実装 = OFF-inert env-gate★ = 既定 OFF で完全 no-op(既存経路に触れない)。★gate 名を実装前に宣言★(未配線 toggle は no-op ゆえ grep+log で ON/OFF が本当に分岐することを確認してから A/B を信用)。
+- ★採点順 = OFF 先★ = ON を測る前に、OFF で既存 golden/harness が bit 同一であることを確認。
+- ★push HOLD / land = PRESIDENT / game code は commit まで(local)・push は user のみ★。
+- ★札の格付け(死に field 等)は印字するが「格」の最終確定は PRESIDENT 保持★。
+
+### 4.2 0x57
+- ★再現対象 = (b) の 2 つのみ★ = ①operand 2 byte 消費(PC を opcode 込みで +4 前進 = 予約 1 byte skip + 1 byte×2)②record +0x1F へ 1 byte 書き(値 = a1=1 固定・sb)。
+- ★共有 epilogue A(0x14) は実装対象外★ = 0x57 固有でない(0x80164068 を materialize する site は EXE 全体 37 件)・BIOS 内部未読 ⇒ ★park・実装しない★(この判断は PRESIDENT 確定)。
+- ★value consumer は配線しない★ = census = 8 形態 0 件 ⇒ +0x1F の値は正しく書くが読み手ゼロ ⇒ ★「死に field の札」を doc/README に印字★(値は消さない・格は保留)。
+- ★受理 oracle★ = ①cursor +4 前進が entry 実 decode で byte 一致 ②+0x1F=1 の書きが確認できる ③OFF で bit 同一。★「同入力→同絵」は要求しない★(0x57 は絵を出さない・state 遷移なし)。
+
+### 4.3 0x24
+- ★再現対象 = (b) の 3 つ★ = ①cursor +4 ②var[dst] へ RNG 由来値(handler 0x800EC964 = rand→mult→mflo→sra15→var[dst])③RNG の流を 1 つ消費。
+- ★RNG = DcRandom seam と別 stream★(無 seed System.Random と混ぜない = care 決定性保護)・★seed は強制しない★。
+- ★受理は「同入力→同絵」を要求できない★(非決定的 random var setter)。代わりに =
+  ①var[dst] が 0 でなくなる(書かれる)②gate 式が『常に偽(ElsePlace 毎回)』から『確率的に真/偽』へ変わる(StageHold が確率解放される)③統計 = N run で ElsePlace 落ち率 ≈ 原盤率(fact02 ~3% / stic02 ~1/3)を許容域内。
+- ★注記(scope 明示)★ = 0x24 だけ実装しても絵は揃わない(worker2 (b): 本体は draw 順)⇒ 受理は var[110] gate 挙動に scope・★full-scene 視覚一致は別 phase(draw 順込み)★。
+- ★fact02/stic02 の確率(~3% / ~1/3)は算術であって実機未測★ = 統計 oracle の「原盤率」は実機 trace で裏取りするまで参考値(許容域を広めに)。
+- ★生成物 comment の理由修正(0x1E-only は不完全)は別 PRESIDENT gate★ = Phase 1 に含めない。
+
+### 4.4 Phase 1 に含めない(park・座は PRESIDENT)
+BIOS A(0x14) の中身 / 配列 0x80157B38 の同定 / var[110] 書き手台帳の comment 反映 / 呼び元配線(runtime 呼び元 0 件のまま) / full-scene draw 順。
