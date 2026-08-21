@@ -37,10 +37,10 @@
 - ★札の格付け(死に field 等)は印字するが「格」の最終確定は PRESIDENT 保持★。
 
 ### 4.2 0x57
-- ★再現対象 = (b) の 2 つのみ★ = ①operand 2 byte 消費(PC を opcode 込みで +4 前進 = 予約 1 byte skip + 1 byte×2)②record +0x1F へ 1 byte 書き(値 = a1=1 固定・sb)。
+- ★再現対象 = (b) の 2 つのみ★ = ①operand 2 byte 消費(PC を opcode 込みで +4 前進 = 予約 1 byte skip + 1 byte×2)②record +0x1F へ 1 byte 書き(★2026-08-22 訂正: 値 = operand の val(4th byte)・sb。旧「値 = a1=1 固定」は誤読 = a1 は書く回数(loop 1・slt 上限)であって書く値ではない。worker3 が worker1 の逐語 handler body 0x800BA978 を直読 = lb ,0x10()=val / lh ,8()=idx / sb ,0x2dd()。裏取り = DG.SCN 生 byte 走査で 0x57 の 4th byte は 0×1792/1×1405/131×619 = 1 固定でない★)。
 - ★共有 epilogue A(0x14) は実装対象外★ = 0x57 固有でない(0x80164068 を materialize する site は EXE 全体 37 件)・BIOS 内部未読 ⇒ ★park・実装しない★(この判断は PRESIDENT 確定)。
 - ★value consumer は配線しない★ = census = 8 形態 0 件 ⇒ +0x1F の値は正しく書くが読み手ゼロ ⇒ ★「死に field の札」を doc/README に印字★(値は消さない・格は保留)。
-- ★受理 oracle★ = ①cursor +4 前進が entry 実 decode で byte 一致 ②+0x1F=1 の書きが確認できる ③OFF で bit 同一。★「同入力→同絵」は要求しない★(0x57 は絵を出さない・state 遷移なし)。
+- ★受理 oracle(2026-08-22 訂正)★ = ①cursor +4 前進が entry 実 decode で byte 一致 ②+0x1F に 1 byte(1 回)書かれ・★書いた値 = その site の operand val★(printer は「書かれた値」と「operand val」を両方印字 = 一致で PASS)③OFF で bit 同一。★「+0x1F=1 固定」は撤回★(踏んだ site の val がたまたま 1 なら旧文面も偶然通るが、oracle は val 一致で採る)。★「同入力→同絵」は要求しない★(0x57 は絵を出さない・state 遷移なし)。
 
 ### 4.3 0x24
 - ★再現対象 = (b) の 3 つ★ = ①cursor +4 ②var[dst] へ RNG 由来値(handler 0x800EC964 = rand→mult→mflo→sra15→var[dst])③RNG の流を 1 つ消費。
