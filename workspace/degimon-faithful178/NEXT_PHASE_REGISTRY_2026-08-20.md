@@ -46,9 +46,13 @@
 - ★再現対象 = (b) の 3 つ★ = ①cursor +4 ②var[dst] へ RNG 由来値(handler 0x800EC964 = rand→mult→mflo→sra15→var[dst])③RNG の流を 1 つ消費。
 - ★RNG = DcRandom seam と別 stream★(無 seed System.Random と混ぜない = care 決定性保護)・★seed は強制しない★。
 - ★受理は「同入力→同絵」を要求できない★(非決定的 random var setter)。代わりに =
-  ①var[dst] が 0 でなくなる(書かれる)②gate 式が『常に偽(ElsePlace 毎回)』から『確率的に真/偽』へ変わる(StageHold が確率解放される)③統計 = N run で ElsePlace 落ち率 ≈ 原盤率(fact02 ~3% / stic02 ~1/3)を許容域内。
+  ①var[dst] が 0 でなくなる(書かれる)②gate 式が『常に偽(ElsePlace 毎回)』から『確率的に真/偽』へ変わる(StageHold が確率解放される)③統計 = exact binomial 両側 α=0.01・2 値・N = 段評価回数。
+- ★測る場所の訂正(2026-08-22・worker3 の撃つ前指摘 → PRESIDENT 承認)★ = ★landed の Stages は 9 map のみで stic02/fact02 は不在((B) 未承認・park)⇒ 『landed 表経由の ElsePlace 落ち率』は観測不能★。⇒ ★測る場所を 0x24 出力の gate 式直接評価に差替★ = arg=2 site で var[110]>0 が偽になる率(stic02)= P[(rand*3)>>15==0] = rand≤10922 ⇒ 10923/32768 / arg=99 site で var[110]>2 が偽になる率(fact02)= P[(rand*100)>>15≤2] = rand≤983 ⇒ 984/32768。★条件★ = (A) 結果の隣に枠を毎回明記(『landed 表の ElsePlace 落ち率ではなく 0x24 出力に対する段の式の直接評価』= 受理文言と測定場所が違う)/ (B) 段の式の出どころ(worker2 X-127 逐語 or 自器再読)を 1 行。
+- ★恒等式は証拠でない(worker3 自身が添付)★ = p0 が worker2 の全数列挙と逐字一致するのは『差分ゼロ』であって『正しい』ではない(同じ列挙)⇒ 実の確証は ★実装の実測 draw 分布が N 回で二項帯に入ること★。
+- ★受理の格(scope の次元明記)★ = この統計 PASS が証すのは ★0x24 が gate 式層で正しい確率分布を出す★ことまで・★実プレイで scene が原盤率で ElsePlace に落ちる★ことではない(後者は (B) 承認 + draw 順 + live が要る = park)。
 - ★注記(scope 明示)★ = 0x24 だけ実装しても絵は揃わない(worker2 (b): 本体は draw 順)⇒ 受理は var[110] gate 挙動に scope・★full-scene 視覚一致は別 phase(draw 順込み)★。
-- ★fact02/stic02 の確率(~3% / ~1/3)は算術であって実機未測★ = 統計 oracle の「原盤率」は実機 trace で裏取りするまで参考値(許容域を広めに)。
+- ★fact02/stic02 の確率(~3% / ~1/3)は算術であって実機未測★ = 統計 oracle の「原盤率」は実機 trace で裏取りするまで参考値。主 oracle = stic02(~1/3)/ fact02(~3%)は検出力ほぼ無で補助。
+- ★static _op24Rng の reset 決定(2026-08-22・me+PRESIDENT)★ = ★reset は足さない★。理由 = (1) 原盤も 1 本の共有 stream(static single stream は原盤忠実)(2) 単一 PRNG からの連続 draw はまさに独立 Bernoulli 試行 = 二項帯の前提を満たす(壊すのは walk ごと同 seed 再初期化・していない)(3) process 分離は System.Random 既定 seed が時刻由来で近接起動衝突ゆえ より危険 ⇒ ★1 process・1 stream のまま撃つ★。worker2 の指摘(harness hidden input 完全性)は正当な提起で、事実確定の上で解消。
 - ★生成物 comment の理由修正(0x1E-only は不完全)は別 PRESIDENT gate★ = Phase 1 に含めない。
 
 ### 4.4 Phase 1 に含めない(park・座は PRESIDENT)
