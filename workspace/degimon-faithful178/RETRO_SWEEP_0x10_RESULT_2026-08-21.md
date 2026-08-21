@@ -51,3 +51,15 @@
 1. ★『機構が誤り』と『数が動く』は別★ = ★原因が在ることと効いたことは別★(worker2 が予測 4 本を外して型化)。★裏付け = comparator 自身の陽性対照(|L| 312,399 / |C| 275,403・同種の問いでは 0x1E 全部 -389 / 0x1C 全部 -169 / 0x25 全部 -11 が動く)⇒ ±0 は器の無能ではなく実測★。
 2. ★次元差は畳まない★ = ★到達 と 線形復号(上限側)は別の量★。★数が割れたら『どちらが正しいか』の前に『どの器が何を数えたか』★。★正しい count の提示は次元ごとに複数で良い★。
 + ★『終端に届いたから実在の式』とは言えない★(worker1・未知 mode の catch-all 0 件で終端に偶然到達していた実例)。
+
+---
+
+## 8. park 解決(2026-08-22)— 0x19 入口 0x07FAC6 の実命令性 = ★mid-operand と確定★
+
+§6 の park(worker1 が「判らない」と残した 1 件)を fixed-walker(2026-08-21 の 0x10 fix 済 scn_trace)で解決。手法 = 到達 walk + span 被覆判定(btl 不使用・DG.SCN のみ)。
+
+- ★0x07FAC6(entry176 rel 0x2c6)= 到達命令ではない★: 実 0x19 命令 **rel 0x2bc(abs 0x07FABC・`!flag[0x5c] BR_IF_FALSE->0x0378`・len 12)の span(0x2bc..0x2c8)内 = +10 byte 目 = ★mid-operand 確定★**。section 開始でもない(section = 0x1c/0x1e/0x590/0x7ea/0xa68/0xd02)。
+- ⇒ ★worker1 が見た式長 392 の暴走 0x19 parse は『mid-operand から誤 start した artifact』★。0x07FAC6 の 0x19 は実 0x19@0x2bc の operand data 内の偶然の byte。
+- ★副産物: census 350 の裏取り★ = 0x07FBD0(rel 0x3d0・`10 02…`・N=2)は暴走 chain に飲まれず **正当な standalone CHOICE(fixed-walker で到達命令)** ⇒ これを含む主答 **350** が正・349 取下げが妥当と再確認。
+- ★依存: 到達 walk が control-flow authority(body_start + section starts から追跡)。0x2bc は到達集合内の clean 0x19★。
+- ⇒ retro-sweep の park はこれで **完全 close**(残 park は前 track の 7 件のみ)。

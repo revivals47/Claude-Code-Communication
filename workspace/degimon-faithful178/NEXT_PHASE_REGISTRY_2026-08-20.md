@@ -21,6 +21,7 @@
   var[110]=90(±0・旧「93」は起点定義差 entry base vs body 先頭で 0x10 model 差でない)/ var[29]=0(影響なし)/ 0x25 A=29=到達1・線形2(±0・次元差、畳まない)/ entry175 候補=24(±0)/ 線形被覆=次元別 2 値(87.8%/60.35%)。
   ★census: standalone opcode 0x10=CHOICE は 350 件/81 entry(§238 限定は否定、2 器+陽性/陰性対照)★。
   ★standing residual → 下の「0x10 の Len 表」札へ統合★: Len[0x10]=1 は inert でなく実 decode bug(entry206 75→2036 byte,+1961,N=241 が実物)。
+・★park 解決(2026-08-22)★ = 0x19 入口 0x07FAC6 = ★mid-operand と確定★(実 0x19@abs 0x07FABC len12 の +10 byte 目・到達命令でない)⇒ 暴走 parse は誤 start artifact・census 350 裏取り・retro-sweep park 完全 close。詳細 = RETRO_SWEEP_0x10_RESULT §8。
 ・★worker2 の自己訂正 1 件★ = #587-B の残り「⑤ 段ごとの腕の突合は未突合」は★古い申告★で、★27 腕 = 27 一致(slot ↔ record 添字)は済★。★live 確認は mayo00 のみ★の限定はそのまま。
 
 ## 3. 不変(次 session へ引き継ぐ)
