@@ -58,3 +58,13 @@
 
 ### 4.4 Phase 1 に含めない(park・座は PRESIDENT)
 BIOS A(0x14) の中身 / 配列 0x80157B38 の同定 / var[110] 書き手台帳の comment 反映 / 呼び元配線(runtime 呼び元 0 件のまま) / full-scene draw 順。
+
+### 4.5 Phase 1 判定 = ACCEPTED(2026-08-22・PRESIDENT)
+起点 = worker3 実装 a0d5ff58(5fff8795→b3f4c6d8→a0d5ff58・branch track3/w3-phase1-op5724・push なし)。全採点は事前登録 2 本(worker1 e55c8fb0 / worker2 adb8ce99)より後の sha。
+- ★0x57 = PASS★ = 実行 site 27(entry28/149/153)・cursor +4 OK27/NG0・書いた値==operand val OK27/NG0・1 実行=1 書き NG0・値に 0 と 1 の両方(oracle 訂正の実測裏づけ)。
+- ★0x24 = PASS(gate 式層の枠内)★ = N=2000・1 process 1 stream・stic02(主)k=668∈[613,721] 中・fact02(補)k=59∈[41,81] 中・独立 2 run とも中・帯計算器の陽性対照(worker2 の [22,46]/[0,8]/[79,121] 3/3 逐字再現)・値計算を切り出して case 本体と採点が同一 code path(b3f4c6d8)。
+- ★(d) OFF bit 同一 = 3 点(実装前 baseline / 実装後 OFF / (e) 後 OFF)で per-entry digest 0235940247f39265bf83f03fd6ea65bd・全文 diff 0★。
+- ★worker3 の自己捕捉 2 件(台帳級)★ = ①at-rest 読みで同 idx 後続書きが前書きを消していた → 時系列 write list で per-exec 突合 → NG0 / ②印字が循環(operand_val と +0x1F に同一変数 = 値を自分と比べていた)→ 側置き read-back + harness raw byte 直読で独立照合(恒等式は証拠でない の実例)。
+- ★worker2 の C# 100 万 draw 同乗は moot★(帯に入ったゆえ不要・次に帯が外れた時の切り分け札として残す・撃っていない)。
+- ★受理の枠(worker3 が自分で明記・持ち出さない)★ = 測ったのは 0x24 出力に対する文書化述語が偽になる率(N=評価回数)・★測っていない = 実機の落ち率 / landed 表を通した EntityPlacer 実挙動 / 2 map の実 site が本当にこの arg でこの述語に入るか(実行 path 同定)★。
+- ★不変(凍結)★ = env-gate 既定 OFF ゆえ user 視覚は不変 = これは RE+gated 実装の local land + 敵対検証済であって『完成 / arc 完了 / 実プレイで動く』ではない。視覚忠実は user 実視覚まで凍結・push HOLD・land は PRESIDENT/user・README 未接触・引き渡し build dll 98ae1499…3032 不動・park(§4.4 + A(0x14) / 0x80157B38 / 死に field 格付け)不変。
