@@ -52,6 +52,7 @@
 - ★受理の格(scope の次元明記)★ = この統計 PASS が証すのは ★0x24 が gate 式層で正しい確率分布を出す★ことまで・★実プレイで scene が原盤率で ElsePlace に落ちる★ことではない(後者は (B) 承認 + draw 順 + live が要る = park)。
 - ★注記(scope 明示)★ = 0x24 だけ実装しても絵は揃わない(worker2 (b): 本体は draw 順)⇒ 受理は var[110] gate 挙動に scope・★full-scene 視覚一致は別 phase(draw 順込み)★。
 - ★fact02/stic02 の確率(~3% / ~1/3)は算術であって実機未測★ = 統計 oracle の「原盤率」は実機 trace で裏取りするまで参考値。主 oracle = stic02(~1/3)/ fact02(~3%)は検出力ほぼ無で補助。
+- ★生成器カバレッジの穴(2026-08-22・worker2 自己申告 f257548e)★ = 帯の一様性は worker2 の経験測定(PSX LCG・4 seed×100 万)では裏取りされていない = 実装は .NET System.Random(Next(0,32768))を使うゆえ、依っているのは『Next(int,int) は [0,32768) を一様に返す』の仕様。⇒ ★C# 側で同じ生成器から 100 万 draw して経験率を 1 行 = 切り分け材料(受理条件ではない)★ = 帯が外れたとき『実装の誤り』と『生成器の偏り』を分ける。worker3 の (e) run に同乗(別 run 不可・同乗不可なら 1 行でそう書く)。帯・p0・要 N の表は不変。
 - ★static _op24Rng の reset 決定(2026-08-22・me+PRESIDENT)★ = ★reset は足さない★。理由 = (1) 原盤も 1 本の共有 stream(static single stream は原盤忠実)(2) 単一 PRNG からの連続 draw はまさに独立 Bernoulli 試行 = 二項帯の前提を満たす(壊すのは walk ごと同 seed 再初期化・していない)(3) process 分離は System.Random 既定 seed が時刻由来で近接起動衝突ゆえ より危険 ⇒ ★1 process・1 stream のまま撃つ★。worker2 の指摘(harness hidden input 完全性)は正当な提起で、事実確定の上で解消。
 - ★生成物 comment の理由修正(0x1E-only は不完全)は別 PRESIDENT gate★ = Phase 1 に含めない。
 
