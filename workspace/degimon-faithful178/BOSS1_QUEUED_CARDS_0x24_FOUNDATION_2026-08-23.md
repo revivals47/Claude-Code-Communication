@@ -71,3 +71,30 @@ park 全維持 / A5(EXE 0x800bb544)未読・停止 / a0d5ff58 は測定 read onl
 - ★同型の波及(記録のみ・今は掃きません)★ = ★raw byte 走査で opcode を数えた doc / code は 全部 疑い★
   (worker1 の `0x24` census 1,265 / 740 / 687・本 doc §1・過去の `0x18` 依存 claim 等)。
   ★順序 = 復号器の後★(PRESIDENT 確定)。
+
+---
+
+## 7. ★★決着(2026-08-23・R0 = worker3 #604-A)= ★§1 は 別 entry を見ていました★★★
+
+- ★待ち行列 (a)(idx ↔ entry の検定)は ★閉じました★★ = ★答 = ★別体系★★。
+  - ★log の `idx` = ★map(region)index★★(EXE `0x8013541C` の map 表・★255 件★)
+  - ★DG.SCN の entry index は 別の番号(★225 件★)★
+  - ★構造的な反証 1 行★ = ★log に `map=topn01 idx=238` が在り ★238 > 224★ ⇒ ★entry index では在り得ない★★
+- ★★∴ §1 の「entry 139 / 153」は ★stic02 / fact02 ではありません★★★ = ★別の scenario entry を見ていました★。
+  ★これは 私(boss1)の仮定が誤っていた ということです★(★PENDING-SEPARATION の宣言は 免責ではありません★)。
+- ★正しい対応(★boss1 が DG.SCN entry 0 の 0xFB record から 独立に再現・worker3 と一致★)★:
+
+  | region(log の idx) | map | ★DG.SCN entry(loader)★ |
+  |---|---|---|
+  | 139 | ★stic02★ | ★127★ |
+  | 153 | ★fact02★ | ★140★ |
+  | 238 | topn01 | 178 |
+  | 204 | twna01 | ★149★(★live binding と一致★) |
+  | 109 | mayo00 | ★101★(★boss1 が補完 = worker3 は本便で未取得と申告★) |
+
+- ★副産物 = ★entry 101 は 結果として 正しかった★★ = ★但し理由が違います★ = ★「INTRO の entry」ではなく ★mayo00(region 109)の loader が 101★★。
+  ⇒ ★★結果が合っていることは 過程の正しさを保証しない の 3 例目★★(今夜 boss1 側で 3 回目)。
+- ★§1 の数の格★ = ★★破棄ではなく 付け替え★★ = ★entry 101 の 5 件は 生きる(mayo00 の loader ゆえ)★ / ★139・153 の数は ★別 entry の数★ として 残す(消さない)★ /
+  ★stic02 / fact02 の数は ★entry 127 / 140 で 測り直し★★ ⇒ ★但し ★測り直しは 生 byte 走査ではなく 到達可能性復号器で★★(★項と opcode の分離が要る = PENDING-SEPARATION の理由は 依然 有効★)。
+- ★boss1 の器の限界(自己申告)★ = ★私の FB record 走査は ★構造を見ない byte 走査★ ゆえ 264 件を拾い、★loader 値に 225 以上が 2 件混入★しました(★max 33788 = 明らかに record ではない★)。
+  ⇒ ★上の 5 件は 個別に確かめた値ゆえ立ちます★が、★★255 行 全数の census は ★構造を辿る walk が要る★★★ = ★worker3 の「飽和未確認」の申告は 正当★。
