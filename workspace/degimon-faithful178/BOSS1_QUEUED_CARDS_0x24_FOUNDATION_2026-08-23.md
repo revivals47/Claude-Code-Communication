@@ -54,3 +54,20 @@ park 全維持 / A5(EXE 0x800bb544)未読・停止 / a0d5ff58 は測定 read onl
 - ★0x18 の表の長さ★(handler は表を skip しないので この handler には材料が無い)
 - ★base = buffer 先頭 が entry 先頭と一致するか★(= `0x800EC21C` の逐語 = buffer が 1 entry か複数か)
 - ★entry 101 の rel 0x2A が 原盤で実行されるか★(= ★今 worker2 が読んでいる 0x0A handler★)
+
+---
+
+## 6. ★★追記(2026-08-23・#602-C 後)= ★§1 の私の実測も 疑いの対象になりました★★★
+
+- ★原盤 EXE の逐語で ★byte には 2 つの人格が在る★ことが確定★(boss1 + worker2 が独立に確認):
+  - ★standalone opcode★ = router 表 `0x8011B0F8` の [byte − 0x10] → handler
+  - ★`0x19` 式の中の ★項★★ = ★mode 場 = `byte & 0x38`★ で評価器 `0x800EF4F0` が分岐
+- ⇒ ★★`0x24` も `(0x24 & 0x38) == 0x20` の項 と混ざり得ます★★
+  ⇒ ★∴ ★§1 の「entry 101 = 5 件 / entry 139 = 0 件 / entry 153 = 1 件」は ★生 byte 走査★ ゆえ
+    ★standalone opcode 0x24 と 式の項 を分離していません★★。
+- ★∴ §1 の表は ★PENDING-SEPARATION★★ = ★分離後に数え直すまで、待ち行列 (b) の材料としての重みも 保留★。
+  ★数は消しません(死票ではなく 未分離)★。
+- ★閉じ方の札 = ★文脈込み復号器★★(= worker2 が今 作っています・★census class 全体を unblock する前提 tool★)。
+- ★同型の波及(記録のみ・今は掃きません)★ = ★raw byte 走査で opcode を数えた doc / code は 全部 疑い★
+  (worker1 の `0x24` census 1,265 / 740 / 687・本 doc §1・過去の `0x18` 依存 claim 等)。
+  ★順序 = 復号器の後★(PRESIDENT 確定)。
