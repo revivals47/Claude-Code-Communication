@@ -1,7 +1,7 @@
 # W3 #668-A — DG.SCN 生 byte の flag operand census（★上界を 撃った★）
 
 - 便 #668-C task A ／ ★run 0・実装 0・push HOLD・read only★
-- ★付録（全列挙）★ = `W3_668A_FLAGOP_GE800_2026-08-23.txt`（859 行）
+- ★付録（全列挙）★ = `W3_668A_FLAGOP_GE800_2026-08-23.md`（859 行）
 
 ## §0 結論（先に）
 
