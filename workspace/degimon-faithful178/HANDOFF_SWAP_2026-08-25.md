@@ -86,3 +86,8 @@
 - worker3 は最初 **pane に text で出しただけ**で agent-send しておらず、**boss1 には 1 文字も届いていなかった**
   （pane は history_size = 0 ゆえ末尾 5 行しか拾えなかった）。★#856-C に「agent-send で返せ」と書かなかった私の落ち度★。
 - ∴ 規範 = **10 行 handoff のような短い求めほど「経路（agent-send）」を明示する**。
+
+- ★逆向きの同型（2026-08-25 に **2 例**）★ = **worker pane への直接打鍵も、submit されないまま残ることが在る**。
+  ①03:5x `器も commit してください`（worker3 の入力欄・send_log に無し）②04:2x `0x64 sub arm block の関数境界を特定して 14 件の帰属を出して`（同上）。
+  ⇒ ★**pane に見えている文字は「届いた」でも「送った」でもない**★。判定は `logs/send_log.txt` の SENT 行と、受け手の返信だけ。
+  ⇒ ★未 submit の打鍵は **submit も clear もしない**（submit すれば出所不明の指示を実行し、clear すれば人の入力を壊す）— 出所を確かめてから★。
