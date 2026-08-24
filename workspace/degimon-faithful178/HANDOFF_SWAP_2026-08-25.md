@@ -52,9 +52,15 @@
   ③ **bail は呼び先ではなく `_walk` の中**・場所は未特定 ⇒ 不足 = **`_walk` が `unknown` を立てる条件の特定**。
 - 副産物 = **image 外 jal 先 14 個の発見**（これが worker3 の撤回を誘発した = この lane の最大の効き目）。
 - 事前登録 5 件中 3 件外し（N2 / N3 / N5）を自己申告。
+  ★04:03 の swap 後 worker2 が自分で撤回★ = **N2 は「外れ」ではなく「未判定」**（理由 = `OUTIMG` flag は `_walk` に配線されておらず
+  `sub_adv` の唯一の呼び手 L145 が image 外 guard L140-141 の下に在る ⇒ **flag は no-op、A/B が走っていなかった**）
+  ⇒ 現況 = **2 件外れ ＋ 1 件未判定**。doc = worker2 tree `workspace/W2_X230_WALK_UNKNOWN.md`（commit fbad0768・branch track2/trace-oracle）。
 
 ## 3. 復帰した worker への最初の 3 手（boss1 案）
-1. CLAUDE.md ＋ 本 doc ＋ `W1_CHECKPOINT_2026-08-25.md` ＋ `W3_850C_...md` ＋ `tools/w3_sim/README.md` を読む。
+1. CLAUDE.md ＋ 本 doc ＋ `W3_850C_...md` ＋ `tools/w3_sim/README.md` を読む。
+   ★訂正（04:05・worker2 が指摘）★ = `W1_CHECKPOINT_2026-08-25.md` は **comms repo には存在しない**。
+   実体は **worker1 の tree** = `/home/ken/Desktop/Digimon/degimon_world_remake-p2w1/workspace/degimon-faithful178/W1_CHECKPOINT_2026-08-25.md`
+   （memory: どの worktree で見たか書け — 私がこれを落とした）。
 2. **不変を復唱**してから着手（撃つ操作は PRESIDENT の GO なしに 1 件も出さない）。
 3. worker3 復帰なら = overlay router（自己限定）を**最初から**やり直す前提で範囲を宣言 → boss1 と合意してから着手。
    worker2 復帰なら = `_walk` の `unknown` 条件の特定（自器の内部・静的読解のみ）。
