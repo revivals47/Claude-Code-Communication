@@ -85,3 +85,63 @@
 
 - ★★『どの savestate から 始めるか』★★ = ★★ROOM 3 部屋に 行ける 位置★★ ⇒ ★★user しか 知りません★★
 - ★★∴ これ 1 点を 保留し ★他は 全部 確定しました★★★
+
+
+---
+
+## §4 ★★★【#855-C】codex = ★NO-GO★（★統計は 通ったが 的が 違った★）★★★
+
+### 4-1 ★codex の 逐語★
+
+> 『★No-go for the planned 3-8-session run3★. ★A single capped feasibility/calibration session is reasonable★,
+>   but ★the present primary test is not decision-relevant to the unresolved Phase-D question★.』
+> 『the pooled primary is ★weakly informative★. ★0x24 is already statically established as an
+>   unconditional one-draw opcode★. Pooling it with unresolved 0x37 means ★a positive result may be
+>   produced entirely by the known positive control★. ★The primary excludes 0x66 altogether★.
+>   Therefore it ★does not materially close the main Phase-D uncertainty★.』
+> 『If the project decision actually depends on resolving the conditional 0x66 order,
+>   ★pause live capture until the experiment can observe s2 or an equivalent complete proxy★.』
+
+### 4-2 ★★NO-GO の 理由（★私の 言葉で★）★★
+
+- ★★『統計は 通った が ★的が 違った★』★★
+  - ★統計★ = ★gate2 4/4 ＋ fresh 4/4（独立 seed）＋ power 1.000★ ⇒ ★★valid かつ vacuous でない★★
+  - ★★然し ★primary の 中身★★★ = ★`{0x24, 0x37}` の pooled★ ⇒ ★★①`0x24` は ★既に 静的に「無条件 1 draw」★★ ⇒ ★陽性が 出ても ★既知の 陽性対照だけで 説明が 付く★★／★★②`0x66` を ★E-1 で ambiguous に 落とした 結果 ★完全に 除外★ して いた★★
+  - ★★∴ ★主問題（★条件つき `0x66` の 順序★）に ★1 mm も 触れません★★★
+- ★★∴ ★私は ★『検定として 正しいか』★ ばかり 精密に し ★『何を 決める 検定か』★ を ★E-1 で 削って いた ことに 気づきません でした★★★
+  - ★★= ★#827-C で ★`0x66` を ambiguous に 落とした とき★ に ★『主問題が 落ちた』と 書くべき でした★★★
+
+### 4-3 ★★生きて いる 道（★doc に 残します★）★★
+
+- ★★『★A single capped feasibility/calibration session is reasonable★』★★ ⇒ ★★★『1 session だけの ★上限つき feasibility / 較正★』は ★否定されて いません★★★
+- ★★但し ★それは 検定では ありません★★★（★実測を 取る だけ★）⇒ ★★∴ ★選択肢として 残します（★今は 撃ちません★）★★
+
+## §5 ★★【#855-C ②】`s2` を 観測する 別の 道（★1 回だけ 考えました★）★★
+
+### 5-1 ★★思いつきは ★在ります★★★
+
+- ★★候補 = ★`[X+0x64E]` = `0x80146746` が ★0 に なる★ こと★★★
+- ★根拠（★実測★）★:
+
+| 書き手 | 書く値 |
+|---|---|
+| `0x80105E14` | ★3★ |
+| `0x80107D58` | ★1★ |
+| `0x80107F64` | ★0xB★ |
+| ★`0x8005CB40`（overlay・s0 = −1 の 経路）★ | ★★0★★ |
+| ★`0x8005CB70`（overlay・s0 = 0 の 経路）★ | ★★0★★ |
+
+- ★★∴ ★既知の 書き手の うち ★0 を 書くのは `0x8005CA7C` だけ★★★ ⇒ ★★∴ ★『`0x80146746` が 0 に 遷移した』= ★`0x8005CA7C` が 走り 戻り値が −1 か 0★★★
+- ★★∴ ★#806-C の 代理（`[0x80141D42]` 等）より ★はるかに 綺麗★★★（★あちらは 外部書き手 22/17/16/3★・★こちらは ★値が 衝突しません★★）
+
+### 5-2 ★★但し ★完全では ありません★（★3 つ★）★★
+
+1. ★★★−1 と 0 を 分けられません★★★ ⇒ ★★∴ ★run3 の 条件（`s2 == −1`）には ★足りません★★★
+   - ★補助★ = ★`[0x80141D3A] += 2` は ★s0 = 0 の 経路だけ★・外部の 定数差分 7 件に ★+2 は 在りません★★ ⇒ ★★∴ ★組み合わせれば 分かれる 公算★★（★但し ★変数差分 3 ＋ 決まらない 4 = 7 件が 射程外★★）
+2. ★★`0x80146746` の ★base が 実行時値の store 13,977 件★ は ★射程外★★★（#807-C）
+3. ★★overlay 側の 書き手は ★開封禁止ゆえ 数えて いません★★★
+
+### 5-3 ★★∴ 3 値★★
+
+- ★★『★完全な proxy は 無い★・但し ★#806-C より 良い 候補が 1 つ 在る★』★★
+- ★★∴ ★探しに 行って いません★★（★#855-C の 指示どおり ★思いつきが 在るかだけ★）
