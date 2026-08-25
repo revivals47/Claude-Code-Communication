@@ -70,6 +70,9 @@ VM opcode 0x66 (handler 0x800EE72C)
     ①列 index の実値域（species 181 entry × 3 本 = 543 値 → `{0..6}` と `0xFF` のみ）②行 index の実値域（skill 122 entry → `{0..6}`）
     ③値域が式の使い方と合うか ④8 行目が無いことの確認 ⑤直前の境界。
     ⇒ ★`attribute_table.json` の 8x8 / 値 `255,239` とは **行数・列数・値域の 3 つとも違う** ＝ **json は damage 式が読む表ではない**★【確定】。
+    ★**第 2 の到達（03:15・worker3・循環していない）**★ = AI の評価関数 `f_80061bcc` が `s = *(u8*)(0x801322F4 + 7*aSelf + aOther)` で引き、`aSelf = base_stats + 0x1E`。
+    ★**∴ 原盤は 8 属性ではなく 7 属性**★ — `+0x1E` の histogram（180 row）= `{0:24,1:36,2:28,3:25,4:31,5:15,6:9,255:12}` ⇒ **id 0..6 の 7 種**（`0xFF` = 属性なし 12 row）＝ **7×7 と独立に一致**。
+    ⇒ `attribute_table.json` の名前 8 個は **数が合わない**。★worker2（damage 式の operand から）と worker3（AI の評価関数から）が **別経路で同じ表に到達**★。
   - ★**「skills_authoritative も同座標を引用＝二重同定」も成立しない**★（同一 source を 2 doc が引いただけ）。
 
 ## 4. 戦闘 model は real-time —【確定】
