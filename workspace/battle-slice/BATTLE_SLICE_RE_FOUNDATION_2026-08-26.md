@@ -70,8 +70,20 @@ VM opcode 0x66 (handler 0x800EE72C)
 - **`a0` / `a1` = 攻撃側 / 防御側**：★**役割の別は式の符号で確定**★／★**`+0x3C` `+0x38` `+0x3A` の stat 名は未同定**★（2 つを畳まない）。
 - **クリティカル** = ★「**確認した 1-hit SITE A の既知経路には post-return の分岐倍率を発見できない**」★
   閉じた範囲 = 既知 `getDamagePoint` への直接 jal / resolver の local slot `sp+0x3C` / 既知表示関数内の dmg touch。
-  **未閉 6 項** = 間接呼出（jalr・表引き）／別 damage sink／inline／二打目／呼出前後の stat・flag 補正／**`s_checkDouble` 未同定**。
+  **未閉は 3 項に減った** = 間接呼出（jalr・表引き）／inline 展開／**getDamagePoint 呼出前後の stat・flag 補正**。
+  （**別 damage sink** は SITE C として同定済／**二打目**は在っても SITE A を再度通る**加算**で 1 発の倍率にはならない／
+  `s_checkDouble` は **名前から address を決める手が無い**ため未同定のまま〈札 = 材料〉。ただし**増幅なら累積器 6 件のどれかを通る**はずで、
+  残るのは「累積器を通らない形の増幅（stat 側の一時強化など）」だけ。）
   （「戦闘全体で会心的な増幅が無い」とは**主張しない**。）
+- **damage 累積器への口は 3 site・全数 6 件**（`sh rt,0x2E(rs)` 30 件 → stack local 21 除外 → 非 sp 非ゼロ 6・zero-clear 3）:
+  **SITE A**（`0x8005E318/E334`・getDamagePoint 経由）／**SITE B**（`0x8005E708/E724`・同）／**SITE C**（`0x800607A4/07C0`・**getDamagePoint を通らない**）。
+- **SITE C =【確定・新規】状態異常の継続ダメージ** = `[s0+0x1C]` を 1 ずつ減らし 0 で 100 に戻す ⇒ **100 tick ごと**に
+  `pct = rand(3)+1`（**1..3**）、`dmg = maxHP * pct / 100`（`maxHP = (s16)[s2+0x10]`）を累積器へ **加算**し 9999 で clamp。
+  ⇒ **既存ダメージに掛かる倍率ではなく独立の加算**。
+- **系統 A の分岐条件** = `a0 == *(0x8013CDB8)` ＝ **攻撃側が自分のパートナー**のとき（`0x8013CDB4[]` = actor slot pointer 表、
+  slot0 = `0x8016B048` / **slot1 = `0x8016B084`**）。★これは先行資産（memory `reference_degimon_careform_setter_re` ／
+  `docs/HANDOFF_2026-07-25_session.md` ／ `docs/RE/mov_rel_analysis.md`）に既出で、worker2 は**出所を引いた上で** btl_rel 側が
+  この表を **read 専用**で使うこと（書き手は全て main EXE）を足した★。
 - **SITE B** = 命中を外し、かつ `skill.byte[0x08]==1` の技だけが与える **10〜30%** の削り（`2 回目 getDamagePoint × (rand(21)+10)/100`）。**迎撃と SITE B は排他**。
 - **迎撃** = `rand(100) < s1.half[0x3C] / species[s1.id].byte[0x1D]`（防御側が反撃）。前段 gate と 4 slot の loop（`0xFF` は**終端記号ではなく空 slot の番兵**）。
 - `s_damage` 系の HP ドレイン表示 = `0x80102F1C`（>=1000 → −900 / >=100 → −80 / >=10 → −6 / >0 → −1）。
