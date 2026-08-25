@@ -366,6 +366,10 @@ selectWaza(state, actor, mask, target):
 > - `actor+0x4C` = **現在 HP（可変・0 で clamp・負にならない）**／`h2E` = **pending damage queue**（s16・加算のたびに 9999 飽和）
 > - drain（`0x80102F1C` 域）= `h2E >= 1000 → −900` ／ `>= 100 → −80` ／ `>= 10 → −6` ／ `> 0 → −1` を **HP と h2E の両方に**
 > - KO 述語 `f_800628E4` = **(現在 HP) − (pending) <= 0**
+> - ★★**drain は「実効値」を変えない**（05:13・worker1 の test が worker1 自身の claim を落とした）★★ =
+>   drain は **HP と pending から同量を引く**ので `HP − pending` は不変 ⇒ ★**実効 HP を下げるのは `AddDamage`（pending への加算）だけ**★。
+>   （worker1 は「drain を繰り返せば倒れる」という自作 test が **FAIL** したことで気づき、test を「drain は実効値を変えない」に差し替え、
+>   「実効値を下げるのは AddDamage だけ」を追加した。）
 > - ★**`hp_max` という不変量は存在しない**★ ⇒ ★**「hp_max > 9999 は倒れない」も成り立たない**★（pending は drain で流れるので繰り返し溜められる）
 > - 枠 = 「`h2E` の書き手 9 件・例外 0 件」は ★**btl_rel 限定の母数**★（main EXE に 8 件＝drain の減算 4 ＋ clamp の zero 2 ほか）。**clear の口は btl_rel の外にも在る**。
 
