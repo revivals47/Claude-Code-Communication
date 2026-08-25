@@ -48,14 +48,21 @@ VM opcode 0x66 (handler 0x800EE72C)
 ## 3. btl_rel の base —【確定・三重】
 - **0x80052AE0**。①loader VA 表直読 ②内部 jal の自 image 内着地が prologue = **185/190 = 97.4%**（陰性対照 `0x80010000` = **0 個**／`0x80053800` 0.5%／`0x80070000` 1.0%／±4・±16 = 0.0%）③`battle_functions.json` の 346 entry に実在。
 - code 域 = `0x80056CA8..0x8007B52C`。MWo1 header の `load_va 0x80056C68` / `size 0x24884`(=149,636 B) は**正しい**（survey の数と枠違いなだけ）。
-- **属性相性 8x8 表** = `btl_rel.bin` **file offset 0x60..0xA0 の 64 byte**が `attribute_table.json` の `effectiveness_matrix` と **byte 完全一致**（row0 = `ff ff ef ff ef ff ff ff`）← ★boss1 裏取り済★。
-  枠 = raw dump の file offset ＝ **VA 0x80052B40** ＝ **BTL_REL.BIN の“中”**。
-  ★**BTL_REL.BIN は 179,412 byte が丸ごと `0x80052AE0` に載る**（span `0x80052AE0..0x8007E7B4`）★ ← ★boss1 裏取り済★
-  （`0x8005CA7C − 0x80052AE0 = 0x9F9C`、`btl_rel.bin@0x9F9C` = `0x27bdffe8` = `addiu sp,sp,-0x18` の prologue）。
-  「外」と言えるのは **埋め込まれた MWo1 payload（file 0x41C8 = VA 0x80056CA8）の外**という意味に限る
-  （★初出時に boss1 が「overlay の外」と書いたのは誤り。worker3 の自己撤回 `aaaa2efd` を受けて訂正★）。
-  **同じ表が std_rel / vs_rel の同 offset にも在り、3 本とも同じ `0x80052AE0` に載る** ⇒ どれが載っていても同じ VA に同じ表が現れる。
-  **未決は「戦闘 code がこの表を読んでいるか」に縮小**（同 64 byte を同 offset に持つのは btl/std/vs の 3 本のみ・`btl_code.bin` と main EXE には無し・btl_rel code から当該 VA を作る `lui` 0 件〈陽性対照 12 件〉・main EXE 側に 5 件・**実行時に pointer を渡される経路は静的に否定できない**）。
+- ★★**「属性相性 8x8 表 = btl_rel @0x60」は誤り — そこは TIM 画像の画素データ**★★【確定・boss1 裏取り済】
+  `btl_rel.bin` 先頭は **PS1 TIM**：`ID=0x10` / `flags=0x08`（4bpp ＋ CLUT あり）/ `CLUT len=0x4C=76` ＝ **12+16*2*2 で一致** /
+  `image len=0xCCC=3276` ＝ **12+34*48*2 で一致**（★独立な length field 2 本が どちらも W,H から一致★）。**`0x60` は画素データの先頭**。
+  - 4bpp・W=34 ⇒ **1 行 = 68 byte**。**64 byte は 1 行にすら満たない**（行構造と無関係）。
+  - `0x60..0xA0` の 64 byte は unique 値が **2 種（0xEF/0xFF）**しかないため表に見えたが、画素域 `0x60..0xD20` 全体では **84 種**。
+  - ★**「`attribute_table.json` と byte 一致」は循環だった**★ = 当該 json には **出所欄が 1 つも無く**、
+    `attribute_names` も `value_meanings`（`0xEF = 'Weak (x1.5?)'` と **「?」つき**）も**手で付けた解釈ラベル**。
+    一致は「**json がその番地から作られた**」ことしか示さない。
+    ★boss1 の落ち度 = byte 一致は自分で測って「裏取り済」と印を付けたが、**oracle（json）の素性を検めなかった**★
+    （memory: *oracle を検証せよ（一致でなく）*）。
+  - ★**前置き 0x4188 領域の正体**★ = `main EXE 0x80106090` が `f_80078750(0x80052AE0, 0x80053800)` を呼び、
+    `f_80078750`（btl_rel code 域内）が **`a0+4`（＝TIM の flags）**を読んで `f_80098D30` へ渡す。
+    同じ場所から `0x80054838 / 0x80054D00 / 0x80055328` も別関数へ渡る ⇒ **btl_rel が引数で受け取って使う画像／データ buffer 群**。
+  - ★**本物の属性相性表の在り処は未決**★（札 = 材料：`getDamagePoint` の**属性補正 3 本 loop** が読む operand を逆に辿る）。
+  - ★**「skills_authoritative も同座標を引用＝二重同定」も成立しない**★（同一 source を 2 doc が引いただけ）。
 
 ## 4. 戦闘 model は real-time —【確定】
 - **battle main loop = `0x8005CA7C`**（overlay 内 caller 0 件 = 入口）。1 frame = 初期化 → `{終了判定 → AI → … → frame counter++}`。
