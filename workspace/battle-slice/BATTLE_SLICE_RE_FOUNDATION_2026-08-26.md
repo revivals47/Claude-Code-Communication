@@ -15,6 +15,10 @@ RE 先行段（**code 0 行 / push HOLD / read-only 静的 RE**）の集約。bo
    ∴「既定値だから全部誤り」ではなく **1 本ずつ照合する**（worker3 が自分の言い方を撤回・#02:45）。
    独立検定 = base `0x80052AE0` で内部 jal の自 image 内着地が prologue **185/190 = 97.4%**、`0x80010000` では **0 個**。
 3. **overlay は同一 VA 帯に排他的に載る** — ∴「他 overlay から btl 帯への jal」は btl を呼んだ証拠にならない（自分自身を呼んでいる）。外部 caller の候補は main EXE 由来のみ（distinct 47 / 68 site・**それも overlay slot の entry かもしれず未閉**）。
+6. ★**同じ offset 番号が別 struct を指す**★ — 本 session で 3 例:
+   `0x18` / `0x1A`（**actor state** ⇔ **GPU プリミティブ**・04:17）／`0x1E`（**actor+0x56** ⇔ **base_stats の属性 id**・03:49）／
+   `+0x18`（**actor state = 行動タイマ閾値 `3000 − stat2`** ⇔ **base_stats = 接近の許容半径**・04:31）。
+   ⇒ ★**汎用 offset は「関数の性格」で分類してから数える／その前に offset が希少かを確かめる**★（`0x64E` は希少ゆえ immediate だけで決まった）。
 4. **`lui` の符号拡張で番地が 0x10000 ずれる** — `lui 0x8017` ＋ `lh -0x4F30` は **0x8016B0D0**（低位を目で or すると +0x10000 になる）。
    本フェーズで **4 種 6 表記**が実際にずれた（worker3 が自己発見）。★boss1 が全 `lui` ペアを走査して裏取り済★:
    materialize される回数 = `0x8013A924` **106** / `0x8014A924` **0**、`0x8013CDB8` **106** / `0x8014CDB8` **0**、
