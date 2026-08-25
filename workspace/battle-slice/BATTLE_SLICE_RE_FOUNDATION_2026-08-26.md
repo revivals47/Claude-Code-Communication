@@ -113,6 +113,14 @@ VM opcode 0x66 (handler 0x800EE72C)
   `result 1` のみ **transition type 1** を開始（table `0x8011AF50`・16 entry）。
   ★boss1 註: 初出時に「−1 と 1 で異なる type を開始」と書いたのは worker1 が自己訂正済★。
   ★どちらが逃走でどちらが敗北かは**未決**（観測できるのは「−1 の方が罰が重い」「1 だけが勝利処理を持つ」まで）★。
+- **map 再読込 `0x800E01C0` の呼び手 = 7 site**（範囲 = resident ＋ 16 overlay 全域）。うち **1 件は `shop_rel`**＝
+  **resident だけを走査していたら落としていた 3 例目**。`result 0 / -1` の路はこの 7 site を 1 つも直接呼ばない。
+- **敗北/逃走 flag `gp-0x6d84`** = 読み手が**全域で 1 件だけ**（`0x800E1680`）・**map setup `0x800DF1A8` でクリアされる**。
+  ⇒ ★**「敗北後も どこかで map 再読込が起きる」は構造上の要請**★（flag を落とせるのは勝利路 / map setup / `0x800E079C` だけで、
+  さもなくば `0x800E1644` の本体が二度と走らない）＝「起きるはず」ではなく「**起きなければ機構が壊れる**」形。
+  **どの site が起こすかは未決**（札 = 実機 ＋ 材料）。
+- **`param = 0`（除数 0）は起きない**【確定・範囲つき】= param=0 の 4 site は**全て misparse の判別子に掛かる**
+  （直前命令と非連続 ／ 直後に SJIS text run）。**正常 110 site には param=0 が 1 件も無い**。範囲 = 「DG.SCN の実 entry 225 を CFG walk で到達した 0x50 site」。
 - `0x80141D6C` = **勝利数**（全域 5 参照・+1 は勝利路のみ）。`gp-0x6ce0` = **累計戦闘回数**（0x66 ごと +1・上限 9999・**save+0x266 に載る**）。
 - `gp-0x6b26` = **scene-mode jump table `0x8011AF38` の index**（bound 6・`0x800E9A5C` で `jr table[mode]`）。
   **6 entry は 3 群に潰れる** = `0`→field tick `0x800E9B2C` ／ `1/2/3`→`0x800E9AF8`（共有）／ `4/5`→`0x800E9B0C`（共有・**overlay 領域の VA `0x8006E520` を呼ぶ**）。
@@ -139,6 +147,14 @@ VM opcode 0x66 (handler 0x800EE72C)
 - **渡せる（式と機構が確定）** = ダメージ式本体／命中率式と必中 6 口／迎撃の確率式と排他／SITE B の条件／MP コストと 4 段階割引／接近の 3 分岐と near/far／行動選択の周期と反復回避／状態列の作られ方／勝敗 3 値と勝利路の復帰手順／戦闘入口 1 本と戦闘回数・勝利数の更新。
 - **渡せない（実装前に決めが要る）** = ①**乱数の同値性**（BIOS rand を再現するか、`(N*raw)>>15` の bucket 偏りまで真似るか）②`result -1 / 0` の意味 ③技表 3 種の index 空間 ④属性表の持ち主（データの置き場所） ⑤`gp-0x6b26` の 2..5。
 - **数値照合は user 1 session 待ち**（式が正しくても定数の当てはめは実機で確認する）。
+
+## 9.5 ★track ごとの索引（本 doc を読んだ後に深追いする人へ）★
+- **W1（field / VM 側）** = `p2w1:docs/RE_battle_0x50_semantics_2026-08-26.md` **§18**（`68bbf6d0`）＝
+  **確定 18 / 前提つき 3 / 決まらない 7（全件札つき）** を 1 表に索引化済。★本 doc から深追いする場合は §18 だけ引けば足りる★。
+  worker1 が本 track で出した**自己訂正は 6 件**（退避→注視点 ／ mode enum→jump table index ／ 列挙が resident 限定 ／
+  読み手書き手の数 ／ transition −1 は clear ／ open の立て方）— **いずれも本文行に当ててある**。
+- **W2（damage / battle 側）** = `p2w2:docs/RE_battle_damage_e2e_2026-08-26.md`（`ee48d663`）。
+- **W3（AI / 技表側）** = `p2w3:docs/RE_battle_ai_skeleton_2026-08-26.md`（`aaaa2efd`）。
 
 ## 10. ★他 doc への申し送り（boss1 は他 track の doc を書き換えていない）★
 - `0x8014A924` / `0x8014CDB8` を引いている先行 doc が在る（`p2w1,p2w2:docs/RE/s01_evolution_conditions_final.md`、
