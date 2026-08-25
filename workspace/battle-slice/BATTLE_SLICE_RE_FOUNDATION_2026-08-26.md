@@ -285,6 +285,23 @@ VM opcode 0x66 (handler 0x800EE72C)
   ③★`lui+addiu` による address の materialize → 残り 5 本（**data word だけ見て code 内の materialize を見ていなかった** ＝ `h3E` writer と同じ抜け）★。
   ⇒ ★器の探索順を ★**「jal → 外部 jal → data word → code materialize」**★ に固定★。
 
+## 8.48 ★技選択アルゴリズム（実装できる完全形）【確定・04:02】★
+```
+selectWaza(state, actor, mask, target):
+  i = command slot 0..2（actor+0x44/45/46）／ waza_i = f_80104250(actor, actor->b[0x44+i])
+  mask[i] != 1 は scores[i] = -1 で除外
+  段1: state 2 → scores[i] = wazaTbl[waza_i]+0x04（ゲージ消費量）, r = argmax
+       state 4 → scores[i] = wazaTbl[waza_i]+0x06（MP コストの生値）, r = argmin
+       同点が 2 つ以上なら r = -1 ／ r != -1 なら return r
+  段2: a = wazaTbl[waza_i]+0x09（技の属性）, t = base_stats[target]+0x1E（相手の属性）
+       scores[i] = affinity[a][t]（0x801322F4 + 7*a + t・値は 2/5/10/15/20）, r = argmax
+       同点が 2 つ以上なら r = -1 ／ r != -1 なら return r
+  段3: return rnd(候補数)   ← 必ず決まる・失敗しない
+```
+- ★**同点は「先頭を採る」ではなく次段へ落とす**★／★**state 2 は argmax・state 4 は argmin**（実体は**比較 1 命令だけが逆**）★／
+  ★**段 3 は失敗しないので「技が選べない」状態は原盤に存在しない**★／★段 1 の state 4 が読むのは **MP コストの生値**（使用可否 gate の `×3` とは別 ＝ **同じ field を 2 通りに使う**）★。
+- ★別経路の裏取り★ = 「3 段 fallback」（§20）と「同点なら −1」（§21）は**別々に読んだ 2 節**で、★**−1 という 1 つの値で繋がった**★。
+
 ## 8.5 ★02:53〜02:55 に届いた追補★
 - **cmd → 技 id の解決式**【確定・worker3】= `f_80104250(self, cmd)`：`cmd==0xFF → 0xFF`／`self.w00==0x3C && cmd==0x3C → 0x70`（特例 1 件）／
   それ以外は **`stats[0x8013A924 + 52*self.w00 + 0x23 + (cmd − 0x2E)]`** ＝ **stats row の +0x23 から 16 slot の技 id 配列**（`0xFF` = 空・cmd の値域 `0x2E..0x3D`）。
