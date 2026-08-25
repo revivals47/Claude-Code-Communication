@@ -15,6 +15,12 @@ RE 先行段（**code 0 行 / push HOLD / read-only 静的 RE**）の集約。bo
    ∴「既定値だから全部誤り」ではなく **1 本ずつ照合する**（worker3 が自分の言い方を撤回・#02:45）。
    独立検定 = base `0x80052AE0` で内部 jal の自 image 内着地が prologue **185/190 = 97.4%**、`0x80010000` では **0 個**。
 3. **overlay は同一 VA 帯に排他的に載る** — ∴「他 overlay から btl 帯への jal」は btl を呼んだ証拠にならない（自分自身を呼んでいる）。外部 caller の候補は main EXE 由来のみ（distinct 47 / 68 site・**それも overlay slot の entry かもしれず未閉**）。
+7. ★**offset の「希少度」は測れる（worker2・04:34）**★ — 母数 = **非 sp の load/store 全数**（btl_rel 7,100 / main EXE 25,657）:
+   `0x08` **3.73%**（最も risk が高い）／`0x18` 1.62%（**衝突が起きて当然の頻度**）／`0x2E` 0.68%／`0x1E` 0.39%／
+   `0x09` 0.14%・`0x3C` 0.14%・`0x3A` **0.10%**・`0x0B` **0.03%**（**希少**）。
+   ⇒ ★**希少な offset に乗る claim は誤同定 risk が低い／高頻度 offset は base を作る式まで引用しないと同定にならない**★。
+   ★一般則★ = ①**offset で語らず「どの struct の」を接頭辞で書く** ②**同定/不在を offset 一致だけで主張せず base の式まで引用** ③**数える前に希少度を測る**。
+   （worker2 は自分の doc の `G.half[0x2E]`（damage_result の s16）と `V.byte[0x2E]`（unit の u8）の衝突を自己申告 — **接頭辞があったから混ざらなかった**。）
 6. ★**同じ offset 番号が別 struct を指す**★ — 本 session で 3 例:
    `0x18` / `0x1A`（**actor state** ⇔ **GPU プリミティブ**・04:17）／`0x1E`（**actor+0x56** ⇔ **base_stats の属性 id**・03:49）／
    `+0x18`（**actor state = 行動タイマ閾値 `3000 − stat2`** ⇔ **base_stats = 接近の許容半径**・04:31）。
