@@ -10,7 +10,10 @@ RE 先行段（**code 0 行 / push HOLD / read-only 静的 RE**）の集約。bo
 
 ## 0. ★読む人への注意（本フェーズで 4 回踏んだ型）★
 1. **数は枠を確かめてから使う** — `95`（先行 md の表の行数）/`124`（blob の行数 = 関数 96 + 変数 28）/`346`（`battle_functions.json` の関数入口 VA 数）は**別の物を数えた数**。比較不能。
-2. **sidecar を権威にしない** — `extracted/*_rel.txt` の `Load Address: 0x80010000` は **RAW format の既定値**であって計測値ではない（btl/std/vs/mov が同値）。
+2. **sidecar を権威にしない** — `extracted/*_rel.txt` の `Load Address: 0x80010000` を名乗る 4 本のうち
+   **btl / std / vs の 3 本は誤り**（実測 `0x80052AE0`）、**mov_rel の 0x80010000 は正しい**。
+   ∴「既定値だから全部誤り」ではなく **1 本ずつ照合する**（worker3 が自分の言い方を撤回・#02:45）。
+   独立検定 = base `0x80052AE0` で内部 jal の自 image 内着地が prologue **185/190 = 97.4%**、`0x80010000` では **0 個**。
 3. **overlay は同一 VA 帯に排他的に載る** — ∴「他 overlay から btl 帯への jal」は btl を呼んだ証拠にならない（自分自身を呼んでいる）。外部 caller の候補は main EXE 由来のみ（distinct 47 / 68 site・**それも overlay slot の entry かもしれず未閉**）。
 4. **`lui` の符号拡張で番地が 0x10000 ずれる** — `lui 0x8017` ＋ `lh -0x4F30` は **0x8016B0D0**（低位を目で or すると +0x10000 になる）。
    本フェーズで **4 種 6 表記**が実際にずれた（worker3 が自己発見）。★boss1 が全 `lui` ペアを走査して裏取り済★:
@@ -46,8 +49,13 @@ VM opcode 0x66 (handler 0x800EE72C)
 - **0x80052AE0**。①loader VA 表直読 ②内部 jal の自 image 内着地が prologue = **185/190 = 97.4%**（陰性対照 `0x80010000` = **0 個**／`0x80053800` 0.5%／`0x80070000` 1.0%／±4・±16 = 0.0%）③`battle_functions.json` の 346 entry に実在。
 - code 域 = `0x80056CA8..0x8007B52C`。MWo1 header の `load_va 0x80056C68` / `size 0x24884`(=149,636 B) は**正しい**（survey の数と枠違いなだけ）。
 - **属性相性 8x8 表** = `btl_rel.bin` **file offset 0x60..0xA0 の 64 byte**が `attribute_table.json` の `effectiveness_matrix` と **byte 完全一致**（row0 = `ff ff ef ff ef ff ff ff`）← ★boss1 裏取り済★。
-  枠 = raw dump の file offset ＝ **VA 0x80052B40** ＝ **MWo1 payload（file 0x41C8 = VA 0x80056CA8）の外**。
-  **持ち主は決まらない**（同 64 byte を同 offset に持つのは btl/std/vs の 3 本のみ・`btl_code.bin` と main EXE には無し・btl_rel code から当該 VA を作る `lui` 0 件〈陽性対照 12 件〉・main EXE 側に 5 件・**実行時に pointer を渡される経路は静的に否定できない**）。
+  枠 = raw dump の file offset ＝ **VA 0x80052B40** ＝ **BTL_REL.BIN の“中”**。
+  ★**BTL_REL.BIN は 179,412 byte が丸ごと `0x80052AE0` に載る**（span `0x80052AE0..0x8007E7B4`）★ ← ★boss1 裏取り済★
+  （`0x8005CA7C − 0x80052AE0 = 0x9F9C`、`btl_rel.bin@0x9F9C` = `0x27bdffe8` = `addiu sp,sp,-0x18` の prologue）。
+  「外」と言えるのは **埋め込まれた MWo1 payload（file 0x41C8 = VA 0x80056CA8）の外**という意味に限る
+  （★初出時に boss1 が「overlay の外」と書いたのは誤り。worker3 の自己撤回 `aaaa2efd` を受けて訂正★）。
+  **同じ表が std_rel / vs_rel の同 offset にも在り、3 本とも同じ `0x80052AE0` に載る** ⇒ どれが載っていても同じ VA に同じ表が現れる。
+  **未決は「戦闘 code がこの表を読んでいるか」に縮小**（同 64 byte を同 offset に持つのは btl/std/vs の 3 本のみ・`btl_code.bin` と main EXE には無し・btl_rel code から当該 VA を作る `lui` 0 件〈陽性対照 12 件〉・main EXE 側に 5 件・**実行時に pointer を渡される経路は静的に否定できない**）。
 
 ## 4. 戦闘 model は real-time —【確定】
 - **battle main loop = `0x8005CA7C`**（overlay 内 caller 0 件 = 入口）。1 frame = 初期化 → `{終了判定 → AI → … → frame counter++}`。
