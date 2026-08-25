@@ -98,7 +98,36 @@ foundation §5 の確定 = `rand(N) = (N * raw()) >> 15`、`raw = BIOS A(0xA0) f
 - 現時点の分担案 = ★実装は 1 worker が直列★／他 2 名は **RE の残り（worker2 = 勝敗・報酬、worker3 = AI の未読分）を継続**し、
   ★実装が必要とする穴を先回りで埋める★（実装を止めない）。
 
-## 9. ★この設計が変わり得る点（codex 戦略査読の結果次第）★
-- ★もし PSY-Q の psylink symbol / .SYM 形式で **name → address** が解けるなら★、
-  §1 の「機能で同定した関数を address 単位で写す」方針から ★**元の .c 分割（`s_damage.c` 等）を単位に写す**★へ変わり得る。
-  ⇒ ★その場合 §1 の file 分割表を **source module 単位に組み替える**★。**着手前に確定させる**（後から組み替えると全面書き直しになる）。
+## 9. ★codex 戦略査読の反映（2026-08-26 03:11）— ★結論 = アーキ組み替えは不要★★
+順位づけ = **(b) compiler idiom / ABI = 高（最も即効）** ／ **(d) SDK format 意味論 = 高** ／
+**(c) `.c` 分割 = 中（責務地図に限定）** ／ **(a) `.SYM` で name→address = 低（現素材では解けない）** ／ **(e) stage gate = 高**。
+★**boss1 の実物 1 点検証**★ = (a) を codex 指定の打ち切り手（blob 先頭の `"MND",01h`）で撃った ⇒ **magic 無し**
+（blob 先頭 = `20 20 20 20 20 20 20 32 31 5d …`）・**file 全域で `MND` 0 件**（main EXE の 1 件は `MND.TIM` という**ファイル名**）・
+**disc / extracted に `.SYM` も linker `.MAP` も 0 件** ⇒ ★**(a) は打ち切り**★。
+MWo1 第 3 領域 = **[binary 4,928 B（btl_rel span の VA 195 語 ＋ 小整数 ＋ SJIS）] ＋ [psylink text 8,008 B]**。
+**address 側と名前側が同じ region に在るが、結合表は無い**。ただし blob は `"<name> (local|global) defined in <file>"` 形式で
+**name → source file は取れる**（boss1 の strict parse で **28 件 / 10 source file**: result.c 8 / OVL1__AF_paral2.c 6 / charge.c 4 / … / s_battle.c 1 / camera.c 1）。
+
+⇒ ★**§1 の file 分割表はそのまま**（機能で同定した関数を単位に写す）★。`.c` 分割は
+**provenance / domain ownership / golden test の配置単位**にだけ使い、**1999 年の `.c` 1 個を Unity の class 1 個へ機械的に写さない**。
+
+### 9.1 ★設計に足す 3 点★
+1. ★**typed MIPS address evaluator を RE 側の共通器として先に入れる（手計算を禁止）**★ — ★これは解析器で、実装 code ではない★。
+   - `lui + addiu` ⇒ low16 は **signed**（HI16 を carry 補正）／`lui + ori` ⇒ low16 は **unsigned**（単純連結）／`load/store` ⇒ `base + signed 16-bit disp`
+   - ★**「0 件」を主張するときは site だけでなく ★命令の形★ も列挙する**★
+     （実測 = 本 session で lui 系の誤読 **6 回**。直近 1 件は「**絶対アドレス形 `lui+sh` を形の列挙から落としていた**」＝ worker3 の自己発見）
+   - profile 化 = load delay / branch delay slot / `div` の trap sequence / `$gp` と `-G` / `lb`・`lh` の signedness / switch jump table / struct・bit-field の ABI layout
+2. ★**format parser は SDK を「仕様書」として使い、SDK struct を C# に marshal しない**★ — little-endian 固定幅 read ／ offset と pointer を区別 ／
+   TIM は **VRAM 幅と表示 pixel 幅を区別**。検証手 = **TIM を 1 個 parse して各 block length と消費 byte が file 境界に完全一致すること**
+   （btl_rel 先頭で **CLUT 76 = 12+16*2*2 / image 3276 = 12+34*48*2** は確認済）。
+3. ★**golden trace を忠実性の固定点にする stage gate**★ — ①仮説は **1 点実証**するまで深掘りしない ②compiler archaeology は
+   「誤読クラスを 1 つ潰す」か「関数同定を 1 つ確定する」ときだけ ③固定小数 / GTE / HW 挙動は **golden trace に差が出る境界だけ**再現する。
+
+### 9.2 ★実装に直結する追補（worker3・03:10-03:12）★
+- `actorTable[1] = 0x8016B084` を置くと散在していた絶対番地が **6/6 で field に一致**:
+  **`+0x3E` = AI パラメータ ★かつ★ MP 割引変数（同一 field）** ／ `+0x44..46` = command slot ／
+  **`+0x4C` = partner HP（battle main loop の終了判定）** ／ `+0x4E` = MP。
+- `+0x3E` の出所 = **save record の stat 4 つ組の 4 番目**（`0x801460D2`・writer 1 件）＝ **stat id 3**（先行 doc = worker1 の 0x19 stat accessor 表）。
+  id 0..2 は item で **+30% / 999 cap** を受けるが **id 3 は受けない**（item 説明文にも「かしこさアップ」が無い＝別系統の噛み合い）。
+  ★**名前（攻/防/速/賢）は当てない**★ — 「stat id 3 / h3E」と呼ぶ。
+- ⇒ ★**実装でも 1 パラメータに保つ**★（**特殊行動 gate の周期・狙い方の 3 段切替・MP コストの 4 段階割引を同時に支配する**。3 つに分けると原盤とずれる）。
