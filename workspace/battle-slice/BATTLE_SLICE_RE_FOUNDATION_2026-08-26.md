@@ -642,6 +642,35 @@ selectWaza(state, actor, mask, target):
   戦闘中の書き込みは **actorTable[i] ポインタ ＋ offset**（§47-4）で行われ**この census には映らない**
   ⇒ ★★**「btl_rel 0 件」は『戦闘はこの帯を書かない』ではなく『戦闘は literal 番地では書かない』**★★。▽ = pointer 経由 store・札 = **材料**。
 
+## §8.20 ★★HP 現在は「2 つの形」で書かれる — `unit+0x4C` と `stat+0x14` は **同じ番地**★★（06:30・worker2 §28）
+
+- ★**`stat = unit + 0x38` ⇒ `stat + 0x14 = unit + 0x4C`（同一番地・base が違うだけ）**★。
+  ★**drain（`0x80102FB8` / `0x80102FE8`）は 後者の形**★。
+- ⇒ ★★**「`unit+0x4C` への store が btl_rel で 0 件」だけでは『戦闘は HP を書かない』とは言えない**★★（実際 **戦闘は `stat+0x14` で書いている**）。
+  ★**これは §0-8 で boss1 が踏んだ「同じ番地を書く別 base+offset の式」の トラップの 5 回目**★ — 今度は **census の枠**として再発した。
+- **worker2 の器の形の申告（6 形）** = literal（`lui+addiu`）= **見える** ／ gp 相対 = **構造的に不要**（`0x8016B0D0 − gp = 0x262C4 > 0x7FFF` で届かない）／
+  `pointer + 0x4C` = **見える**（btl_rel **0 件** / main EXE **15 件 0.18%**）／★`pointer + 0x14`（stat 経由）= **数えられるが特定できない**★（btl_rel **54 件 2.28%** / main **165 件 1.98%** ＝ 高頻度）／
+  ★**memcpy 等の一括 block 転送 = 見えない**★ ／ ★**register 演算だけで番地を組む形 = 見えない**★。
+- **literal 形の HP 書き手 = main EXE 5 件・他 image 0 件**:
+  `0x800A94A8` / `0x800A95B4`（`f_800A925C` = **時間経過回復**・上限 clamp）／`0x800EB7C8` / `0x800EB810`（`f_800EB348` = **固定 +5 回復**）／
+  ★`0x800EEA8C`（VM handler 域）= `HP -= (v0-1)` ＋ 直後に `jal 0x800F1AAC(a0 = *(0x8013CDB8), a3 = 量)` ＝ **script によるダメージ**★
+  （**裏取り** = `0x800F1AAC` は §5 で解明した**ダメージ数値の表示**関数・`a0` = **slot1 = 味方**）。
+- ★**5 site とも read-modify-write（加算 / 減算 / 上限 clamp）⇒ literal 形に「初期化（無条件の代入）」は 0 件**★【確定】。
+- ★★**決まらない = 味方 HP 現在を「初期化」するのは誰か**★★ — worker2 の器は **block 転送**と **register 演算だけの形**を見ない
+  ⇒ ★**「初期化は無い」とは言えない。「見える形の中に無い」まで**★。
+  札 1（材料）= **セーブデータ → working copy の block 転送を疑うのが筋**（`f_801162B0` が `+0x48/+0x4A` しか埋めないなら現在値は別経路）。
+  札 2（**実機**）= ★★**戦闘開始直後に `0x8016B0D0` へ write watch を張れば 1 発で決まる**★★ ⇒ **user session の 6 点目に採用**。
+
+## §8.21 `f_800A925C` / `f_800EB348` は「回復」であって「初期化」ではない（06:30・worker2 §27）【確定】
+
+- `f_800A925C`（269 命令・**時間経過による HP/MP 回復**）: `h` = 時カウンタ・`T = (s16)*(0x80141D20)`、
+  `0x800A9294 beqz` → **taken(h ≥ T) → s1 = T + (24 − h)（24 時で巻き戻す）** ／ **fall-through(h < T) → s1 = T − h**。
+  `hpMax = *(0x8016B0CC)` / `mpMax = *(0x8016B0CE)`、★`k = rand(10) + 0x46 = 70..79`★ ⇒ ★`HP += s0 * (hpMax * k / 100) / 100`★（**MP も同じ k**）。
+  上限 clamp = `0x800A95A0 slt at,HP,hpMax ; bnez` → **taken(HP<hpMax) skip / fall-through(HP≥hpMax) が HP = hpMax**。
+- `f_800EB348`（330 命令・**カウンタ駆動の固定 +5 回復**）: `c = (u8)*(0x8013E0F7)`、`0x800EB7AC bnez` → **taken(c<20) skip / fall-through(c≥20) が回復** ⇒ `HP += 5` / `MP += 5` → 上限 clamp → カウンタ reset。
+- ★**訂正材料**★ = **`f_800EB348` の rand 3 本は HP/MP と無関係**（3 本とも `rand(5)+1` を `0x8013E0F5` へ書き `jal 0x800EBC80`）
+  ⇒ 「どちらも乱数を呼ぶ」は事実だが ★**`f_800EB348` では乱数が HP の値に関与しない**★。
+
 ## 9.5 ★track ごとの索引（本 doc を読んだ後に深追いする人へ）★
 - **W1（field / VM 側）** = `p2w1:docs/RE_battle_0x50_semantics_2026-08-26.md` **§18**（`68bbf6d0`）＝
   **確定 18 / 前提つき 3 / 決まらない 7（全件札つき）** を 1 表に索引化済。★本 doc から深追いする場合は §18 だけ引けば足りる★。
