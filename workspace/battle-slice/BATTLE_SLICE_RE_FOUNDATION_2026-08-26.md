@@ -90,6 +90,17 @@ VM opcode 0x66 (handler 0x800EE72C)
 - `getHitRate = 0x8005D0AC`（**名前ではなく呼び出し位置で同定** = 戻り値が直後に `rand(100)` と `slt` 比較）。
   必中 return の口は **6 本**（全列挙）。
 - 乱数 = `0x800A4A74 = (N * raw()) >> 15`、`raw = 0x80091480` = **BIOS A(0xA0) table func 0x2F**。
+  ★**シフトの種類まで確定（03:28・worker1 が EXE 直読／boss1 が独立に逆アセンブルして裏取り）**★:
+  ```
+   0x800a4a84 jal 0x80091480      ; raw()
+   0x800a4a8c lw   v1,0x18(sp)    ; N
+   0x800a4a94 mult v1,v0
+   0x800a4a98 mflo v0             ; ★下位 32 bit★
+   0x800a4a9c sra  s0,v0,15       ; ★算術シフト★
+  ```
+  ⇒ ★**`(int)((N * raw) & 0xFFFFFFFF) >> 15`（算術シフト・32bit wrap）**★ — **`srl` でも 64bit 演算でもない**。
+  （★設計 doc は「`(N*raw)>>15` の形」としか書いておらず **シフト種を落としていた** ＝ boss1 の記述漏れを worker1 が実装時に潰した★。
+  N ≤ 100 の範囲では差は出ないが、**忠実性は形で保つ**方針ゆえ実装は上式のまま。判別 test = `Quantize(0x20000, 0x7FFF) = -4`（`srl`/64bit なら 131068）。）
   ★**これは先行 doc（`docs/RE_0x24_rng_2026-07-12.md` / `docs/RE_resident_helper_dict_2026-06-18.md`）の再確認であって新発見ではない**★（両 track とも当該 doc を引かずに書いたため「独立到達」に読める形になっていた。**codex が割り、boss1 が裏取りした**）。
   BIOS ROM は素材に無く**逐語不能**（札 = 原理）。
   **「一様」ではない** = multiply-high ゆえ `rand(100)` は bucket size **328 が 68 値 / 327 が 32 値**（最大偏り ≒ 0.3%）⇒ **「ほぼ一様（±1 bucket）」**。
