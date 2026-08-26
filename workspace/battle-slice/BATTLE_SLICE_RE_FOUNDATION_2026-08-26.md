@@ -8,6 +8,33 @@ RE 先行段（**code 0 行 / push HOLD / read-only 静的 RE**）の集約。bo
 - 素材 = `vise/extracted/slps_017_97.bin`（text raw・**VA = 0x80090800 + file offset**）／`vise/extracted/btl_rel.bin`（sha `fafd9bd2…`）。
 - ★**boss1 裏取り済**★ の印がある行は、boss1 が自分の器で独立に再測した。
 
+## 0-A. ★★着手前 checklist（★参照ではなく 手順★・VA を 1 つでも 書く前に 実行する）★★
+
+> 2026-08-27 追加（PRESIDENT #920-C ■5）。**§0-10 に「VA を読む前に どの image か 確かめる」を登録してあったのに boss1 が再発させた**
+> （別 image `SLPS_017.97` の header を読んで gp を論じた）。**登録しただけでは発火しない = 規範は事前登録で効く**。
+> ∴ 参照項ではなく**着手前に走らせる手順**としてここに置く。
+
+```bash
+# (1) どの image か を byte で決める（★名前で決めない★）
+cd ~/Desktop/Digimon/degimon_world_remake-e152c/extracted
+python3 - <<'EOF'
+import struct
+bin_=open('slps_017_97.bin','rb').read()
+for f in ('slps_017.97.orig','SLPS_017.97'):
+    d=open(f,'rb').read()
+    pc,gp,t_addr,t_size=struct.unpack_from('<IIII',d,0x10)
+    print(f, len(d), 't_addr=%08x t_size=%08x gp0=%08x'%(t_addr,t_size,gp),
+          '[0x800:]==bin ->', d[0x800:]==bin_)
+EOF
+# 期待 = slps_017.97.orig: 712704 / t_addr 80090800 / t_size 000ad800 / [0x800:]==bin True   ← ★本物★
+#        SLPS_017.97    : 354304 / t_addr 80080000 / t_size 00056000 / [0x800:]==bin False  ← ★別 image★
+```
+
+- **(2) base と VA の対応を assert する** — `0 <= va - base < len(image)`（§0-10 の remedy）。overlay は sidecar の Load Address を権威にしない（§0-2）。
+- **(3) 数を書く前に枠を言う** — 番地 / 含有 / 制御流 / base のどれか（§0-1）。
+- **(4) 「独立に一致」と書く前に、両者の器が同じ問いを測っているか確かめる**（§0-11）。
+- **(5) 器の PASS 数は「どの条件で通していないか」と セットでしか 書かない** — 例 = ★live で照合できたのは「表示 == ΔHP」の 1 点だけ / 残りは EXE の表と自作 harness の突き合わせであって実機の挙動ではない★（worker1・#920）。
+
 ## 0. ★読む人への注意（本フェーズで 4 回踏んだ型）★
 1. **数は枠を確かめてから使う** — `95`（先行 md の表の行数）/`124`（blob の行数 = 関数 96 + 変数 28）/`346`（`battle_functions.json` の関数入口 VA 数）は**別の物を数えた数**。比較不能。
 2. **sidecar を権威にしない** — `extracted/*_rel.txt` の `Load Address: 0x80010000` を名乗る 4 本のうち
