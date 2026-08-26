@@ -4,17 +4,11 @@
 # ★d= は 観測された表示のみ★。推測では書かない (同値の書き直しは 見えないため)
 t
   allyhp=800
-  enemyhp=2000
-  enemyhp_addr=0x8016B220
-  h2e=0
-  allymaxhp=800
-  enemymaxhp=2000
-t
-  allyhp=800
   enemyhp=500
   enemyhp_addr=0x8016B220
   h2e=0
-  # d= 無し = ★観測されていない★ (ΔHP=1500 / side=enemy) -> 器は評価不能にする
+  allymaxhp=800
+  enemymaxhp=500
 t
   allyhp=800
   enemyhp=421

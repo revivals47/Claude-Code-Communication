@@ -42,10 +42,21 @@ def main(path):
         if not ok:
             print("# ★規則を適用できない = 束ねない (事前登録どおり 窓は選び直さない)★"); sys.exit(2)
 
-    ac=[c for c in clusters(ally) if 0 < c['from']-c['to'] < 5000]
-    ec=[c for c in clusters(enem) if 0 < c['from']-c['to'] < 5000]
-    allymax=max(d.get('hpmax') or 0 for d in ally)
-    enemymax=max(c['from'] for c in ec)   # 記録上の最大 (hpmax 欄は初期化値を含むため使わない)
+    # ★hpmax は 最頻値を採る★ (初期化前の 1 標本 = enemy 9000 を 混ぜない)
+    from collections import Counter
+    def hpmax_of(evs):
+        return Counter(d.get('hpmax') for d in evs).most_common(1)[0][0]
+    allymax, enemymax = hpmax_of(ally), hpmax_of(enem)
+
+    # ★damage cluster の条件 = 減っている かつ ★両端が [0, hpmax] に収まる★★
+    #   worker1 #919 (i): 旧版は 0 < d < 5000 だったため record 初期化の対
+    #   (500->2000 = -1500 と 2000->500 = +1500) の ★片方だけ落ちて 非対称★ だった。
+    #   両端条件なら 2000 を含む cluster が 対称に 両方とも落ちる。
+    def dmg(cs, hpmax):
+        return [c for c in cs
+                if c['from']-c['to'] > 0
+                and 0 <= c['from'] <= hpmax and 0 <= c['to'] <= hpmax]
+    ac, ec = dmg(clusters(ally), allymax), dmg(clusters(enem), enemymax)
 
     hits=sorted([('ally',c) for c in ac]+[('enemy',c) for c in ec], key=lambda x:x[1]['t'])
     # 表示: slot0 = ally 側, slot1 = enemy 側 (実データで分離している)
