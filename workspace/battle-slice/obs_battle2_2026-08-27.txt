@@ -1,0 +1,83 @@
+# (A) ally: 束内最大=0.058s 発間最小=2.497s -> 成立
+# (A) enemy2_s104: 束内最大=0.061s 発間最小=2.664s -> 成立
+# 生成元 = events4.jsonl
+# ★d= は 観測された表示のみ★。推測では書かない (同値の書き直しは 見えないため)
+t
+  allyhp=800
+  enemyhp=2000
+  enemyhp_addr=0x8016B220
+  h2e=0
+  allymaxhp=800
+  enemymaxhp=2000
+t
+  allyhp=800
+  enemyhp=500
+  enemyhp_addr=0x8016B220
+  h2e=0
+  # d= 無し = ★観測されていない★ (ΔHP=1500 / side=enemy) -> 器は評価不能にする
+t
+  allyhp=800
+  enemyhp=421
+  enemyhp_addr=0x8016B220
+  h2e=0
+  d=0079                # 出所=遷移
+t
+  allyhp=730
+  enemyhp=421
+  enemyhp_addr=0x8016B220
+  h2e=0
+  d=0070                # 出所=遷移
+t
+  allyhp=730
+  enemyhp=337
+  enemyhp_addr=0x8016B220
+  h2e=0
+  d=0084                # 出所=遷移
+t
+  allyhp=660
+  enemyhp=337
+  enemyhp_addr=0x8016B220
+  h2e=0
+  # d= 無し = ★観測されていない★ (ΔHP=70 / side=ally) -> 器は評価不能にする
+t
+  allyhp=660
+  enemyhp=245
+  enemyhp_addr=0x8016B220
+  h2e=0
+  d=0092                # 出所=prev欄(鎖の切れ目)
+t
+  allyhp=660
+  enemyhp=169
+  enemyhp_addr=0x8016B220
+  h2e=0
+  d=0076                # 出所=遷移
+t
+  allyhp=613
+  enemyhp=169
+  enemyhp_addr=0x8016B220
+  h2e=0
+  d=0047                # 出所=遷移
+t
+  allyhp=613
+  enemyhp=81
+  enemyhp_addr=0x8016B220
+  h2e=0
+  d=0088                # 出所=遷移
+t
+  allyhp=601
+  enemyhp=81
+  enemyhp_addr=0x8016B220
+  h2e=0
+  d=0012                # 出所=遷移
+t
+  allyhp=557
+  enemyhp=81
+  enemyhp_addr=0x8016B220
+  h2e=0
+  # d= 無し = ★観測されていない★ (ΔHP=44 / side=ally) -> 器は評価不能にする
+t
+  allyhp=557
+  enemyhp=0
+  enemyhp_addr=0x8016B220
+  h2e=0
+  d=0088                # 出所=遷移
