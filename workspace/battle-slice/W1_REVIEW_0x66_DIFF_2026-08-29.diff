@@ -1,0 +1,135 @@
+# worker1 read-only 査読用 — 0x66 の解決 diff（PRESIDENT #921-D ■1 (a)）
+# 器 = degimon_world_remake-integp2b / branch integration/p2-battle-v2 / base 66d76216
+# merge commit = ec9326ee ＋ fix 4208da30
+# ★worker1 は tree に触れず この diff だけ読む★
+
+## (1) DialogueRuntime.cs  main → 統合結果
+diff --git a/unity/Assets/Scripts/Dialogue/DialogueRuntime.cs b/unity/Assets/Scripts/Dialogue/DialogueRuntime.cs
+index 10038dee..ec8816a6 100644
+--- a/unity/Assets/Scripts/Dialogue/DialogueRuntime.cs
++++ b/unity/Assets/Scripts/Dialogue/DialogueRuntime.cs
+@@ -69,7 +69,30 @@ namespace DigimonWorld.Dialogue
+             //   EXE 直読: 0x1C handler 0x800EC7DC→SetFlag(0x800F0F1C) byte|=mask / 0x1D handler 0x800EC7FC→ClearFlag(0x800F0F84) byte&=~mask、共に @+0xf5。operand=u16 flag#。
+             {0x19,"COND_BRANCH"},{0x1A,"DIALOG_ADVANCE"},{0x1B,"SET_SPEAKER"},{0x1C,"SET_FLAG"},
+             // ★0x1E/0x1F/0x20 = event-bank var write(set/add/sub、EXE 0x800ec81c/844/894)。
+-            {0x1D,"CLEAR_FLAG"},{0x1E,"SET_VAR"},{0x1F,"VAR_ADD"},{0x20,"VAR_SUB"},{0x28,"GIVE_ITEM"},{0x47,"MAP_CHANGE"},{0x49,"EVOLVE"},{0x50,"BATTLE_START"},
++            {0x1D,"CLEAR_FLAG"},{0x1E,"SET_VAR"},{0x1F,"VAR_ADD"},{0x20,"VAR_SUB"},{0x28,"GIVE_ITEM"},{0x47,"MAP_CHANGE"},{0x49,"EVOLVE"},
++            // ★2026-08-26 名前表の訂正（worker1 RE / 出所 = comms:workspace/battle-slice/BATTLE_SLICE_RE_FOUNDATION_2026-08-26.md §1-§2）★
++            //   ★旧 {0x50,"BATTLE_START"} は誤り★ = 0x50 の handler(0x800ED9FC) は戦闘に一切触れない。
++            //   主証拠 = ①tag7 consumer を完走した(0x800EFDB4→0x800E362C→0x800E342C ／ 0x800E3550 ラッチ＋task 0xFB1
++            //     →callback 0x800E2B28→GTE RTPS→2D view offset gp-0x6b70/gp-0x6b6c 更新)＝★経路上に overlay load も
++            //     戦闘 flag も戦績更新も 1 つも現れない★ ②戦闘は 0x66 の別経路で始まる(下記)。
++            //   ★"CAMERA" とは断定しない★（view offset が描画の何に効くかは未 trace）ゆえ VIEW_FOCUS_* と呼ぶ。
++            //   ★Len[] は 1 byte も触っていない★（この commit は名前だけ）。
++            //   ★★2026-08-26 訂正（私の誤り）★★: 私は cherry-pick 元の branch の値を見て
++            //   「Len[0x4F]=6 は EXE と一致しており正しい」と書いたが、★この base では Len[0x4F] = 2★ である。
++            //   ・★Len[0x50] = 4 はこの base でも正しい★（EXE helper の +1/+3 と一致）。
++            //   ・★Len[0x4F] は EXE 直読で 6★（0x800f0ae8[+0] + 0x800f0edc[+1] + 0x800f1660[+4] = operand 5）。
++            //     ★2026-08-26 に 2→6 へ land した★（boss1 #911-A 裁定）。測定は下記のとおり:
++            //       ・cutscene gate（entry178）= ★2 でも 6 でも 6 項 bit 一致 = 判別できない★（射程外）
++            //       ・225 entry sweep = ★GREEN 115 → 113（−2）・得た GREEN 0 件★
++            //       ・★失った 2 件は entry 33 と 144 で、どちらも 2026-07-12 audit が偽 GREEN と実測した 8 件の中★
++            //         entry33 の列 = 4f 00 06 00 19 00 ／ entry144 の列 = 4f 0a 89 fb 16 06（DG.SCN 内に実在を確認）
++            //         ⇒ ★旧 len=2 では operand（06 / 89）を opcode として実行していた★ ＝ ★−2 は偽 GREEN の剥落★。
++            {0x4F,"VIEW_FOCUS_XZ"},{0x50,"VIEW_FOCUS_ENTITY"},
++            // ★0x66 = 戦闘の入口★ = 0x800EE72C → 0x800AECA8 → 0x80105BE4 → 0x80105DD8: jal 0x801044AC(a0=1)
++            //   → loader VAtab[0]=0x80052AE0 / name[0]="BTL_REL.BIN" → jal 0x8005CA7C(battle main loop)。
++            //   ★BTL_REL.BIN を積む site は resident＋16 overlay の全数走査で 1 箇所のみ★。
++            {0x66,"BATTLE_START"},
++
+             {0xFE,"SECTION_RETURN"},{0xFF,"SCRIPT_END"},   // ★0xFE=RETURN(EXE 0x800ef39c pop)。旧 PAGE_BREAK は誤(section 終端)。
+         };
+ 
+@@ -1430,7 +1453,52 @@ namespace DigimonWorld.Dialogue
+                     }
+                     case OP_SCENE_DRIVER:   // ★0x66 SCENE_DRIVER(EXE handler 0x800EE72C、operand 1byte、Len=2)★
+                     {
+-                        // ★OFF(既定)= 現行 bit 不変★: break → post-switch _pc += len(=2)= 従来の unknown-op skip と bit 同一(OFF-inert)。
++                        // ★★battle seam = worker1 の設計判断 (A)・PRESIDENT #921-C ■1 で採用★★
++                        //   ★到達計測は opcode の性質であって どちらの feature の性質でもない★ ゆえ ★両 gate より上★ に置く。
++                        //   gate の下に落とすと ★観測の器が SCENE_DRIVER の state 変更(B2 counter E12C ++)に従属する★
++                        //   = ★測るために 測定対象外を動かす★ ことになる(worker1 #921-A1 (a)。PRESIDENT が一般則として採用)。
++                        //   ★次元の名指し(#921-A2 ■2・worker1 が瑕疵として受諾)★: 両 gate OFF でも ここは走る。
++                        //     不変なのは ★VM の観測可能 state と text 出力の次元★(_gameState の全 field / emit される page text / _pc と exit 経路)。
++                        //     ★process の state は 不変ではない★ = SeamHitLog は 0x66 到達ごとに伸びる static List で、
++                        //     ResetSeamCounters() を誰かが呼ばない限り消えない。★「何もしない」は state の次元では成り立たない★。
++                        //   ★TODO(凍結解除後・worker1 #921-A2 ■2(a) の是正案)★: Add は上限つきにし 溢れた件数を別 counter＋飽和 flag で持つ
++                        //     (★「list が短い」が「到達が少ない」と読めてはいけない★ = 打ち切りの不在を否定に使わせない)。
++                        DigimonWorld.Battle.BattleEntry.SeamReachCount++;
++                        DigimonWorld.Battle.BattleEntry.SeamHitLog.Add((_pc << 8) | ReadByte(_pc + 1));
++                        if (DigimonWorld.Battle.BattleEntry.GateEnabled)
++                        {
++                            DigimonWorld.Battle.BattleEntry.SeamGatedCount++;
++                            // ★★戦闘の本体は ここに置く(この if の中 = !_sceneDriver の break より ★上★)★★
++                            //   ★下に置くと 戦闘が DEGIMON_SCENE_DRIVER=1 を要求するようになる★(後任向けの印。PRESIDENT #921-C ■5)。
++                            // ★原盤の順序★ = ①戦闘回数カウンタ +1（上限 9999・戦闘に入る前）
++                            //   ②a0 = script を起こした field actor の slot 番号（gp-0x6d08 = 0x8013E104）
++                            //   ③戦闘へ ④戻り値の下位 8bit を符号拡張して 3 値（-1/0/1）で処理
++                            //
++                            // ★★STUB(未 RE / 未配線): ここで実際に戦闘を組み立てて回すのは まだ★★
++                            //   ・★技の中身（発動後の効果）は mini-VM か hand-expand かの裁定待ち★（boss1 #907-A）
++                            //   ・★actor の stat を base_stats から積む配線が未実装★
++                            //   ・★gp-0x6d08 に相当する「script を起こした actor」が remake 側に未定★
++                            //   札 = 材料（裁定 ＋ actor 配線）。★偽の戦闘を走らせない★ ため、
++                            //   ここでは ★seam が在ることだけを log に出して consume する★。
++                            // ★★operand の扱いが確定した（#925-A・私も EXE で検算した）★★
++                            //   0x800ee72c addiu a0,sp,0x43 / 0x800ee730 jal 0x800F0EDC  ← ★operand を fetch → [sp+0x43]★
++                            //   0x800ee738..0x800ee758  gp-0x6CE0 の counter を +1（9999 で頭打ち）★[sp+0x43] は読まない★
++                            //   0x800ee768 ★sb v0,0x43(sp)★                              ← f_800F0AC8(0xFA) の戻り値で ★上書き★
++                            //   0x800ee76c lbu v0,0x43(sp) → 0x800ee774 beqz → 0x800EE7F0 ／ 非 0 なら 0x800ee780 sb 0xfb
++                            //   ⇒ ★fetch と 上書きの間に [sp+0x43] を読む命令は 0 件★（私も数えた）
++                            //   ⇒ ★★script の operand は 消費されるが 捨てられる★★
++                            //   ⇒ ★「何の戦闘か」を選ぶのは script の operand ではなく ★実行時の値★★
++                            //   ★私が前に記録した「operand が 0 以外の 2 site が戦闘に見えない文脈に在る」引っかかりは
++                            //     これで ★整合★ する（operand は選んでいないので 文脈と無関係でよい）。
++                            //   ★STUB(未 RE): f_800F0AC8(0xFA) が何を返すかは未読★ 札 = 材料。
++                            //   ★桁合わせ（1 byte 消費）は 原盤どおり 必ず行う★ = Len[0x66] = 2 のまま。
++                            int battleOperand = ReadByte(_pc + 1);   // ★消費はする・値は使わない★
++                            Debug.Log($"[BATTLE-SLICE] 0x66 seam @pc=0x{_pc:X} operand=0x{battleOperand:X2} " +
++                                      "→ ★operand は消費するが使わない(原盤は 0x800EE768 で f_800F0AC8(0xFA) の戻り値に上書き)★ " +
++                                      "／ ★seam のみ(戦闘の組み立ては未配線・STUB)★ gate=DEGIMON_BATTLE_SLICE=1");
++                            // ★break しない★ = SCENE_DRIVER=1 の時の B1-B6 を BATTLE_SLICE の有無が変えない。
++                        }
++                        // ★OFF(既定)= ★VM の観測可能 state と text 出力の次元★ で 現行不変★: break → post-switch _pc += len(=2)= 従来の unknown-op skip と同一。
+                         if (!_sceneDriver)
+                             break;
+                         // ★ON = B1-B6 忠実実装(p1 RE STEP5_P1_RE_worker2.md)★。
+
+## (2) 参考: branch の元 case ブロック(削除して seam へ畳んだもの)
+                    case OP_BATTLE_START:   // 0x66 = 戦闘の入口(EXE 0x800EE72C、★operand 1byte は消費するが使わない★、Len=2)
+                    {
+                        // ★gate OFF（既定）= 何もしない = default 節の非 jump 経路と ★bit 同一★★
+                        //   （default は if (IsJump(c)) { ... } の外に break が 1 つ在るだけ。0x66 は jump ではない）
+                        DigimonWorld.Battle.BattleEntry.SeamReachCount++;   // ★到達の計測（gate と無関係・出力に触れない）★
+                    DigimonWorld.Battle.BattleEntry.SeamHitLog.Add((_pc << 8) | ReadByte(_pc + 1));
+                    if (!DigimonWorld.Battle.BattleEntry.GateEnabled) break;
+                    DigimonWorld.Battle.BattleEntry.SeamGatedCount++;
+
+                        // ★原盤の順序★ = ①戦闘回数カウンタ +1（上限 9999・戦闘に入る前）
+                        //   ②a0 = script を起こした field actor の slot 番号（gp-0x6d08 = 0x8013E104）
+                        //   ③戦闘へ ④戻り値の下位 8bit を符号拡張して 3 値（-1/0/1）で処理
+                        //
+                        // ★★STUB(未 RE / 未配線): ここで実際に戦闘を組み立てて回すのは まだ★★
+                        //   ・★技の中身（発動後の効果）は mini-VM か hand-expand かの裁定待ち★（boss1 #907-A）
+                        //   ・★actor の stat を base_stats から積む配線が未実装★
+                        //   ・★gp-0x6d08 に相当する「script を起こした actor」が remake 側に未定★
+                        //   札 = 材料（裁定 ＋ actor 配線）。★偽の戦闘を走らせない★ ため、
+                        //   ここでは ★seam が在ることだけを log に出して consume する★。
+                        // ★★operand の扱いが確定した（#925-A・私も EXE で検算した）★★
+                        //   0x800ee72c addiu a0,sp,0x43 / 0x800ee730 jal 0x800F0EDC  ← ★operand を fetch → [sp+0x43]★
+                        //   0x800ee738..0x800ee758  gp-0x6CE0 の counter を +1（9999 で頭打ち）★[sp+0x43] は読まない★
+                        //   0x800ee768 ★sb v0,0x43(sp)★                              ← f_800F0AC8(0xFA) の戻り値で ★上書き★
+                        //   0x800ee76c lbu v0,0x43(sp) → 0x800ee774 beqz → 0x800EE7F0 ／ 非 0 なら 0x800ee780 sb 0xfb
+                        //   ⇒ ★fetch と 上書きの間に [sp+0x43] を読む命令は 0 件★（私も数えた）
+                        //   ⇒ ★★script の operand は 消費されるが 捨てられる★★
+                        //   ⇒ ★「何の戦闘か」を選ぶのは script の operand ではなく ★実行時の値★★
+                        //   ★私が前に記録した「operand が 0 以外の 2 site が戦闘に見えない文脈に在る」引っかかりは
+                        //     これで ★整合★ する（operand は選んでいないので 文脈と無関係でよい）。
+                        //   ★STUB(未 RE): f_800F0AC8(0xFA) が何を返すかは未読★ 札 = 材料。
+                        //   ★桁合わせ（1 byte 消費）は 原盤どおり 必ず行う★ = Len[0x66] = 2 のまま。
+                        int consumedOperand = ReadByte(_pc + 1);   // ★消費はする・値は使わない★
+                        Debug.Log($"[BATTLE-SLICE] 0x66 BATTLE_START @pc=0x{_pc:X} operand=0x{consumedOperand:X2} " +
+                                  "→ ★operand は消費するが使わない（原盤は 0x800EE768 で f_800F0AC8(0xFA) の戻り値に上書き）★ " +
+                                  "／ ★seam のみ（戦闘の組み立ては未配線・STUB）★ gate=DEGIMON_BATTLE_SLICE=1");
+                        break;   // _pc += len(=2)
+                    }

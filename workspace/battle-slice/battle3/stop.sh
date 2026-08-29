@@ -6,7 +6,7 @@ kill_gdb() {
   local sig="$1" n=0 p e
   for p in $(pgrep -f 'capture\.gdb' 2>/dev/null); do
     e=$(readlink -f "/proc/$p/exe" 2>/dev/null)
-    case "$e" in */gdb) kill "-$sig" "$p" 2>/dev/null; n=$((n+1)) ;; esac
+    case "$e" in */gdb|*/gdb-multiarch) kill "-$sig" "$p" 2>/dev/null; n=$((n+1)) ;; esac
   done
   echo "$n"
 }
