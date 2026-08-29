@@ -9,14 +9,35 @@
 # 直していないのは「今 依存している通信路を、依存しながら書き換えない」という判断による。
 # 使う人は、以下を前提に読むこと。
 #
-# 【欠陥 1】log は送信の ground truth ではない(false negative が在る)
-#   main() の順序が send_message(L130 付近) → log_send(L133 付近) である。
-#   ∴ 送信処理の途中で process/turn が切れると、★log 行は 1 行も残らない★。
-#   ∴ 「log に SENT が無い」は「送っていない」を意味しない。
-#   実例: 2026-08-10、boss1 → worker1 の 1 通が log に無いまま受信側の入力欄に残った。
+# ★★行番号は 書かない（2026-08-29 の教訓）★★
+#   本 header は かつて「順序は send_message(L130) → log_send(L133)」と書いていたが、
+#   ★log_attempt を足した後 更新されず★、読んだ人(PRESIDENT #924-A)を誤らせた。
+#   ★私(boss1)は それを直す編集で 自分が書いた行番号を 自分の編集で ずらした★(1 分で再発)。
+#   ⇒ ★参照は 関数名で行う★。行番号が要る時は ★その場で grep -n する★。
+#     確認コマンド = grep -n 'log_attempt \|send_message \|log_send ' agent-send.sh
+#
+# 【欠陥 1】log の SENT は送信の ground truth ではない(false negative が在る)
+#   ★2026-08-29 訂正: 本項の記述が 実装と食い違っていた★。
+#     旧記述 = 「順序は send_message(L130 付近) → log_send(L133 付近)。∴ 切れると log 行は 1 行も残らない」
+#     ★これは log_attempt を足す前の記述で、足した後 更新されていなかった★。
+#     ⇒ ★『log 行は 1 行も残らない』は 偽★。★ATTEMPT は 残る★。
+#   ★現在の main() の順序(実測)★ = log_attempt → send_message → log_send（行番号は下記の注を見よ）。
+#   ∴ 送信の途中で process/turn が切れると ★SENT は残らないが ATTEMPT は残る★。
+#   ∴ 「log に SENT が無い」は「送っていない」を意味しない(送信途中で切れた可能性)。
+#   ★★∴ ATTEMPT の有無が「この script を通ったか」の discriminator★★:
+#     ・ATTEMPT 有 / SENT 無 = ★この script を通ったが 送信の途中で切れた★
+#     ・ATTEMPT 有 / SENT 有 = ★送信処理は最後まで走った★(届いた保証ではない。欠陥 2 を見よ)
+#     ・★ATTEMPT 無★        = ★この script を 1 度も通っていない★
+#                              (= 受信側の入力欄に文が在っても、それは ★人が直接打った文★)
+#   実例(2026-08-10) = boss1 → worker1 の 1 通が log に無いまま受信側の入力欄に残った。
+#     ★但し これは log_attempt を足す前の事象★ゆえ、今 同じことが起きれば ATTEMPT が残る。
+#   実例(2026-08-29) = worker1/worker3 の入力欄に文が残っていたが ★ATTEMPT も SENT も 0 件★
+#     ⇒ ★この script を通っていない = 人が pane に直接打った文★ と判別できた。
 #
 # 【欠陥 2】送信は「入力欄に入れる」と「submit する」の 2 段で、間に 2 秒の窓が在る
-#   send_message() は  send-keys 本文(L72) → sleep 2(L73) → send-keys C-m(L76)  の順。
+#   send_message() は ★send-keys C-c → sleep 0.3 → send-keys 本文 → sleep 2 → send-keys C-m★ の順。
+#   ★★本文の前に C-c が入る★★ ⇒ ★受信側の入力欄に前の文が残っていても 連結されない★
+#     (2026-08-29 実測: 文が残った 2 pane に送信し、受信 transcript は 送った本文のみ・混入 0)。
 #   ∴ この 2 秒の窓で切れると ★本文は入力欄に残るが submit されず、誰にも届かない★。
 #   受信側は「何も来ていない」ので沈黙し、送信側は成功したと思う。両側に error が出ない。
 #   実例: 上記と同一事象。受信側 worker1 の context に当該 message は存在しなかった。
