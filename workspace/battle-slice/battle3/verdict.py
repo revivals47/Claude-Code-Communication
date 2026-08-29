@@ -30,6 +30,16 @@ PAT = re.compile(
 n = 0
 print("★準備できました。戦ってください。1 回 攻撃を受けるたび 1 行 出ます。★", flush=True)
 for line in sys.stdin:
+    if line.startswith("START "):
+        print("★はじめました。★ " + line.strip()[6:], flush=True); continue
+    if line.startswith("E088_1TO0 "):
+        print("  ◆ 目印の値が 1 から 0 に変わりました → " + line.strip()[10:], flush=True); continue
+    if line.startswith("HP "):
+        print("        （" + line.strip()[3:] + "）", flush=True); continue
+    if line.startswith("DUMP_"):
+        if line.startswith("DUMP_END"):
+            print("        （まとめて読み取りました。中身は raw のファイルに残っています）", flush=True)
+        continue
     m = PAT.search(line)
     if not m:
         continue
