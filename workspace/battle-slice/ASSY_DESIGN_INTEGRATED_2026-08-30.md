@@ -37,6 +37,22 @@
 3. **育つ側は本 phase で配線しない**（加算元 `0x80145F20` も image の外 = 源が未同定）
 4. **敵の `+0x48/+0x4A` は決め打たない** = **未設定 ＋ loud**（G1 = 書く site が census に無いのに live では 5/5 で 300/600）
 
+### ★★最小 slice で 走らせる stat の源（PRESIDENT #927-D (1) の確認・boss1 が明示する）★★
+
+**表 E は BSS ＝ image に無く、育つ側も本 phase で配線しない。** ⇒ **走らせる 2 体の stat をどこから得るかを ここで決める。**
+
+> **★決め★ = ★live snapshot（actor record snapshot を持つ 5 run）の実値を ★固定の test stat★ として使う★。**
+> **★`field → battle` の stat population は ★本 phase では defer★★**（= **戦闘の入口で 実 state から積まない**）。
+
+- **使う実値**（`battle3/raw_*.log` の `DUMP_B084` / `DUMP_B104` を boss1 が decode 済）:
+  **味方** `+0x38..0x3E` = `83 / 61 / 71 / 74`・`+0x48..0x4E` = `802 / 603 / 417 / 30`（`195331` の run）
+  **敵** `110 / 100 / 100 / 100`・`300 / 600 / 300 / 600`（**5/5 run で完全同一**）
+- **なぜ固定値でよいか** = **本 phase の目的は「走って画面に出る」こと**であって **stat の由来を確かめることではない**。
+  **damage 式は live 確定**なので、**この stat を入れれば 出る数値も live と突き合わせられる**。
+- **★偽らないための札★** = **この 2 体は ★実 save から積んだものではない★**。
+  **画面に出た数値が正しくても「stat の配線が正しい」ことにはならない。** **札 = 材料（表 E の中身が未同定）。**
+- **defer した先** = **表 E を save/育成 state として持つ設計**（§1 の結論 1）＋ **育つ側（`0x80145F20`）の源の同定**。
+
 ### ★remake の受け皿は 依頼が想定するより進んでいる★
 
 `ApplyEntryStats` / `ApplyEntryStatsAlly` / `ISpeciesRecordTable` / `BattleWazaResolver` / `AttributeMatrix` は **既に在る**。
