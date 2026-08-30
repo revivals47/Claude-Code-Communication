@@ -314,3 +314,87 @@ step1_011238c6                            GREEN   True  0    7   7     ABSENT  0
 **★まだ 言えないこと★** = **「counter が ★実際に 1 回だけ★ 進む」**。
 **静的順序は ★順序の証拠であって 回数の証拠では ない★**（boss1 ■3 と同意）。
 **`ParkTicks` が 増える間 `E12C` が 動かないこと**は **★戦闘が 実際に 走る step まで 保留★。**
+
+---
+
+## 7. ★step 2（`6506ea33`）の 静的照合 — ★Unity Editor は 起動していない★★（追記・#929-W2d）
+
+**器の素性** = `HEAD=6506ea33` / **dirty=1（`compile_gate.sh` のみ）**。
+**★step5 の 入力 10 file は 全て clean★**（1 件ずつ `git status --porcelain` で確認）⇒ **測ったのは `6506ea33` の内容**。
+**★使ったのは `mcs` + `mono` だけ★**（`run_step5.sh`）。**Unity Editor は 起動していない**（実行前後 `ps` = 0 件）。
+
+### 7-1. ★boss1 の 3 点を 私の器で 裏取り★
+
+| # | boss1 の申告 | 私の測定 | 一致 |
+|---|---|---|---|
+| (1) index | `_actors[BattleIndex.Ally.Value]` に直り、型で 2 空間を分離 | **`IsAllyDown()` が `BattleIndex.Ally.Value`**／`BattleIndexSpaces.cs` に **`BattleIndex`（空間 A）と `ActorSlot`（空間 B）**、**★変換関数を 置いていない★** | **一致** |
+| (2) 写像 | `Minus1` 代入 1 件 / `Zero` 代入 0 件 | **`Minus1`=1・`Zero`=0・`Win`=0**（母数 `unity/Assets/Scripts`） | **一致** |
+| (3) Win 0 件 | 欠陥でなく **未到達** | **同意**（下記 3 欄で出す） | **一致** |
+
+### 7-2. ★★boss1 ■2(3) の形 = 0 を 畳まない 3 欄★★（器 = `tools/w2_result_census.sh`）
+
+```
+rev=ea600ab5   Minus1 代入=0   Zero 代入=1   Win 代入=0
+rev=011238c6   Minus1 代入=0   Zero 代入=1   Win 代入=0
+rev=6506ea33   Minus1 代入=1   Zero 代入=0   Win 代入=0
+```
+
+**陽性対照** = 同じ器・同じ母数で `BattleResultCode` が **6 行** 出る ⇒ **★空振りの 0 では ない★。**
+
+| 数 | **読み方（★同じ記号に 畳まない★）** |
+|---|---|
+| `Zero = 0` | **★良い 0★** = §11-7 のとおり **消した**（`0 = 逃走` を KO で返すと 意味が反転する） |
+| `Win = 0` | **★まだの 0★** = **未配線・damage 着弾の step 待ち**（**欠陥ではない**） |
+| `Minus1 = 1` | **★書かれているが game path から 未到達★**（下記 7-4） |
+
+### 7-3. ★私が 足した 2 つの 検め★
+
+**(a) `Zero` を 消しただけでは 閉じない — ★enum の 既定値★が `Zero = 0`。**
+**⇒ `BattleResultCode Result` が ★非 nullable の field★ なら 代入 0 件でも ★既定で 逃走★ になる。**
+**測定** = **`public BattleResultCode? Result { get; private set; }` = ★nullable★** ⇒ **既定は `null`。★穴は塞がっている★。**
+**さらに** = **`??` / `GetValueOrDefault` で `null` を 0 に 畳む形は ★0 件★**（母数 `Battle` ＋ `Dialogue`）。
+**結果適用の口** = **`HasApplicableResult` が真なら ★`NotImplementedException` で loud に 落ちる★**（**黙って適用しない**）。
+
+**(b) ★`Minus1` の 1 は 「動いている 1」では ない★。**
+**`new BattleRuntime` = ★`unity/Assets/Scripts` で 0 件★**（**陽性対照** = 同じ器・同じ母数で
+`new BattleActor` / `new DialogueRuntime` が `DialogueRuntime.cs:8` ほか **複数件** 出る ⇒ 器は効いている）。
+**別母数の `workspace/battle-slice-verify/runtime_verify.cs` に 12 件。**
+**⇒ ★BattleRuntime を 駆動しているのは verify harness だけ★。game path は まだ 構築していない。**
+
+> **★型（3 つ目の 数の 読み方）★** = **`1` にも 2 種類ある** —
+> **★実行されている 1★ と ★書かれているが 未到達の 1★。**
+> **`Zero=0` / `Win=0` を 分けたのと 同じ理由で、`Minus1=1` も ★「直った」と 読ませない★。**
+> **step2 が 直したのは ★写像の 定義★ であって ★写像が 通ること★ では ない。**
+
+### 7-4. ★■3 = `expected_counts.txt` `5=81 → 84`（+3）の 中身★
+
+**★追認では ありません★。実測して 中身を 引きました:**
+
+- **`Check(` の 呼び出し数** = **`011238c6` = 81 → `6506ea33` = 84**（**expected と 一致**）。
+- **内訳** = **★消えた 2 本★**（`R3 終了判定`＝`IsPartnerDown` 版／`R4' 終了で止まる`＝`Frame == 45` 版）
+  **＋ ★足した 5 本★** ⇒ **net +3**。
+- **★実測（`mcs`+`mono` で 実行）★** = **`PASS = 84` / `FAIL = 0` / `RESULT=GREEN`** ⇒ **expected と 一致。**
+
+**足した 5 本（逐語の要点）**:
+
+| test | 何を assert しているか |
+|---|---|
+| `R3 終了判定は 味方(空間A の 0)を見る` | **味方 HP100・敵 KO で `IsAllyDown()=False`** ⇒ **★旧 `_actors[1]` 実装なら True＝決着が反転していた★** |
+| `R3b 味方 KO で終了` | 味方 KO・敵生存 → `True` |
+| `R3c 未決は null・KO は −1` | **開始前 `null`／KO 後 `Minus1`** = **★`0=逃走` に 畳まない★** |
+| `R4' 敵 KO では 止まらない` | **★陰性対照★** — 敵 KO 後も `Finished=False`（**旧実装なら ここで 止まっていた**） |
+| `R4'' 味方 KO で 止まる` | `Finished=True` / `Result=Minus1` / frame 不変（終了判定は loop 先頭） |
+
+> **★追認かどうかの 見分け方（私の判断根拠）★** = **足した test が ★step2 が変えた当のもの★ を assert し、
+> かつ ★旧実装なら落ちる★ 形（`R3` と `R4'`）を 含んでいる**。
+> **★expected を 実測に 合わせただけなら、旧実装で 落ちる test は 生まれない★。**
+> **∴ `+3` は ★追認では なく 検め の 増加★ と 読める。**（**★但し これは 私の 読み★ — worker1 の 意図は 確認していない。**）
+
+### 7-5. ★step 2 について 私が 言っていないこと★
+
+- **`f_80057C00` の ★222 命令は 私も 読んでいない★**（worker1 自身が 範囲申告済 = **exit arm 1 本だけ**）。
+  **⇒ ★原盤の 終了条件の 全部が これだ とは 言えない★。**
+- **`ActorSlot.Ally = 1` / `Enemy = 2` は ★FOUNDATION §8.14 からの 引用★**（**worker1 も 実行時の中身は 見ていない**）。
+  **私も 見ていない。**
+- **verify 2 本（`SEAM66` / `CUT178`）の 4 値は ★step2 では 未採取★**（**Unity の GO 待ち**）。
+- **`Win` 経路・damage 着弾・`HasApplicableResult` が 真になる path は ★まだ 存在しない★。**
