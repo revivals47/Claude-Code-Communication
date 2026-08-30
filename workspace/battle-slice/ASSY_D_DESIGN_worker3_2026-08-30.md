@@ -842,3 +842,139 @@ if (_rt != null && !_rt.IsFinished)
 **boss1 の独立 grep には 他に 4 件 掛かった** = `DialogueRuntime.cs:100` / `W1GateCensus.cs:49` / `EntityPlacer.cs:137` / `GameState.cs:641`。
 **これらは ★別の主題の「未決」★**（handler 名 / flag id / 対の総数）⇒ **本 census の対象外**（**boss1 も同判定**）。
 ⇒ **★「5 件」は `Battle/` の中の数であって、`unity/` 全体でも EXE 全体でもない★。**
+
+---
+
+# 【実装】(d) = ★-assy3 で land 済（3 commit）★ ＋ ★patch spec 2 件★（worker3・2026-08-30・便 #929-W3d）
+
+## D-L. 実装した所（★私の tree = `degimon_world_remake-assy3` / branch `track3/battle-view` / base `a88ac2dd`★）
+
+| commit | 何 | verify |
+|---|---|---|
+| `d8ebf374` | **段 0 = 閉じた claim の札を差し替え（comment のみ）** | **diff は comment 行のみ（非 comment の +/- = 0 行を機械確認）** ／ `run_step6b.sh` **GREEN** |
+| `437791d3` | **`BattleSession` の loop 部**（固定 step / 強制 hit / 決着 / `Current`）＋ **harness 9 本** | **`run_step_d.sh` = GREEN (0 fail)** ／ 非退行 `run_step5.sh` `run_step6b.sh` **GREEN** |
+| `5a02c1fe` | **`BattleView.cs`**（**MonoBehaviour はこの 1 本だけ**） | **`compile_gate.sh` = GATE=GREEN**・**CONTROL=OK**（陽性対照が赤）・**TREE=OK**（別 tree を見ていない） |
+
+**★器 = `mcs` / `mono` / `csc` のみ。★Unity Editor は 1 度も起動していない★。**
+
+### D-L-1 ★段 0 で 分かったこと（census 再走の効き目）★
+
+**着手時に census を再走したら ★5 件のうち 2 件は step2 で既に直っていた★**（`BattleEntry:190` / `BattleRuntime:116`）
+⇒ **残り 3 件だけを直した**。**★古い census で直しに行かない★ が 実際に効いた 1 例。**
+
+### D-L-2 ★★実測で 予想が外れた 1 件（★勝利路は 通せない★）★★
+
+**D-F-1 で「`ForceAllyAttacksForVerify` で verify 時だけ 勝利路を通す」と書いたが、★通らなかった★。**
+
+- **`BattleRuntime.Tick()` の終了判定は ★味方が倒れたか だけ★**（`IsAllyDown`）＝ **原盤 `f_80057C00` の ★exit arm 1 本★しか模していない**。
+- ⇒ **★敵の HP を 0 にしても 戦闘は 終わらない★**（**実測 = 敵 HP 0・frame は上限 3600 まで回り `Aborted`**）。
+- ⇒ **★`Win` / `Zero` に至る経路は remake に 無い★** = **§11-7 の「KO を `-1` か `1` に写す」の ★`1` の側は 未到達★**。
+- **やったこと** = **harness の D3 を「勝利路が通る」から ★現状の限界を固定する test★ に変えた**
+  （**敵 HP 0 ＋ 終わらない ＋ 結果を書かない** を assert）。**★勝利 arm を読んで模した人が この test を書き換える★**（札 = 材料）。
+- **★発明していない★** = **それらしい「敵が倒れたら勝ち」を足していない**（**原盤の arm を 読んでいないので**）。
+
+## D-M. ★patch spec★（★私が触らない 2 file★・適用は worker1 か boss1）
+
+> **★行番号ではなく 逐語の anchor で書く★**（§11 の規範）。**適用時に `grep -n` で位置を出すこと。**
+
+### P-1. `DialogueRuntime.cs` — `case OP_SCENE_DRIVER` の **park 枝**（★2 行★）
+
+**現状（逐語）**:
+```csharp
+                        if (_battle != null)
+                        {
+                            _battle.ParkTicks++;
+                            if (!_battle.ShouldEndNow)
+                                return;   // ★park 継続 = _pc を 0x66 に据え置いて この tick を終える（State=Running 維持）★
+                            EndBattleAtomic(DigimonWorld.Battle.BattleEndKind.StubNoBattle);
+                            break;        // ★0x66 の実行を 終える★ = post-switch で _pc += len(=2)
+                        }
+```
+**適用後**:
+```csharp
+                        if (_battle != null)
+                        {
+                            _battle.ParkTicks++;
+                            _battle.Advance(BattleDtOverrideForVerify ?? UnityEngine.Time.deltaTime);   // ★追加★
+                            if (!_battle.ShouldEndNow)
+                                return;
+                            EndBattleAtomic(_battle.ExitKind);   // ★StubNoBattle 固定 → session が決めた 4 値★
+                            break;
+                        }
+```
+- **`BattleDtOverrideForVerify`** = **`static float?`（既定 null）**。**harness が `1f/60f` を pin して ★1 tick = 1 battle frame★ にするため。**
+- **★順序の依存（大事）★** = **この 2 行を入れる commit には ★結果適用（下の P-2）も 同じ commit で★ 入れること。**
+  **理由** = **`Advance` を繋いだ瞬間 `ExitKind` が `Decided` を返し得る** ⇒ **現行の `EndBattleAtomic` は
+  `HasApplicableResult` で ★`NotImplementedException` を投げる★**（step1 の意図的な fail-loud）。**片方だけ入れると 例外で落ちる。**
+- **★入れないうちは 何も起きない★** = **`Advance` の呼び手が 0 件のあいだ `ShouldEndNow` は step1 と bit 同一**
+  （**harness D1 で固定済**）。
+
+### P-2. `DialogueRuntime.cs` — `EndBattleAtomic` の **(1) 結果の適用**
+
+- **`if (b.HasApplicableResult) throw new NotImplementedException(...)` を ★実際の適用に置き換える★**:
+  **`BattleEntry.ApplyResult((int)b.Result.Value, stats)`**（**`stats` の出所 = `IBattleStats` の実装先で、★worker1 の領域★**）。
+- **★`Result` が null の kind（`StubNoBattle` / `Aborted`）では 何も適用しない★**（**§11-7 = 「結果が無い」を `0`（逃走）に畳まない**）。
+- **(2) view の破棄 = ★足さないでください★** — **`BattleView` は `BattleSession.Current` を見て 自分で消える**
+  （**`Current` は `EndKind != Running` になった瞬間 null を返す**）。**★二重の破棄口を作らない★。**
+- **(3) 入力 lock = ★足す必要が無い（と 私は読んでいる）★** — **戦闘後 VM は `Finished` に落ち、
+  `TextboxView` の `OnFinished` → `FieldState.OnDialogueFinished` が `InputLocked=false` に戻す**。
+  **★但し これは code を読んだだけで 走らせていない★**（**park を繋いでいないので当然**）⇒ **★P-1 適用後の run で 確かめること★。**
+
+### P-3. `TextboxView.cs` — stall 診断の **battle-active 除外**（§11-4）
+
+**現状（逐語）**:
+```csharp
+            if (_rt != null && !_rt.IsFinished)
+            {
+                if (_rt.State == _lastDiagState && _rt.Pc == _lastDiagPc && _rt.EmittedPages.Count == _lastDiagPages)
+                {
+                    if (++_stallFrames == 90)
+                        Debug.Log($"[STALL-DIAG] 90 frame 停滞: state={_rt.State} pc=0x{_rt.Pc:X} pages={_rt.EmittedPages.Count} speaker={_rt.CurrentSpeaker}");
+                }
+                else { _stallFrames = 0; _lastDiagState = _rt.State; _lastDiagPc = _rt.Pc; _lastDiagPages = _rt.EmittedPages.Count; }
+            }
+```
+**適用後**（**`_stallSuppressedLogged` を field に 1 本足す**）:
+```csharp
+            if (_rt != null && !_rt.IsFinished)
+            {
+                if (_rt.BattleActive)   // ★park 中は (State,Pc,pages) が不変で当然 = 誤検知★（§11-4）
+                {
+                    if (!_stallSuppressedLogged)
+                    {
+                        _stallSuppressedLogged = true;
+                        Debug.Log("[STALL-DIAG] ★battle-active ゆえ stall 判定を抑止★（黙って消していない・1 戦につき 1 度）");
+                    }
+                    _stallFrames = 0;
+                }
+                else
+                {
+                    _stallSuppressedLogged = false;
+                    …（現行のまま）…
+                }
+            }
+```
+- **`_rt.BattleActive` は ★既に public★**（`DialogueRuntime` の `BattleActive { get { return _battle != null; } }`）
+  ⇒ **`TextboxView` から `BattleSession` を参照しない**（**依存を増やさない**）。
+
+## D-N. verify の現況（★D-H の表を 実測で 埋めた★）
+
+| # | 何を | 結果 |
+|---|---|---|
+| **V1** | gate OFF の不変 | **未実施**（`BattleSeamVerify66` は **Unity Editor が要る** ⇒ **席の GO 待ち**） |
+| **V2** | baseline 3 値（`CutsceneVerify178`） | **未実施**（同上） |
+| **V3** | 1 戦が有限で終わる | **PASS**（`run_step_d.sh` D2 = `frame=60` / 強制 hit 3 発 / `result=Minus1`） |
+| **V4** | park 再入が seam census を汚さない | **未実施**（**park を繋ぐ P-1 が入ってから**。★harness D1 は「未接続では step1 と同一」までを固定★） |
+| **V5** | counter が 1 回だけ | **未実施**（同上・**step1 側の器で既に 1 箇所化済**） |
+| **V6** | damage の live 突合 | **未実施**（**本 slice の画面数値とは 別物** = **live sample の入力を入れる test は 未作成**） |
+| **V7** | 勝利路 | **★通せないことが判明★**（D-L-2）⇒ **D3 が 限界を固定する test に変わった** |
+| **V8** | 見た目 | **★user 実視覚★**（**我々には確かめられない**） |
+
+## D-O. 札の更新（実装で 増えた / 消えた）
+
+| # | 札 | 状態 |
+|---|---|---|
+| **D-11（新）** | **材料** | **★勝利（`Win`）/ 逃走（`Zero`）に至る exit arm が remake に無い★**（`f_80057C00` は 222 命令中 arm 1 本しか読まれていない） |
+| **D-12（新）** | **材料** | **強制 hit の `SkillPower` は ★出所なしの仮値★**（`wazaTbl` を asset 化していない）／敵が受け手のときの属性は **`0xFF×3` の仮値** |
+| **D-13（新）** | **実機/材料** | **P-2 (3)「戦闘後に `InputLocked` が戻る」は ★code を読んだだけ★**（park を繋いだ run で確かめる） |
+| D-2 | 材料 | **drain 周期 = 毎 frame 1 回を仮置き**（**勝敗には影響しない = 実効値を変えないため**・harness D7 で固定） |
