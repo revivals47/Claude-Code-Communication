@@ -964,8 +964,8 @@ if (_rt != null && !_rt.IsFinished)
 
 | # | 何を | 結果 |
 |---|---|---|
-| **V1** | gate OFF の不変 | **未実施**（`BattleSeamVerify66` は **Unity Editor が要る** ⇒ **席の GO 待ち**） |
-| **V2** | baseline 3 値（`CutsceneVerify178`） | **未実施**（同上） |
+| **V1** | gate OFF の不変 | **★PASS（2026-08-30 実測・-assy3 / Unity batchmode）★** = `RESULT=GREEN(textIdentical=True OFFgated=0 ONgated=7 reach=7)` = **baseline と同一**。**★`reach=7` が 膨らんでいない★**（park 再入で seam census が汚れていない・母数 = CENSUS 225 entry / SWEEP 1556 section 全数） |
+| **V2** | baseline 3 値（`CutsceneVerify178`） | **★PASS（同 run）★** = `pages=0/66` `chars=0/1601` `termPc=0x1A/0x1315` = **★baseline と bit 一致 = 動いていない★**（**`RESULT=FAIL` は この base の baseline RED そのもの**・**★GREEN に戻すのは目標ではない★**） |
 | **V3** | 1 戦が有限で終わる | **PASS**（`run_step_d.sh` D2 = `frame=60` / 強制 hit 3 発 / `result=Minus1`） |
 | **V4** | park 再入が seam census を汚さない | **未実施**（**park を繋ぐ P-1 が入ってから**。★harness D1 は「未接続では step1 と同一」までを固定★） |
 | **V5** | counter が 1 回だけ | **未実施**（同上・**step1 側の器で既に 1 箇所化済**） |
