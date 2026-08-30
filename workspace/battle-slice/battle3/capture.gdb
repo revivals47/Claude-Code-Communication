@@ -31,6 +31,7 @@ target remote 127.0.0.1:2345
 set $e088 = *(unsigned char*)0x8013E088
 set $pad = *(unsigned short*)0x8013E2C0
 set $dumped = 0
+set $nextmark = 20
 printf "START e088=%u hp=%u/%u flag69=%02x pad=%04x\n", $e088, \
   *(unsigned short*)0x8016B0D0, *(unsigned short*)0x8016B0CC, *(unsigned char*)0x801692A1, \
   *(unsigned short*)0x8013E2C0
@@ -61,6 +62,15 @@ while $n < 4000
     printf "PAD_CHANGE %04x->%04x pc=%08x\n", $pad, $padnow, $pc
   end
   set $pad = $padnow
+
+  # ★20 stop ごとに 生存印★（2026-08-30 追加）
+  #   ★理由★ = stop.sh で途中終了すると TOTAL_STOPS が出ないので、
+  #   ★「押していた間に stop が在ったのか」が 事後に判らない★。
+  #   これが無いと「別番地」と「また未測定」を ★分けられない★。
+  if $n >= $nextmark
+    printf "STOPS %d pad=%04x\n", $n, $padnow
+    set $nextmark = $n + 20
+  end
 
   # ① damage tuple ＋ ⑥⑦ を毎回
   if $pc == 0x8005e31c
