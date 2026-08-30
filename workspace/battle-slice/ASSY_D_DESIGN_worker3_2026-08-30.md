@@ -769,6 +769,7 @@ if (_rt != null && !_rt.IsFinished)
 
 | # | commit | 単体で緑か |
 |---|---|---|
+| **0** | **★閉じた claim の 札を 直す（文だけ・値は変えない）★ = D-K の 5 箇所 ＋ 任意 3 行**。**★着手時に grep を再走してから★**（**古い census で直しに行かない**） | **緑**（**comment のみ ⇒ 挙動 bit 不変**） |
 | 1 | `BattleSession.cs` 追加（**誰も呼ばない**） | **緑**（compile のみ・挙動不変） |
 | 2 | `BattleView.cs` 追加（**`Current` が常に null ゆえ 完全 inert**） | **緑**（V1） |
 | 3 | `0x66` case に **park guard ＋ session 開始**（**gate ON でだけ動く**） | **緑**（V1 / V2 / V4 / V5） |
@@ -794,3 +795,50 @@ if (_rt != null && !_rt.IsFinished)
 | D-8 技発動 / 接近の中身 | **材料** | **未閉**（**強制 hit で迂回・距離は「未実装」と画面に書く**） |
 | **D-9（新）** | **材料** | **★teardown の口を全列挙していない★** — 私が知っているのは **正常完了 / frame cap / invariant 違反 / `BattleView.OnDisable`** の 4 口。**`FieldState.Exit` など flow 側の口は数えていない**（`[[feedback_retreat_entry_points_and_compat_fold]]`） |
 | **D-10（新）** | **材料** | **強制 hit の `SkillIndex/Power/Element` ＋ `DefAttr0/1/2` は仮値**（技表・species 表を asset 化していない）。★`DefAttr` は 未設定だと 黙って `0` になる欄★ ⇒ **明示代入 ＋ log** |
+
+
+---
+
+## D-K. ★閉じた claim の 札が code に 残っている箇所（census・便 #929-W3b/W3c）★
+
+> **★枠（1 行）★** = **`ea600ab5` の `unity/**/*.cs` ★全数★ を grep・**該当は `Battle/` に ★5 件★**・**`md` / doc 側は数えていない**。
+> **★boss1 が独立の grep で 全 5 件 一致（逐語）★**。**tip（`track1/battle-assembly`）は worker1 が動かしている ⇒ ★直す瞬間に再走する★。**
+
+**閉じた claim** = **§9 で `-1` = 敗北 / `0` = 逃走 / `1` = 勝利 が確定した**（worker1 の逐語 ＋ field 側 penalty の大きさで独立に一致）。
+
+### 直す（5 件・★値は変えない・文だけ★）
+
+| # | 場所 | 今の文 | どう直すか |
+|---|---|---|---|
+| 1 | `Battle/BattleActor.cs:52` | enum summary「`−1` と `0` のどちらが逃走でどちらが敗北かは未決」 | **§9 の確定に差し替え** |
+| 2 | `Battle/BattleEntry.cs:163` | `ApplyResult` doc・同文 | **同上** |
+| 3 | `Battle/BattleEntry.cs:165` | care 未配線の **★理由★** =「未決ゆえ 3 分岐に割り当てられない」 | **★消さない = 理由の差し替え★**（下記） |
+| 4 | `Battle/BattleEntry.cs:190` | `RunToCompletion` の札「／実機（`−1` と `0` の別）」 | **札から その 1 項を外す**（**他の札は残す**） |
+| 5 | `Battle/BattleRuntime.cs:116` | `Result = Zero` 固定 STUB の同じ札 | **同上**（**§11-7 の直しと同じ箇所ゆえ 同じ commit で**） |
+
+### ★#3 は 消すと 意味が 反転する★
+
+- **§9 が閉じたのは「どちらが敗北か」であって ★「罰を配線してよいか」ではない★**（統合 doc §9 の但し書き）。
+- **★「未決ゆえ配線しない」を ただ消すと、次の人は「決まったのだから配線してよい」と読む★。**
+- **書き換え先（そのまま使う）** =
+  **「`-1` = 敗北 / `0` = 逃走 は §9 で確定。★但し care 増減は 本 phase では配線しない（別の理由）★。
+    配線するときは必ず `ClampCare` を通す = `0x80141D42` は `−100..+100`（0 下限にしない）」**
+- **★これは boss1 の依頼文（「文だけ差し替え」）を そのまま実行すると 壊れる 1 件★** — **boss1 も同意（便 #929-W3c ■2）。**
+
+### 直さない（★grep に掛かるが 誤りではない★）
+
+- **`Battle/BattleEntry.cs:35`**「`result −1` と `0` で 1・勝利で 0」= **`NotWon` の説明として そのまま正しい**
+  （**どちらが敗北かに依らない**）⇒ **★直しすぎない★**。
+
+### 任意（★値は変えない・文だけ★・boss1 承認）
+
+- enum の member 3 行（`Minus1` / `Zero` / `Win`）は **field 側の効果しか書いていない**
+  ⇒ **`Minus1` = 敗北 / `Zero` = 逃走 / `Win` = 勝利 を 1 語ずつ足す**。
+- **★但し 格を code 側にも残す★** = **「`味方 +0x4C == 0` が敗北」は ★1 段の推論★**
+  （**「HP 0 = 負け」は逐語に無い**・worker1 の申告どおり）。**★逐語と推論を 同じ強さで書かない★。**
+
+### ★母数の記録（boss1 の grep・私は挙げなかったもの）★
+
+**boss1 の独立 grep には 他に 4 件 掛かった** = `DialogueRuntime.cs:100` / `W1GateCensus.cs:49` / `EntityPlacer.cs:137` / `GameState.cs:641`。
+**これらは ★別の主題の「未決」★**（handler 名 / flag id / 対の総数）⇒ **本 census の対象外**（**boss1 も同判定**）。
+⇒ **★「5 件」は `Battle/` の中の数であって、`unity/` 全体でも EXE 全体でもない★。**
