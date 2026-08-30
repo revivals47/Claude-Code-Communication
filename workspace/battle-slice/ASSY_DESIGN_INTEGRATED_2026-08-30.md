@@ -342,3 +342,56 @@ loop 直後 18 命令の逐語 = `0x8005CB28 lh v0,0x8016B0D0`（味方 `+0x4C`�
 **行動と damage が stub のままだと ★誰の HP も減らず 戦闘が終わらない★**（codex C・boss1 確認済）。
 ⇒ **最小 slice では ★damage が必ず入る経路を 1 本 通す★**（**live 確定した式で 敵 → 味方 の 1 発**）。
 **★「終わらない」を silent に作らない★** — **上限 frame に達したら loud に落とす。**
+
+---
+
+## 12. ★実装 phase で 設計を 動かした もの（boss1 が doc 側に 書き戻す・2026-08-30 夜）★
+
+**この節が要る理由** = **doc の外に出た claim は doc の中を直しても閉じない**。
+逆も真で、**実装で決め直したことを doc に書き戻さないと、次に読む人は撤回前の doc を読む**。
+
+### 12-1. ★★撤回 = 「BATTLE_SLICE=1 でも SCENE_DRIVER の bit は不変」は もう 成り立たない★★
+
+- **撤回の対象** = `#921-A1` の「**`break` しない**」= 当時の seam は **log だけ**だったので、
+  通り抜けても B1–B6 の bit は動かなかった。§5 の「OFF の時に何が不変か」も、その前提で読まれ得た。
+- **今** = **park する**ので、**battle epilogue が B2–B6 を置換する（通さない）**（§11-3(2)）。
+  **⇒ `DEGIMON_BATTLE_SLICE=1` のとき、SCENE_DRIVER の bit は BATTLE_SLICE に依らず不変 ではない。**
+  **これは事故ではなく、設計としてそう決めた。**
+- **`DEGIMON_BATTLE_SLICE=0` のときは 従来どおり不変**（`BattleSeamVerify66` の OFF 側が それを毎回 測っている）。
+- 出所 = worker1 の step1 報告（自己申告）。**code の comment 側にも同文が入っている**（doc と code の 2 箇所）。
+
+### 12-2. ★検査の器が 別の tree を見ていた（4 日間）★
+
+- `workspace/battle-slice-verify/compile_gate.sh` は `ea600ab5` の **7 行目**で
+  `P=/home/ken/Desktop/Digimon/degimon_world_remake-p2w1/unity` を **hardcode**（override 引数なし）。
+  **p2w1 は凍結・clean** ⇒ **assy で何を壊しても `GATE=GREEN` が出る**。
+- 窓 = `e061d978`（08-26 03:28）→ `011238c6`（08-30 22:34）。**発見・修正とも worker1 の自己申告**。
+- **範囲（boss1 が全数で確認）** — **`222 standalone` は影響を受けない**:
+  `run_all.sh` / `run_step{2,3,4,5,6a,6b,7}.sh` / `run_live_compare.sh` は全部
+  `R=$(cd "$(dirname "$0")/../.." && pwd)` で **script 自身の場所から repo を出す**。固定 path は 1 つも無い。
+  **repo 内で `compile_gate.sh` を呼ぶ script は 0 件**（`f1b_accept.sh:48` / `f1b_diff_selftest.sh:40` の
+  `_compile_gate ()` は **同名の別物** = file 内 shell 関数。**名前の一致は同一物の証拠ではない**）。
+  ⇒ **露出は「人が手で叩いた run」だけ**。
+- **陽性対照の常設**（PRESIDENT 指示）= **既知 bad 状態 → `GATE=RED` を確認する口を script 自身に持たせる**。
+  叩き台 = `--selftest`（対象 tree に一時 CS error を置き、RED が出なければ script 自身が非 0 で落ちる）＋ **gate 自身の sha を印字**。
+  **これが無かったから「正しい tree を見ているか」を 1 度も検定していなかった。**
+
+### 12-3. ★land 記録（実装 base = `integration/p2-battle-v2` = `ea600ab5`）★
+
+| step | commit | 内容 | SEAM66 | CUT178 |
+|---|---|---|---|---|
+| 実装前 | `ea600ab5` | base | GREEN(True/0/7/7) | RED(0/66・0/1601・0x1A/0x1315) |
+| step1 | `011238c6` | counter 単一権威 ＋ session lifecycle | 同左（逐語一致） | 同左（3 値同値） |
+| step2 | `6506ea33` | index ずれ修正 ＋ `Result` を §9 の写像に ＋ index 空間を型で分離 | 同左 | 同左 |
+
+- **`CutsceneVerify178` の RED は本 phase の目標ではない**。**baseline として使う**（3 値が動いたら battle 起因）。
+- **`expected_counts` `5=81 → 84`** の +3 は **旧実装なら落ちる差分 test**（R3 / R3b / R3c / R4' / R4''）。
+  **実測に合わせた追認ではない。** `R3c` は **null / −1 / 0 の 3 値**で「未決」を「0」に畳んでいない。
+
+### 12-4. ★まだ言えないこと（実装が進んでも 据え置き）★
+
+- **「counter が実際に 1 回だけ進む」は未証明** — **静的な順序は順序の証拠であって回数の証拠ではない**。
+  **戦闘が実際に走る step まで保留。**
+- **`Win` を立てる経路は 0 件** — **欠陥ではなく未到達**（damage 着弾 step 待ち）。
+  **`Zero` の 0 件（良い 0）と同じ記号に畳まない。**
+- **画面には何も出ていない。完成 claim はゼロ。** 最終 verify は **user 実視覚**（我々 3 人とも GUI 視覚 verify は不可）。
