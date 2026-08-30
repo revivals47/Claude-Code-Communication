@@ -34,6 +34,11 @@ for line in sys.stdin:
         print("★はじめました。★ " + line.strip()[6:], flush=True); continue
     if line.startswith("E088_1TO0 "):
         print("  ◆ 目印の値が 1 から 0 に変わりました → " + line.strip()[10:], flush=True); continue
+    if line.startswith("E088_CHANGE "):
+        print("  ◆ 目印の値が 変わりました（" + line.strip()[12:] + "）", flush=True); continue
+    if line.startswith("TOTAL_STOPS "):
+        print("★止まった回数 = " + line.strip()[12:] + " 回★（前回は 107 回。減っていれば 幅の直しが効いています）",
+              flush=True); continue
     if line.startswith("HP "):
         print("        （" + line.strip()[3:] + "）", flush=True); continue
     if line.startswith("DUMP_"):
