@@ -29,6 +29,7 @@ target remote 127.0.0.1:2345
 # ★2026-08-30 訂正: u32 → ★u8★（出所 = RE_battle_damage_e2e 「(u8)[gp-0x6D84]」逐語）★
 #   ★u32 で見張ると E089/E08A/E08B を巻き込む★ = 前 run は 107 停止のうち 93 が隣の書き込みだった。
 set $e088 = *(unsigned char*)0x8013E088
+set $pad = *(unsigned short*)0x8013E2C0
 set $dumped = 0
 printf "START e088=%u hp=%u/%u flag69=%02x pad=%04x\n", $e088, \
   *(unsigned short*)0x8016B0D0, *(unsigned short*)0x8016B0CC, *(unsigned char*)0x801692A1, \
@@ -51,6 +52,15 @@ while $n < 4000
     printf "E088_CHANGE %u->%u pc=%08x ra=%08x\n", $e088, $now, $pc, $ra
   end
   set $e088 = $now
+
+  # ＋材料: pad は ★E088 と同じ密度（毎 stop）で 変化した時だけ★ 1 行。
+  #   ★2026-08-30 の直し★: 前 run は START と HIT でしか見ておらず ★印字点が 2〜5 個★ だったため
+  #   ★カーソル 1 往復が その数点に当たる確率が ほぼ 0 = 未測定・判定不能★ に終わった（boss1 の器の設計漏れ）。
+  set $padnow = *(unsigned short*)0x8013E2C0
+  if $padnow != $pad
+    printf "PAD_CHANGE %04x->%04x pc=%08x\n", $pad, $padnow, $pc
+  end
+  set $pad = $padnow
 
   # ① damage tuple ＋ ⑥⑦ を毎回
   if $pc == 0x8005e31c
