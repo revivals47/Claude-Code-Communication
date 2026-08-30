@@ -383,6 +383,13 @@ loop 直後 18 命令の逐語 = `0x8005CB28 lh v0,0x8016B0D0`（味方 `+0x4C`�
 | 実装前 | `ea600ab5` | base | GREEN(True/0/7/7) | RED(0/66・0/1601・0x1A/0x1315) |
 | step1 | `011238c6` | counter 単一権威 ＋ session lifecycle | 同左（逐語一致） | 同左（3 値同値） |
 | step2 | `6506ea33` | index ずれ修正 ＋ `Result` を §9 の写像に ＋ index 空間を型で分離 | 同左 | 同左 |
+| step3 | `2532fa25` | `RawE104` を値の出所に・`_sceneWire` に従属させない・**出所を 3 値で持つ** | 同左 | 同左 |
+| step4/5 | `95d35255` | 走らせる stat を live snapshot の固定値に ＋ 敵 `+0x48/+0x4A` は**未設定のまま loud** | 同左 | 同左 |
+| 段 A | `3d143bf6` | worker3 の (d) を取り込む（**配線しない**） | 同左 | 同左 |
+| 段 B | `2db84907` | **P-1(driver 接続) ＋ P-2(結果適用) を同一 commit** ＋ park 回数を数で測る harness | 同左 | 同左 |
+| 段 C | `cfb86f98` | P-3 = park 中の stall 誤検知を抑止（**黙って消さない**） | 同左 | 同左 |
+| — | `f9a3ec50` / `9ed1bae8` | 属性表の provision を **`Bootstrap`（session より前）**へ ＋ 順序に依らない retry | 同左 | 同左 |
+| 段 D | `e61271a5` | **順序非依存を器で守る** test ＋ harness を game と同じ provision 口へ | 同左 | 同左 |
 
 - **`CutsceneVerify178` の RED は本 phase の目標ではない**。**baseline として使う**（3 値が動いたら battle 起因）。
 - **`expected_counts` `5=81 → 84`** の +3 は **旧実装なら落ちる差分 test**（R3 / R3b / R3c / R4' / R4''）。
@@ -455,3 +462,57 @@ worker1 が一貫して申告していた範囲 = **`f_80057C00` の 222 命令�
   **勝利 arm を模した人が この test を書き換える**（= **未実装が器の側から声を出す**）。
 - **画面と log で「勝利では終われない」ことを明示する。**
 - **user に見せてよいかは user の判断**（PRESIDENT 経由で照会中・2026-08-30 夜）。
+
+---
+
+## 14. ★配線まで来た時点の 到達点と 未到達点（2026-08-30 深夜・boss1）★
+
+### 14-1. ★harness の中では 戦闘が 走って 決着した★
+
+`-assy` HEAD = `e61271a5`。**driver 接続の条件で 61 tick 戦い、決着 `-1`・勝敗 flag(`0x8013E088`)=1**。
+`run_all` = **8 step 全緑 / TOTAL PASS 240 / NG 0**（**Unity 側の条件を足したので standalone の本数は増えない**）。
+
+**保留していた `V5` が数になった**（park 長 2 条件 ＋ driver 接続）:
+
+| 条件 | E(窓内 0x66 進入) | park tick | ΔE12C |
+|---|---|---|---|
+| park=1 | 1 | 1 | 1 |
+| park=30 | 1 | **30** | **1** |
+| driver 接続 | 1 | 61 | 1 |
+
+**`park=30` で ΔE12C=1 ⇒「毎 frame 加算」の bug は否定**（**`park=1` だけでは否定できない**）。
+`E` は **harness が静的 decode で決め、runtime counter を通していない = 独立**。
+**`V4` と `V5` は「2 本通った」ではない** — **1 つの guard に対する 2 つの見方**（**同じ直線 block の 2 変数は同時に壊れる**）。
+**測定前 assert `RawE12C < 0x270f`**（**飽和すると Δ=0 が出て偽の合格に見える = 「1 回だけ」でなく「1 回も」**）。
+
+### 14-2. ★順序依存を 器で 塞いだ（doc の註では 守れない）★
+
+**穴** = `MatrixProvider` の provision が `BattleView.Update` の `if (s == null) return;` の**下**に在り、
+**session が在るときにしか走らない** ⇒ **MonoBehaviour の Update 順（既定 未定義）に依る**。
+**3 人とも「今の code では発火しない」と読んだ**（`Advance` の呼び手は `DialogueRuntime.cs:2037` の park 枝 1 件のみ／
+初回進入は `BeginBattleAtomic(); return;`／production の VM 駆動は `TextboxView.cs:265` の 1 件）。
+**しかし 3 人とも同じ code を同じ向きに読んでおり独立ではない。真の反証は play-mode でしか取れず、我々には踏めない。**
+**∴「当たっている」で閉じず、依存そのものを消した** — `Bootstrap` で provision ＋ session の有無に依らない retry。
+
+**器で守る test**（`e61271a5`）:
+- ①**provision を 1 度もしない → abort する**（**陽性対照**。**①が abort しなければ ②の GREEN は何も意味しない**と code に明記）
+- ②**game と同じ口（`BattleView.TryProvisionMatrix`）を reflection で呼ぶ → abort しない。`Update` は 1 度も呼ばない**
+- **口が見つからなければ `NOT-MEASURED`**（**緑に逃がさない**）
+
+### 14-3. ★★我々に測れないもの（user 実視覚の 手前で 止まる 3 件）★★
+
+1. **play-mode の実行順** — headless では `MonoBehaviour` の `Update` が回らないので、
+   `BattleView` と `TextboxView` の実行順が**そもそも存在しない**。
+2. **札 D-13（戦闘後に lock が戻るか）** — 同じ理由で未確認。**「読んだ限り戻るはず」を検証済とは書かない**。
+3. **画面に何が出るか** — **我々 3 人とも GUI の視覚 verify ができない**。
+
+**∴「戦闘が走り画面に出る build ができた」とは書かない。**
+書けるのは **「compile が通り、harness の中では戦闘が走って決着し、順序依存を器で塞いだ build が在る」**まで。
+
+### 14-4. ★harness が隠していたもの（自己申告 3 件）★
+
+- **`SEAM66` の ON 側 GREEN は戦闘が走った証拠ではない** — 属性表を渡していないので **abort して 1 frame も戦わずに畳む**。
+- **`run_all.sh` の step 名 regex が `run_step_d.sh`（下線）を拾えず**、expected に登録しても走らなかった
+  = **`run_all` が守るはずの「step 丸ごと消し忘れ」を自分で作る形**。(d) の 9 本はこれで初めて gate に載った。
+- **合成 script の subtable の byte 順が逆**（`FE 08` → `0x08FE`）で section table が空 ⇒
+  **`BattleSeamVerify66` の `RunSynthetic` は 1 度も走っていなかった**（実 data に site が在るため**露見しなかった**）。
