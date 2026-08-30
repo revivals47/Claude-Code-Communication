@@ -38,6 +38,8 @@ for line in sys.stdin:
         print("  ◆ 目印の値が 変わりました（" + line.strip()[12:] + "）", flush=True); continue
     if line.startswith("PAD_CHANGE "):
         print("  ◆ ボタンの値が 変わりました（" + line.strip()[11:] + "）", flush=True); continue
+    if line.startswith("HP_CHANGE "):
+        print("  ・（HP が 変わりました: " + line.strip()[10:] + "）", flush=True); continue
     if line.startswith("STOPS "):
         print("  ・（動いています: " + line.strip()[6:] + "）", flush=True); continue
     if line.startswith("TOTAL_STOPS "):

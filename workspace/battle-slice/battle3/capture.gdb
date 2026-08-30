@@ -30,6 +30,7 @@ target remote 127.0.0.1:2345
 #   ★u32 で見張ると E089/E08A/E08B を巻き込む★ = 前 run は 107 停止のうち 93 が隣の書き込みだった。
 set $e088 = *(unsigned char*)0x8013E088
 set $pad = *(unsigned short*)0x8013E2C0
+set $hp  = *(unsigned short*)0x8016B0D0
 set $dumped = 0
 set $nextmark = 20
 printf "START e088=%u hp=%u/%u flag69=%02x pad=%04x\n", $e088, \
@@ -62,6 +63,18 @@ while $n < 4000
     printf "PAD_CHANGE %04x->%04x pc=%08x\n", $pad, $padnow, $pc
   end
   set $pad = $padnow
+
+  # ★HP も 毎 stop・変化した時だけ★（2026-08-30 追加）
+  #   ★理由★ = 今は HIT の時にしか HP を見ていないので、
+  #   ★HP 収支で見つかった「記録に現れない減り」が どこで起きたかが 判らない★。
+  #   毎 stop 見れば ★damage 停止の近くか 別の場所か★ が出る
+  #   ⇒ ★(α) damage が消えた★ と ★(γ) 攻撃以外の減り★ を ★分けられる見込み★。
+  #   ★原因を仮定せず 測るだけ★（「直すなら原因を先に」に反しない）。
+  set $hpnow = *(unsigned short*)0x8016B0D0
+  if $hpnow != $hp
+    printf "HP_CHANGE %u->%u pc=%08x\n", $hp, $hpnow, $pc
+  end
+  set $hp = $hpnow
 
   # ★20 stop ごとに 生存印★（2026-08-30 追加）
   #   ★理由★ = stop.sh で途中終了すると TOTAL_STOPS が出ないので、
