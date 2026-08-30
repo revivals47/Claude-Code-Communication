@@ -932,3 +932,42 @@ selectWaza(state, actor, mask, target):
   **本フェーズの走査では、この 2 つの VA を materialize する `lui` ペアは EXE に 0 件**（対する `0x8013A924` / `0x8013CDB8` は各 106 件）。
   ⇒ ★同じ `lui` 符号拡張の穴に落ちている可能性が高いが、**別の調査の doc ゆえ boss1 は書き換えない**★。
   札 = **材料**（各 doc の持ち主が、当該行の VA を materialize 照合してから直す）。
+
+## §9.6 ★★実機検証 PASS — 主要 damage 経路 ＋ 属性表（7×7）が live で確定（2026-08-30・user 裁定）★★
+
+### 何が確定したか（★格を偽らない★）
+
+**★live 確定★** = **主要 damage 経路（系統 B・相手 → 味方）** ＋ **属性表 `0x801322F4` の寄与**
+
+- **決め手** = `result_20260830_203546` の **`HIT dmg=398 skill=20 elem=4 atk=140 def=60 species=3 attr=[0,255,1]`**
+  - **表あり予測 `329〜402` に 398 が入る** ／ **表なし予測 `219〜268` では 398 を説明できない** = **discriminating match**
+  - **予測は ★撃つ前に固定★**（`verdict.py` の式・`BATTLE3_STEP1_PREREG_2026-08-29.md`）
+- **★循環していない★** = **予測は我々のモデル、照合先は ★実機が出した数値★**（独立 oracle）
+  ⇒ `[[feedback_verify_the_oracle_not_just_the_match]]` / `[[feedback_live_visual_verify_before_completion]]` の **numeric 版が PASS**
+- **他の live 確定**（同 corpus）= `eff_sum` が **`elem 0 × species 3` で 35**（観測 9 発・全 16 候補中 1 個）／
+  **`elem 2` で 40**（観測 2 発）／**`elem 4` は [45, 50]**（観測 2 発・55 は 398 で落ちた）
+
+### ★live で確定していないもの（= 「ほぼ合っている前提」で進める部分）★
+
+**以下は ★RE grade（コード直読 ＋ headless）★ であって ★未 live★。**
+
+| 項 | 状態 |
+|---|---|
+| **SITE B**（もう一方の damage 経路） | **未 live** |
+| **迎撃 / カウンター** | **未 live** |
+| **MP 消費** | **未 live** |
+| **系統 A（味方 → 相手 の攻撃）** | **未 live**（我々が捕まえたのは **相手 → 味方** だけ・HP 収支で確認） |
+| **属性表の 他 cell**（`×0.5` / `×2.0` の帯） | **未 live** — **示せたのは 49 セル中 5 個**（`[0][1]` `[2][0]` `[2][1]` `[4][0]` `[4][1]`）／位置として触れたのは 8 |
+| **乱数項の分布** | **未 live**（幅と両立しただけ・分布は測っていない） |
+| **命中判定 / bonus** | **未 live** |
+
+> **★∴ 「主要式は実機確定・残りは ほぼ合っている前提」と書く。★「式が検証された」とは書かない。★**
+
+### live sampling は終了（2026-08-30）
+
+- **capture harness を外した** = **watchpoint 全解除 ＋ `continue` ＋ gdb close**。
+  **解除前に `info watchpoints` を確認 = `No watchpoints`**（**stub は前回の kill で既に落としていた**）。
+  **detach 後 DuckStation の CPU = 313 tick/3 秒**（halt 時 ~10-16）⇒ **★動いている★**。**実 gdb = 0 件。**
+- **★使ったのは data watchpoint（`watch` = remote の Z2/Z3）だけ★** — **`break` / `hbreak` / `tbreak` は ★0 件★**（両 `.gdb` を機械で確認）。
+  **`hbreak`（exec breakpoint = Z1）で DuckStation が 3 回落ちた 2026-08-21 の事象とは ★別系統★**。
+  **capture run 7 本すべてで DuckStation の再起動は発生していない = ★data watchpoint は安定★。**
