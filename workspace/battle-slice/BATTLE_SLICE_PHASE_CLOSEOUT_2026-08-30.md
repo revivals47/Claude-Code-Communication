@@ -70,7 +70,7 @@
 | **式** | **live 確定**（上記 A-3） |
 | **属性表** | **5 cell が live**／残り 44 は表の値（未 live） |
 | **技表** | `wazaTbl 0x801325C0` stride 16（`+0x04` power / `+0x09` element は live 一致） |
-| **actor record** | 両 104 byte の **live snapshot × ★5 run★**（`battle3/raw_*.log` の `DUMP_B084` / `DUMP_B104`）<br>**★2026-08-30 訂正★** = 初版は **「7 run」= 誤り**。**raw は 7 本だが `DUMP` を持つのは 5 本**（`183534` / `195615` は `DUMP` 0）。**worker1 #927-W1a の差し戻しを boss1 が再走して確認。**<br>（**「capture run 7 本すべてで crash なし」の 7 は正しい** — **母数が違う数を同じ節に並べていた**） |
+| **actor record** | 両 104 byte の **live snapshot × ★5 run★**（`battle3/raw_*.log` の `DUMP_B084` / `DUMP_B104`）<br>**★2026-08-30 訂正（2 段）★**<br>**① 初版の「7 run」は この欄では誤り** — **`DUMP` を持つのは ★5 本★**（worker1 #927-W1a の差し戻し・boss1 再走で確認）。<br>**② ★但し「7 が誤りで 5 が正しい」ではない — 7 と 5 は数えている対象が違う★**（worker3 #927-W3b・boss1 再走で確認）:<br>**★7 = capture run（`raw` log）の本数★／★5 = actor record snapshot を持つ run の本数★**<br>⇒ **本 doc で 5 と書くときは 必ず「actor record snapshot を持つ run」と冠する。**<br>**★注意★ = `raw_20260829_195615` は `HIT` を 5 行持つのに snapshot は 0** ⇒ **「`HIT` の在る run」と「snapshot の在る run」を同じ集合として join するとずれる。** |
 | **勝敗 flag** | `0x8013E088`（u8）= **書き手 6 / 読み手 1**（EXE 全走査・下界）。敗北 `0x800AEDB0` と `1->0` `0x800E0A1C` は **live 観測** |
 
 ### 要るもの（**#907-A の材料札のまま・未着手**）
