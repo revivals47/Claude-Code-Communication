@@ -105,9 +105,13 @@ while $n < 4000
       *(unsigned short*)0x8016B0CC, *(unsigned char*)0x801692A1, \
       *(unsigned short*)0x8013E2C0
 
-    # ④⑤ は ★最初の HIT で 1 度だけ★（毎回だと量が多すぎる・状態の snapshot ゆえ 1 度で足りる）
-    if $dumped == 0
-      set $dumped = 1
+    # ★2026-08-30 変更（user 指示）★: ★毎 HIT で 記録する★（連続記録・取りこぼさない）
+    #   旧 = 最初の HIT で 1 度だけ（$dumped の 1 度きり制御）
+    #   ★理由★ = ★戦闘の 時系列が 要る★（HP が減っていく途中の 両 record を 全部 残す）。
+    #   ★poll にしない理由★ = ★gdb は 読むために 対象を 止める★ ⇒ 200-500ms poll は
+    #     ★ゲームを 止め続ける★ = 遊べない。★HIT を 引き金にすれば 止めるのは 元々止まる瞬間だけ★。
+    if $dumped >= 0
+      set $dumped = $dumped + 1
       echo DUMP_B084\n
       x/26xw 0x8016B084
       echo DUMP_B104\n
