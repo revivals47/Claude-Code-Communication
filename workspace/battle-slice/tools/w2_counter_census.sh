@@ -32,7 +32,9 @@ census() { # <系統名> <識別子 regex> <変異 regex>
   rst=$(g "$ID" | grep -E '= *0[;,]' | wc -l)
   local muts; muts=$(g "$MUT")
   local ninc; ninc=$(printf '%s' "$muts" | grep -c . )
-  echo "系統 $sys : R1=$r1  R2=$r2  ★R3-inc=$ninc★  R3-reset=$rst"
+  # ★#929-W2c ■2: R1 は 合否条件に しないが ★必ず 印字する★★
+  #   （★条件から 外した数を 見えなくすると、増えたことに 誰も 気づけない★ = boss1 が 何度も 踏んだ型）
+  echo "系統 $sys : ★R1=$r1（合否条件外・監視のみ）★  R2=$r2（合否条件外）  ★R3-inc=$ninc★  R3-reset=$rst（合否条件外）"
   [ "$ninc" -eq 0 ] && { echo "    （変異 0 件 ⇒ 包む method も 呼び出し site も 無い）"; return; }
   local m ln f name allnames=""
   while IFS= read -r m; do
@@ -71,6 +73,7 @@ echo "  ★改名 検知★: 旧名 SceneDriverCounterInc = $(g 'SceneDriverCoun
 
 echo
 echo "=== ★§11-2 / §11-5 の 完了条件（規則を 名指しで）★ ==="
+echo "  ★boss1 #929-W2c ■2 で 確定★（R1 は 合否に 使わないが 上に 必ず 出す）:"
 echo "  (i) ★系統 A の R3-inc == 0★（戦闘側から counter を 触らない）"
 echo "  (ii) ★系統 B の R3-inc == 1 かつ R4 == 1★（★口が 1 つ★ = 宣言も 呼び出しも 1 つ）"
 echo "  ★R1 == 0 は 条件に しない★（§11-2 は IBattleStats.Battles の 実装先を 未定と している）。"

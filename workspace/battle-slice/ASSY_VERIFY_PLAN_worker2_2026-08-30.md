@@ -252,3 +252,65 @@ step0_BASELINE_ea600ab5(出所=boss1実走・worker2未実走)  GREEN   True   0
 - **`FieldState.Exit()` の lock 解除と teardown の 原子性（§11-1）は ★未照合★。**
 - **`warp pending` invariant（§11-3(1)）が ★実際に loud に 落ちるか★ は 未実走。**
 - **step 2〜5 は **実装が 出ていない** ⇒ **§2 の 観点の まま。**
+
+---
+
+## 6. ★step 1 の 実走（`011238c6`）— ★4 値を 採った★★（追記・boss1 #929-W2c の GO 後）
+
+**Unity GO を 受けて 実走。★終了後 ps で Unity 残 0 件・assy tree は `011238c6` / porcelain 0 = 汚していない★。**
+
+### 6-1. ledger（★生成物・手で編集しない★）
+
+```
+label                                    SEAM66  txtId OFFg ONg reach SYNTH   pages  chars   termPc       CUT178  tree            harness_sha   gate_sha
+step0_BASELINE_ea600ab5(逐語引用・未実走) GREEN   True  0    7   7     ABSENT  0/66   0/1601  0x1A/0x1315  FAIL    QUOTE           QUOTE         QUOTE
+step1_011238c6                            GREEN   True  0    7   7     ABSENT  0/66   0/1601  0x1A/0x1315  FAIL    011238c6+clean  fed57f47bbb4  00ce90e1b741
+```
+
+**★数値 10 欄が 全て 同一★ ⇒ ★step 1 は この baseline から 非退行★。`error CS = 0`（両 log）。**
+**母数** = `entries 225/225`・`sections 1556` → **★実行到達 666（打ち切りなし）★**／`SITE 0x00 以外 = 0 件`。
+
+### 6-2. ★出所欄（boss1 #929-W2c ■4 の依頼）★
+
+**`compile_gate.sh` が 凍結 tree を hardcode し ★4 日間 偽 GREEN を 出していた★** ⇒
+**★「その行を 出した器の 版」を 欄に 持つ★**:
+
+| 欄 | 中身 | なぜ |
+|---|---|---|
+| `tree(HEAD+dirty)` | `011238c6+clean` | **★Unity が 読むのは commit ではなく working tree★** ⇒ **HEAD sha だけでは 足りない**。**dirty 件数を 併記。** |
+| `harness_sha` | `fed57f47bbb4` | harness 2 本（`BattleSeamVerify66.cs` ＋ `CutsceneVerify178.cs`）の sha |
+| `gate_sha` | `00ce90e1b741` | 同居する `compile_gate.sh` の sha（**この行を 出した器一式の 版**） |
+
+**出所は ★run 時に `provenance.txt` へ 固める★**（**後から 採り直すと 別の tree を 刻みかねない**）。
+
+### 6-3. ★★自己申告 = 不在を 1 種類に 畳んでいた★★
+
+**`SEAM66_SYNTH` が 両行とも 空だったが ★意味が 違う★:**
+**step0 = ★boss1 の 逐語引用に その行が 無い★／step1 = ★実 log に SYNTH が 1 件も 出ていない（`grep` 0 件）★。**
+
+> **★型★ = ★不在は 1 種類では ない★。「器が 見ていない」と「実機が 出さなかった」を 同じ記号に 畳むと、
+> ★後者を 前者だと 読んで 見逃す★**（**[[feedback_retreat_must_not_encode_as_pass]] の 親戚** —
+> **`true` に 畳まなくても ★2 つの 不在を 1 つに 畳めば 同じ穴★**）。
+
+**remedy（実装済）** = **`NOLOG`（log file が 無い）／`ABSENT`（log は 在るが 行が 無い）に 分けた。**
+**読み方** = **`tree` 欄が `QUOTE` の行の `ABSENT` は「引用に 無い」**／**実 tree の行の `ABSENT` は「★出なかった★」。**
+**`SYNTH` は 合否条件外** ⇒ **4 値の 判定には 影響しない。**
+
+**併せて** = **raw log 168MB を gzip（3.5MB）。★`f()` は `.gz` も 同じ file として 読む★**
+（**★保管の都合で 不在が 増える★ のを 防ぐ** = **圧縮したら `NOLOG` になる、では 器が 壊れる**）。
+
+### 6-4. ★step 1 の 判定（確定）★
+
+| 条件 | 結果 |
+|---|---|
+| §11-2 (a) 系統 A の `R3-inc == 0` | **満たす**（1 → 0） |
+| §11-2 (b) 系統 B の `R3-inc == 1` | **満たす** |
+| §11-2 (c) 系統 B の `R4`（呼び出し site）`== 1` | **満たす** |
+| §11-5 guard が 加算より 上 | **満たす**（guard < SeamReach < gate snapshot < 加算） |
+| verify 2 本 の 10 欄 | **★baseline と 全欄 同一 = 非退行★** |
+
+**★監視のみ（合否条件外・boss1 ■2）★** = `系統 A R1 = 5`／`系統 B R1 = 11`（**`ea600ab5` では 7 / 6**）。
+
+**★まだ 言えないこと★** = **「counter が ★実際に 1 回だけ★ 進む」**。
+**静的順序は ★順序の証拠であって 回数の証拠では ない★**（boss1 ■3 と同意）。
+**`ParkTicks` が 増える間 `E12C` が 動かないこと**は **★戦闘が 実際に 走る step まで 保留★。**

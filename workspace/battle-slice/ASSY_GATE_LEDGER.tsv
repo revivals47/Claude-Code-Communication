@@ -1,2 +1,3 @@
-label	SEAM66_RESULT	textIdentical	OFFgated	ONgated	reach	SEAM66_SYNTH	CUT178_pages	CUT178_chars	CUT178_termPc	CUT178_RESULT
-step0_BASELINE_ea600ab5(出所=boss1実走・worker2未実走)	GREEN	True	0	7	7	MISSING	0/66	0/1601	0x1A/0x1315	FAIL
+label	SEAM66_RESULT	textIdentical	OFFgated	ONgated	reach	SEAM66_SYNTH	CUT178_pages	CUT178_chars	CUT178_termPc	CUT178_RESULT	tree(HEAD+dirty)	harness_sha	gate_sha
+step0_BASELINE_ea600ab5(出所=boss1実走の逐語引用・worker2未実走)	GREEN	True	0	7	7	ABSENT	0/66	0/1601	0x1A/0x1315	FAIL	QUOTE	QUOTE	QUOTE
+step1_011238c6	GREEN	True	0	7	7	ABSENT	0/66	0/1601	0x1A/0x1315	FAIL	011238c6+clean	fed57f47bbb4	00ce90e1b741
