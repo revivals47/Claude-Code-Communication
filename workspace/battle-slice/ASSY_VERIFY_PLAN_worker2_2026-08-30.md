@@ -357,9 +357,11 @@ rev=6506ea33   Minus1 代入=1   Zero 代入=0   Win 代入=0
 
 **(b) ★`Minus1` の 1 は 「動いている 1」では ない★。**
 **`new BattleRuntime` = ★`unity/Assets/Scripts` で 0 件★**（**陽性対照** = 同じ器・同じ母数で
-`new BattleActor` / `new DialogueRuntime` が `DialogueRuntime.cs:8` ほか **複数件** 出る ⇒ 器は効いている）。
-**別母数の `workspace/battle-slice-verify/runtime_verify.cs` に 12 件。**
-**⇒ ★BattleRuntime を 駆動しているのは verify harness だけ★。game path は まだ 構築していない。**
+**`new DialogueRuntime` が ★39 件（21 file）★** ⇒ 器は効いている。
+**★`new BattleActor` は この母数では 0 件★** — **私が 当初 対照として 並べたのは 誤り**、§7-6 参照）。
+**別母数 `workspace` = `BattleActor` 48 / `BattleRuntime` 12 / `BattleSession` 3。**
+**⇒ ★戦闘の object graph が 丸ごと 未構築★**（**boss1 #929-W2e ■3 の一般形を採用** —
+**`BattleRuntime` だけの話では ない**）。**駆動しているのは verify harness だけ。**
 
 > **★型（3 つ目の 数の 読み方）★** = **`1` にも 2 種類ある** —
 > **★実行されている 1★ と ★書かれているが 未到達の 1★。**
@@ -398,3 +400,58 @@ rev=6506ea33   Minus1 代入=1   Zero 代入=0   Win 代入=0
   **私も 見ていない。**
 - **verify 2 本（`SEAM66` / `CUT178`）の 4 値は ★step2 では 未採取★**（**Unity の GO 待ち**）。
 - **`Win` 経路・damage 着弾・`HasApplicableResult` が 真になる path は ★まだ 存在しない★。**
+
+---
+
+## 8. ★step 2 の 実走（`a88ac2dd`）★ ＋ ★★§7-3(b) の 訂正（私の 陽性対照が 半分 空だった）★★
+
+### 8-1. 3 段 そろった ledger（★生成物★）
+
+```
+label                                     SEAM66 txtId OFFg ONg reach SYNTH   pages chars   termPc       CUT178 tree            harness_sha   gate_sha
+step0_BASELINE_ea600ab5(逐語引用・未実走)  GREEN  True  0    7   7     ABSENT  0/66  0/1601  0x1A/0x1315  FAIL   QUOTE           QUOTE         QUOTE
+step1_011238c6                             GREEN  True  0    7   7     ABSENT  0/66  0/1601  0x1A/0x1315  FAIL   011238c6+clean  fed57f47bbb4  00ce90e1b741
+step2_a88ac2dd                             GREEN  True  0    7   7     ABSENT  0/66  0/1601  0x1A/0x1315  FAIL   a88ac2dd+clean  fed57f47bbb4  99b5e5ff7766
+```
+
+**★10 欄すべて 同一★ ⇒ ★step1・step2 とも この RED から 非退行★。`error CS = 0`（両 log）。**
+**終了後 `ps` で Editor 0 件・tree `a88ac2dd` / dirty 0 = ★汚していない★。**
+
+**★出所欄が 初めて 仕事をした★** = `gate_sha` が **`00ce90e1b741` → `99b5e5ff7766`**。
+**`a88ac2dd`（compile_gate に 陽性対照を 常設）の 変更が 欄に 出た** ⇒
+**★「同じ数でも 出した器が 違う」ことが 後から 判る★**（**これが 出所欄の 目的**）。
+
+### 8-2. ★★訂正 — §7-3(b) の 陽性対照は 半分が 空だった★★（boss1 #929-W2e ■3）
+
+**私が 書いたもの** = 「陽性対照 = 同じ母数で **`new BattleActor` / `new DialogueRuntime` が 複数件**」。
+**測り直し（母数 = `unity/Assets/Scripts`・語ごと）**:
+
+| 語 | `unity/Assets/Scripts` | `workspace`（harness） |
+|---|---:|---:|
+| `new DialogueRuntime` | **39 件（21 file）** | — |
+| **`new BattleActor`** | **★0 件★** | 48 |
+| `new BattleRuntime` | 0 | 12 |
+| `new BattleSession` | 0 | 3 |
+
+**★∴ `new BattleActor` は 私が 探した母数では 0 件★。★対照として 並べたのは 誤り★。**
+**結論（`new BattleRuntime` = 0）は ★`DialogueRuntime` 39 件 だけで 対照が 立つ★ ので 維持されるが、
+★私が示した根拠は 半分 空だった★。§7-3(b) の 本文を 直した（★前置きの訂正では 本文が 古いまま 読まれる★）。**
+
+### 8-3. ★★重なった 2 つの型（1 つは 今朝 私が 立てた型の 再発）★★
+
+1. **★OR で 束ねた 陽性対照は 対照に なっていない★** — `A\|B` で数えて「A / B が 複数件」と書いた。
+   **★OR は 片方だけで 満たされる★** ⇒ **★対照は 語ごとに 分けて 数える★。**
+2. **★`head -5` で 打ち切った★** ⇒ **表示された 5 行が すべて `DialogueRuntime` 側 file だったことが 見えなくなった。**
+   **[[feedback_absence_in_truncated_list]] の 再発**（**今朝 §3 で 自分で 立てた型**）。
+
+> **★型を 1 段 強める★** = **今朝の「陽性対照は ★探した その母数の中で★ 立てる」を、
+> ★母数だけでなく ★語★ にも 適用する★** ⇒
+> **★★陽性対照は「その母数で・その語が」出ることを ★語ごとに★ 示す★★。**
+> **★束ねた対照・打ち切った対照は 対照ではない★。**
+
+### 8-4. ★boss1 の 一般形を 採る★
+
+**私の (b) は `BattleRuntime` に限った書き方だった。**
+**boss1 の測定** = **`new BattleSession` も `new BattleActor` も scripts 母数で 0 件**
+⇒ **★戦闘の object graph が 丸ごと 未構築★**。**こちらが 正確なので 採用する。**
+**∴ ★`Minus1 = 1` は 「書かれているが 未到達の 1」★** の根拠は **1 つの型ではなく object graph 全体**で立つ。
