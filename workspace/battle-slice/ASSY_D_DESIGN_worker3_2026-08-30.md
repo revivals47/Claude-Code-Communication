@@ -337,3 +337,460 @@ BattleRuntime.Result (-1 / 0 / 1)
 - **main 未変更**／**push しない**／**実機に接続していない**
 - **`DEGIMON_BATTLE_SLICE` 既定 OFF 維持**（§2-3 の擬似コードは **gate ON の枝の中だけ**を足す形）
 - **完成 claim 凍結** — **本 doc は 1 行も「動いた」と書いていない**（**★私は GUI の視覚 verify ができない★**）
+
+---
+---
+
+# 【追記】(d) ★実装 draft★（worker3・2026-08-30・便 #929-W3a 受領後）
+
+> **★これは doc の中の code です。tree には 1 行も入れていません★**（**書き手は今 worker1・同一 tree の同時編集は禁止**）。
+> **★compile していません★**（**Unity は同時に 1 つ・回す前に boss1 へ ack**）。**⇒ 本節の code は ★未検証★。**
+> **従う設計** = `ASSY_DESIGN_INTEGRATED_2026-08-30.md` **§11（PRESIDENT #928-B 承認）**。**§11 と食い違ったら §11 が勝つ。**
+> **★行番号は書かない★**（§11 の規範）。**参照は 関数名 / 定数名 で行い、位置が要るときは その場で `grep -n`。**
+
+## D-A. 前提（★この draft が乗る base★）
+
+| | |
+|---|---|
+| 器 | `/home/ken/Desktop/Digimon/degimon_world_remake-assy`（branch `track1/battle-assembly`・base **`ea600ab5`**） |
+| 読んだ形 | **`git show ea600ab5:<path>`**（**worktree には入っていない**） |
+| **前置き** | **★worker1 の step 1（counter 単一権威 ＋ session lifecycle）／step 2（index の直し）が 先に入る★** ⇒ **本 draft は ★その後★ に乗る** |
+| 私が触る file | **新規 2**（`BattleSession.cs` / `BattleView.cs`）＋ **変更 2**（`DialogueRuntime.cs` の `0x66` case ／ `TextboxView.cs` の stall 診断 1 箇所） |
+| 触らない | `BattleRuntime.cs` / `BattleActor.cs` / `BattleFormulas.cs` / `BattleEntry.cs`（**step 1-2 の担当**）・`FieldManager.cs` |
+
+---
+
+## D-B. ★★実装前に 1 件 足します — park 再入が汚すのは `E12C` だけではありません★★
+
+**§11-5 は「guard を counter 加算より後に置くと counter が毎 frame 進む」と書いています。**
+**★同じことが seam の観測器にも起きます★**（**§11 に無い・私が `0x66` case を読んで見つけました**）:
+
+```
+case OP_SCENE_DRIVER:
+    BattleEntry.SeamReachCount++;                              // ← ★park 再入で 毎 frame 進む★
+    BattleEntry.SeamHitLog.Add((_pc << 8) | ReadByte(_pc+1));  // ← ★static List が 毎 frame 伸びる★
+    if (BattleEntry.GateEnabled) { BattleEntry.SeamGatedCount++; … }
+```
+
+- **`SeamReachCount` / `SeamGatedCount`** は **census が「1 回 / launch」であることを支えている数**
+  ⇒ **park 中に進むと ★到達回数の意味が壊れる★**（**戦闘 600 frame = 到達 600 回に見える**）。
+- **`SeamHitLog` は `static readonly List<int>`** ⇒ **★同じ `(pc, operand)` が数百件 積まれる★**
+  （**doc に「間引かない＝延べで持つ」と書いてある器なので、読む側は これを 到達の延べと読む**）。**memory も伸びる。**
+- ⇒ **★再入 guard は `case` の ★最初の 1 行★（`SeamReachCount++` より ★上★）に置く★**。
+  **★これは「counter の 1 箇所化」（§11-2）とは別の穴です★** — **§11-2 は `E12C` の話で、seam counter は別の器。**
+
+> **★格★** = **これは code を読んで書いた指摘**（`git show ea600ab5:…DialogueRuntime.cs` の `0x66` case 冒頭）。
+> **★走らせて確かめてはいません★**（**park を実装していないので当然です**）⇒ **verify 項目に入れた**（D-G の V4）。
+
+---
+
+## D-C. 新規 ① `Battle/BattleSession.cs`（★UnityEngine 非依存★）
+
+**役割** = **戦闘 1 回ぶんの器**。**`DialogueRuntime` が持ち、`BattleView` が read-only で覗く。**
+**★`UnityEngine` を参照しない★**（**= headless harness がそのまま回せる・`BattleRuntime` の性質を壊さない**）。
+
+```csharp
+// BattleSession.cs — 戦闘 1 回の session（park 中の state・固定 step・強制 damage 経路）。
+// ★UnityEngine 非依存★（dt は呼び手が渡す = Editor harness は 1/60 を pin できる）。
+using System;
+
+namespace DigimonWorld.Battle
+{
+    /// <summary>戦闘 session の終わり方。★「終わらなかった」を「終わった」に畳まない★（3 値ではなく 4 値で返す）。</summary>
+    public enum BattleExit { Running, Completed, AbortedFrameCap, AbortedInvariant }
+
+    public sealed class BattleSession
+    {
+        /// <summary>今走っている session（無ければ null）。★BattleView はこれだけを見る★。</summary>
+        public static BattleSession Current;
+
+        /// <summary>★原盤 1 frame の実時間は未検証★（札 D-1）。ここを 1 定数に隔離する。</summary>
+        public const float FrameSeconds = 1f / 60f;
+
+        /// <summary>1 回の Advance で進める上限（spiral 防止）。★頭打ちは黙って捨てない★（DroppedSteps）。</summary>
+        public const int MaxStepsPerAdvance = 4;
+
+        /// <summary>戦闘の上限 frame。★超えたら loud に落とす★（§11-8）。</summary>
+        public const int FrameCap = 60 * 60;   // 1 分相当（FrameSeconds が未検証ゆえ「分」とは書かない）
+
+        public readonly BattleRuntime Runtime;
+        public readonly BattleActor Ally;     // ★空間 A の index 0★（§9）
+        public readonly BattleActor Enemy;    // ★空間 A の index 1★
+        public readonly bool GateSnapshot;    // ★session 開始時に snapshot★（§11-1・途中 OFF で park が解けない）
+
+        public BattleExit Exit { get; private set; }
+        public BattleResultCode Result { get; private set; }
+        public int DroppedSteps { get; private set; }      // ★頭打ちで捨てた step 数（0 でも印字する）★
+        public int LastDamage { get; private set; }        // 画面に出す 1 発（P0-4）
+        public int CommandIndex { get; private set; }      // ←/→ で回る 0..2（★戦闘には効かせない★・§D-E）
+
+        float _accum;
+
+        public BattleSession(BattleRuntime rt, BattleActor ally, BattleActor enemy, bool gateSnapshot)
+        {
+            if (rt == null) throw new ArgumentNullException("rt");
+            if (ally == null || enemy == null) throw new ArgumentNullException("actors");
+            Runtime = rt; Ally = ally; Enemy = enemy; GateSnapshot = gateSnapshot;
+            Exit = BattleExit.Running;
+        }
+
+        public void MoveCommand(int delta)
+        {
+            CommandIndex = ((CommandIndex + delta) % 3 + 3) % 3;
+        }
+
+        /// <summary>実時間 dt を渡す。★戦闘 frame は固定 step で刻む★。戻り = まだ続くか。</summary>
+        public bool Advance(float dt)
+        {
+            if (Exit != BattleExit.Running) return false;
+            _accum += dt;
+            int steps = 0;
+            while (_accum >= FrameSeconds)
+            {
+                if (steps >= MaxStepsPerAdvance)
+                {
+                    int dropped = (int)(_accum / FrameSeconds);
+                    DroppedSteps += dropped;
+                    _accum = 0f;
+                    BattleLog.Warn($"[BATTLE] step 頭打ち: この Advance で {dropped} step 捨てた（累計 {DroppedSteps}）★戦闘は遅くなる・黙って落としていない★");
+                    break;
+                }
+                _accum -= FrameSeconds;
+                steps++;
+                if (!StepOneFrame()) return false;
+            }
+            return true;
+        }
+
+        bool StepOneFrame()
+        {
+            // ★★slice-only の強制 damage 経路（§11-8）★★
+            //   ★原盤の発動 path（接近 → ターゲット選択 → 技発動）は STUB★ ゆえ、
+            //   ★これを入れないと 誰の HP も減らず 戦闘が終わらない★（codex C・boss1 CONFIRMED）。
+            //   ★これは「原盤の再現」ではない★ = ★差替可 ＋ 札（材料: 発動 path 未 RE）★。
+            if (Runtime.Frame > 0 && Runtime.Frame % ForcedHitPeriodFrames == 0)
+                ForcedHit();
+
+            bool cont = Runtime.Tick();
+
+            // ★表示側の HP を進める（drain）★。★実効値は変えない = 勝敗に影響しない★（§3-3）。
+            Ally.DrainDamage();
+            Enemy.DrainDamage();
+
+            if (!cont)
+            {
+                Exit = BattleExit.Completed;
+                Result = ResolveResult();
+                return false;
+            }
+            if (Runtime.Frame >= FrameCap)
+            {
+                Exit = BattleExit.AbortedFrameCap;
+                BattleLog.Warn($"[BATTLE] ★上限 frame {FrameCap} に到達＝戦闘が終わらなかった★（Result は書かない・abort として扱う）");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>★§11-7: Zero 固定にしない★ — §9 の写像（味方 +0x4C == 0 なら −1・そうでなければ 1）。</summary>
+        BattleResultCode ResolveResult()
+        {
+            // ★0（逃走）は 入力を作らないので 本 phase では発生しない★ ⇒ ★0 が出たら bug★（§11-7）。
+            // ★enum の実名を 器で確認済★ = BattleResultCode { Minus1 = -1, Zero = 0, Win = 1 }（BattleActor.cs）。
+            return Ally.Hp4C == 0 ? BattleResultCode.Minus1 : BattleResultCode.Win;
+            // ★Zero（逃走）を返す経路は 本 phase に無い★ ⇒ Zero が出たら bug（§11-7）。
+        }
+    }
+}
+```
+
+> **★`ForcedHit()` / `ForcedHitPeriodFrames` / `BattleLog` は D-F で定義する。★**
+> **★`BattleLog` を別に立てる理由★** = **`BattleSession` を `UnityEngine` 非依存に保つため**
+> （**`Debug.Log` を直接呼ぶと headless harness で `UnityEngine` に依存する**）。**`BattleLog` は 1 行の薄い口。**
+
+---
+
+## D-D. 変更 ① `DialogueRuntime` の `0x66` case（★park / resume★）
+
+```csharp
+case OP_SCENE_DRIVER:
+{
+    // ═══ (0) ★park 再入 guard = case の最初の 1 行★（D-B: seam counter より ★上★）═══
+    if (_battle != null)
+    {
+        // ★invariant 2（§11-3 ①）を park 中も毎 tick 見る★:
+        //   Tick() は state 判定より前に PumpWarpPending() を実行するので、park 中に pending が立つと map change が emit され得る。
+        if (_gameState.WarpPendingTag != 0)
+        {
+            BattleAbort($"park 中に warp pending が立った（tag={_gameState.WarpPendingTag}）");   // ★loud + teardown★
+            EmitPage(); State = DialogueState.Finished; return;
+        }
+
+        float dt = BattleDtOverrideForVerify ?? UnityEngine.Time.deltaTime;   // ★harness は 1/60 を pin できる★
+        if (_battle.Advance(dt))
+            return;                       // ★★park: State=Running のまま・_pc は 0x66 のまま★★
+
+        // ═══ 完了 tick = ★epilogue が B2〜B6 を置換する（通さない）★（§11-3 ②）═══
+        RunBattleEpilogue(_battle);       // 3 値の適用 ＋ teardown（原子的・§11-1）
+        _battle = null; BattleSession.Current = null;
+        EmitPage(); State = DialogueState.Finished; return;   // ★現行 0x66 と同じ exit（idle_stop）に合流★
+    }
+
+    // ═══ 以降 = ★初回進入のみ★（park 中は上で return 済ゆえ 1 launch に 1 回）═══
+    BattleEntry.SeamReachCount++;                                   // ★意味が保たれる（1 回/launch）★
+    BattleEntry.SeamHitLog.Add((_pc << 8) | ReadByte(_pc + 1));
+    if (BattleEntry.GateEnabled)
+    {
+        BattleEntry.SeamGatedCount++;
+        // ★invariant 1（§11-3 ①）= 戦闘開始時に warp pending 不在★
+        if (_gameState.WarpPendingTag != 0)
+        {
+            Debug.LogError($"[BATTLE] ★戦闘に入れない: warp pending が在る（tag={_gameState.WarpPendingTag}）★ → 戦闘を起こさず seam のみで抜ける @pc=0x{_pc:X}");
+            // ★退路を true で返さない★: 戦闘は起こさない・counter も進めない・log は loud。
+        }
+        else
+        {
+            // ★counter は step 1 の単一権威（RawE12C）を ★ここで 1 回だけ★ 進める（§11-2）★
+            //   ※ 実際の呼び名は step 1 完了後に grep して合わせる（AdvanceBattleCounter は外れる予定）。
+            bool saturated = _gameState.SceneDriverCounterInc();
+            if (saturated) Debug.LogWarning("[BATTLE] 戦闘回数 counter 飽和（9999）");
+
+            _battle = BeginBattle();                 // ★_battle == null の時だけ作る（§11-1）★
+            BattleSession.Current = _battle;
+            Debug.Log($"[BATTLE] session 開始 @pc=0x{_pc:X} gate=snapshot({_battle.GateSnapshot}) ★park に入る（State=Running / _pc 据え置き）★");
+            return;                                   // ★park 開始★
+        }
+    }
+    if (!_sceneDriver) break;    // ★以降 現行のまま（B1..B6 → idle_stop）★
+    …
+}
+```
+
+### D-D-1 ★`0x67` を前例として引くときの書き分け（§11-5・そのまま守る）★
+
+| | `0x67` frame-yield | **battle park** |
+|---|---|---|
+| `State` | **`Running` を保つ** | **同じ（`Running` を保つ）** |
+| `_pc` | **`_pc += len` してから `return`**（次の op へ進む） | **★据え置き（`0x66` のまま）★** ⇒ **毎 tick 同じ case に再入する** |
+| 帰結 | 次 tick は **次の op** から | **★再入 guard の位置が効く★**（D-B / §11-5） |
+
+### D-D-2 ★失敗形（前回の 4 つ ＋ 今回足した 2 つ）★
+
+1. **guard を `E12C` 加算より後** → **counter が毎 frame 進む**（§11-5）
+2. **`Finished` にする** → **`FieldState` の `OnFinished` 経路で `InputLocked=false`** = **戦闘中に player が歩く**
+3. **`_pc` を前進させる** → 次 tick に **`0x66` の次の op を実行**
+4. **`WaitingFrames` を流用** → `Tick()` 冒頭で **勝手に `Running` へ戻る**
+5. **★新★ guard を `SeamReachCount++` より後** → **到達 census と `SeamHitLog` が汚れる**（D-B）
+6. **★新★ `GateEnabled` を park 中に毎回読む** → **途中で env が変われば park が解ける**（§11-1・**snapshot で防ぐ**）
+
+---
+
+## D-E. 新規 ② `Battle/BattleView.cs`（★MonoBehaviour は これ 1 本だけ★）
+
+```csharp
+// BattleView.cs — 戦闘の描画と入力。★logic は持たない（BattleSession を read-only で覗くだけ）★。
+// ★生成は DEGIMON_BATTLE_SLICE=1 のときだけ★（未設定なら component すら作らない = OFF-inert 最強）。
+using UnityEngine;
+
+namespace DigimonWorld.Battle
+{
+    public sealed class BattleView : MonoBehaviour
+    {
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void Bootstrap()
+        {
+            if (System.Environment.GetEnvironmentVariable(BattleEntry.GateEnv) != "1") return;   // ★退路 = 完全 no-op★
+            var go = new GameObject("[BattleView]");
+            DontDestroyOnLoad(go);
+            go.AddComponent<BattleView>();
+        }
+
+        void Update()
+        {
+            var s = BattleSession.Current;
+            if (s == null) return;
+            // ★★←/→ を戦闘中に読むのは ここだけ（§11-6 = 入力の所有）★★。TextboxView は読まない。
+            if (Input.GetKeyDown(KeyCode.LeftArrow))  s.MoveCommand(-1);
+            if (Input.GetKeyDown(KeyCode.RightArrow)) s.MoveCommand(+1);
+        }
+
+        void OnGUI()
+        {
+            var s = BattleSession.Current;
+            if (s == null) return;
+            GUI.depth = -100;   // ★textbox より前面（IMGUI は 低い depth が上）★ ← ★視覚 verify は user★
+
+            // P0-1 画面占有（field は描かれ続けるので 覆う側が要る）
+            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), GUIContent.none);
+
+            // P0-2 2 体と ★水平距離★（原盤の接近は dx²+dz²・Y 未使用）
+            //   ★接近は STUB ゆえ 距離は動かない★ ⇒ ★動かないことを 画面に書く（動いていないものを動いて見せない）★
+            GUI.Label(new Rect(20, 40, 600, 20), $"距離(水平) = {DistanceLabel(s)}");
+
+            // P0-3 HP を ★2 値★（表示 = Hp4C は drain で段階減／判定 = Hp4C − DamageAccum2E は即時）
+            DrawActor(new Rect(20,  80, 400, 60), "味方(index 0)", s.Ally);
+            DrawActor(new Rect(20, 160, 400, 60), "敵  (index 1)", s.Enemy);
+
+            // P0-4 damage 数値（★live 確定している唯一の量★）
+            GUI.Label(new Rect(20, 240, 600, 20), $"直近 damage = {s.LastDamage}");
+
+            // P1-5 指示（★戦闘には効かせていない＝表示だけ★・§D-E-1）
+            GUI.Label(new Rect(20, 280, 600, 20), $"指示 index = {s.CommandIndex} / 3 ★表示のみ（戦闘に効かせていない・札 D-4）★");
+
+            // P1-6 決着（★3 値のまま・名前を当てない★）
+            if (s.Exit != BattleExit.Running)
+                GUI.Label(new Rect(20, 320, 600, 20), $"exit = {s.Exit} / result = {(int)s.Result}（-1 / 0 / 1）");
+
+            GUI.Label(new Rect(20, 360, 900, 20),
+                $"frame={s.Runtime.Frame} dropped={s.DroppedSteps} ★構図は原盤の忠実ではない（誰も原盤の画面を見ていない）★");
+        }
+
+        static void DrawActor(Rect r, string name, BattleActor a)
+        {
+            int eff = a.Hp4C - a.DamageAccum2E;
+            GUI.Label(new Rect(r.x, r.y, r.width, 20), $"{name}  表示HP={a.Hp4C}（drain で段階減）");
+            GUI.Label(new Rect(r.x, r.y + 20, r.width, 20), $"          判定HP={eff}（= Hp4C − pending {a.DamageAccum2E}・★KO は当たった瞬間に決まる★）");
+        }
+
+        static string DistanceLabel(BattleSession s)
+        {
+            // ★位置が実装されていない（接近 STUB）ゆえ 距離は出せない★ — ★0 と書かない★
+            return "未実装（接近 path が STUB・札 D-8）";
+        }
+    }
+}
+```
+
+### D-E-1 ★`←/→` の所有（§11-6）と 2 つの限定★
+
+- **戦闘中に `←/→` を読むのは `BattleView` だけ**。**`TextboxView` は読まない**（**advance/menu は `State` gate で park 中 inert** = boss1 確認済）。
+- **★index は戦闘に効かせない★**（**どの命令 slot を選ぶかは ◆前提つき◆・札 D-4**）⇒ **画面にも「表示のみ」と出す**。
+- **`GUI.depth` の値は ★視覚 verify が要る★**（**我々は GUI の見た目を確かめられない**）⇒ **user 実視覚の項目に入れる**。
+
+---
+
+## D-F. ★終了を有限にする（§11-8）★ — 強制 damage 経路 1 本
+
+```csharp
+// BattleSession の中（D-C の続き）
+/// <summary>強制 hit の周期。★原盤の発動周期ではない★（原盤は h1a == h18 で発動）＝ slice 専用。</summary>
+public const int ForcedHitPeriodFrames = 20;
+
+/// <summary>★verify 専用★の向き反転（既定 = live 確定した向き = 敵 → 味方）。</summary>
+public static bool ForceAllyAttacksForVerify;
+
+/// <summary>★強制 hit の仮値★（技表 / species 表を asset 化していない・札 D-10）。★log に必ず出す★。</summary>
+public int ForcedSkillIndex, ForcedSkillPower, ForcedSkillElement;
+public byte ForcedDefAttr0, ForcedDefAttr1, ForcedDefAttr2;
+
+void ForcedHit()
+{
+    BattleActor atk = ForceAllyAttacksForVerify ? Ally  : Enemy;
+    BattleActor def = ForceAllyAttacksForVerify ? Enemy : Ally;
+
+    var inputs = new BattleFormulas.DamageInputs
+    {
+        SkillIndex   = ForcedSkillIndex,      // ★仮値★（技表を asset 化していない・札）
+        SkillPower   = ForcedSkillPower,      // ★仮値★
+        SkillElement = ForcedSkillElement,    // ★仮値★
+        AtkStat38    = atk.H38,               // ★actor の実 snapshot 値（§1 の決め）★
+        DefStat3A    = def.H3A,
+        // ★★落とすと 黙って 0,0,0 になる欄（= 属性表の寄与が 別物になる）★★
+        //   DamageInputs は DefAttr0/1/2（byte）を持つ。★未設定 = 既定 0 = 「属性 0」として通ってしまう★
+        //   ⇒ ★退路を既定値で通さない★（[[feedback_retreat_must_not_encode_as_pass]]）:
+        //     species 表を asset 化していないので ★仮値を 明示的に入れ、log にも出す★（札 D-10）。
+        DefAttr0 = ForcedDefAttr0, DefAttr1 = ForcedDefAttr1, DefAttr2 = ForcedDefAttr2,   // ★仮値★
+        AttackerIsPartner = ForceAllyAttacksForVerify,
+    };
+    int dmg = BattleFormulas.GetDamagePoint(inputs, Matrix, Rng);
+    def.AddDamage(dmg);
+    LastDamage = dmg;
+    BattleLog.Info($"[BATTLE] ★強制 hit（slice 専用・原盤の発動 path ではない）★ {(ForceAllyAttacksForVerify ? "味方→敵" : "敵→味方")} dmg={dmg} 判定HP={def.Hp4C - def.DamageAccum2E}");
+}
+```
+
+### D-F-1 ★この経路について 偽らないこと★
+
+- **★これは原盤の発動 path ではありません★** — **接近 / ターゲット選択 / 技発動は STUB**（札 D-8）。
+  **入れる理由は 1 つだけ = ★入れないと 誰の HP も減らず 戦闘が終わらない★**（codex C・boss1 CONFIRMED）。
+- **`SkillIndex` / `SkillPower` / `SkillElement` は ★仮値★**（**`wazaTbl` を asset 化していない**）
+  ⇒ **★画面に出る数値が live と一致しても「技表の配線が正しい」ことにはならない★**（**§1 の stat と同じ型の札**）。
+- **★live との突合は 画面ではなく headless test で行う★** = **live sample の入力そのもの**
+  （`skill=20 / elem=4 / atk=140 / def=60 / species=3 / attr=[0,255,1]`）を式に入れ、**`329〜402` の帯に入ることを assert**。
+  **★画面の数値は 我々の 2 体の stat から出た別の数★** ⇒ **★2 つを混ぜて「live と一致した」と書かない★**。
+- **★向きの既定は 敵 → 味方★**（**live で確定した系統 B の向き**）⇒ **最小 slice で通るのは ★`-1`（敗北）の path だけ★**。
+  ⇒ **★勝利路（map 再読込 ＋ 勝利数 +1）は 1 度も走らない = 未 exercise★** ⇒ **`ForceAllyAttacksForVerify` で ★verify 時だけ★ 通す**
+  （**既定は false・製品経路は不変**）。**★「通していない path が在る」を 黙って残さない★。**
+
+---
+
+## D-G. 変更 ② `TextboxView` の stall 診断除外（§11-4）
+
+```csharp
+// ★park 中は (State, Pc, pages) が不変ゆえ 90 frame で必ず stall log が出る（codex F・boss1 CONFIRMED）★
+if (_rt != null && !_rt.IsFinished)
+{
+    if (DigimonWorld.Battle.BattleSession.Current != null)
+    {
+        // ★抑止したことが log で判る形にする（黙って消さない）★ — 1 戦につき 1 度だけ。
+        if (!_stallSuppressedLogged)
+        {
+            _stallSuppressedLogged = true;
+            Debug.Log("[STALL-DIAG] ★battle-active ゆえ stall 判定を抑止（park 中は State/Pc/pages が不変で当然）★");
+        }
+        _stallFrames = 0;
+    }
+    else
+    {
+        _stallSuppressedLogged = false;
+        …（現行のまま）…
+    }
+}
+```
+
+---
+
+## D-H. verify 計画（★headless で取れるものだけを headless と書く★）
+
+| # | 何を | どう | 期待 |
+|---|---|---|---|
+| **V1** | **gate OFF の不変** | `DEGIMON_BATTLE_SLICE` 未設定で `BattleSeamVerify66` | **GREEN（現行と同じ）**・**`BattleView` の component が ★生成されない★** |
+| **V2** | **baseline 3 値が動かないこと** | `CutsceneVerify178`（**この base では ★RED★**） | **`pages 0/66` / `chars 0/1601` / `termPc 0x1A/0x1315` が ★bit 同一★**。**★動いたら battle 起因★** |
+| **V3** | **1 戦が有限で終わる** | **Editor harness で `rt.Tick()` を回すだけ**（`BattleDtOverrideForVerify = 1/60` を pin） | **`Exit == Completed`**・**`Result != Zero`**・**`Frame < FrameCap`** |
+| **V4** | **★park 再入が観測器を汚さない（D-B）★** | 同 harness で **1 戦の前後の `SeamReachCount` / `SeamHitLog.Count` の差** | **★差 = 1★**（**戦闘 frame 数ではない**） |
+| **V5** | **counter が 1 回だけ進む（§11-2）** | 同 harness で `RawE12C` の前後差 | **★差 = 1★** |
+| **V6** | **damage の live 突合** | **live sample の入力を式に入れる**（**画面の数ではない**） | **`329〜402` に入る** |
+| **V7** | **勝利路が通ること** | `ForceAllyAttacksForVerify = true` の harness run | **`Result` が勝利側**・**map 再読込の要求が 1 回出る** |
+| **V8** | **見た目**（P0 の 4 件が画面に出ている / `GUI.depth` が効いている / 文字が読める） | **★user 実視覚★** | **★我々には確かめられない★**（**完成 claim 凍結**） |
+
+---
+
+## D-I. 小 commit の刻み（★broken-state-zero★）
+
+| # | commit | 単体で緑か |
+|---|---|---|
+| 1 | `BattleSession.cs` 追加（**誰も呼ばない**） | **緑**（compile のみ・挙動不変） |
+| 2 | `BattleView.cs` 追加（**`Current` が常に null ゆえ 完全 inert**） | **緑**（V1） |
+| 3 | `0x66` case に **park guard ＋ session 開始**（**gate ON でだけ動く**） | **緑**（V1 / V2 / V4 / V5） |
+| 4 | **強制 damage 経路 ＋ 上限 frame**（§11-8） | **緑**（V3 / V6） |
+| 5 | `TextboxView` の stall 除外（§11-4） | **緑**（V2 再走） |
+| 6 | `ForceAllyAttacksForVerify` の harness（V7） | **緑**（V7） |
+
+**★各 commit の後で 1 度ずつ verify を回す★**（**Unity は同時に 1 つ ⇒ ★回す前に boss1 へ ack★**）。
+
+---
+
+## D-J. 札の更新
+
+| # | 札 | 状態 |
+|---|---|---|
+| D-1 原盤 1 frame の実時間 | **実機** | **未閉**（`BattleSession.FrameSeconds` 1 定数に隔離） |
+| D-2 drain の呼び出し周期 | **材料** | **未閉**（**毎 frame 1 回を仮置き**・**勝敗には影響しない**） |
+| D-3 戦闘中の game-clock | **実機** | **未閉**（`InputLocked` gate の再利用から落ちる挙動） |
+| D-4 `←/→` の意味 | **材料 ＋ 実機** | **未閉**（**表示のみ・戦闘に効かせない**） |
+| D-5 `-1` と `0` の別 | — | **★閉じた★**（§9・`-1` 敗北 / `0` 逃走 / `1` 勝利） |
+| D-6 `0`・`-1` 後の map 再読込 site | **実機 ＋ 材料** | **未閉**（**再現しない**） |
+| D-7 原盤の battle 画面 | **材料** | **未閉**（**構図の忠実を主張しない**） |
+| D-8 技発動 / 接近の中身 | **材料** | **未閉**（**強制 hit で迂回・距離は「未実装」と画面に書く**） |
+| **D-9（新）** | **材料** | **★teardown の口を全列挙していない★** — 私が知っているのは **正常完了 / frame cap / invariant 違反 / `BattleView.OnDisable`** の 4 口。**`FieldState.Exit` など flow 側の口は数えていない**（`[[feedback_retreat_entry_points_and_compat_fold]]`） |
+| **D-10（新）** | **材料** | **強制 hit の `SkillIndex/Power/Element` ＋ `DefAttr0/1/2` は仮値**（技表・species 表を asset 化していない）。★`DefAttr` は 未設定だと 黙って `0` になる欄★ ⇒ **明示代入 ＋ log** |
