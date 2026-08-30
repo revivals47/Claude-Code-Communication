@@ -222,3 +222,59 @@ loop 直後 18 命令の逐語 = `0x8005CB28 lh v0,0x8016B0D0`（味方 `+0x4C`�
 **`f_80057C00` の 222 命令を全部は読んでいない**（読んだのは exit arm 1 の逐語・絶対番地参照の全数 census・`360*i` 5 件の用途）
 ⇒ **「exit する条件を全部列挙した」とは書かない**（**arm 1 以外の return 経路は未読 = 札 = 材料**）。
 **overlay は `btl_rel` 1 本のみ**（他 15 は未走査）。**compile も実行も live 採取もしていない。**
+
+## 10. ★codex 設計査読の findings — ★boss1 が全件 裏取りしてから 載せた★（2026-08-30）★
+
+**発注** = 問い 5 点／**source は貼らず** `src/`（統合 branch から抽出した 7 file）を読ませた。
+**★findings は鵜呑みにしない★** — **下は boss1 が自分で該当行を読んで確認したものだけ**。
+
+### codex の判定（要約）
+
+| 問い | codex |
+|---|---|
+| (i) counter 単一権威 | **要修正**（方向は妥当・**委譲だけでは足りない**） |
+| (ii) 配置と State/PC 方針 | **妥当。ただし条件付き** |
+| (ii) 失敗形 4 つは尽きるか | **★要修正。尽きていない★** |
+| (iii) 最小 slice の scope | **妥当** ／ 忠実の線引き = **要修正** |
+| (iv) stub と index gate | **妥当。ただし責務分離が必要** ／ gate 化は **妥当・必須** |
+| (v) 統合 risk | **要修正**（7 件） |
+
+### ★boss1 が裏取りして CONFIRMED になったもの★
+
+| # | finding | boss1 の確認 |
+|---|---|---|
+| **A** | **`AdvanceBattleCounter` を `RawE12C` に委譲するだけでは、battle 側と既存 B2 の ★2 回加算★ が残る** | **CONFIRMED** — `0x66` は battle gate 処理の後も scene-driver B2 に進む。**⇒ 委譲では足りない** |
+| **B** | **`BattleEntry.RunToCompletion` / `RunOnce` は ★同期完走 API★** — per-frame 設計と不整合 | **CONFIRMED** — `BattleEntry.cs:193` `RunToCompletion(rt, maxFrames = 60*60*10)` ／ `:210` `RunOnce` が内部で呼ぶ |
+| **C** | **battle 本体が ★現状 終了不能★・`Result` が ★常に `Zero`★** | **CONFIRMED** — `BattleRuntime.cs:110-117` = 終了条件は `IsPartnerDown()` のみ・`Result = BattleResultCode.Zero` 固定（STUB）。**★§9 で `0` = 逃走 と確定したので、KO でも「逃走」を返すことになる★** |
+| **D** | **`Tick()` は state 判定より前に `PumpWarpPending()` を実行** ⇒ **park 中も pending warp が進む** | **CONFIRMED** — `Tick()` 冒頭に在る（原盤 `0x800F02B8` が VM 呼び出しの冒頭で見る形の移植） |
+| **E** | **`GateEnabled` は ★毎回 env を読む property★** ⇒ 途中 OFF で park が解ける | **CONFIRMED** — `BattleEntry.cs:54-59` getter が毎回 `GetEnvironmentVariable`。**⇒ session 開始時に snapshot する** |
+| **F** | **stall 診断の誤検知** — park 中は `(State, Pc, pages)` 不変 ⇒ **90 frame で必ず stall log** | **CONFIRMED** — `TextboxView.cs:266` が 3 つ組で判定 |
+| **G** | **`0x67` は ★return 前に `_pc` を前進させる★** | **CONFIRMED** — `DialogueRuntime.cs:1839` `_pc += len;`（明示 comment つき）。**⇒ 「`0x67` が前例」は ★State の扱いは同じ・`_pc` の扱いは逆★ と書き分ける** |
+| **H** | **slot 0 の fail-open**（`RawE104` は未 populate でも `0`） | **CONFIRMED** — `GameState.cs:491` は素の `int`。**★設計は既に「0 を黙って通さない」と書いている★が、器で強制する必要が在る** |
+
+### ★boss1 の判定が codex と割れたもの★
+
+| # | codex | boss1 |
+|---|---|---|
+| **I** | **入力の所有権** — `TextboxView.Update()` は battle 中も dialogue advance / menu 入力判定を通る | **★部分的★** — 該当経路は **State で gate されている**（`:232` は `WaitingAdvance` 必須・menu は `WaitingChoice`）。**park は `Running` を保つので advance/menu は ★inert★**。**★但し codex の懸念自体は残る★** = **←/→ を battle 中に誰が読むか**（`BattleView` の所有）は**設計に書いていない** ⇒ **明記する** |
+
+### ★設計に反映すること（実装の前）★
+
+1. **counter の mutation を `0x66` 初回進入の 1 箇所だけにする**（**委譲ではなく ★口を 1 つにする★**）
+   ＋ **`BattleEntry` から `Battles` / `AdvanceBattleCounter` を外す** ＋ **`RunOnce` は real-time では使わない**
+2. **★battle session lifecycle を導入する★** = `BeginBattle()` は `_battle == null` の時だけ session を作り、**その時だけ加算**
+   ＋ **`GateEnabled` を session 開始時に snapshot** ＋ **例外 / disable / state exit 時の teardown を原子的に**
+3. **park の invariant を 2 つ足す** = **戦闘開始時に warp pending 不在** ／ **battle 完了 tick が既存 B2〜B6 を通るのか epilogue が置換するのかを明示**
+4. **stall 診断に battle-active の除外を入れる**（**でなければ 90 frame ごとに 偽の stall log**）
+5. **`0x67` を前例として引くときは ★`_pc` の扱いが逆★ と書く**
+6. **←/→ の所有を `BattleView` に置くと明記**
+7. **`Result` を `Zero` 固定のままにしない**（**§9 で `0` = 逃走 と確定したので、KO で `Zero` を返すと ★意味が反転する★**）
+
+> **★arch レベルの 1 件★ = **`BattleEntry` の既存同期 API（`RunToCompletion` / `RunOnce`）は per-frame 設計と両立しない**。
+> **設計の方向（loop を `Tick()` 内に置く）は codex も妥当としたが、★既存 API を使わない・session lifecycle を足す★ ことになる。**
+> **⇒ PRESIDENT に上げてから実装に入る。**
+
+### codex が指摘した doc の腐り
+
+**設計 doc の参照行が既にずれている**（`0x67` は `DialogueRuntime.cs:1835` 付近・`InputLocked=false` は `FieldState.cs:599`）
+⇒ **`[[feedback_number_without_frame]]` の行番号版**。**行番号は書かず、関数名で引く**（`agent-send.sh` header で採った remedy と同じ）。
