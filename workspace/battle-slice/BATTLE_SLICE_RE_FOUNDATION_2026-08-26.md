@@ -420,10 +420,15 @@ selectWaza(state, actor, mask, target):
 > - ★**`hp_max` という不変量は存在しない**★ ⇒ ★**「hp_max > 9999 は倒れない」も成り立たない**★（pending は drain で流れるので繰り返し溜められる）
 > - 枠 = 「`h2E` の書き手 9 件・例外 0 件」は ★**btl_rel 限定の母数**★（main EXE に 8 件＝drain の減算 4 ＋ clamp の zero 2 ほか）。**clear の口は btl_rel の外にも在る**。
 
-- ★**`h4C` を減らす code は両 blob に存在しない**★ — btl_rel: 非 sp store 母数 **2,371 件**／`+0x4C` store **0 件**。
+- ★★2026-08-30 訂正（worker3 #927-W3a の申し送り・boss1 が本文行に当てた）★★:
+  **本節冒頭の引用 block（`drain は HP と pending から同量を引く`／`hp_max という不変量は存在しない`・#914-A で決着）と
+  下の 2 行は 食い違っている。★下の 2 行は 訂正前の記述★。** **boss1 は RE を再走していない**ので
+  **どちらが正しいかは決めず、★冒頭 block を優先して読むこと★ とだけ書く。**（`[[feedback_prepended_correction_leaves_body_claims]]`）
+
+- ★**（訂正前）`h4C` を減らす code は両 blob に存在しない**★ — btl_rel: 非 sp store 母数 **2,371 件**／`+0x4C` store **0 件**。
   main EXE: 母数 **8,318 件**／15 件あるが ★**どれも actorTable 由来ではない（0/15）**★（器で所属関数を判定）。
   ★陽性対照★ = main EXE は actorTable を **140 site** で組み立てる ⇒ **届くことは器が示せる** ⇒ **0/15 が意味を持つ**。
-- ★★**残り HP = `actorTable[i]->h4C − S[i].h2E`**★★（`h4C` = **戦闘中 不変の上限**／`h2E` = **累積ダメージ = 唯一の可変側**）。
+- ★★**（訂正前）残り HP = `actorTable[i]->h4C − S[i].h2E`**★★（`h4C` = **戦闘中 不変の上限**／`h2E` = **累積ダメージ = 唯一の可変側**）。
 - ★KO 述語 `f_800628E4`（36 命令・btl_rel 内の呼び手 13 件）★:
   `A = actorTable[i]->h4C` ／ `S = B + 360*i` ／ `D = S.h2E` ／ `v0 = A − D` ／
   `bgtz`: **taken（A−D > 0）→ 0（生存）** ／ **fall-through（A−D ≤ 0）→ 1（倒れている）**
