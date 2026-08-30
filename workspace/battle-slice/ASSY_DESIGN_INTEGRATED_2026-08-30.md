@@ -95,14 +95,14 @@ FOUNDATION は `gp-0x6ce0` が `save+0x266` に載ると書く。**別 offset �
 
 - **(d-1)** 戦闘 1 frame は **`DialogueRuntime.Tick()` の中**（= `0x66` case が持つ driver）。
   **新 MonoBehaviour は 描画/入力の `BattleView` 1 本だけ・logic 側は増やさない。**
-  **前例** = **`0x67` の frame-yield（`DialogueRuntime.cs:1391` = 第 3 の exit）** ⇒ **新概念ゼロ。**
+  **前例** = **`0x67` の frame-yield（`DialogueRuntime` の `0x67` case = 第 3 の exit・**行番号は書かない／`grep -n OP_FRAME_YIELD` で引く**）** ⇒ **新概念ゼロ。**
   **副次** = `BattleRuntime` は UnityEngine 非依存 ⇒ **Editor harness が `rt.Tick()` を回すだけで 1 戦完走できる（画面なしで 3 値が取れる）**。
   **step は Unity frame でなく固定 step accumulator**（`FieldManager.cs:283 TickClock` と同型）。**1 frame の実時間は未検証 = 札。**
 - **(d-2)** **戦闘中 VM は止まるが `Finished` にはしない** = `State=Running` のまま `_pc` を `0x66` に据え置いて `return`、
   終わった tick で epilogue → **現行と同じ `EmitPage`/`Finished`（idle_stop）に合流**。
-  **park は VM の内側に持つしかない**（`TextboxView.cs:257` が `GameFlow` と無関係に毎 frame `_rt.Tick()` を呼ぶため）。
+  **park は VM の内側に持つしかない**（`TextboxView.Update()` が `GameFlow` と無関係に毎 frame `_rt.Tick()` を呼ぶため）。
   **★失敗形 4 つを名指し★**（再入 guard の位置で `E12C` が毎 frame 進み数十 frame で飽和／`Finished` にすると
-  `FieldState:587` で `InputLocked=false` = **戦闘中に player が歩く**／`_pc` 前進／`WaitingFrames` 流用）。
+  `FieldState` の `OnFinished` 経路で `InputLocked=false` = **戦闘中に player が歩く**／`_pc` 前進／`WaitingFrames` 流用）。
 - **(d-3)** 最小の描画 **P0 4 件** = ①画面占有 ②2 体と水平距離（`dx²+dz²`・Y 未使用）
   ③**HP を 2 値で**（表示 = `Hp4C` は drain で段階減／判定 = `Hp4C − DamageAccum2E` は即時 ⇒ **KO は当たった瞬間に決まりバーが後から追いつく**）
   ④**damage 数値（live 確定している唯一の量）**。P1 = 指示表示 / 決着（**3 値のまま・名前を当てない**）。P2 = 演出・BGM・見た目。
@@ -278,3 +278,67 @@ loop 直後 18 命令の逐語 = `0x8005CB28 lh v0,0x8016B0D0`（味方 `+0x4C`�
 
 **設計 doc の参照行が既にずれている**（`0x67` は `DialogueRuntime.cs:1835` 付近・`InputLocked=false` は `FieldState.cs:599`）
 ⇒ **`[[feedback_number_without_frame]]` の行番号版**。**行番号は書かず、関数名で引く**（`agent-send.sh` header で採った remedy と同じ）。
+
+## 11. ★★決定した設計（実装はこれに従う）— PRESIDENT #928-B 承認★★
+
+**§10 の 7 点 ＋ arch（battle session lifecycle）を 反映した ★確定版★。実装はここを読む。**
+
+> **★行番号は書かない★** — 参照は **関数名 / 定数名**で行い、位置が要る時は **その場で `grep -n` する**。
+> （codex が **本 doc の参照行が既にずれている**ことを指摘。`[[feedback_cite_which_worktree]]` ＋ `agent-send.sh` header と同じ remedy。）
+
+### 11-1. ★battle session lifecycle（arch・承認済）★
+
+- **`BattleEntry` の既存同期 API（`RunToCompletion` / `RunOnce`）は ★使わない★**（per-frame 設計と両立しない）。
+- **`BeginBattle()` は `_battle == null` の時だけ session を作る。**
+  **★session 生成の その時だけ★ counter を加算する（atomic）。**
+- **`GateEnabled` は ★session 開始時に snapshot★**（**property は毎回 env を読むので、途中 OFF で park が解ける**）。
+- **teardown を原子的に** — **例外 / disable / state exit のいずれでも
+  「`BattleView` 破棄 ＋ session 破棄 ＋ lock 復帰 ＋ 結果適用の有無」を ★1 つの単位★ で扱う。**
+  （`FieldState.Exit()` は **無条件に lock を解除する**ため、**片方だけ起きる形を作らない**。）
+
+### 11-2. ★counter は 口を 1 つに（委譲ではない）★
+
+- **mutation は `DialogueRuntime` の `0x66` ★初回進入の 1 箇所★ だけ。**
+- **`BattleEntry` から `Battles` / `AdvanceBattleCounter` を ★外す★**（**戦闘開始後は counter に一切触れさせない**）。
+- **★委譲では足りない★理由** = **`0x66` は battle gate 処理の後も scene-driver B2 に進む**ので、
+  **battle 側と B2 の 2 回加算が残る**（codex A・boss1 確認済）。
+- **`IBattleStats.Battles` の実装先は未定** — **`PartnerState.Battles`（save `+0x1DA`）は ★別 counter★。畳まない（札 = 材料）。**
+
+### 11-3. ★park の invariant 2 つ★
+
+1. **戦闘開始時に ★warp pending 不在★ を invariant にする**
+   （`Tick()` は **state 判定より前に `PumpWarpPending()` を実行する**ので、**park 中も pending warp が進み map change を emit し得る**）。
+   **不在でなければ ★loud に落とす★**（**黙って進めない**）。
+2. **★battle 完了 tick が 既存 B2〜B6 を通るのか、battle epilogue が置換するのかを 明示する★。**
+   **本設計 = ★epilogue が置換する★**（**通さない**）。**理由 = 通すと counter と scene 処理が二重に走る。**
+
+### 11-4. ★stall 診断に battle-active 除外★
+
+**park 中は `(State, Pc, EmittedPages.Count)` が不変** ⇒ **既存の stall 診断が 90 frame ごとに必ず出る。**
+⇒ **battle-active の間は stall 判定を抑止する**（**抑止したことが log で判る形にする** — **黙って消さない**）。
+
+### 11-5. ★`0x67` を前例として引くときの書き分け★
+
+**`0x67` frame-yield は ★`State=Running` を保つ点は同じ★／★`return` 前に `_pc` を前進させる点は 逆★。**
+**battle park は `_pc` を `0x66` に据え置く** ⇒ **毎 tick 同じ case に再入する** ⇒ **★再入 guard の位置が効く★**
+（**guard を counter 加算より後に置くと counter が毎 frame 進む** = worker3 の失敗形 1）。
+
+### 11-6. ★入力の所有★
+
+- **`TextboxView` の advance / menu 入力は ★State で gate されている★**（`WaitingAdvance` / `WaitingChoice`）
+  ⇒ **park は `Running` を保つので ★inert★**（**boss1 が確認・codex とはここで判定が割れた**）。
+- **★但し ←/→ は `BattleView` が所有すると 明記する★**（**設計に無かった穴**）。
+  **戦闘中に `←/→` を読むのは `BattleView` だけ。** **`TextboxView` は読まない。**
+
+### 11-7. ★`Result` を `Zero` 固定にしない★
+
+**現状 `BattleRuntime.Tick()` は終了時に `Result = BattleResultCode.Zero` を固定で入れる。**
+**§9 で ★`0` = 逃走★ と確定したので、★KO でも「逃走」を返す＝意味が反転する★。**
+⇒ **最小 slice でも ★KO は `-1` / `1` のどちらかに写す★**（**どちらかは §9 の写像に従う = 味方 `+0x4C == 0` なら `-1`**）。
+**★逃走 `0` は 入力を作らないので 本 phase では発生しない★** ⇒ **`0` を返す経路が在ったら それは bug。**
+
+### 11-8. ★終了条件を有限にする★
+
+**行動と damage が stub のままだと ★誰の HP も減らず 戦闘が終わらない★**（codex C・boss1 確認済）。
+⇒ **最小 slice では ★damage が必ず入る経路を 1 本 通す★**（**live 確定した式で 敵 → 味方 の 1 発**）。
+**★「終わらない」を silent に作らない★** — **上限 frame に達したら loud に落とす。**
