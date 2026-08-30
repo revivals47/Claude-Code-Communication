@@ -719,8 +719,11 @@ void ForcedHit()
   （`skill=20 / elem=4 / atk=140 / def=60 / species=3 / attr=[0,255,1]`）を式に入れ、**`329〜402` の帯に入ることを assert**。
   **★画面の数値は 我々の 2 体の stat から出た別の数★** ⇒ **★2 つを混ぜて「live と一致した」と書かない★**。
 - **★向きの既定は 敵 → 味方★**（**live で確定した系統 B の向き**）⇒ **最小 slice で通るのは ★`-1`（敗北）の path だけ★**。
-  ⇒ **★勝利路（map 再読込 ＋ 勝利数 +1）は 1 度も走らない = 未 exercise★** ⇒ **`ForceAllyAttacksForVerify` で ★verify 時だけ★ 通す**
-  （**既定は false・製品経路は不変**）。**★「通していない path が在る」を 黙って残さない★。**
+  ⇒ **★勝利路（map 再読込 ＋ 勝利数 +1）は 1 度も走らない = 未 exercise★**
+  **★★【2026-08-30 撤回（本文差し替え）】★★** — **ここに書いていた「`ForceAllyAttacksForVerify` で verify 時だけ 勝利路を通す」は ★成立しない★。**
+  **実測 = ★敵の HP を 0 にしても 戦闘は 終わらない★**（**終了判定は 味方だけ = 原盤 `f_80057C00` の exit arm 1 本しか模していない**）
+  ⇒ **★`Win` / `Zero` に至る経路は remake に 無い★**（**詳細 = §D-L-2 / 札 D-11**）。
+  **flag 自体は残す**（**敵に damage が届くことの 陽性対照 ＋ 限界を固定する test に使う**）が、**★「勝利路を verify できる」とは 書かない★**。
 
 ---
 
@@ -760,7 +763,7 @@ if (_rt != null && !_rt.IsFinished)
 | **V4** | **★park 再入が観測器を汚さない（D-B）★** | 同 harness で **1 戦の前後の `SeamReachCount` / `SeamHitLog.Count` の差** | **★差 = 1★**（**戦闘 frame 数ではない**） |
 | **V5** | **counter が 1 回だけ進む（§11-2）** | 同 harness で `RawE12C` の前後差 | **★差 = 1★** |
 | **V6** | **damage の live 突合** | **live sample の入力を式に入れる**（**画面の数ではない**） | **`329〜402` に入る** |
-| **V7** | **勝利路が通ること** | `ForceAllyAttacksForVerify = true` の harness run | **`Result` が勝利側**・**map 再読込の要求が 1 回出る** |
+| **V7** | ~~勝利路が通ること~~ **★撤回★ → ★勝利 arm が 無いことを 固定する★** | `ForceAllyAttacksForVerify = true` の harness run | **敵 HP 0 ＋ ★終わらない★ ＋ ★結果を書かない★**（**実測で 差し替え・§D-L-2**） |
 | **V8** | **見た目**（P0 の 4 件が画面に出ている / `GUI.depth` が効いている / 文字が読める） | **★user 実視覚★** | **★我々には確かめられない★**（**完成 claim 凍結**） |
 
 ---
@@ -775,7 +778,7 @@ if (_rt != null && !_rt.IsFinished)
 | 3 | `0x66` case に **park guard ＋ session 開始**（**gate ON でだけ動く**） | **緑**（V1 / V2 / V4 / V5） |
 | 4 | **強制 damage 経路 ＋ 上限 frame**（§11-8） | **緑**（V3 / V6） |
 | 5 | `TextboxView` の stall 除外（§11-4） | **緑**（V2 再走） |
-| 6 | `ForceAllyAttacksForVerify` の harness（V7） | **緑**（V7） |
+| 6 | `ForceAllyAttacksForVerify` の harness（**★V7 は 撤回 → 限界を固定する test★**） | **緑**（harness D3） |
 
 **★各 commit の後で 1 度ずつ verify を回す★**（**Unity は同時に 1 つ ⇒ ★回す前に boss1 へ ack★**）。
 
