@@ -1,0 +1,2 @@
+label	SEAM66_RESULT	textIdentical	OFFgated	ONgated	reach	SEAM66_SYNTH	CUT178_pages	CUT178_chars	CUT178_termPc	CUT178_RESULT
+step0_BASELINE_ea600ab5(出所=boss1実走・worker2未実走)	GREEN	True	0	7	7	MISSING	0/66	0/1601	0x1A/0x1315	FAIL
