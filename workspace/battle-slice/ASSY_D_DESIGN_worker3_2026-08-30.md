@@ -1090,3 +1090,193 @@ GUI.Label(new Rect(20, y + 20, 1100, 20),
 - **arm の 意味を 読まない**（**worker2 の分**）／**実装しない**／**実機に 繋がない**
 - **★worker2 の数を 見てから 自分の数を 直さない★**（**突き合わせは boss1 が する**）
 - **★「たぶん N 本」と 先に 書かない★**（**予想を 出すと 数が それに 寄る**）
+
+---
+
+# 【結果】`f_80057C00` の 母数（worker3・2026-08-31・便 #930-W3a ＋ #930-AXIS）
+
+> **★worker2 の数は 見ていません／boss1 に 予想も 聞いていません★。事前登録 = commit `4e1d471`（★数える前に land★）。**
+
+## R-0. ★#930-AXIS が 要求した 欄★
+
+| 欄 | 中身 |
+|---|---|
+| **数えた 軸** | **★(a) = `jr ra` 命令の 数★**。**★(b)（相異なる 終局）は 数えていません★** ⇒ R-3 に **別軸の proxy を ★名前を変えて★ 開示** |
+| **母数の 範囲** | `/home/ken/Desktop/vise/extracted/btl_rel.bin` ／ **179,412 byte** ／ sha256 **`fafd9bd20356c193f085c552471f23a2`**（**私の器で 取り直した**）／ **file `0x5120` 以上 `0x5498` 未満 = 222 word**（VA `0x80057C00`..`0x80057F78`） |
+| **器の式** | **R-5 に 逐語**（★要約ではない★） |
+| **除外** | R-2（**件数つき**） |
+| **数えられなかったもの** | R-4（**★0 に 畳んでいない★**） |
+
+## R-1. ★(a) の 結果（陽性対照 6/6 を 先に 通した）★
+
+```
+file=/home/ken/Desktop/vise/extracted/btl_rel.bin size=179412 sha256=fafd9bd20356c193f085c552471f23a2
+  PASS C1 0x5120 = 0x27BDFFE0 : 0x27bdffe0
+  PASS C2 0x5498 = 0x27BDFFB0 : 0x27bdffb0
+  PASS C3 0x5494 = 0x00000000 : 0x0
+  PASS C4 0x5158 の op = 0x21(lh) : op=0x21 word=0x8443002e
+  PASS C5 0x5000 = 0x0C03272F(陰性) : 0xc03272f
+  PASS C6 全域 jr ra が 0 件でない : 全域 jr ra=388 件
+CONTROL=OK（6/6）
+
+範囲 = file 0x5120..0x5498 (VA 0x80057C00..0x80057F78) / word 数 = 222
+(A) jr ra            = 1 件 : ['0x5490(VA 0x80057F70)']
+(B) jr その他(rs≠31) = 0 件 : []
+(C) 範囲外への j     = 0 件 : []
+(D) 範囲外への 分岐  = 0 件 : []
+```
+
+⇒ **★(a) = 1 件★**（VA `0x80057F70` / file `0x5490`）。**(B) jr その他 / (C) 範囲外への j / (D) 範囲外への分岐 は いずれも 0 件。**
+
+**★範囲の 両端も 私の器で 確認★** = `0x5120`=`0x27BDFFE0`（関数の頭）／`0x5494`=`0x00000000`／`0x5498`=`0x27BDFFB0`（次の関数の頭）
+= **boss1 の base assert（#930-BASE）と 同じ値**（**★転記ではなく 私の器で 出した★**）。**222 word = worker1 の「全 222 命令」と 独立に一致。**
+
+## R-2. ★除外したもの（件数つき・★除外は 一番 検証されない★）★
+
+| 除外 | 件数 | 理由 |
+|---|---|---|
+| `jal`（op=0x03） | **2 件**（VA `0x80057CCC`→`0x80078BB0` ／ `0x80057E74`→`0x80065794`） | **呼び出しであって 戻る経路ではない** |
+| `jalr`（funct=0x09） | **0 件** | 同上（**0 件も 数えて 書く**） |
+| delay slot | **数えない** | 事前登録どおり（分岐の次 word を 独立に分類しない） |
+| **範囲内で 完結する 分岐** | **25 件** | **範囲外に出ないので (D) ではない**（**数だけ 開示**） |
+
+## R-3. ★(b) ではない が 近い 軸（★別名で 出す★）= ★戻り block への in-edge★
+
+**★これは (b)「相異なる 終局」では ありません★** — **結果コードの ★値ごとに★ 数えた ものでは ない**。
+**私が 形だけで 出せるのは ★CFG 上の 合流の 形★ まで**（**意味を 読まないため**）。
+
+```
+★block 数=34★ / ★jr ra(VA 0x80057F70) を含む block の leader = VA 0x80057F5C (file 0x547C)★
+★in-edge = 6 本★:
+   ← VA 0x80057C54 (file 0x5174) branch
+   ← VA 0x80057E90 (file 0x53B0) branch
+   ← VA 0x80057E9C (file 0x53BC) branch
+   ← VA 0x80057F04 (file 0x5424) branch
+   ← VA 0x80057F4C (file 0x546C) branch
+   ← VA 0x80057F58 (file 0x5478) fallthrough(straight)
+★1 つ前の block（leader VA 0x80057F58 / file 0x5478）への in-edge = 2 本★:
+   ← VA 0x80057F28 (file 0x5448) branch
+   ← VA 0x80057F4C (file 0x546C) fallthrough
+```
+
+- **`jr ra` を含む block の leader = VA `0x80057F5C`** ／ **★in-edge = 6 本★**（branch 5 ＋ straight fallthrough 1）
+- **1 つ前の block（VA `0x80057F58`）への in-edge = 2 本**
+- **★別 census との 重なり（事実のみ・解釈しない）★** = in-edge 元の VA `0x80057C54` / `0x80057E90`、および `0x80057F58` は
+  **★`addiu v0, r0, 1`（v0 に 即値 1 を置く命令）そのもの★**（v0 書き込み census で 独立に出た 3 site）。
+  **★何を意味するかは 書きません★**（**worker2 の分**）。
+
+### ★器の 自己申告（私の tool の bug）★
+
+**初版は ★straight-line の fallthrough edge を 足していなかった★** ⇒ **in-edge を ★5 本★ と 出した**。**直した版が 6 本。**
+**★数を 先に 出していたら 1 本 少ない 数が 流れていました★**（`[[feedback_audit_your_own_tool]]`）。
+**気づいた理由 = 「`0x80057F58` へ 分岐が 来ているのに 次 block への 辺が 無い」という ★形の 不整合★**（**意味からではない**）。
+
+## R-4. ★数えられなかったもの（★0 に 畳まない★）★
+
+| 項 | 状態 |
+|---|---|
+| **(b) 相異なる 終局（結果コードごとの arm）** | **★未算出★** = **「0 件」でも「不明」でもなく ★私は 数えていない★**。必要な器 = **各 path で v0 に 最後に入る値を 追う dataflow** ⇒ **★意味を読む側（worker2）と 重なる★ ので 踏み込まなかった** |
+| **呼び出し 2 件の 戻り値** | **v0 を 変えるが ★範囲内に 命令として 現れない★** ⇒ どの path の v0 に効くかは **未追跡** |
+| **範囲の 外から 飛び込む edge** | **★数えていない★**（本 census は **範囲内から 出る 辺だけ**） |
+
+## R-5. ★器（逐語・要約ではない）★
+
+### (a) の器 = `count_exits.py`
+
+```python
+# f_80057C00 の 戻る経路の母数（worker3・事前登録 4e1d471 に従う）★意味は読まない★
+import struct, hashlib, sys
+P="/home/ken/Desktop/vise/extracted/btl_rel.bin"
+BASE=0x80052AE0; LO=0x5120; HI=0x5498
+d=open(P,"rb").read()
+def w(off): return struct.unpack_from("<I", d, off)[0]
+print("file=%s size=%d sha256=%s" % (P, len(d), hashlib.sha256(d).hexdigest()[:32]))
+
+# ── 陽性/陰性対照（数を出す前）
+ctrl=[]
+ctrl.append(("C1 0x5120 = 0x27BDFFE0", w(0x5120)==0x27BDFFE0, hex(w(0x5120))))
+ctrl.append(("C2 0x5498 = 0x27BDFFB0", w(0x5498)==0x27BDFFB0, hex(w(0x5498))))
+ctrl.append(("C3 0x5494 = 0x00000000", w(0x5494)==0, hex(w(0x5494))))
+ctrl.append(("C4 0x5158 の op = 0x21(lh)", (w(0x5158)>>26)==0x21, "op=0x%X word=%s" % (w(0x5158)>>26, hex(w(0x5158)))))
+ctrl.append(("C5 0x5000 = 0x0C03272F(陰性)", w(0x5000)==0x0C03272F, hex(w(0x5000))))
+allJr=sum(1 for o in range(0,len(d)-3,4) if w(o)==0x03E00008)
+ctrl.append(("C6 全域 jr ra が 0 件でない", allJr>0, "全域 jr ra=%d 件" % allJr))
+for n,ok,det in ctrl: print(("  PASS " if ok else "  FAIL ")+n+" : "+det)
+if not all(ok for _,ok,_ in ctrl):
+    print("CONTROL=FAIL ⇒ ★数を出しません★"); sys.exit(1)
+print("CONTROL=OK（6/6）")
+
+A=[];B=[];C=[];D=[]
+BR={0x01,0x04,0x05,0x06,0x07,0x14,0x15,0x16,0x17}
+for off in range(LO,HI,4):
+    x=w(off); va=BASE+off; op=x>>26
+    if x==0x03E00008: A.append((off,va)); continue
+    if op==0 and (x&0x3F)==0x08: B.append((off,va,(x>>21)&31)); continue
+    if op==0x02:
+        tgt=((va+4)&0xF0000000)|((x&0x03FFFFFF)<<2)
+        if not (BASE+LO<=tgt<BASE+HI): C.append((off,va,tgt))
+        continue
+    if op in BR:
+        simm=x&0xFFFF; simm=simm-0x10000 if simm&0x8000 else simm
+        tgt=va+4+(simm<<2)
+        if not (BASE+LO<=tgt<BASE+HI): D.append((off,va,tgt))
+print("\n範囲 = file 0x%X..0x%X (VA 0x%X..0x%X) / word 数 = %d" % (LO,HI,BASE+LO,BASE+HI,(HI-LO)//4))
+print("(A) jr ra            = %d 件 : %s" % (len(A), ["0x%X(VA 0x%X)"%(o,v) for o,v in A]))
+print("(B) jr その他(rs≠31) = %d 件 : %s" % (len(B), ["0x%X(VA 0x%X rs=%d)"%(o,v,r) for o,v,r in B]))
+print("(C) 範囲外への j     = %d 件 : %s" % (len(C), ["0x%X(VA 0x%X→0x%X)"%(o,v,t) for o,v,t in C]))
+print("(D) 範囲外への 分岐  = %d 件 : %s" % (len(D), ["0x%X(VA 0x%X→0x%X)"%(o,v,t) for o,v,t in D]))
+```
+
+### R-3 の器 = `cfg_inedge.py`（★fallthrough を 足した 直し版★）
+
+```python
+# ★戻り block への in-edge を数える器★（worker3）。★意味は読まない = 形だけ★
+# ★注意★: 初版は straight-line の fallthrough edge を足しておらず 1 本少なかった（自己申告）。本版が直した版。
+import struct
+P="/home/ken/Desktop/vise/extracted/btl_rel.bin"; BASE=0x80052AE0; LO=0x5120; HI=0x5498
+d=open(P,"rb").read(); w=lambda o: struct.unpack_from("<I",d,o)[0]
+BR={0x01,0x04,0x05,0x06,0x07,0x14,0x15,0x16,0x17}
+va0,vaN=BASE+LO,BASE+HI
+def dec(va):
+    x=w(va-BASE); op=x>>26
+    if op in BR:
+        s=x&0xFFFF; s=s-0x10000 if s&0x8000 else s
+        return ("br", va+4+(s<<2))
+    if op==0x02: return ("j", ((va+4)&0xF0000000)|((x&0x03FFFFFF)<<2))
+    if op==0 and (x&0x3F)==0x08: return ("jr", None)
+    return ("n", None)
+lead={va0}
+for va in range(va0,vaN,4):
+    k,t=dec(va)
+    if k in ("br","j","jr"):
+        if t is not None and va0<=t<vaN: lead.add(t)
+        if va+8<vaN: lead.add(va+8)          # delay slot の次 = leader
+leads=sorted(lead)
+def blk_of(va):
+    lo=leads[0]
+    for l in leads:
+        if l<=va: lo=l
+        else: break
+    return lo
+edges={}
+for i,L in enumerate(leads):
+    end=(leads[i+1]-4) if i+1<len(leads) else vaN-4
+    term=None
+    for va in (end-4, end):                  # terminator は 末尾 or その 1 つ前(delay slot 付き)
+        if va<L: continue
+        k,t=dec(va)
+        if k in ("br","j","jr"): term=(va,k,t); break
+    if term:
+        va,k,t=term
+        if k in ("br","j") and t is not None and va0<=t<vaN: edges.setdefault(t,[]).append((L,"branch"))
+        if k=="br" and i+1<len(leads): edges.setdefault(leads[i+1],[]).append((L,"fallthrough"))
+    else:
+        if i+1<len(leads): edges.setdefault(leads[i+1],[]).append((L,"fallthrough(straight)"))
+JR=0x80057F70; jrL=blk_of(JR); ins=edges.get(jrL,[])
+print("★block 数=%d★ / ★jr ra(VA 0x%X) を含む block の leader = VA 0x%08X (file 0x%X)★" % (len(leads),JR,jrL,jrL-BASE))
+print("★in-edge = %d 本★:" % len(ins))
+for s,k in ins: print("   ← VA 0x%08X (file 0x%X) %s" % (s,s-BASE,k))
+prev=leads[leads.index(jrL)-1]; pins=edges.get(prev,[])
+print("★1 つ前の block（leader VA 0x%08X / file 0x%X）への in-edge = %d 本★:" % (prev,prev-BASE,len(pins)))
+for s,k in pins: print("   ← VA 0x%08X (file 0x%X) %s" % (s,s-BASE,k))
+```
