@@ -104,7 +104,11 @@
 - **旧 GREEN(66 page) の来歴** = `9d90aabf` 本文 逐語 =
   「**非 jump default fall-through(旧: 黙って len consume)を `UnsupportedOpcodeGate` 呼出に置換**」
   ⇒ **旧実装は `Len[0x6C]=8` を 黙って消費して §0x36 body に入っていた**。
-  **`Len[0x6C]=8` は worker1 EXE 直読 TSV（hash `fb8086670e419e78462f449cf880cc2ef7e21e9d`）と GUARD 一致枠。**
+  **`Len[0x6C]=8` は worker1 EXE 直読 TSV と GUARD 一致枠。**
+  **★2026-09-13 訂正（boss1 #931-B1 便 002・私が受理）★** = **本文が引いた `fb808667…` は ★旧版 blob★**。
+  **HEAD 版は `5f18d9094ab6b66ca25c47b4f8fa38ff60a9d540`**（両 blob で **本 sweep の 11 op は全 11 行 bit 同一**・差分は `0xFB` 行追記と見出し 3 行）⇒ **以後の引用は `5f18d909`**。
+  **★さらに足す所見★** = **器（`OpcodeTable.ExeTsvHash`）は `fb808667` を ★印字するだけで照合していない★**（`ExeLen97` は hardcode・TSV を読まない）
+  ⇒ **「GUARD PASS」は ★Len 値の一致★ であって ★出所の一致ではない★**（**出所 hash を印字するが検証しない器** = 別枠で登録）。
 
 ### 7-4. 格
 
@@ -234,3 +238,74 @@
 **boss1 の scope 申告（受理）** = **引ける 3 種**（`0x6C` = `0x800EEB40` / `0x4D` = `0x800ED864` / `0x4F` = `0x800ED994`）／
 **`0x56` は ★書く先が未 RE ゆえ新規 RE に格上げ★**（87 件 = 最多）⇒ **新規 RE 8 種 / 引用 3 種**。
 **換算の宣言**（`extracted/slps_017_97.bin` `sha256 db26754d…c3e27` / base `0x80090800` / `file_off = ram - base`）を **全番地 claim に添えさせる**。
+
+---
+
+## 10. ★★PRESIDENT 実測（2026-09-13 夕）— ★0x4A は VM を yield する★／訂正 3 件★★
+
+**器** = `tools/p_opcode_census.py`（**anchor 5/5 で検定してから数を出す**）／出力 = `logs/cut178_ab_20260913/p_opcode_census_out.txt`
+**換算** = `extracted/slps_017_97.bin` `sha256 db26754d…c3e27` / base `0x80090800` / `file_off = ram - base`（capstone 5.0.7）
+
+### 10-1. ★訂正 3 件（boss1 の読み 2 件 ＋ ★私の第一読み 1 件★）★
+
+| # | 誤り | 実測 |
+|---|---|---|
+| ① | boss1 = 「`0x4A` handler の **同じ枝の直後**に blocking signature」 | **`0x800ED754` は ★全 arm の合流点★**。翻訳表の全 arm が `b 0x800ed754` で落ちる ⇒ **blocking は枝ではなく ★共通 path★** |
+| ② | **私** = 「cut178 の operand は `0xFF` でないから blocking を踏まない」 | **★誤り★。合流ゆえ ★3 件すべて踏む★**（実 operand = `pc=0x3C:0xC8` / `0x676:0xFC` / `0x7D2:0xC8`） |
+| ③ | boss1 が `0x4A` として引いた `0x800ED774`〜 | **★`0x4B` の handler 先頭★**（table 直読で bound = `0x4A` は `0x800ED53C..0x800ED770`）。**型 = 近接命令は scope の証拠にならない** |
+
+### 10-2. ★`0x800913C0` の素性（in-image の裏取り 2 件つき）★
+
+- **stub の形** = `addiu t2,0xA0 / jr t2 / addiu t1,0x14` = **BIOS A0 表 index `0x14` の呼び出し stub**。
+  **★「A0[0x14] = longjmp」は 外部知識であって image 読みではない★**（格を落として扱う）。
+- **裏取り (i)** = **router 先頭 `0x800F076C` が ★同じ jmp_buf `0x80164068`★ で `0x800913B0`(= A0 index `0x13`) を呼ぶ**。
+- **裏取り (ii)** = **band-out 停止 path `0x800F08A4`-`B8` が ★`0x4A` と bit 同一の呼び（`a0=0x80164068` / `a1=2` / `jal 0x800913C0`）★**（既登録 fact と一致）。
+- **⇒ ★`0x4A` は router の停止と ★同じ機構★ で VM を抜ける。差は `0x4A` が stop flag `gp-0x6cb0` を立てないこと★。**
+- **★yield の口 census = `jal 0x800913C0` が EXE 全走査で 36 件★** ⇒ **「blocking」は例外事象ではなく ★VM の常用機構★**
+  ⇒ 以後は **「blocking」で止めず ★「yield（router 先頭の setjmp へ戻る）」★ と書く**。
+
+### 10-3. ★11 種の depth-1 census（band 表 base は ★router 直読★・推定なし）★
+
+**band → sub-interpreter → table base**: `0x10-0x27`→`0x800EC4AC`/`0x8011B0F8` ／ `0x28-0x3F`→`0x800ECAB4`/`0x8011B1A0` ／
+`0x46-0x58`→`0x800ED434`/`0x8011B200` ／ `0x64-0x7E`→`0x800EDE88`/`0x8011B3A0`
+**器の検定** = anchor 5/5 一致（`0x6C`=`0x800EEB40` / `0x4D`=`0x800ED864` / `0x56`=`0x800EDC84` / `0x4F`=`0x800ED994` / `0x4A`=`0x800ED53C`）。
+
+| op | 件数 | handler | 命令数 | yield | gp flow cell への store |
+|---|---|---|---|---|---|
+| **`0x4A`** | 3 | `0x800ED53C..0x800ED770` | 142 | **★1★** | **`gp-0x6cbc` = mode（★router 先頭 `0x800F0748` が読む★）＋ `gp-0x6d00`** |
+| `0x6C` | 1 | `0x800EEB40` | 46 | 0 | - |
+| `0x4D` | 4 | `0x800ED864` | 32 | 0 | - |
+| `0x4C` | 10 | `0x800ED7F0` | 29 | 0 | - |
+| `0x56` | 87 | `0x800EDC84` | 10 | 0 | - |
+| `0x4F` | 2 | `0x800ED994` | 26 | 0 | - |
+| `0x34` | 8 | `0x800ECDD4` | 44 | 0 | - |
+| `0x29` | 58 | `0x800ECB60` | 10 | 0 | - |
+| `0x2B` | 1 | `0x800ECBD4` | 15 | 0 | - |
+| `0x22` | 1 | `0x800EC90C` | 14 | 0 | - |
+| `0x23` | 1 | `0x800EC944` | 8 | 0 | - |
+
+> **★限界の明示★ = これは ★depth 1（handler body のみ・閉包なし）★ ⇒ 「0 件」は (A) の ★下界★ であって ★演出の証明ではない★。**
+
+### 10-4. ★件数上位は薄い委譲だった ⇒ 残りの仕事は handler ではなく callee★
+
+| op | 件数 | handler が やること（全命令を読んだ） |
+|---|---|---|
+| `0x56` | **87** | operand 2 byte → **`jal 0x800EFA24(b1,b2)` だけ**（10 命令） |
+| `0x29` | **58** | operand 2 byte → **`jal 0x800CE5B4(b1,b2)` だけ**（10 命令） |
+| `0x23` | 1 | operand 1 byte → `jal 0x800CDA6C(b)` |
+| `0x22` | 1 | operand 1 byte ＋ **`lui at,0x8017 / lw v0,-0x4f7c(at)` = ★`0x8016B084` の語の下位 byte を読む★** → `jal 0x800F0CD0(b, that)` |
+
+**⇒ `0x22` は件数 1 だが ★既登録 fact（`0x8016B084` = actor slot1 の pointer-base 配線）に触る★** ⇒ **「1 件だから後回し」にしない。`0x8016B084` の読み手として扱う。**
+**⇒ 残作業 = callee 4 本（`0x800EFA24` / `0x800CE5B4` / `0x800CDA6C` / `0x800F0CD0`）＋ `0x4C`/`0x4D`/`0x4F`/`0x6C`/`0x34`/`0x2B` の callee。**
+
+### 10-5. ★worker1 の閉包 tool に 陽性対照を課した★
+
+**「`0x56` = 22 関数・深さ 6・flow cell 到達 0 件」は ★tool の power が未検定★** ⇒
+**同じ tool を ★`0x4A` に当てて flow cell 到達（`gp-0x6cbc` / yield）を出せること★ を示させる。**
+**出ないなら `0x56` の 0 件は ★器の盲点★ と区別できない。**
+
+### 10-6. ★現時点の裁定② への効き★
+
+**`0x4A`（3 件）が ★VM を yield し、router の先頭が読む mode cell を書く★** ⇒
+**★飛ばした 176 件の中に「VM の時間構造を変えるもの」が混ざっていた★** = **§8-3 の格下げは 実測で裏打ちされた。**
+**★ただし「`0x4A` を実装すれば 3 値が動く」とは書かない（測っていない）。★**
