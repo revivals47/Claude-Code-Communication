@@ -315,3 +315,58 @@ boss1 は (a) を「`i*0x3C` の**乗算**」で探して 0 件を得て、そ�
 （worker1 自身が事前登録の「期待される失敗③」に該当中と申告）。
 
 ★**完成 claim は user 実視覚まで凍結。「動いた」と誰も書いていない。**★
+
+## A-9. ★`switch` に `case` を足す行為それ自体が、既定 OFF を壊す★
+
+worker1 が段 5 着手前に実物から見つけた。**この罠はこの codebase で既に一度踏まれており、実測値つきで記録されている。**
+
+```
+DialogueRuntime.cs:1353  case 0x26:
+  // gate OFF は 旧経路(default) に戻します（★0x27 で踏んだ同じ罠★ = case を足すと
+  //   UnsupportedOpcodeGate を通らなくなり ★初回停止が消える★ ⇒ OFF が bit 同一でなくなる）
+  if (!Fix1BSpkMode) goto default;
+DialogueRuntime.cs:1627  //（gate OFF でも ★fxTotal 7,510 → 7,512 / emptyFx 77 → 76★）
+  //  ∴ default arm は ★ただ Len を消費するだけではない★（jump decode 等を持つ）
+```
+
+⇒ gate は「**新しい code を通すか**」だけでなく「**既存の default arm を通さなくなるか**」も見る。
+⇒ 既登録「gate の極性は式を引用」の**一段先** — **式の外側（switch の構造）でも極性は壊れる。**
+⇒ 派生: **「bit 同一」は推論で書くな・測って書け**（`0x24` に同じ推論が未 remedy で残っている疑い → follow-up）。
+⇒ さらに: **同一 file 内で同じ推論が後のケースで反証されているのに、前のケースの註がそのまま残っていた**
+  = **訂正が他の同型箇所に波及していない**（A-6 の別の現れ）。**訂正したら同型の註を全部 grep して当たる。**
+
+## A-10. ★同じ判断を 2 つの出力経路で別々に計算するな★
+
+`AssertPreregistered` が **message と戻り値を別々に計算**していた:
+
+```
+bool unknownOk    = (_unknown == expectedUnknown);
+bool overallGreen = (_unknown == 0) && (_red == 0);
+message = … "全体 = " + (overallGreen ? "緑" : "★緑にしない★") …
+return unknownOk;      ← overallGreen は戻り値に反映されない
+```
+
+probe: RED=3 / UNKNOWN=0 → **message は「緑にしない」・戻り値は true**。
+
+⇒ **人が読む文と機械が読む値が食い違う。** log を読んだ人は「gate が働いた」と思う。
+⇒ **偽 GREEN の中で最も検出しにくい形 — log が正直に見えるから。**
+⇒ **1 つの式から両方を作れ。** 併せて **「message と戻り値の整合を assert する test」**を置く
+  （RED>0 の test だけだと今回の 1 件は直るが、**同型の乖離は次も入る**）。
+
+## A-11. ★器は「最初に」検証する（最後ではなく）★
+
+段 3（**hang 検出器** = GREEN/RED/UNKNOWN を決める器）だけが、**誰にも検証されないまま段 4 に進んでいた**
+（boss1 の dispatch の欠落）。検証に出した結果、**両検証役から別々の欠陥が 1 件ずつ**出た。
+
+⇒ **器の検証が後回しになると、その器で出した全段の判定が後から揺れる**（段 1-4 の 3 つ組の信頼性が後退した）。
+⇒ 運用: **検証 matrix（段 × 検証役）を常設の表にして空欄を可視化する** → `VERIFY_MATRIX.md`
+⇒ 受理条件に **(6) 各段に 2 名の独立検算（器の段も例外としない）** を追加。**未充足なら次段へ進まない。**
+
+## A-8 追記 — ★boss1 自身による 3 例目★
+
+`0x4C/0x4D/0x4F/0x6C` の write-disp 集合を数えたとき、**窓末を目分量で置き、band jump table から取らなかった**。
+worker2 の指摘で検算した結果 **3/4 がずれていた**（`0x4D` +20 超過 / `0x4F` 4 byte 不足 / `0x6C` +8 超過）。
+
+**結論（3/3/4/5）が変わらなかったのは偶然**（`0x4F` で欠けた 4 byte がたまたま nop、`0x6C` はたまたま超過側）。
+⇒ **窓の出所も table から取る。** worker3 は TSV words 由来で 4/4 一致していたが、本人が
+  **「TSV words は万能でない（`0x66` で body を取りこぼす例を検出済）」**と註し、以後 band table から取ると宣言。
