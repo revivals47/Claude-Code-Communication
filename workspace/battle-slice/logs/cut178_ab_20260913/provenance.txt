@@ -1,0 +1,12 @@
+date=2026-09-13T14:25:34+09:00
+assy_HEAD=1e2179e2
+assy_branch=track1/battle-assembly
+assy_dirty_lines=0
+assy_dirty_sig=e3b0c44298fc1c14
+DG.SCN_sha256=4d776b2c99755328652d015a1aecf9185ff8612a0de6494cbbe6a6546cbc5e5b
+CutsceneVerify178.cs_sha256=138929a62fd0453543789b372064b6bf65369875ae4030714fd537869002b747
+DialogueRuntime.cs_sha256=5941d78184e1cbdc190c99e6a36b41f6c365af83708c470ce6ff1aff3f7b2a0f
+unity=6000.4.11f1
+env_DEGIMON_FAITHFUL_BODYSTART=unset
+env_DEGIMON_W3_PASSTHRU=unset
+env_DEGIMON_BATTLE_SLICE=unset
