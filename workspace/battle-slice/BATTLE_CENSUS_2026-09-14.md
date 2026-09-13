@@ -247,3 +247,142 @@ dispatch 0x800CA13C: andi 0xf000 の 4 値 [先行]
 - 0x80092C84 = 未読
 - DG.SCN の 0x10 opcode 長さ規則 = 未確定（83 entry で 打ち切り・開示済）
 - btl overlay 全域 = 私の 器の 外（slps 像内のみ 走査ゆえ 原理的に 見えない）
+
+---
+
+# BATTLE_CENSUS 2026-09-14 / worker3 実測値（#933-P3 直列 2 番目）
+
+## w3-0. 換算の宣言
+- slps = /home/ken/Desktop/Digimon/degimon/extracted/slps_017_97.bin / base 0x80090800 / sha256 db26754d…565c3e27 / 710656 byte / 像 = [0x80090800, 0x8013E000)
+- btl  = /home/ken/Desktop/Digimon/degimon/extracted/btl_rel.bin / base 0x80052AE0（worker2 実測）/ 179412 byte
+- disc = /home/ken/Desktop/Digimon/degimon/degimon.bin / MODE2 2352 / user data offset 24
+- tree = /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 / branch track3/battle-re-ai / HEAD dede9499d16e0b9d0c863f67d754656a50f18c43
+- 器 = w3_phase.py / w3_disc.py / w3_anim.py / w3_field.py / w3_disp.py / census.py（すべて上記 tree の workspace/p2_opcode_sweep_20260913/ に commit 済）
+
+## w3-1. phase 表 11 行
+
+f_8005CA7C = 8005CA7C..8005CB8C / 70 命令 / btl
+
+| # | 番地 | 命令 | 像 | 位置 | 役割の格 | 読了の範囲 |
+|---|---|---|---|---|---|---|
+| 1 | 80056CA8 | 529 | btl | 本 loop の外・前 | 観測 | 全文 |
+| 2 | 800574EC | 453 | btl | 本 loop の外・前（自前 frame loop） | 未判定 | ★339 行中 269 行（残り 70 行 未読）★ |
+| 3 | 80057C00 | 222 | btl | 本 loop 頭・唯一の出口 | 観測 | 全文 |
+| 4 | 80057F78 | 646 | btl | 本 loop 内 | 未判定 | ★本 session 未再読★ |
+| 5 | 80058990 | 443 | btl | 本 loop 内 | 未判定 | ★本 session 未再読★ |
+| 6 | 8005907C | 194 | btl | 本 loop 内 | 観測 | 全文 |
+| 7 | 80059384 | 131 | btl | 本 loop 内 | 観測 | 全文 |
+| 8 | 8005FCE8 | 79 | btl | 本 loop 内 | ★推論★ | 全文 |
+| 9 | 801045E8 | 97 | slps | 本 loop 内 | 観測 | 全文 |
+| 10 | 8010476C | 18 | slps | 本 loop の外・後 | 観測 | 全文 |
+| 11 | 80059590 | 286 | btl | 本 loop の外・後（自前 frame loop） | 観測 | 全文 |
+
+- 観測 7 / 推論 1 / 未判定 3 / 合計 11
+- phase 8 が推論である根拠（2 点のみ）= 条件分岐 0 本 / 0x8013CDB4 を 1 度も引かない
+- loop の実体（逐語）: 8005CABC jal 0x80057c00 ／ 8005CAC4 bnez v0, 0x8005cb14 ／ 8005CB0C b 0x8005cabc ／ 8005CB14 jal 0x8010476c
+- 全文 = 上記 tree の W3_PHASE_01.txt(416) / 02.txt(340) / 03.txt(166) / 06.txt(138) / 10_8_9_7.txt(246) / 11f.txt(214)
+
+## w3-2. MMD idx 43 census
+
+- 器 = w3_disc.py（自己 test = /CHDAT/MMD0/BOTA.MMD 22092 byte が extracted/bota.tmd と sha256 一致）＋ w3_anim.py
+- 母数 = 名前表 0x8013CE24（8 byte stride）の実名項のうち disc に .MMD が在るもの = ★178★
+- 除外 ★0★ ／ 打ち切り ★0★ ／ 合計 128 + 11 + 25 + 14 = ★178★
+
+| 区分 | 数 | 定義（何を数えたか） |
+|---|---|---|
+| 綺麗 | ★128★ | w3_anim.py が「総 frame 数に到達して完走」かつ「実行命令 2 個以上」かつ「総 frame 数が 1..600」 |
+| entry 0 | ★11★ | word @ (buffer + 4*43) == 0（setter 800C9D0C beqz が何もせず返る枝） |
+| 表の外 | ★25★ | 上記以外で、表の枠数が 43 以下。枠数 = entry が 0 か 4*(k+1) 以上である限り数えた k（陽性対照 = BOTA が 47） |
+| 未説明 | ★14★ | 上記いずれにも該当しない |
+
+- buffer = actor+0x08 = mmd + mmd の word[1]（loader 800A2F64 で観測）
+- N = master 表 0x8013A924（stride 52）の +0x14 の下位 byte
+- header = 2 + (N-1) * (18 または 12)（setter 800C9F14 bnez の 2 枝）
+
+★entry 0 の 11 種 全列挙★
+BOYS / BRIK / EBAK / EELE / ELEO / EPEN / EUNI / JIJI / JURE / PUTI / TONO
+
+★表の外 25 種 全列挙★
+ANLG / BRAK / CEGR / EAND / EANG / ECEN / EGOB / EHOE / EKUW / EMNO / EMOJ / EMON / ENAN / EPIY / ESCU / ESEA / ESHE / ESIR / EVED / EVEG / EYUK / HAGU / SCUD / TENS / TIRS
+
+★未説明 14 種 全列挙★
+EETE / EKAB / ETEM / EVAN / HKAB / KABU / KUWA / MRIS / MTET / SHEL / SIMA / SNDY / UNIM / YANM
+
+- 名前表の全項 = 183（実名 180 ＋ 接尾辞 3 = .MMD / .TMD / .MTN）
+- 名前表にあって disc に無い = 2（wEAG / tAKA）／ disc にあって名前表に無い = 0
+- master 表の連続件数 = 180
+- 否定済の仮説: 重複 file（178 件すべて sha256 相異・重複 group 0 件）／ N の違い（39 件中 26 件はどの N（1..40）でも解けず）
+
+## w3-3. +0x53
+
+★[A] 表 slot に値を入れる命令（slps）★
+```
+800ac330: 3c028017  lui   $v0, 0x8017
+800ac334: 2442b048  addiu $v0, $v0, -0x4fb8
+800ac338: 3c018014  lui   $at, 0x8014
+800ac33c: ac22cdb4  sw    $v0, -0x324c($at)
+
+800a62a4: 3c028017  lui   $v0, 0x8017
+800a62a8: 2442b084  addiu $v0, $v0, -0x4f7c
+800a62ac: 3c018014  lui   $at, 0x8014
+800a62b0: ac22cdb8  sw    $v0, -0x3248($at)
+```
+
+★[B] +0x53 に書く site（btl・80056E1C から 80056E58 まで連続）★
+```
+80056e1c: 8f829214  lw    $v0, -0x6dec($gp)
+80056e24: 00521021  addu  $v0, $v0, $s2
+80056e28: 9042066c  lbu   $v0, 0x66c($v0)
+80056e30: 00021880  sll   $v1, $v0, 2
+80056e34: 3c028014  lui   $v0, 0x8014
+80056e38: 2442cdb4  addiu $v0, $v0, -0x324c
+80056e3c: 00431021  addu  $v0, $v0, $v1
+80056e40: 8c420000  lw    $v0, ($v0)
+80056e48: afa20028  sw    $v0, 0x28($sp)
+80056e4c: 8fa20028  lw    $v0, 0x28($sp)
+80056e54: 24510038  addiu $s1, $v0, 0x38
+80056e58: a220001b  sb    $zero, 0x1b($s1)
+```
+同 loop の添字条件
+```
+80056fb0: 22520001  addi  $s2, $s2, 1
+80056fb4: 87829234  lh    $v0, -0x6dcc($gp)
+80056fbc: 0052082a  slt   $at, $v0, $s2
+80056fc0: 1020ff96  beqz  $at, 0x80056e1c
+```
+
+★[C] land 済の 1 の書込（btl）★
+```
+8005c298: 00808821  move  $s1, $a0
+8005c2a4: 24020001  addiu $v0, $zero, 1
+8005c2a8: a0220053  sb    $v0, 0x53($s1)
+```
+f_8005C288 の caller = 2 件
+```
+8005817c 直前: 80058170 move $a0, $s2
+80058c54 直前: 80058c4c lw   $a0, 0x38($sp)
+```
+
+★[D] 表[1]+0x53 を絶対番地で書く site（btl）★
+```
+80057ca0: 3c018017  lui $at, 0x8017
+80057ca4: a020b0d7  sb  $zero, -0x4f29($at)
+```
+
+★番地算術★
+```
+表[0]                  = 0x8016B048
+表[1]                  = 0x8016B084
+表[1] - 表[0]          = 0x3C（60）
+表[0] + 0x53           = 0x8016B09B
+0x8016B09B - 表[1]     = 0x17
+表[1] + 0x53           = 0x8016B0D7   ← [D] が書く番地
+0x80170000 - 0x4f29    = 0x8016B0D7
+```
+
+★数の格★
+- 3 形の器（w3_field.py）= 2 件と出たが ★陽性対照 3 件中 8005C2A8 が落ちた★ ⇒ この数は捨てた
+- disp だけの走査 = ★33 件は上限★（disp 0x1B は 表[]+0x38 の専用ではない・他構造体にも当たる）
+- 表[] に帰属できると言える site = ★[B] / [C] / [D] の 3 件のみ★
+- B[0x66C+s2] の書き手 5 件のうち: 8010727C = 定数 1（添字 0）／ 80107844・80107884 = s0 が 2 起点 slti 0xa ／ 80107328 = event var 0xFB/0xFC/0xFD（801072CC addi v0,s0,0xfb ／ 801072D4 jal 0x800f0ac8）／ 8010743C = f_80107258 の引数（caller 1 件 = 800AED2C）
+- ★矛盾が実在するとも実在しないとも書かない★（event var 0xFB..0xFD が 0 を取りうるかは未検証）
