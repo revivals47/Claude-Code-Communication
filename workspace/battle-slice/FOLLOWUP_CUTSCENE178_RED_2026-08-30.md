@@ -1126,3 +1126,63 @@ boss1 は **三つ組（登録→待ち→演出）には「実行がこの順�
 **段 5 の規律** = **`0x18` heuristic の撤去は `0x4A` 実装と ★同じ commit★**（順序依存を残さない）。
 **user へ上げるのは ★私だけ★** = **① 実機目視が必要 ② baseline(66/1601/0x1315) の再 bless が必要 ③ push が必要** の 3 条件。
 **「動いた」は ★私も書かない★（user 実視覚まで凍結）。**
+
+---
+
+## 25. ★実装 phase 段 1-3 land ＋ ★1.6G を使わずに compile gate を立てた★（2026-09-13）★
+
+### 25-1. 段 1-3 の land（私の独立検算）
+
+| | |
+|---|---|
+| commits | `4928a76a`(段1 data 構造) / `af98d0a7`(段2 解決器) / `474655de`(段3 stepper+hang 検出器) / `7575f364`(照合表) → `a9a5d7f8` |
+| 差分 | **全て新規追加**（`VmSlotCore.cs` / `VmSlotResolver.cs` / `VmStepperAndHang.cs` ほか）・**`DialogueRuntime.cs` は 1 行も触っていない** |
+| gate | **式で確認** = `VmSlotCore.cs:28 GetEnvironmentVariable("DEGIMON_VMSLOT") == "1"` ⇒ **既定 OFF** |
+| 不変 | **未 push**（`git branch -r --contains HEAD` = 0）／**他 4 tree tip 不動**／**実機未接続** |
+| 対照 | **陰性**（正常 run）= UNKNOWN 0 / GREEN 3 / 母数 3 ／ **陽性**（stepper 無効化）= **`NO_STEPPER` が出た・GREEN に畳まれず** |
+
+**形の審査（私が code を読んだ）** = `VmHangVerdict{Green/Red/Unknown}` ／ `VmHangUnknownReason{LIMIT/NO_STEPPER/NO_SLOT}` ／
+**`VmNoSlotDetail{RegisterOpNeverRan/ResolverBailed0xFF}`**（**spec C §3-4 の下位区別が ★型★ で表現されている**）／
+**「UNKNOWN を GREEN に畳むな」の comment が ★code 内に 3 箇所★**／閾値 3600 ＋ env 可変 ／**陽性対照用の 無効化 scarf が先に入っている**。
+
+### 25-2. ★★裁可事項 = ★1.6G の Unity cold import は 今は不要★（第 4 の選択肢を実走した）★★
+
+**boss1 の選択肢は A(cold import 1.6G) / B(Library 複製) / C(段 4 先行) の 3 つだったが、★D★ が在った**:
+**Unity 同梱 Roslyn ＋ `Managed/UnityEngine/*.dll` 参照で ★全 surface compile★**（**disk 消費ほぼ 0**）。
+
+| 測定（私 ＋ boss1 の 2 系統一致） | 結果 |
+|---|---|
+| **非 Editor 77 file**（実装本体 ＋ 新規 3 file） | **★`error CS` 0★** |
+| Editor 込み 120 file | 残り **2 件 = `CS1069`（`System.Diagnostics.Process` 未参照）** = **私の参照集合の不足・Editor 専用 census tool 内・実装由来でない** |
+| **器の対照 2 本** | ①壊れた C# 単体は落ちる ②**壊れた file を足すと件数が増える（2→3）= 器は生きている** |
+
+**⇒ `(i)` を 2 段に分けた** = **`(i-a)` = D を ★毎段必須★** ／ **`(i-b)` = Unity batchmode は ★cut178 を再走する時に 1 度★**
+（**cut178 再走はどうせ Unity を起こす ⇒ そこで同時に取る**。**`Library` は再生成可能 ⇒ 測定後に削除して回収できる**。
+**`/` は 96% 使用・残り 12G** = **私が実測**。**その時点で私が user に 1 行で伝える**）。
+
+> **★私の不備 2 件（記録）★**
+> ① **停止条件 (b)「UNKNOWN が 1 件でも出たら停止」が 受理条件 (3)（stepper 無効化で `NO_STEPPER` が ★出ること★）と矛盾していた**
+>   ⇒ **「★実 run において★。意図的 陽性対照の UNKNOWN は除く」に改めた**（**条件を書いた側の責任**）。
+>   **worker1 が黙って解釈せず 照合表と commit に明示した**のが正しい。
+> ② **「facade を入れると `CS0433` 34 件」に ★母数を添えていなかった★**（34 は **Editor 込み 120 file** の構成。非 Editor 77 file だけなら facade を足しても 0 件）
+>   ⇒ **★件数を引くときは 母数を必ず添える★**。**本 sweep で 4 回目**（`0x56` の 69/87 ／ `ImplementedOps` main 32 vs assy 36 ／ `grep -c` の 行数 vs 出現数 ／ 今回）。
+
+### 25-3. ★boss1 の裁定（私が支持）— ★検出器が まさにその点で 退路を pass に化けさせていた★★
+
+**`NotInstalled` の判定が 大域近似**（`actors.InstalledCount == 0 && entities.InstalledCount == 0`）だったため
+**部分投入時に「未投入」が「居ない(`NotFound`)」に畳まれる** ⇒ **登録 op が bail ⇒ `0x4A` が永久に待つ ⇒ 検出器は `NO_SLOT/ResolverBailed0xFF` を出す
+⇒ ★それは spec が「正常動作」と註した記号★** ⇒ **★本物の bug を 検出器が「正常」と読む★**。
+
+**処置** = **`NotFoundScanIncomplete`（走査が完全だったか）を 別記号で持つ** ＋ **`IsDefinitiveAbsence => Kind == NotFound`**。
+**★per-slot 化は採らない★** = **任意の id がどの slot に入るかは事前に決まらない ⇒ ★分けられるのは「走査が完全か」だけ★**
+= **「分けられないもの」と「分けられるもの」を先に切り分けた**。
+
+### 25-4. ★型として確定した 2 件（worker1 / boss1 が自分で見つけた）★
+
+1. **★test に焼き付けてはいけないのは 退路だけではない。★過剰な分類★ も焼き付けるな★**
+   worker1 の test は **全 skip の入力に `NotFoundScanIncomplete` を期待**していたが、**liveness が 1 本も無い = 走査対象が存在しない ⇒ `TableNotInstalled` が正**。
+   ⇒ **主 assert を ★要件そのもの（`IsDefinitiveAbsence == false`）★ に置き直し 分類を副次に降格**。
+   ⇒ **「code を test に合わせて曲げていない」と明示**（**逆向きの事故を先に否定**）。
+2. **★「claim が合わない」と思ったら まず 自分の pattern を疑う★** が **boss1 の側で ★報告前に発火★**
+   （`InstalledCount == 0 &&` / `MatchId` の hit は **撤去を記録した ★墓碑 comment★** = live code でない）
+   ⇒ **規範は 配るだけでなく ★自分に当てて★ 初めて効く**。**墓碑 comment を残した判断も良い**（**削除の理由を code に残す ⇒ 後から足し直すのを防ぐ**）。
