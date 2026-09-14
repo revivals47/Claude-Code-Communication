@@ -818,3 +818,53 @@ dispatch 0x800CA13C の andi 0xf000 ⇒ 取りうる値 16。落ち先の 全列
 
 ## w3b-5. worker1 節
 - ★worker1 節 = 未追記（worker1 保留中）★
+
+---
+
+# BATTLE_CENSUS 2026-09-14 / worker1 追記 #933-P3（直列 3 番目）
+
+- この節は、worker3 が置いた w3b-5 の枠（worker1 節 = 未追記）を置き換えるものです。w3b-5 の行そのものは他人の節なので編集していません。
+
+## w1-0. 出所と器
+- 観測 / tree = /home/ken/Desktop/Digimon/degimon_world_remake-anim43 / branch track1/battle-anim43 / HEAD 49ca250eac5b32cd5d6626af22205a759947bd56 / dirty 0
+- 観測 / 器 = grep（comment 行を除外）と、mono の reflection（BindingFlags.Public | Instance | DeclaredOnly）と、strings（build 成果物の dll）
+- 観測 / 除外 = unity/Assets/Scripts/Editor 配下と workspace 配下（harness）は「production の呼び手」から除外。comment 行（行頭 // と ///）も除外
+- 観測 / 母数の宣言 = unity/Assets/Scripts/Battle/*.cs = 16 file 4254 行。打ち切りなし、cap なし
+
+## w1-1. API 30 本（呼び手が 0 のもの）と、その内訳
+- 観測 / 13 本 = BattleAi の public static API。出所 file = unity/Assets/Scripts/Battle/BattleAi.cs
+  - 器 = grep -cE の public static 行数。production からの呼び出しは 0 件（器 = grep -rn の BattleAi. を comment 除外して計数）
+  - 呼んでいるのは harness のみ（workspace/battle-slice-verify/ai_verify.cs と runtime_verify.cs）
+- 観測 / 11 本 = BattleFormulas の public static API 12 本のうち、production から呼ばれていない 11 本。出所 file = unity/Assets/Scripts/Battle/BattleFormulas.cs
+  - 器 = 同上。呼ばれている 1 本は GetDamagePoint（呼び手 1 件 = BattleSession の ForcedHit 内）
+  - 呼ばれていない側に GetHitRate と RollHit を含む（= 命中判定は「0 本」ではなく「在るが呼ばれていない」）
+- 観測 / 6 本 = BattleStateSequence の public static API。出所 file = unity/Assets/Scripts/Battle/BattleStateSequence.cs
+  - 器 = 同上。production からの呼び出しは 0 件。harness からは 5 本が呼ばれ、BuildsAppend は自 file 内から 1 件のみ（外から 0・内から 1）
+- 観測 / 合計 = 13 + 11 + 6 = 30 本
+- 推論 / 「式は固定されているが、配線は 1 本も固定されていない」= 上の 3 つの 0 件からの読み
+
+## w1-2. BattleActor 32 欄（30 本とは別の量）
+- 観測 / 32 = BattleActor の public instance member（field と、引数なしで読める property）の数。器 = reflection（DeclaredOnly）
+- 観測 / これは API の数ではなく actor の欄の数。30 本（public static API の数）とは別の量なので、足し合わせない
+- 観測 / 2026-09-13 時点では 31。ActorB30 を足したため 32（= 同じ名前の数でも時点で変わる）
+- 観測 / 実走 1 戦（104 frame・Decided・結果 -1）で 1 度でも値が変わった欄 = 味方 7 / 敵 6。残りは初期値のまま
+- 観測 / 32 欄の中に、座標（x / y / z）と属性（attr）は 1 件もない（= 0 のままではなく、置き場がない）
+
+## w1-3. build 成果物と source の版のずれ
+- 観測 / workspace/build/DegimonLive/DegimonLive_Data/Managed/Assembly-CSharp.dll（mtime 2026-09-13 20:56:43）
+- 観測 / 器 = strings で symbol 名の完全一致を計数
+- 観測 / ActorB30 = 0 件
+- 観測 / IsAnyEnemyCollapsed = 1 件 / AllyAttacksThisHit = 1 件 / StandaloneScaffold = 1 件
+- 推論 / ActorB30 を入れた commit は e8ab5727。その 1 つ手前までの symbol は在り、ActorB30 だけが無い。よって焼かれているのは e8ab5727 より前の版
+- 推論 / この dll を走らせても +0x30 の書込は入っていない（再 build するかは boss1 の判断。2026-09-14 時点では再 build していない）
+
+## w1-4. 未閉（行内に印を置く）
+- 未閉 / btl f_8005C288 側の write の全数が未 census。我々が写した 2 本（+0x53 と 相手 H34）は「写した数」であって「在る数」ではない。よって TryCollapse の見出しは 4/(13 ＋ btl 未 census) と書いており、1 つの数に畳んでいない
+- 未閉 / remake の Tick 8 段のうち原盤 VA を引用する 4 本（0x80057F78 / f_8005907C / 0x80058990 / 0x8005C1DC）が、原盤 11 phase のどれに当たるかの対応づけ。worker3 の phase 表が埋まってから照合する
+- 未閉 / 43 が倒れる anim であること（anim 表は誰も読んでいない）。remake の目視では閉じない。閉じる道は anim 表の RE か原盤の観察
+- 未閉 / 表[1] = Ally であること / 入口 B が Enemy 固定であること（原盤は可変選択）/ 原盤の frame 内で drain と段 1 のどちらが先かの順序
+
+## w1-5. 事前登録した予測（実装より前に書いたもの・code 側にも置いてある）
+- 推論 / 予測 5 = 読む側（phase 3 相当 = 43 かつ +0x30 bit0 == 0）を実装した commit で戦闘が終わらなくなる。原因はその commit ではなく、bit0 を落とす機構（0x800CA064）が無いこと。読む側は落とす側と対でしか入れない
+- 推論 / 予測 6 = 表参照（表[id]==0 なら何も書かない bail）を入れた commit で 11 種族の挙動が変わる。これは露出であって欠陥ではない。11 種族が戦闘 actor になり得るかは 未閉
+- 推論 / H18 に実値が入る commit で TryFire が止まる。現在 TryFire が通っているのは H1A == H18 が 0 == 0 で成立しているため。同型は他に 3 箇所（H1A > H18 の clamp / H64A > 0 / State == Wait）
