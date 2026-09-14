@@ -762,3 +762,59 @@ dispatch 0x800CA13C の andi 0xf000 ⇒ 取りうる値 16。落ち先の 全列
 - 0x800CA4D8（prologue 0x800CA0B8 jal）= 未読・本 task の 範囲外
 - 0x800C9A80（0x800CA4B4 jal）= 未読・本 task の 範囲外
 - 0x5000..0xF000 の 11 値 = 到達可能性 未確認（14-2）
+
+---
+
+# BATTLE_CENSUS 2026-09-14 / worker3 追記 #933-P13（直列 4 番目）
+
+## w3b-0. 出所
+- tree = /home/ken/Desktop/Digimon/degimon_world_remake-p2w3 / branch track3/battle-re-ai / HEAD 096079f996c21f52a162ff7d6bcc45ca2f3e8049
+- 器 = w3_bfield.py / w3_span.py / w3_slot.py（すべて上記 tree の workspace/p2_opcode_sweep_20260913/ に commit 済）
+- 換算は w3-0 と同じ
+
+## w3b-1. B[0x66C + i] への store 全数
+- B = 0x801460F8（gp-0x6dec への store は両像で 1 件のみ = 80118EF8。値は 80118EF0 lui 0x8014 ＋ 80118EF4 addiu 0x60f8）
+- 器 = w3_bfield.py（形1 = gp-0x6dec から直に lw / 形2 = 形1 に addu / 形3 = 絶対番地）
+- 陽性対照 = 8010727C（出力に在り）／ 母数 = 両像 全語 ／ ★除外 0★ ／ ★打ち切り 0★
+- ★store = 5 件（すべて slps・すべて disp 0x66C）★ ／ load = 61 件（disp 0x66D の 2 件を含む）
+
+| site | 形 | 逐語 | 0 を取りうるか |
+|---|---|---|---|
+| 8010727C | 形1 | 80107270 addiu $v1, $zero, 1 ／ 80107274 lw $v0, -0x6dec($gp) ／ 8010727c sb $v1, 0x66c($v0) | ★取らない★ |
+| 80107844 | 形2 | 8010782C andi $a0, $s0, 0xff（s0 は 8010744C addiu $s0, $zero, 2 起点・801078A4 slti $at, $s0, 0xa） | ★取らない★ |
+| 80107884 | 形2 | 8010786C andi $a0, $s0, 0xff（同じ s0） | ★取らない★ |
+| 80107328 | 形2 | 801072CC addi $v0, $s0, 0xfb ／ 801072D4 jal 0x800f0ac8 ／ 801072E0 sb $v0, 0x34($v1)。801072EC で 0xFF なら飛ばす（0 は飛ばさない） | ★決まらない・未閉★ |
+| 8010743C | 形2 | 8010741C lh $v0, 0x40($sp) ／ 80107424 andi $a0, $v0, 0xff。sp+0x40 = 8010726C sw $a0, 0x40($sp)（f_80107258 の引数） | ★決まらない・未閉★ |
+
+- ★未閉★ 8010743C の引数 chain: caller 1 件 = 800AED2C ／ その a0 = 800EE7F8 lh $a0, -0x6d08($gp) ／ gp-0x6d08 の書き手 1 件 = 800F021C（値は 800F0214 lb $v0, -0x6e9c($gp)）／ gp-0x6e9c の書き手 2 件 = 800AE4E0 と 800BC294（どちらも実行時 register・★未閉★）
+
+## w3b-2. event var 0xFB / 0xFC / 0xFD の書き手（未閉）
+- 配列の素性（逐語）: 800F0CE4 lw $v0, -0x6cec($gp) ／ 800F0CEC addu $v0, $v0, $v1 ／ 800F0CF0 addiu $s0, $v0, 0x159 ／ 800F0CFC sb $v0, ($s0)
+- 番地 = [gp-0x6cec] ＋ 0x159 ＋ 添字。0xFB から 0xFD は ★+0x254 から +0x256★
+- setter 0x800F0CD0 の caller = ★48 件★ ／ a0 が即値 = 22 件（値 = 0x2 が 2 / 0x3 / 0x4 / 0x5 / 0x6 / 0xC8 / 0xF3 が 4 / 0xF4 が 3 / 0xFE が 4 / 0xFF が 4）
+- ★a0 が即値で 0xFB / 0xFC / 0xFD = 0 件★
+- ★未閉 (1) a0 が即値でない 26 件★
+  800E9170 800EB32C 800EC834 800EC884 800EC8D0 800EC8FC 800EC934 800EC994
+  800EC9C0 800EC9E4 800ECA08 800ECA2C 800ED310 800ED32C 800ED348 800ED364
+  800ED3FC 800EE7C4 800EF1D8 800EF21C 800F08F0 800F0930 800F0B44 800FAC78
+  80111218 80111590
+- setter 以外の書込路 = gp-0x6cec の中身を base にする store 10 件（陽性対照 800F0CFC を含む）。setter 以外は 9 件
+  - 範囲の外と言える 5 件: 800F0D8C / 800F0D90（800F0D80 addiu $s0, $v0, 0x25c）／ 800F138C / 800F13B0（800F1368 addiu $s0, $v1, 0xd4）／ 800FAB88（800FAB90 slti $at, $s0, 6・0xFF を書く）
+  - ★未閉 (2) offset が実行時で不明な 4 件★ = 800F97B4 / 800F9F20 / 800FA978 / 800FA9C4
+
+## w3b-3. 札 = 実機
+- ★未閉★ B[0x66C + i] が 0 を取りうるかは、静的には決まらない（gp-0x6e9c / 26 件 / 4 件 と、辿るたびに実行時 register に落ちた。3 回）
+- ★閉じる手順★: 戦闘中に B[0x66C + i]（i = 0 から 9）の値を採取し、0 が現れるかを見れば閉じる
+- ★[B] 80056E58 ／ caller2 80058AC8 ／ 表の添字引き の 3 つは、この 1 回の観測で同時に閉じる（3 回測らない）★
+
+## w3b-4. UNK の未閉（w3-3 の続き）
+- ★未閉★ B = 2 件（addu 形・base 0x8016ADCC・帯に届くには添字 141 以上・上限は押さえていない・読んだ値は直後に jalr へ）
+  801137B0 sw $a0, -0x5234($at)（addu = 801137AC）／ 80113800 lw $v0, -0x5234($at)（addu = 801137FC）
+- ★未閉★ C = 90 件（$at の書き手を辿れない・code か data か未判定）。全 address は p2w3 の W3_UNK_CLASSIFY.txt
+  命令の形 = lb $ra が 57 / sb $ra が 10 / sw $ra が 8 / lw $ra が 4 / lh $ra が 3 / lbu $ra が 3 / 他 5
+  居場所 = slps 0x8012 台が 85 / slps 0x8013 台が 4 / btl 0x8007 台が 1
+  生 byte の例 = 0x80128EA0 は ff fb 3f 80 ff fb ff fb ／ 0x80129DE4 は ff ff 3f 80 bf ff bf ff
+  ★印字可能 byte の比率は 0x8012 台 23 パーセント / 既知 code の 0x800A 台 20 パーセント で判別に使えない（★未閉★）
+
+## w3b-5. worker1 節
+- ★worker1 節 = 未追記（worker1 保留中）★
