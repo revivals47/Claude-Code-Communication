@@ -133,17 +133,28 @@ send_message() {
     
     echo "📤 送信中: $target ← '$message'"
     
-    # Claude Codeのプロンプトを一度クリア
-    tmux send-keys -t "$target" C-c
+    # 同じ宛先への送信は 1 本ずつ（2026-09-25 PRESIDENT）。
+    # 以前は先頭に C-c を送っていたが、C-c は作業中の相手の turn を中断し、
+    # 待機中の相手に 2 本の便が数秒以内に続くと 2 回目の C-c で Claude Code が終了する
+    # （2026-09-25 boss1 が 3 回落ちた時刻は、どれも boss1 宛の便が 0〜1 秒差で続いた時刻と一致:
+    #  06:29:31・09:01:40・13:34:30/31。13:57 には worker1 の regress_all が中断された）。
+    # ⇒ C-c をやめ、入力欄は C-u（行の消去、作業を中断しない）を複数回で消す。
+    local lock="/tmp/agent-send-$(echo "$target" | tr ':.' '__').lock"
+    exec 9>"$lock"
+    flock -w 30 9
+
+    # 入力欄に残った文を消す（複数行でも消えるよう回数を多めに）
+    for _ in $(seq 1 30); do tmux send-keys -t "$target" C-u; done
     sleep 0.3
-    
+
     # メッセージ送信
     tmux send-keys -t "$target" "$message"
     sleep 2
 
     # エンター押下
     tmux send-keys -t "$target" C-m
-    sleep 0.5
+    sleep 1.5
+    exec 9>&-
 }
 
 # ターゲット存在確認
