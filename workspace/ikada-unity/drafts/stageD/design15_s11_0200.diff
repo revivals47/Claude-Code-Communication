@@ -1,0 +1,19 @@
+diff --git a/15_logic_game_interface.md b/15_logic_game_interface.md
+index a45df33..527de12 100644
+--- a/15_logic_game_interface.md
++++ b/15_logic_game_interface.md
+@@ -351,6 +351,14 @@ namespace Ikada.Game
+ 
+ ## 11. 変更履歴（API・装置・流れ。Linux 側が読むこと）
+ 
++### 2026-09-29 朝の回（API 0.20.0、PRESIDENT 07:3x 第 3 案、Linux 側 worker3。ikada-sim 〔sha は main に入った時に〕）
++| 何 | 中身 | 版 | Linux 側ですること |
++|---|---|---|---|
++| **前夜の宿の行**（07） | `PrepView.InnLines`（`List<string>`）＝ 07 の配合の一覧の間に読む行の列、★1 要素 ＝ 1 行 ＝ 1 頁★、字は「話し手：本文」、順 ＝ 宿の行（`StoryHooks` の Lodging、あれば）→ その日に出す課題の行を出す順に 1 つずつ（`DayCast` の話し手）。★字幕とは切り離し ＝ 時間で消えない★（07 に居る間ずっと同じ。釣具屋では `PrepView` ごと null ＝ 今の決まり）。★課題の行は字幕に出さない★（前は `GameFlow` が 1 つの長い Story の字幕にして 06 の帯を占め、次の Speech に上書きされて読み切れなかった、drafts/stageD/SUB_WRAP_W3.md §2）。宿の行は字幕にも今までどおり出す。物語の日だけ（練習・自由は空）。 | **MINOR 0.20.0** | 07 の助言の欄を `InnLines[InnPage]` で描く（顔は 1 行の話し手から）。空・古い pin ＝ 今の `Subtitle` の道。 |
++| **今の頁**（07） | `PrepView.InnPage`（int、0 始まり）＝ `InnLines` の添字。★logic が持つ★（07 と釣具屋の出入りで変わらない。日の途中の「続きから」は日の作り直し ＝ 0 に戻る）。 | 同上 | 「n/N」を描くなら n ＝ InnPage＋1、N ＝ InnLines の数。 |
++| **頁送りの入力** | `InputFrame.AdviceNext`（bool、押した 1 frame）＝ 07 の配合の一覧でだけ `InnPage` を 1 進める、最後の次は最初（戻る方向は無し）。他の画面・釣具屋では何もしない。キーは host が決める。 | 同上 | キーを割り当てる（案 ＝ キーボード N・パッド △、07 では他に使っていない）。 |
++- RefCheck：課題の行の say が 5 日とも消える ＝ events が動く（縛り直し #13）、numbers は同じ（〔結果は main に入った時に〕）。
++
+ ### 2026-09-28 夜の回（API 0.19.0、D13 段 2、Linux 側 worker1。PRESIDENT 22:3x 承認。ikada-sim 55ddd94、main 2026-09-28 23:47）
+ | 何 | 中身 | 版 | Linux 側ですること |
+ |---|---|---|---|
