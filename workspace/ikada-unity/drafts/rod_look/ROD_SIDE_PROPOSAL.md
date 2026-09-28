@@ -51,7 +51,8 @@
 - compile（Unity なし）: tools/cs_check.sh は track3 の Library の Ikada.*.ref.dll が古い（09-28 00:30、manifest は 55ddd94）ため 私の変更の前でも 15 errors（私の変更の有無で 同じ 15 = 足した誤り 0）。→ ikada-sim e550bd9（pc/src は 55ddd94 と diff 0）から build した Ikada.* の dll に参照を替えた写しで ★rc 0・errors 0（116 file）★。陽性対照: RuntimeRod に誤りを 1 つ入れると errors 1（戻した、sha 同じ）。
 - 撮り方（Unity の番、boss1 の LOCK の後）: `tools/unity-batch.sh exec Ikada.EditorTools.BuildScript.BuildPerf` を 1 回 → 条件ごとに `tools/player_shots.sh --no-build 08`、env = IKADA_ROD_T=1.102・IKADA_ROD_ANGLE=-0.079・IKADA_ROD_FIGHT=1（worker2 の pair と同じ）× IKADA_REEL_HAND = right / left × IKADA_ROD_LINE = +0.5 / −0.5 × IKADA_ROD_LAY_DEG = 0 / 30 / 40 / 55（16 条件）。log の頭に LockedHint・IdleHint（loginctl）、IdleHint=yes か無操作の時に。並べた画 = drafts/user_review/c143_*（字幕の帯を枠で、竿が帯にかかる所に印）。
 - ★予測（撮る前に登録）★:
-  - P1 LAY 0（env なし と同じ式の早い return）: 16 条件のうち LAY 0 の 4 枚は master 7e8413a の同じ env の画と ★0 px★。env を付けない 他の mock の画も 0 px（LayMaxDeg 0）。
+  - P1a LAY 0 の 4 枚 = 同じ build で IKADA_ROD_LAY_DEG を付けない同じ条件の画と ★0 px★（式の早い return、同じ build の中で比べる）。
+  - P1b 右巻き・糸 ±0.5・LAY 0 の 2 枚 と worker2 の shots/rodline_0008/line_±0.5.png（track2 ccd071a の build）: ★竿の所は同じ★（Assets/Scripts/Render と BackdropBuilder*.cs は ccd071a と 7e8413a で diff 0 を git で確かめた）。build の他の所（package・UI）の違いで竿の外に差が出たら、場所と px を書く（予測の外れとは数えない、と先に決める）。
   - P2 見える側（右巻き・糸 +0.5 ／ 左巻き・糸 −0.5）: LAY 30・40・55 でも ★0 px（寝かせない = k 0）★。
   - P3 見えない側（右巻き・糸 −0.5 ／ 左巻き・糸 +0.5）: LAY が増えるほど弧が見える。模型の数（右巻き・糸 −0.5）: 見え方 0.06（0°）→ 0.11（30°）→ 0.18（40°）→ 0.30（55°）、弧 76 → 117 → 181 → 290 px（1920×1080）。実の画の弧の px は 模型から ±25% の中（推論、模型は §11 の器）。
   - P4 字幕の帯（x 22〜93%・y 80〜92% の枠、見本と同じ）: 模型の竿の点 25 のうち 帯の中 = 0° で 2・55° で 4（右巻き・糸 −0.5）。左巻きは 左右を映した同じ数。
