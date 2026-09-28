@@ -31,3 +31,4 @@
 - 船長 = gen captain_v1（04 の captain_v1 = prep_art の transparent('captain_v1') = 同じ gen）: 頭の上 29・顎の下 430（頭 401）・顎の中心 x 410（20 px 目盛り、±10 px）。
 - Q5 予測: k = 0.802、512×342 か 343（丸め）、顔の幅は他の 4 枚と同じくらいに見える（読み）。07 の欄で 1 人目が 船長 の日だけ 灰の胸に替わる（芦北の 4/20・7/20 の Prep の間の 1 人目は師匠 = 回帰 0 px のまま）。
 - 表の外（今は直さない、boss1 06:55）: LICENSES.md に 04 の aniki_v1_crop・joren_v1_crop・island_captain_v1_crop の行が前から無い。
+- 結果（観測）: e52586856f8f26616900d55cfd5404110662e4d1 = 船長の灰の胸 k 0.802・512×343（丸め）・箱の左 −7（gen の外 = 透明）、UiTheme の bust 列・meta・LICENSES 1 行、Roslyn errors 0。5 枚の並び bust_gray_strip5_e525868.png（様式は揃って見える = 読み）。
