@@ -43,3 +43,16 @@
 - `c143_rod_side_mock.png`: 竿の中心線の計算（今の右・左、推奨、退けた案 A の右・左）。★計算の線で、実の画ではない★。
 - `c143_rod_side_lay_strip.png`: 魚が左の時の寝かせる量 0°・30°・40°・55° と 見え方の数。
 - Unity の番の撮り（後で）: 寝かせる量を shot だけの env（例 IKADA_ROD_LAY_DEG）で与え、worker2 の pair と同じ条件（IKADA_ROD_T=1.102・ANGLE=−0.079・FIGHT=1・LINE ±0.5）で 右巻き・左巻き × 量 4 つ × 糸 ±0.5 を並べる。
+
+## 6. 実装（track、master に入れない）と 撮る前の予測（2026-09-29 00:4x、PRESIDENT 00:2x GO）
+- branch `track3/rod-lay`（ikada-unity-track3、master 7e8413a から）。変えた所:
+  - RuntimeRod.cs: ApplyNow の BendInputs の直後に `_tip = Laid(_butt, _tip, rodLine)`（DisplayRaise の Clears :264 も寝かせた竿で見る）。`Laid` = 最大（`LayMaxDeg` = ★0 = 依頼者が決めるまで 今のまま★、shot だけの env `IKADA_ROD_LAY_DEG` で上書き）× clamp(−rodLine × s / 0.4, 0, 1)、s = 元が目の左（x < 0）で +1、元の周りに水平に 元と反対の側へ回す（右巻きで右へ）。ReadEnv に IKADA_ROD_LAY_DEG（shot overrides の log に layDeg）。
+  - BackdropBuilderProps.cs:182 の古い注（IKADA_ROD_YAW）を直した（注だけ）。
+- compile（Unity なし）: tools/cs_check.sh は track3 の Library の Ikada.*.ref.dll が古い（09-28 00:30、manifest は 55ddd94）ため 私の変更の前でも 15 errors（私の変更の有無で 同じ 15 = 足した誤り 0）。→ ikada-sim e550bd9（pc/src は 55ddd94 と diff 0）から build した Ikada.* の dll に参照を替えた写しで ★rc 0・errors 0（116 file）★。陽性対照: RuntimeRod に誤りを 1 つ入れると errors 1（戻した、sha 同じ）。
+- 撮り方（Unity の番、boss1 の LOCK の後）: `tools/unity-batch.sh exec Ikada.EditorTools.BuildScript.BuildPerf` を 1 回 → 条件ごとに `tools/player_shots.sh --no-build 08`、env = IKADA_ROD_T=1.102・IKADA_ROD_ANGLE=-0.079・IKADA_ROD_FIGHT=1（worker2 の pair と同じ）× IKADA_REEL_HAND = right / left × IKADA_ROD_LINE = +0.5 / −0.5 × IKADA_ROD_LAY_DEG = 0 / 30 / 40 / 55（16 条件）。log の頭に LockedHint・IdleHint（loginctl）、IdleHint=yes か無操作の時に。並べた画 = drafts/user_review/c143_*（字幕の帯を枠で、竿が帯にかかる所に印）。
+- ★予測（撮る前に登録）★:
+  - P1 LAY 0（env なし と同じ式の早い return）: 16 条件のうち LAY 0 の 4 枚は master 7e8413a の同じ env の画と ★0 px★。env を付けない 他の mock の画も 0 px（LayMaxDeg 0）。
+  - P2 見える側（右巻き・糸 +0.5 ／ 左巻き・糸 −0.5）: LAY 30・40・55 でも ★0 px（寝かせない = k 0）★。
+  - P3 見えない側（右巻き・糸 −0.5 ／ 左巻き・糸 +0.5）: LAY が増えるほど弧が見える。模型の数（右巻き・糸 −0.5）: 見え方 0.06（0°）→ 0.11（30°）→ 0.18（40°）→ 0.30（55°）、弧 76 → 117 → 181 → 290 px（1920×1080）。実の画の弧の px は 模型から ±25% の中（推論、模型は §11 の器）。
+  - P4 字幕の帯（x 22〜93%・y 80〜92% の枠、見本と同じ）: 模型の竿の点 25 のうち 帯の中 = 0° で 2・55° で 4（右巻き・糸 −0.5）。左巻きは 左右を映した同じ数。
+  - P5 左巻きは右巻きの鏡: 左巻き・糸 +0.5 の LAY 55 の竿は 右巻き・糸 −0.5 の LAY 55 を左右に映した形（±3 px、甲板や海の背景は鏡でない）。
