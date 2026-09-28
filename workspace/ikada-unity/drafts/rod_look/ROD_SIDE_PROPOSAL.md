@@ -69,3 +69,13 @@
   - P4 外れ: 帯（x 22〜93%・y 80〜92%）の中の 動いた竿の px = 右巻き・糸 −0.5: 0° 8,521・30° 9,148・40° 8,517・55° 8,627／左巻き・糸 +0.5: 8,032・9,245・8,664・9,187。模型の「0° 2 点 → 55° 4 点（25 点中）」の倍増は 実の px には出ない（竿の下の部分は 0° でも帯の中）。★数え方が違う（模型は点、実は px、動いた竿だけ）★ ことも外れの一因。
   - P5 外れ: 右巻きの竿の mask を左右に映して 左巻きと比べると、55°: IoU 0.646・3 px 以内 95.4% / 86.1%、0°: IoU 0.442・3 px 以内 72.6% / 72.5% = ±3 px の鏡ではない。原因は 推論（右上の札・右の桶・左の箱などが左右で違い竿の一部を隠す、mask の作り方）、未確認。
 - ★量の判断は 依頼者（PRESIDENT が仮に 1 つ選ぶ）★。私の見え方（観測・判断ではない）: 40° が弧のいちばん読みやすい形、55° は竿が低く寝て右の札・桶に近づく。
+
+## 8. 仮の量 40 度（PRESIDENT 02:1x）と regress の前の予測（Unity の前に登録）
+- track3/rod-lay 17bb3e11964b88e0cc087344663770f8d5706e19 = 6b8c31d の上に LayMaxDeg 0 → 40（注も）。compile（Unity なし）: ikada-sim e550bd9 から build した Ikada.* の dll に参照を替えた cs_check の写しで rc 0・errors 0（116 file）。★c30 に「量は仮・R1 で依頼者が決める」を書くのは worker1 の c30 の番（boss1 経由）★。
+- 何が動くか（source から、推論）: 寝かせは ファイト中（FightActive か IKADA_ROD_FIGHT）で、糸が 竿の元の側（既定の右巻き = rodLine < 0）の時だけ。mock でファイトの画は MockFight（08）だけで、糸 +0.5（MockFight.cs:21）・右巻き = 寝かせない側 = k 0。
+- 予測（regress_all、worker2 (C) の FREE の直後の番）:
+  - R1 ★15/15 PASS★。
+  - R2 baseline の段: player の 26 枚（13 画面 × A/B）は 前の baseline と同じ判定（08 は既知の竿の縁の px のまま、それ以外 0 px）= 40 度の寝かせは mock に出ない。
+  - R3 editor_shots・compare: 同じ code なので player と editor の差は 今までの幅（diff>24% ≤ 0.18 の辺り）。
+  - R4 live の段: logic の並び = 基準（表示だけの変更で logic は同じ）→ PASS。live の画（4/20 の日のファイトの frame があって、そこで糸が元の側なら 竿が 40 度寝る = 画が動く）は live の段が画を判定に使うかを まだ読んでいない（worker2 の INTAKE_0180_W2.md の引用では 比べるのは page= と screens= の文字）= ★画が動いても 判定は変わらない見込み、動いた frame があれば 何枚目・何 px を書く★。
+  - R5 git_clean start/after_build/end とも 0。
