@@ -21,3 +21,10 @@
 - P1 の直し: ContractTests の一覧の差 = `+ InputFrame.AdviceNext`・`+ PrepView.InnLines`・`+ PrepView.InnPage` の 3 行（消える行 0）→ MINOR 0.20.0。
 - P6 新しい試験: AdviceNext を 1 回ずつ押すと InnPage が 0→1→…→N−1→0、07 を出て戻っても（釣具屋へ入って戻る）InnPage は同じ、宿の行も課題も無い日（練習）は InnLines 空・AdviceNext で InnPage 0 のまま。
 - DayFlow.SayStory（GameFlow.cs:241 だけが呼んでいた）は呼び手 0 = 消した。
+
+## 結果（観測、07:5x）
+- P1 ★当★: ContractTests の一覧の差 = api 0.19.0→0.20.0・ApiVersion の定数・`+ field Boolean AdviceNext`・`+ field List<String> InnLines`・`+ field Int32 InnPage`（消える行 0）。
+- P2 ★当★: RefCheck 5 日 = events が 5 日とも動いた（4/20 89bf92e4596b2e4b・7/20 1cd10aae7f794a68・E′ a79b688025c1dfdb・F 97d10bbfa62f948e・G 31fc7e069a8d5073）、★numbers は 11 とも #12 と同じ★（5 日 ＋ 種 1〜3 の 4/20・7/20）。log の diff（3838e10 の log と）= ★5 日とも 課題の行の say が 1 行消えるだけ★（4/20 10483・7/20 22967・E′ 24083・F 23967・G 14967 ms）、増えた say 0（譲って出なかった Status が出る形は 0 件）。
+- P3 ★当★: 待ちの数 4-20 0・7-20 1・E′ 0・F 0・G 0、捨て 0（1 回目の全試験の [lineslot] 行）。
+- P4 ★当★: 1 回目の全試験（07:38、書き直し前）= 失敗 11 = 待ちの数 5・events の pin 5（ChumTrail 3・Chapter3Day・Chapter4Reference）・DayCastTests 1、ほか 819 合格。
+- 訂正（boss1 への 07:26 の便）: 「InnPage は続きからで変わらない」は誤り = 日の途中の続きからは DayFlow の作り直し = 0 に戻る。07 と釣具屋の出入りでは変わらない（InnLinesTests で確かめる）。15 §11 の下書きは正しい形で書いた。
