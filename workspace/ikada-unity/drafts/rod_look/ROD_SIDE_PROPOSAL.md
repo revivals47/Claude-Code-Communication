@@ -97,3 +97,5 @@
   - baseline 26/26 pairs 0 px（R2 当）、compare diff>24% max 0.18（R3 当）、git_clean 0/0/0（R5 当）。
 - 見張り（30 秒ごと）: 2 回とも Runner.Worker 0（13 と 15 の標本）、load1 の最大 4.12・2.05。
 - ★基準は差し替えていない★（seed 1 の live_08 の差し替えは PRESIDENT の GO の後）。
+- ★予測外の観測（1 行）: seed 1 live_08 の竿の表示の上げ 0.175 → 0.265 rad = RuntimeRod.cs:227-251 の DisplayRaise が 「Clears」（:263-、RodBend.Points(N(_butt), N(_tip), …) の点が甲板の箱＋竿の太さを避けるか）を 二分法で満たす一番小さい上げを選ぶ。寝かせは _tip を DisplayRaise の前（:190）に回すので、寝かせた竿（右へ低く）が甲板に近づき、同じ logic の上げ −0.079 でも より大きい表示の上げが要った（推論、式から。値は live.log:1692 の観測）★
+- 基準の差し替えの dry-run 表: drafts/rod_look/LIVE_REBASE_LAY40.md（stageC/live_rebase.py、--tag pre-lay40、--seeds 1、source = 17bb3e1_024240）= changed 2（live_08.png・live.log）・same 10・added 0・gone 0。★何も動かしていない（基準の dir に pre-lay40_ の file 0 件を確かめた）★。実行は PRESIDENT の GO の後、boss1 の合図で、Unity が空いている時に `live_rebase.py … --apply --table rod_look/LIVE_REBASE_LAY40.md`（表の sha と違えば止まる）。
