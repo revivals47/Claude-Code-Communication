@@ -3,12 +3,12 @@
 # DEFAULT = DRY RUN: every read-only check runs and prints its line; nothing is built, copied or launched. --apply does the
 # steps (only under a boss1 LOCK, after PLAYABLE_NEXT.md §2's checks on this very sha). Any stop line = exit != 0, nothing after it.
 # usage: playable_build.sh <master sha (40 hex)> <worktree> [--apply]
-#        playable_build.sh --check-lines <build stdout> <launch log> <probe log> <day log>   (no Unity: steps 2 and 4's stop lines
+#        playable_build.sh --check-lines <build stdout> <launch log> <probe log> <day log> [<save dir A> <save dir B>]   (no Unity: steps 2 and 4's stop lines
 #        run on logs that already exist - positive = a good run's logs, negative = a copy with one line broken; worker2 H6)
 # Second read fixes (worker2 06:4x, boss1 06:41; worker3's agreement to follow): H1 step 2 reads the Unity batch log that the
 # build stdout names (log=), as regress_all.sh:126-133 - the two lines are not in the stdout; H2 the worktree is an argument
 # (no default: not a worker's active tree) and its branch is put back at the end; H4 timeouts; H6 --check-lines; H7 the seat0
-# session is looked up. Not changed (in PLAYABLE_BUILD_REVIEW_W2.md): H3 'Exception' vs 'Exception:', H5 save = a file count.
+# session is looked up. H3 (boss1 06:47): exceptions counted as 'Exception:'. H5: the save dir compared as a table (path, mtime, sha256).
 set -u
 if [ "${1:-}" = "--check-lines" ]; then CHECK=1; SHA=none; else CHECK=0
   SHA=${1:?usage: playable_build.sh <master sha> <worktree> [--apply]}; WT=${2:?usage: playable_build.sh <master sha> <worktree> [--apply] (H2: no default worktree)}
@@ -33,20 +33,30 @@ check2() {   # $1 = the build's stdout (tools/unity-batch.sh exec ... BuildPerf)
   [ "$(grep -c 'error CS' "$blog")" = 0 ] || stop "error CS in $blog"
   say "2 build ok: $(grep -o 'result=Succeeded.*' "$blog" | tail -1 | cut -c1-160) (log $blog)"
 }
+# H5: the game's save dir = persistentDataPath/save (LiveHost.cs:164; persistentDataPath = ~/.config/unity3d/<companyName>/<productName>,
+# ProjectSettings.asset: DefaultCompany / ikada-unity). A table of every file: path, mtime (ns), sha256 - an overwrite shows, not only a count.
+SAVE=$HOME/.config/unity3d/DefaultCompany/ikada-unity/save
+savesnap() { [ -d "$1" ] || { echo "(no dir)"; return; }; (cd "$1" && find . -type f | sort | while IFS= read -r f; do echo "$f $(stat -c %.9Y "$f") $(sha256sum < "$f" | cut -c1-64)"; done); }
+savecmp() {  # $1 = the table before, $2 = the table after
+  [ "$1" = "$2" ] || { say "save table before: $(echo "$1" | tr '\n' ';')"; say "save table after:  $(echo "$2" | tr '\n' ';')"; stop "save files changed (a file was written, touched, added or removed under $SAVE)"; }
+  say "save dir unchanged: $(echo "$2" | wc -l) line(s) ($(echo "$2" | head -1 | cut -c1-60))"
+}
 check4() {   # $1 launch log, $2 probe log, $3 day log
   grep -q "\[Live\] start api" "$1" || stop "no [Live] start line in the 25 s launch"
-  [ "$(grep -c 'Exception' "$1")" = 0 ] || stop "Exception in the 25 s launch"
+  [ "$(grep -c 'Exception:' "$1")" = 0 ] || stop "Exception: in the 25 s launch"   # H3: the player's exception lines (memory: count 'Exception:')
   grep -q "\[SessionProbe\] RESULT ok=True" "$2" || stop "SessionProbe not ok"
   grep -q "\[Live\] RESULT ok=True" "$3" || stop "one AutoPilot day: no RESULT ok=True"
   # ok=True also comes from the time cap (LiveHost.cs:347 Finish(0) at TimeS >= quitAfterS): the day ended only if simS < DAY_S
   local sims; sims=$(grep -o '\[Live\] RESULT ok=True .*simS=[0-9.]*' "$3" | grep -o 'simS=[0-9.]*$' | cut -d= -f2)
   awk -v s="${sims:-x}" -v c="${DAY_S:-9200}" 'BEGIN { exit !(s ~ /^[0-9.]+$/ && s + 0 < c + 0) }' || stop "one AutoPilot day: simS=${sims:-none} not below the cap ${DAY_S:-9200} (stopped by the cap, not by the day)"
   grep -q '\[Speakers\] logic names=[0-9]* in table=[0-9]* missing=\[\]' "$1" || stop "no [Speakers] line with missing=[] (UiTheme.CheckSpeakers)"
-  [ "$(grep -c 'Exception' "$3")" = 0 ] || stop "Exception in the AutoPilot day"
+  [ "$(grep -c 'Exception:' "$3")" = 0 ] || stop "Exception: in the AutoPilot day"   # H3
   }
 if [ $CHECK = 1 ]; then
   say "CHECK-LINES (no Unity): build stdout ${2:?} | launch ${3:?} | probe ${4:?} | day ${5:?}"
-  check2 "$2"; check4 "$3" "$4" "$5"; say "CHECK-LINES: steps 2 and 4 pass on these logs"; exit 0
+  check2 "$2"; check4 "$3" "$4" "$5"
+  if [ -n "${6:-}" ]; then savecmp "$(savesnap "$6")" "$(savesnap "${7:?a second save dir}")"; fi   # H5 on two dirs (before / after copies)
+  say "CHECK-LINES: steps 2 and 4 pass on these logs"; exit 0
 fi
 say "HEAD $(loginctl show-session "$SEAT" -p LockedHint -p IdleHint 2>/dev/null | tr '\n' ' ')| Runner.Worker $(pgrep -xc Runner.Worker) | load $(cut -d' ' -f1-3 /proc/loadavg) | df / $(df -B1 --output=avail / | tail -1) B | mode $([ $APPLY = 1 ] && echo APPLY || echo DRY-RUN)"
 # 0. preconditions (read only)
@@ -77,12 +87,12 @@ diff -rq "$WT/Builds/Linux" "$OUT" >>"$LOG" 2>&1 || stop "diff -rq not empty"
 n=$(find "$OUT" -type f | wc -l); b=$(find "$OUT" -type f -printf '%s\n' | awk '{s+=$1} END {print s}')
 say "3 $OUT: $n files, $b bytes, folder sha256 $(dirsha "$OUT"), Ikada.x86_64 sha256 $(sha256sum "$OUT/Ikada.x86_64" | cut -c1-64)"
 # 4. launch checks (the copied player; the save dir must not appear)
-SAVE=$HOME/.config/unity3d; before=$(find "$SAVE" -path '*save*' 2>/dev/null | wc -l)
+before=$(savesnap "$SAVE")   # H5
 timeout 25 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -logFile "$LOG.launch" >/dev/null 2>&1
 timeout 120 "$OUT/Ikada.x86_64" -ikadaSessionProbe -logFile "$LOG.probe" >/dev/null 2>&1   # H4
 timeout 900 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -ikadaLive -ikadaLockstep -ikadaLiveAutoPilot \
   -ikadaLiveSpeed 300 -ikadaSavePath none -ikadaLiveSeed 1 -ikadaLiveQuitAfterS ${DAY_S:-9200} -logFile "$LOG.day" >/dev/null 2>&1   # H4
 check4 "$LOG.launch" "$LOG.probe" "$LOG.day"
-after=$(find "$SAVE" -path '*save*' 2>/dev/null | wc -l); [ "$before" = "$after" ] || stop "save files changed ($before -> $after)"
+savecmp "$before" "$(savesnap "$SAVE")"   # H5
 say "4 launch: $(grep -o '\[Live\] start api[^ ]* [^ ]*' "$LOG.launch" | head -1) | $(grep -o '\[SessionProbe\] RESULT.*' "$LOG.probe" | head -1) | $(grep -o '\[Live\] RESULT.*' "$LOG.day" | head -1 | cut -c1-160)"
 say "DONE $OUT"
