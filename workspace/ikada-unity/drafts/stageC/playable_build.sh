@@ -37,9 +37,9 @@ check2() {   # $1 = the build's stdout (tools/unity-batch.sh exec ... BuildPerf)
 # ProjectSettings.asset: DefaultCompany / ikada-unity). A table of every file: path, mtime (ns), sha256 - an overwrite shows, not only a count.
 SAVE=$HOME/.config/unity3d/DefaultCompany/ikada-unity/save
 savesnap() { [ -d "$1" ] || { echo "(no dir)"; return; }; (cd "$1" && find . -type f | sort | while IFS= read -r f; do echo "$f $(stat -c %.9Y "$f") $(sha256sum < "$f" | cut -c1-64)"; done); }
-savecmp() {  # $1 = the table before, $2 = the table after
-  [ "$1" = "$2" ] || { say "save table before: $(echo "$1" | tr '\n' ';')"; say "save table after:  $(echo "$2" | tr '\n' ';')"; stop "save files changed (a file was written, touched, added or removed under $SAVE)"; }
-  say "save dir unchanged: $(echo "$2" | wc -l) line(s) ($(echo "$2" | head -1 | cut -c1-60))"
+savecmp() {  # $1 = the table before, $2 = the table after, $3 = what was compared (the dir(s), for the lines)
+  [ "$1" = "$2" ] || { say "save table before: $(echo "$1" | tr '\n' ';')"; say "save table after:  $(echo "$2" | tr '\n' ';')"; stop "save files changed (a file was written, touched, added or removed: $3)"; }
+  say "save dir unchanged ($3): $(echo "$2" | wc -l) line(s) ($(echo "$2" | head -1 | cut -c1-60))"
 }
 check4() {   # $1 launch log, $2 probe log, $3 day log
   grep -q "\[Live\] start api" "$1" || stop "no [Live] start line in the 25 s launch"
@@ -55,7 +55,7 @@ check4() {   # $1 launch log, $2 probe log, $3 day log
 if [ $CHECK = 1 ]; then
   say "CHECK-LINES (no Unity): build stdout ${2:?} | launch ${3:?} | probe ${4:?} | day ${5:?}"
   check2 "$2"; check4 "$3" "$4" "$5"
-  if [ -n "${6:-}" ]; then savecmp "$(savesnap "$6")" "$(savesnap "${7:?a second save dir}")"; fi   # H5 on two dirs (before / after copies)
+  if [ -n "${6:-}" ]; then savecmp "$(savesnap "$6")" "$(savesnap "${7:?a second save dir}")" "$6 vs $7"; fi   # H5 on two dirs (before / after copies)
   say "CHECK-LINES: steps 2 and 4 pass on these logs"; exit 0
 fi
 say "HEAD $(loginctl show-session "$SEAT" -p LockedHint -p IdleHint 2>/dev/null | tr '\n' ' ')| Runner.Worker $(pgrep -xc Runner.Worker) | load $(cut -d' ' -f1-3 /proc/loadavg) | df / $(df -B1 --output=avail / | tail -1) B | mode $([ $APPLY = 1 ] && echo APPLY || echo DRY-RUN)"
@@ -93,6 +93,6 @@ timeout 120 "$OUT/Ikada.x86_64" -ikadaSessionProbe -logFile "$LOG.probe" >/dev/n
 timeout 900 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -ikadaLive -ikadaLockstep -ikadaLiveAutoPilot \
   -ikadaLiveSpeed 300 -ikadaSavePath none -ikadaLiveSeed 1 -ikadaLiveQuitAfterS ${DAY_S:-9200} -logFile "$LOG.day" >/dev/null 2>&1   # H4
 check4 "$LOG.launch" "$LOG.probe" "$LOG.day"
-savecmp "$before" "$(savesnap "$SAVE")"   # H5
+savecmp "$before" "$(savesnap "$SAVE")" "$SAVE before vs after"   # H5
 say "4 launch: $(grep -o '\[Live\] start api[^ ]* [^ ]*' "$LOG.launch" | head -1) | $(grep -o '\[SessionProbe\] RESULT.*' "$LOG.probe" | head -1) | $(grep -o '\[Live\] RESULT.*' "$LOG.day" | head -1 | cut -c1-160)"
 say "DONE $OUT"
