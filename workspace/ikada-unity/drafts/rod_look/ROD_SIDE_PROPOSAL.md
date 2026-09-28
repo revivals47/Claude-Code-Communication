@@ -86,3 +86,4 @@
   - R4′ seed 1 live_08: 水の帯の外で動く px ≈ 60,687（私の mock の 08 右巻き・線 −0.5 の 0 度 対 40 度 = 全体 69,579 px・帯の外 60,687 px・範囲 x 38〜1667・y 250〜1079 から、live の画は HUD などが違うので ±30% と推論）。seed 20260925 の live_08 と 他の live の画は 0 px（寝かせは ファイトの frame で 元の側の時だけ）。live の logic の並び（page= と screens=）は同じ（表示だけの変更）。
   - R2・R3・R5 は変えない。
 - ⇒ 40 度を master に入れる時は ★seed 1 の live_08 の基準の差し替えが要る★（前の live 差し替えと同じ形、pre- の名で旧を残す）= 差し替えの GO は PRESIDENT。
+- ★訂正 2（Unity の前、boss1 02:13）: live の比べは 画の全体（tools/live_regress.sh:120 が compare_outside_water.py を --top 0 --bottom 0 で呼ぶ、水の帯を除かない。私の track3/rod-lay の tree で読んだ）★。R4′ の数を全体で言い直す: seed 1 live_08 で動く px ≈ ★69,579（mock の 08 右巻き・線 −0.5 の 0 度 対 40 度の 全体の数、±30% と推論）★（前に書いた 60,687 は 帯の外だけの数）。FAIL が seed 1 の live_08 だけ、は変えない。
