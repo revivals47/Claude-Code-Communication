@@ -27,3 +27,17 @@
 ## 3. dry-run（03:42、master 1967187、`LOG=scratchpad/pb_dry.log`）
 - HEAD: IdleHint=no LockedHint=no・Runner.Worker 0・load 16.51・df 38,601,584,640 B・DRY-RUN。0: master = 1967187…、pin #55ddd942…。陽性対照: 2cb67ab の folder の sha = 75dc972e…（記録と同じ）。→ 「would 1)〜4)」で止まった（exit 0）。
 - 陰性対照: master でない sha（7e8413a…）→ 「STOP: master is 1967187…, not 7e8413a…」、40 桁でない sha → 「STOP: SHA must be 40 hex」（exit 1）。
+
+## 4. pin 3838e10 の後の見込み（worker3、boss1 06:01。Unity なし・読んだだけ、2026-09-29 06:1x）
+- 読んだ所（観測）: ikada-unity-track2 `a5acf53`（pin ikada-sim main 3838e10）の `LiveHost.cs:152`・`:346-349`・`:628`、`UiTheme.cs:71-85`（CheckSpeakers）、`SubtitleText.cs:98-103`、`tools/live_regress.sh:92-95`。ikada-sim の CI run 36476156211 の mono job 109110273997 の log（#12 の 4-20 の frames と sim）。
+- ★見つけた穴（観測、直した）★: 4c の止める線「`RESULT ok=True`」は 日が終わった証拠にならない = `LiveHost.cs:347` は `TimeS >= quitAfterS`（時間の上限）でも Info の頁（日の終わり）でも 同じ `Finish(0)` = どちらも ok=True。→ script に「RESULT の `simS` < DAY_S（既定 9200）」を足した（上限で止まった = STOP）。陽性対照 simS=9020.3 → 通る、陰性対照 9200.0・9215.6・ok=False・行なし → 5 つとも STOP（観測、合成の行で）。
+- 新しい確かめの行（pin 3838e10 の後、表 §1 に足す）:
+
+| 段 | すること | 予測（推論、数の出所） | 止める線 |
+|---|---|---|---|
+| 4a+ | 25 s の起動の log の `[Speakers]` の行（worker2 の CheckSpeakers、7d8cb97） | `[Speakers] logic names=7 in table=7 missing=[]`（Speaker の enum 7 つ = MentorLines.cs:9、ShishoPhone = 師匠（電話）を a5acf53 で表に足した） | 行が無い・missing が空でない（script に足した。陽性対照 missing=[] → 通る、陰性対照 missing=[師匠（電話）]・行なし → STOP、観測） |
+| 4c+ | 本物の道の 1 日が ★Info の頁で★ 終わる | `RESULT ok=True … simS=` 約 8960〜9015 `page=Info`（前の live の 1 日の終わり = workspace の log で simS 8964.5〜9011.5・page=Info、観測。#12 の 4-20 の種 1 = frames 539333・sim 8988.9 s = CI mono log、観測 = LineSlot の直しで日の長さは変わらない見込み〔numbers 不変〕）= ★9200 に 188 s（2.0%）の余り = 足りる見込み★ | simS ≥ 9200（上限で止まった = 足りない → DAY_S を上げて もう 1 回、boss1 へ） |
+| 4c++ | ★章の最初の日の宿の行が字幕に出る★（第1章 = 師匠「明日、一番に渡る。お前が釣れ。わしは見とる」、その後に課題の行） | 出る（RefCheck #12 の 4-20 で 待ち 1 → 宿の行が先・課題の行が後、観測は logic 側だけ） | 出ない |
+
+- ★4c++ の読み口は まだ無い（未閉）★: player の log の `[Subtitle]` の行は 画面・kind・rows の数だけで ★字を出さない★（SubtitleText.cs:101）= log では宿の行と課題の行を見分けられない。案（どちらか、boss1 が決める）: (a) `-ikadaLiveShot <dir> -ikadaLiveShotScreens 06C`（最初の 06C の画 = 日の始め）を 4c に足して 字幕の帯を切り抜いて読む（宿の行は 30 s 残る〔DayFlow.cs:125 の minHold 30〕ので 日の始めの画にある見込み = 推論、ただし session の字〔SnapshotBuilder.cs:125〕が上にあれば覆われる = 未確認）。(b) Unity 側に「新しい字幕の字を 1 行」の log を足す（worker2 の場所、code の変更）。
+- 注: 4c の AutoPilot の日は 前例（live の log）が 05 → 07 → 06C/06 の繰り返し → Info。種 1 の日付が 4/20（第1章の最初の日）かは 「save なしの新しい始め = 4/20」の推論（`-ikadaSavePath none`）= 4c の log の `[Live] start` と画で確かめる。

@@ -53,6 +53,10 @@ grep -q "\[SessionProbe\] RESULT ok=True" "$LOG.probe" || stop "SessionProbe not
 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -ikadaLive -ikadaLockstep -ikadaLiveAutoPilot \
   -ikadaLiveSpeed 300 -ikadaSavePath none -ikadaLiveSeed 1 -ikadaLiveQuitAfterS ${DAY_S:-9200} -logFile "$LOG.day" >/dev/null 2>&1
 grep -q "\[Live\] RESULT ok=True" "$LOG.day" || stop "one AutoPilot day: no RESULT ok=True"
+# ok=True also comes from the time cap (LiveHost.cs:347 Finish(0) at TimeS >= quitAfterS): the day ended only if simS < DAY_S
+sims=$(grep -o '\[Live\] RESULT ok=True .*simS=[0-9.]*' "$LOG.day" | grep -o 'simS=[0-9.]*$' | cut -d= -f2)
+awk -v s="${sims:-x}" -v c="${DAY_S:-9200}" 'BEGIN { exit !(s ~ /^[0-9.]+$/ && s + 0 < c + 0) }' || stop "one AutoPilot day: simS=${sims:-none} not below the cap ${DAY_S:-9200} (stopped by the cap, not by the day's Info page)"
+grep -q '\[Speakers\] logic names=[0-9]* in table=[0-9]* missing=\[\]' "$LOG.launch" || stop "no [Speakers] line with missing=[] (UiTheme.CheckSpeakers)"
 [ "$(grep -c 'Exception' "$LOG.day")" = 0 ] || stop "Exception in the AutoPilot day"
 after=$(find "$SAVE" -path '*save*' 2>/dev/null | wc -l); [ "$before" = "$after" ] || stop "save files changed ($before -> $after)"
 say "4 launch: $(grep -o '\[Live\] start api[^ ]* [^ ]*' "$LOG.launch" | head -1) | $(grep -o '\[SessionProbe\] RESULT.*' "$LOG.probe" | head -1) | $(grep -o '\[Live\] RESULT.*' "$LOG.day" | head -1 | cut -c1-160)"
