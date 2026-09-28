@@ -17,3 +17,4 @@
 | 1 | live.log | changed | a0b07aaf7c3b046c0fbc8814ab253d6d67f5f75f8c80397eeb90f49d2280dd1c | b3c9fd3e1d8ffca8a366dbf37f199026ba685968f5e4d069c05fc42133598919 |
 | 1 | ARGS.txt | same | f60ff7496de4b248e07ca50ce48b9272a06ca488df6dd7bf1e290881014f81ba | f60ff7496de4b248e07ca50ce48b9272a06ca488df6dd7bf1e290881014f81ba |
 - counts: {'changed': 2, 'added': 0, 'gone': 0, 'same': 10}
+- ★道具の外（live_rebase.py は AUDIO.txt を数えない）: seed 1 AUDIO.txt = 基準と 17bb3e1_024240 で cmp 同じ（sha256 f47d7f742e4ea203576950bba4a7b08984c73cd069a34b174e088d987868ec02）= 触らない（boss1 02:52 の cmp と worker3 の cmp）★
