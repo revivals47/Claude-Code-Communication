@@ -2,20 +2,53 @@
 # playable_build.sh - the client's playable build, step by step (worker3, boss1 03:39; drafts/stageC/PLAYABLE_BUILD_STEPS.md).
 # DEFAULT = DRY RUN: every read-only check runs and prints its line; nothing is built, copied or launched. --apply does the
 # steps (only under a boss1 LOCK, after PLAYABLE_NEXT.md §2's checks on this very sha). Any stop line = exit != 0, nothing after it.
-# usage: playable_build.sh <master sha (40 hex)> [--apply]
+# usage: playable_build.sh <master sha (40 hex)> <worktree> [--apply]
+#        playable_build.sh --check-lines <build stdout> <launch log> <probe log> <day log>   (no Unity: steps 2 and 4's stop lines
+#        run on logs that already exist - positive = a good run's logs, negative = a copy with one line broken; worker2 H6)
+# Second read fixes (worker2 06:4x, boss1 06:41; worker3's agreement to follow): H1 step 2 reads the Unity batch log that the
+# build stdout names (log=), as regress_all.sh:126-133 - the two lines are not in the stdout; H2 the worktree is an argument
+# (no default: not a worker's active tree) and its branch is put back at the end; H4 timeouts; H6 --check-lines; H7 the seat0
+# session is looked up. Not changed (in PLAYABLE_BUILD_REVIEW_W2.md): H3 'Exception' vs 'Exception:', H5 save = a file count.
 set -u
-SHA=${1:?usage: playable_build.sh <master sha> [--apply]}; APPLY=0; [ "${2:-}" = "--apply" ] && APPLY=1
-WT=${WT:-/home/ken/Documents/ikada-unity-track3}          # a track worktree, detached to SHA for the build (the precedent: track1)
+if [ "${1:-}" = "--check-lines" ]; then CHECK=1; SHA=none; else CHECK=0
+  SHA=${1:?usage: playable_build.sh <master sha> <worktree> [--apply]}; WT=${2:?usage: playable_build.sh <master sha> <worktree> [--apply] (H2: no default worktree)}
+  APPLY=0; [ "${3:-}" = "--apply" ] && APPLY=1
+fi
 MAIN=/home/ken/Documents/ikada-unity
 PLAY=/home/ken/Documents/ikada-play
 OUT=$PLAY/${SHA:0:7}
 CTRL=$PLAY/2cb67ab; CTRL_SHA=75dc972e69da4953b2abd12fbcef41befa5d02d999a7ac90a612913d5be2b71e   # c30_play_guide_one_day.md:10
-LOG=${LOG:-/tmp/playable_build_${SHA:0:7}_$(date +%H%M%S).log}
+LOG=${LOG:-/tmp/playable_build_$([ $CHECK = 1 ] && echo check || echo ${SHA:0:7})_$(date +%H%M%S).log}
 say(){ echo "$(date +%H:%M:%S) $*" | tee -a "$LOG"; }
 stop(){ say "STOP: $*"; exit 1; }
 dirsha(){ (cd "$1" && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-64); }
 
-say "HEAD $(loginctl show-session 2 -p LockedHint -p IdleHint 2>/dev/null | tr '\n' ' ')| Runner.Worker $(pgrep -xc Runner.Worker) | load $(cut -d' ' -f1-3 /proc/loadavg) | df / $(df -B1 --output=avail / | tail -1) B | mode $([ $APPLY = 1 ] && echo APPLY || echo DRY-RUN)"
+SEAT=$(loginctl | awk '/seat0/{print $1; exit}')   # H7: not a fixed number
+# the stop lines of steps 2 and 4, one place (the --apply path and --check-lines both call them)
+check2() {   # $1 = the build's stdout (tools/unity-batch.sh exec ... BuildPerf)
+  local blog; blog=$(grep -o 'log=[^ ]*' "$1" | tail -1 | cut -d= -f2)   # H1: the Unity batch log it names
+  [ -n "$blog" ] && [ -f "$blog" ] || stop "no Unity batch log named by log= in $1"
+  grep -q "result=Succeeded errors=0" "$blog" || stop "no 'result=Succeeded errors=0' line in $blog"
+  grep -q "check_scene_embeds exit=0" "$blog" || stop "scene embeds check not 0 in $blog"
+  [ "$(grep -c 'error CS' "$blog")" = 0 ] || stop "error CS in $blog"
+  say "2 build ok: $(grep -o 'result=Succeeded.*' "$blog" | tail -1 | cut -c1-160) (log $blog)"
+}
+check4() {   # $1 launch log, $2 probe log, $3 day log
+  grep -q "\[Live\] start api" "$1" || stop "no [Live] start line in the 25 s launch"
+  [ "$(grep -c 'Exception' "$1")" = 0 ] || stop "Exception in the 25 s launch"
+  grep -q "\[SessionProbe\] RESULT ok=True" "$2" || stop "SessionProbe not ok"
+  grep -q "\[Live\] RESULT ok=True" "$3" || stop "one AutoPilot day: no RESULT ok=True"
+  # ok=True also comes from the time cap (LiveHost.cs:347 Finish(0) at TimeS >= quitAfterS): the day ended only if simS < DAY_S
+  local sims; sims=$(grep -o '\[Live\] RESULT ok=True .*simS=[0-9.]*' "$3" | grep -o 'simS=[0-9.]*$' | cut -d= -f2)
+  awk -v s="${sims:-x}" -v c="${DAY_S:-9200}" 'BEGIN { exit !(s ~ /^[0-9.]+$/ && s + 0 < c + 0) }' || stop "one AutoPilot day: simS=${sims:-none} not below the cap ${DAY_S:-9200} (stopped by the cap, not by the day)"
+  grep -q '\[Speakers\] logic names=[0-9]* in table=[0-9]* missing=\[\]' "$1" || stop "no [Speakers] line with missing=[] (UiTheme.CheckSpeakers)"
+  [ "$(grep -c 'Exception' "$3")" = 0 ] || stop "Exception in the AutoPilot day"
+  }
+if [ $CHECK = 1 ]; then
+  say "CHECK-LINES (no Unity): build stdout ${2:?} | launch ${3:?} | probe ${4:?} | day ${5:?}"
+  check2 "$2"; check4 "$3" "$4" "$5"; say "CHECK-LINES: steps 2 and 4 pass on these logs"; exit 0
+fi
+say "HEAD $(loginctl show-session "$SEAT" -p LockedHint -p IdleHint 2>/dev/null | tr '\n' ' ')| Runner.Worker $(pgrep -xc Runner.Worker) | load $(cut -d' ' -f1-3 /proc/loadavg) | df / $(df -B1 --output=avail / | tail -1) B | mode $([ $APPLY = 1 ] && echo APPLY || echo DRY-RUN)"
 # 0. preconditions (read only)
 [[ $SHA =~ ^[0-9a-f]{40}$ ]] || stop "SHA must be 40 hex"
 [ "$(git -C "$MAIN" rev-parse master)" = "$SHA" ] || stop "master is $(git -C "$MAIN" rev-parse master), not $SHA"
@@ -29,15 +62,15 @@ if [ $APPLY = 0 ]; then
   say "DRY-RUN: would 1) detach $WT to $SHA  2) tools/unity-batch.sh exec Ikada.EditorTools.BuildScript.BuildPerf  3) cp -a Builds/Linux $OUT + diff -rq + count/bytes/folder sha  4) launch checks (25 s HostInput, SessionProbe, one AutoPilot day)"
   exit 0
 fi
-# 1. worktree at SHA
+# 1. worktree at SHA (H2: its branch is put back on every exit after this line)
+WT_BRANCH=$(git -C "$WT" branch --show-current); WT_HEAD=$(git -C "$WT" rev-parse HEAD)
+trap 'if [ -n "$WT_BRANCH" ]; then git -C "$WT" switch -q "$WT_BRANCH"; else git -C "$WT" switch -q --detach "$WT_HEAD"; fi; say "worktree $WT back to ${WT_BRANCH:-$WT_HEAD}"' EXIT
 git -C "$WT" switch --detach "$SHA" >>"$LOG" 2>&1 || stop "detach failed"
 [ "$(git -C "$WT" rev-parse HEAD)" = "$SHA" ] || stop "HEAD != SHA"
 # 2. build (release = BuildOptions.None, BuildScript.cs:188; BuildPerf is the only build entry)
 ( cd "$WT" && tools/unity-batch.sh exec Ikada.EditorTools.BuildScript.BuildPerf ) >>"$LOG.build" 2>&1 || stop "build failed (see $LOG.build)"
-grep -q "result=Succeeded errors=0" "$LOG.build" || stop "no 'result=Succeeded errors=0' line"
-grep -q "check_scene_embeds exit=0" "$LOG.build" || stop "scene embeds check not 0"
+check2 "$LOG.build"
 [ "$(git -C "$WT" status --porcelain | wc -l)" = 0 ] || stop "tree not clean after the build"
-say "2 build ok: $(grep -o 'result=Succeeded.*' "$LOG.build" | tail -1 | cut -c1-160)"
 # 3. copy and measure
 mkdir -p "$PLAY"; cp -a "$WT/Builds/Linux" "$OUT" || stop "copy failed"
 diff -rq "$WT/Builds/Linux" "$OUT" >>"$LOG" 2>&1 || stop "diff -rq not empty"
@@ -46,18 +79,10 @@ say "3 $OUT: $n files, $b bytes, folder sha256 $(dirsha "$OUT"), Ikada.x86_64 sh
 # 4. launch checks (the copied player; the save dir must not appear)
 SAVE=$HOME/.config/unity3d; before=$(find "$SAVE" -path '*save*' 2>/dev/null | wc -l)
 timeout 25 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -logFile "$LOG.launch" >/dev/null 2>&1
-grep -q "\[Live\] start api" "$LOG.launch" || stop "no [Live] start line in the 25 s launch"
-[ "$(grep -c 'Exception' "$LOG.launch")" = 0 ] || stop "Exception in the 25 s launch"
-"$OUT/Ikada.x86_64" -ikadaSessionProbe -logFile "$LOG.probe" >/dev/null 2>&1
-grep -q "\[SessionProbe\] RESULT ok=True" "$LOG.probe" || stop "SessionProbe not ok"
-"$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -ikadaLive -ikadaLockstep -ikadaLiveAutoPilot \
-  -ikadaLiveSpeed 300 -ikadaSavePath none -ikadaLiveSeed 1 -ikadaLiveQuitAfterS ${DAY_S:-9200} -logFile "$LOG.day" >/dev/null 2>&1
-grep -q "\[Live\] RESULT ok=True" "$LOG.day" || stop "one AutoPilot day: no RESULT ok=True"
-# ok=True also comes from the time cap (LiveHost.cs:347 Finish(0) at TimeS >= quitAfterS): the day ended only if simS < DAY_S
-sims=$(grep -o '\[Live\] RESULT ok=True .*simS=[0-9.]*' "$LOG.day" | grep -o 'simS=[0-9.]*$' | cut -d= -f2)
-awk -v s="${sims:-x}" -v c="${DAY_S:-9200}" 'BEGIN { exit !(s ~ /^[0-9.]+$/ && s + 0 < c + 0) }' || stop "one AutoPilot day: simS=${sims:-none} not below the cap ${DAY_S:-9200} (stopped by the cap, not by the day's Info page)"
-grep -q '\[Speakers\] logic names=[0-9]* in table=[0-9]* missing=\[\]' "$LOG.launch" || stop "no [Speakers] line with missing=[] (UiTheme.CheckSpeakers)"
-[ "$(grep -c 'Exception' "$LOG.day")" = 0 ] || stop "Exception in the AutoPilot day"
+timeout 120 "$OUT/Ikada.x86_64" -ikadaSessionProbe -logFile "$LOG.probe" >/dev/null 2>&1   # H4
+timeout 900 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -ikadaLive -ikadaLockstep -ikadaLiveAutoPilot \
+  -ikadaLiveSpeed 300 -ikadaSavePath none -ikadaLiveSeed 1 -ikadaLiveQuitAfterS ${DAY_S:-9200} -logFile "$LOG.day" >/dev/null 2>&1   # H4
+check4 "$LOG.launch" "$LOG.probe" "$LOG.day"
 after=$(find "$SAVE" -path '*save*' 2>/dev/null | wc -l); [ "$before" = "$after" ] || stop "save files changed ($before -> $after)"
 say "4 launch: $(grep -o '\[Live\] start api[^ ]* [^ ]*' "$LOG.launch" | head -1) | $(grep -o '\[SessionProbe\] RESULT.*' "$LOG.probe" | head -1) | $(grep -o '\[Live\] RESULT.*' "$LOG.day" | head -1 | cut -c1-160)"
 say "DONE $OUT"

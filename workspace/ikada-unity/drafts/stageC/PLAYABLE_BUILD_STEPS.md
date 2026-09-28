@@ -2,7 +2,7 @@
 
 - 読んだ所（観測）: worker1 の `PLAYABLE_NEXT.md`（§2 の確かめの列 1〜6）、ikada-unity master `1967187da3429e359da59eef6eeef8b50f21239f`（pin `com.ikada.sim#55ddd942…`）の `Assets/Editor/BuildScript.cs:164-194`（BuildPerf = 唯一の build の口、`BuildOptions.None` = development でない = release、出力 `Builds/Linux/Ikada.x86_64`、1920×1080 窓）、`tools/unity-batch.sh`（`exec <Method>`）、`Assets/Scripts/Live/LiveHost.cs:20-33`（-ikadaLive・-ikadaLiveAutoPilot・-ikadaLiveQuitAfterS・-ikadaSavePath none）、前の渡し方 `user_review/c30_play_guide_one_day.md:6-24`（`~/Documents/ikada-play/<sha>/` に丸ごと copy・diff -rq・file 数・byte・folder の sha256・起動 25 s の確かめ・SessionProbe）。
 - ★本番は 港の話し手の直し（ikada-sim 0.20.0 の見込み）が master に入ってから★。今の master 1967187 では dry-run だけ。
-- script: `drafts/stageC/playable_build.sh <master の 40 桁 sha> [--apply]`（★既定 = dry-run = 読むだけの確かめを流して止まる★）。dry-run を 1967187 で 1 回（03:42、下の §3）。
+- script: `drafts/stageC/playable_build.sh <master の 40 桁 sha> <worktree> [--apply]`（★worktree は必須 = 第二の読み H2★）、`--check-lines <build の標準出力> <起動の log> <probe の log> <1 日の log>`（Unity なし、段 2・4 の止める線を既にある log に当てる = H6）（★既定 = dry-run = 読むだけの確かめを流して止まる★）。dry-run を 1967187 で 1 回（03:42、下の §3）。
 
 ## 1. 段（1 行ずつ = 何をする／予測／止める線）
 | 段 | すること | 予測（推論、数の出所） | 止める線 |
@@ -11,7 +11,7 @@
 | 0 | master = 渡す sha（40 桁）、pin を読む、`~/Documents/ikada-play/<sha7>` が無い、Unity 0、worktree clean、空き 12 GB 以上、folder の sha の計り方の陽性対照（2cb67ab = 75dc972e…） | 全部 通る（dry-run 03:42 で 1967187 は通った） | どれか 1 つ = STOP（script が止まる） |
 | 1 | track worktree を sha に detach（前例 = track1、今は track3） | HEAD = sha・porcelain 0 | HEAD ≠ sha |
 | 2 | `tools/unity-batch.sh exec Ikada.EditorTools.BuildScript.BuildPerf`（release = `BuildOptions.None`） | `[BuildScript] … result=Succeeded errors=0`・`check_scene_embeds exit=0`・build 後も porcelain 0。時間 約 1 分（今日の 6b8c31d の build 54 s、観測） | Succeeded でない・errors > 0・embed ≠ 0・tree が汚れる |
-| 3 | `cp -a Builds/Linux ~/Documents/ikada-play/<sha7>`、`diff -rq`、file 数・byte・folder の sha256・`Ikada.x86_64` の sha256 | diff 空。file 約 176（±5）・約 520 MB（±10%）= 前の 2cb67ab 176 file・519,568,859 byte から（推論）。`Ikada.x86_64` の sha256 は前と同じ a9a83136…（player の本体は変わらない見込み、前 3 回とも同じ = 観測） | diff が空でない・既に dir がある |
+| 3 | `cp -a Builds/Linux ~/Documents/ikada-play/<sha7>`、`diff -rq`、file 数・byte・folder の sha256・`Ikada.x86_64` の sha256 | diff 空。★直し（worker2 06:4x、boss1 06:41）: file 176・740,185,407 byte 前後 = 今の master と同じ Assets の build の実測（track2 の Builds/Linux、249f86b の build 06:26、find で数えた。batch log の size=740185407 と同じ）。前の予測「約 520 MB」は 2cb67ab（519,568,859 byte）からの推論で、その後の遠景 84 枚・港と着いた頁 3 枚・字の atlas で約 220 MB 増えていた★。`Ikada.x86_64` の sha256 は前と同じ a9a83136…（player の本体は変わらない見込み、前 3 回とも同じ = 観測） | diff が空でない・既に dir がある |
 | 4a | 起動 25 s（依頼者と同じ command ＋ `-logFile`、HostInput） | `[Live] start api <pin の版> … input=HostInput`・`[Live] screen Title … -> 05`・例外 0 | start の行が無い・例外 > 0 |
 | 4b | `-ikadaSessionProbe` で 1 回 | `[SessionProbe] RESULT ok=True api=<版> abi=3` | ok でない・abi ≠ 3 |
 | 4c | ★本物の道の 1 日を 1 回（mock なし）★ = `-ikadaLive -ikadaLockstep -ikadaLiveAutoPilot -ikadaLiveSpeed 300 -ikadaSavePath none -ikadaLiveSeed 1 -ikadaLiveQuitAfterS 9200` | `[Live] RESULT ok=True`・例外 0・画面が 05 → … → J（課題の進みの頁）まで。★9200 s は 推論（ReferenceRun の 1 日 = RefCheck 10/15 で sim 約 9013 s）= 初めの本番で 足りたか log で確かめる★ | RESULT ok でない・例外 > 0 |
