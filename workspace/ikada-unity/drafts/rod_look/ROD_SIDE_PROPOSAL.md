@@ -87,3 +87,13 @@
   - R2・R3・R5 は変えない。
 - ⇒ 40 度を master に入れる時は ★seed 1 の live_08 の基準の差し替えが要る★（前の live 差し替えと同じ形、pre- の名で旧を残す）= 差し替えの GO は PRESIDENT。
 - ★訂正 2（Unity の前、boss1 02:13）: live の比べは 画の全体（tools/live_regress.sh:120 が compare_outside_water.py を --top 0 --bottom 0 で呼ぶ、水の帯を除かない。私の track3/rod-lay の tree で読んだ）★。R4′ の数を全体で言い直す: seed 1 live_08 で動く px ≈ ★69,579（mock の 08 右巻き・線 −0.5 の 0 度 対 40 度の 全体の数、±30% と推論）★（前に書いた 60,687 は 帯の外だけの数）。FAIL が seed 1 の live_08 だけ、は変えない。
+
+## 9. regress の結果（boss1 02:35 LOCK (D)、track3/rod-lay 17bb3e1、IdleHint=no LockedHint=no = 依頼者の許し）
+- 1 回目 Logs/regress/17bb3e1_023617: ★REGRESS_LIVE=1 の付け忘れで live SKIPPED★（予測の対象が走っていない = 私の手落ち、unity_lock.log に記録）。他の 14 段 PASS、baseline 26/26 pairs 0 px（既知の点を除く）。
+- 2 回目 Logs/regress/17bb3e1_024240（REGRESS_LIVE=1）: ★RESULT FAIL 14/15、FAIL は live だけ、live の中は seed 1 FAIL 4: differ: live_08 だけ★ = 予測 R1′ 当。
+  - seed 1 live_08（t 7927.86、T 1.10 N・logic −0.079・line −0.50）: 全体の diff>0 = ★62,881 px★（予測 69,579 ±30% = 48,705〜90,453 の中 = R4′ 当）。内訳（compare_outside_water の部分）: 上（空・遠景）0・下（筏）62,881（diff>24 = 48,355）・字幕の枠 15,182（diff>24 = 12,678）・place・chapter・gauge・tackle の枠 0。既知の点 2 つ（1485,1002）（1450,1060）は 0 levels。
+  - 同じ frame で 竿の「raise shown」が 0.175 rad（基準の 7f501c5 の log）→ 0.265 rad（DisplayRaise が 寝かせた竿を甲板から離すため上げた、seed_1/live.log:1692）= 寝かせで表示の上げも変わる（観測、予測に書いていなかった）。
+  - seed 20260925: 画 9 枚 0 px、logic の並び = 基準。seed 1 も logic の並び = 基準。音 5 PASS、6 UNVERIFIED（パッドなし、前と同じ）、7 PASS。
+  - baseline 26/26 pairs 0 px（R2 当）、compare diff>24% max 0.18（R3 当）、git_clean 0/0/0（R5 当）。
+- 見張り（30 秒ごと）: 2 回とも Runner.Worker 0（13 と 15 の標本）、load1 の最大 4.12・2.05。
+- ★基準は差し替えていない★（seed 1 の live_08 の差し替えは PRESIDENT の GO の後）。
