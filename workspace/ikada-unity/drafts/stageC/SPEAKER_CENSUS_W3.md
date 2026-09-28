@@ -48,7 +48,7 @@ pc/src/Ikada.Logic/Story/Chapter4Lines.cs:5:// angler on the next カセ speaks 
 | HelperEngine.cs:82 | 助言の日誌の引用 | LineDef の Speaker（上の決め打ちの結果） | 見ない |
 | DayFlow.cs:373・:381・:422 ← MentorEngine.Say → Spoken | ダンゴ待ち・回収・迎え の 師匠／兄弟子の一言 | LineDef の Speaker、id の頭は MentorEngine.Active（:37 既定 Shisho・:64 shisho./aniki.、SaveGame.cs:80 ActiveMentor） | 見ない（MentorEngine に場所・章の語 0 件） |
 | MentorEngine.cs:98 | 師匠の言葉の日誌の引用（ChapterTasks.cs:248 の Emit も ここ） | LineDef の Speaker | 見ない |
-| StoryHooks.cs:39・:65 → DayFlow.cs:125・:284・:375・:383・:395・:403・:424・:436 | 物語の出来事（宿・朝・ダンゴ待ち・回収・昼・船・迎え・帰り） | LineDef の Speaker（章ごとの出来事の表の台詞） | ★章は見る★（StoryHooks.cs の IsChapter2/3 = 日付の章で表を選ぶ、:27・:51）・場所は表の中の出来事の条件次第 |
+| StoryHooks.cs:39・:65 → DayFlow.cs:125・:284・:375・:383・:395・:403・:424・:436 | 物語の出来事（宿・朝・ダンゴ待ち・回収・昼・船・迎え・帰り） | LineDef の Speaker（章ごとの出来事の表の台詞） | ★章は見る★（StoryHooks.cs の IsChapter2/3/4 = 日付の章で表を選ぶ、:27-29・:53-54・港 :73-75）・場所は表の中の出来事の条件次第 |
 | DayFlow.Dialogue.cs:30（:430 の Emit） | 物語の港の会話 | LineDef の Speaker（#36） | 章は出来事の表で |
 
 - ★決め打ちの口 = 6★（Diel.cs:31・CardRows.cs:78・GameFlow.cs:233・Dialogue.cs:27・HarbourScene.cs:103・HelperEngine.cs:67-68）。前の 15 行の器の「5」は Diel.cs:31 を落としていた。
