@@ -27,3 +27,7 @@
 - Roslyn（bundle_compile8.sh、pin 3838e10、sim ApiVersion 0.19.0）: sim 159・game 117・editor 20 とも errors 0、警告の行 0。陰性対照 --inject-error = game errors 1（InjectedErrorGame.cs CS1525）＋ editor の連鎖 1 = error CS 2 行（976f1c1 の worker2 の数と同じ形）。
 - ★挙動の変わり（表の外、予測に足す）★: 表に無い名の 07 は 前 = 灰色の師匠の胸 → 後 = 顔なし（[Speakers] missing=[] の間は logic の話し手では起きない。mock の PerfSwitches の名の差し替えの画では起きうる）。
 - Unity の番（画・回帰）は worker2 の取り込みの後に boss1 が出す = 未実行。
+
+## 5. master 03fd8f6 の上に載せ直し（boss1 06:37、観測）
+- rebase = b06ae2473ce5548930211a67f94ec48736437bea（親 03fd8f6）。触った 3 file は 976f1c1..03fd8f6 で差 0（git diff --stat 空）、range-diff = 同じ patch（=）。Roslyn b06ae24: sim 159・game 117・editor 20 errors 0。
+- ★予測の読み直し（回す前、足すだけ・前の行は動かさない）★: master の live_07 の基準は 宿の行（pre-0200 の差し替え済み）= 1 人目 = 師匠 = 灰の胸は前と同じ → ★live_07 は 顔の枠でなく 画の全体で 0 px の見込み = 回帰 15/15★（前の P2 の「07 の画は LineSlot で別に動く」は 基準の差し替えで吸われた）。種 1 の Prep の字幕は私の log に無い = 宿の行は Lodging の出来事で種に依らない（推論）。mock 26/26 0 px は同じ。蒲江 G の 07 は 回帰の外（画は別に撮る）。
