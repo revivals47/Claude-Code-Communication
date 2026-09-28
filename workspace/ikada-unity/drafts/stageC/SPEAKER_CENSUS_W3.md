@@ -31,4 +31,4 @@ pc/src/Ikada.Logic/Story/Chapter4Lines.cs:5:// angler on the next カセ speaks 
 
 ## 見つけた食い違い（観測）
 - ★GameFlow.cs:233 は 渡す課題の台詞を全部「師匠：」で出すが、第4章の課題の台詞 task4_1・task4_2・task4_4 の issue／done は LineDef で Speaker.Aniki（兄弟子、大分の言葉）★。照合の足す日 G（12/10 種 1）の log の 4 行目で 観測:「師匠：…／前アタリじゃ合わせんでええ。もう一回入るまで待っちょき／穂先がもたれるか、本アタリが来たら、一回で掛けるん…」= 兄弟子の台詞が 師匠の名で出ている。
-- DayFlow.CardRows.cs:78 の「船長」は 台詞の LineDef（MentorLines.cs:52 captain.fast_tide_gan = Captain）と合う。ただし 場所を見ない = 第3章の島（島の船長 IslandCaptain が居る所）・蒲江でも「船長」と出る形（推論、SayFastTide の条件 DayFlow.CardRows.cs:75 に場所が無い）。HelperEngine.cs:67 の Captain（昼・迎え）も同じ形。
+- DayFlow.CardRows.cs:78 の「船長」は 台詞の LineDef（MentorLines.cs:52 captain.fast_tide_gan = Captain）と合う。ただし 場所を見ない = 第3章の島（島の船長 IslandCaptain が居る所）・蒲江でも「船長」と出る形（推論、SayFastTide の条件 DayFlow.CardRows.cs:77（method は :75）に場所が無い）。HelperEngine.cs:67 の Captain（昼・迎え）も同じ形。
