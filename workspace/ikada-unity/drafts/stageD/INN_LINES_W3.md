@@ -13,3 +13,11 @@
 - P3 LineSlotRefDaysTests の待ちの数 = 各日 1 つ減る: 4-20 1→0・7-20 2→1・E′ 1→0・F 1→0・G 1→0、捨て 0。
 - P4 落ちる試験（書き直す）: DayCastTests（12/10 の字幕に「師匠（電話）」= :150）→ InnLines を見る形に。SameFrameSayTests（宿の行が字幕に出る）は通るまま。ChumTrailSessionTests・Chapter3DayTests・Chapter4ReferenceDayTests の events の pin は動く（#13 に）。ほかは通る。
 - P5 新しい試験: 章の最初の日（9/1・12/1）と 4/20 の PrepView.InnLines = 宿の行 ＋ 課題の行（数と話し手）、字幕に課題の字が 1 度も出ない、練習の日は空。
+
+## 足し（boss1 07:24・07:25 = worker2 の要件 2 つ、build の前に登録、07:3x）
+- ★頁★: `PrepView.InnPage`（int、0 始まり）= ★InnLines の 1 要素 = 1 頁★（logic は画の幅を知らない = 行を束ねない。1 行は最長で 宿の行 約 50 字・課題の 1 行 約 40 字 = 07 の欄の 3 行に入る見込み、推論）。logic が持つ（07 の出入り・続きからで変わらない）。
+- ★入力★: `InputFrame.AdviceNext`（bool、押した 1 frame）= 07 の配合の一覧で 頁を 1 つ進める、最後の次は最初（戻る方向の入力は無し）。釣具屋・他の画面では何もしない。キーは host が決める（worker2 の案 = N・△）。AutoPilot は false に落とす（ほかの鍵と同じ）。再生（replay）は名前で欄を合わせる（ReplayPlayer.cs:131 MapFields）= 古い再生 file は AdviceNext = 偽 で読める。
+- ★日誌 J の頁は logic でなく Unity が持っている（観測: Journal0J.cs:30-34 `public static int Page`・◀▶ は ScreenHost）= 手本にはならなかった、07 の頁は logic が持つ新しい形★。
+- P1 の直し: ContractTests の一覧の差 = `+ InputFrame.AdviceNext`・`+ PrepView.InnLines`・`+ PrepView.InnPage` の 3 行（消える行 0）→ MINOR 0.20.0。
+- P6 新しい試験: AdviceNext を 1 回ずつ押すと InnPage が 0→1→…→N−1→0、07 を出て戻っても（釣具屋へ入って戻る）InnPage は同じ、宿の行も課題も無い日（練習）は InnLines 空・AdviceNext で InnPage 0 のまま。
+- DayFlow.SayStory（GameFlow.cs:241 だけが呼んでいた）は呼び手 0 = 消した。
