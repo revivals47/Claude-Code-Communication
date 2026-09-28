@@ -79,3 +79,10 @@
   - R3 editor_shots・compare: 同じ code なので player と editor の差は 今までの幅（diff>24% ≤ 0.18 の辺り）。
   - R4 live の段: logic の並び = 基準（表示だけの変更で logic は同じ）→ PASS。live の画（4/20 の日のファイトの frame があって、そこで糸が元の側なら 竿が 40 度寝る = 画が動く）は live の段が画を判定に使うかを まだ読んでいない（worker2 の INTAKE_0180_W2.md の引用では 比べるのは page= と screens= の文字）= ★画が動いても 判定は変わらない見込み、動いた frame があれば 何枚目・何 px を書く★。
   - R5 git_clean start/after_build/end とも 0。
+- ★訂正（Unity の前、2026-09-29 02:2x、worker3）: R1 と R4 は source を読み切る前の予測で誤り。tools/live_regress.sh:13（4. every picture 0 px against the baseline's、compare_outside_water.py = 水の帯 y 437〜744 だけ外す、08 は既知の 1 px だけ）を読んだ = live の画も判定に入る★。
+- 読んだ事（観測、worker2 の最新の live の log = ikada-unity-track2j Logs/regress/7f501c5_014722/live/seed_*/live.log）: seed 20260925 の live_08（t 5357.27）は line=0.50rad（:1267）= 右巻きで寝かせない側。★seed 1 の live_08（t 7927.86）は T=1.10N・logic −0.079・line=−0.50rad（:1692）= 右巻きで元の側 = 40 度いっぱいに寝る★（|−0.5| / 0.4 ≥ 1）。worker2 の pair の env（T 1.102・竿 −0.079・線 ±0.5）はこの frame から取られた。
+- 予測（訂正後）:
+  - R1′ ★14/15（live だけ FAIL）★、FAIL の中身は ★seed 1 の live_08 の 4（画の差）だけ★。他の段は PASS。
+  - R4′ seed 1 live_08: 水の帯の外で動く px ≈ 60,687（私の mock の 08 右巻き・線 −0.5 の 0 度 対 40 度 = 全体 69,579 px・帯の外 60,687 px・範囲 x 38〜1667・y 250〜1079 から、live の画は HUD などが違うので ±30% と推論）。seed 20260925 の live_08 と 他の live の画は 0 px（寝かせは ファイトの frame で 元の側の時だけ）。live の logic の並び（page= と screens=）は同じ（表示だけの変更）。
+  - R2・R3・R5 は変えない。
+- ⇒ 40 度を master に入れる時は ★seed 1 の live_08 の基準の差し替えが要る★（前の live 差し替えと同じ形、pre- の名で旧を残す）= 差し替えの GO は PRESIDENT。
