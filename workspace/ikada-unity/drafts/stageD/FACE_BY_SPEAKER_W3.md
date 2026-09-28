@@ -7,7 +7,7 @@
 |---|---|---|
 | 顔の画の名の直書き（mentor_bust・*_crop・mentor_try・aniki_v1 など） | UiTheme の表の外で ★2★（陽性対照 = Prep07.cs:273 が出た） | Prep07.cs:273（live の Build、`mentor_bust_gray`）・Prep07.cs:379（AdvicePanel、同じ） |
 | 顔を表で引く口 | 1 | Harbour04.cs:33-34（`UiTheme.PortraitOf`） |
-| GenArt.Texture / Resources.Load の全部 | 33 行 | 顔は上の 2（Prep07）と Harbour04:46（Portrait = 表の値）だけ。他は背景・魚・手・save の写真・船・font・shader |
+| GenArt.Texture / Resources.Load の全部 | 35 行（36 か所、LandingLayer.cs:120 に 2 つ。注の行 IkadaFonts.cs:17 を含む） | 顔は上の 2（Prep07）と Harbour04:46（Portrait = 表の値）だけ。他は背景・魚・手・save の写真・船・font・shader |
 | 話し手の名の字の直書き（師匠・兄弟子・船長・常連・通りすがり、UiTheme の表の行を除く） | 12 行 | ★既定の話し手 2★: SubtitleText.cs:94（「：」の無い字の head =「師匠の助言」）・Prep07.cs:383（同じ既定）。★mock の字 9★: MockHarbour.cs:18・MockSnapshots.cs:128・MockPrep.cs:20・:141・:152・MockFight.cs:40・MockJournal.cs:39・:40・MockTitle.cs:71。注 1: PerfSwitches.cs:147 |
 - 07 のほかに 顔の直書きは 0 件（母数 = 顔の画の参照 3 か所のうち表の外 2、どちらも 07）。既定の話し手「師匠」2 か所は 顔でなく名（「：」の無い字）= 表を引く形にしない（引く名が無い）、そのまま。mock の字は mock の値（spec/mock_values.md）= 触らない。
 
@@ -21,3 +21,9 @@
 - P2 芦北の日（4/20・7/20・E′）と 島の日 F の live の 07 = 顔は今と同じ `mentor_bust_gray`（Prep の間の字幕の 1 人目 = 師匠、観測 = RefCheck の log、4-20 2000 ms・7-20 3500・E′ 2000・F 3500 とも「師匠：」）。★ただし 07 の画は LineSlot の字の変わり（宿の行）で別に動く = 顔の枠の中が 0 px★。
 - P3 蒲江の日 G（12/10）の 07 = 顔が 兄弟子（aniki_v1_crop を 170×138 に fit）に替わる（Prep 3500 ms の字幕 = 「兄弟子：よう来たな…」、観測）。その日の 07 の助言の head = 「兄弟子の助言」（今もそう、変わらない）。
 - P4 [Subtitle] の行・[Speakers] の行は変わらない。Roslyn errors 0。
+
+## 4. code と Roslyn（観測、06:2x）
+- ikada-unity track3/face-by-speaker = e3bf8a4682219c510bf3c725049ed0a329a096b5（976f1c1 の上、3 file +45 −15）: UiTheme の表に bust の列 ＋ `AdviceFaceOf`、SubtitleText に `FirstSpeaker`（Advice の head と同じ名の取り方）、Prep07 の直書き 2 か所を表で引く形に（live は Build で置き場の順だけ控え、Refresh で字幕が変わった時に 画の名が変わった時だけ作り直す）。Prep07.cs 390 → 406 行。
+- Roslyn（bundle_compile8.sh、pin 3838e10、sim ApiVersion 0.19.0）: sim 159・game 117・editor 20 とも errors 0、警告の行 0。陰性対照 --inject-error = game errors 1（InjectedErrorGame.cs CS1525）＋ editor の連鎖 1 = error CS 2 行（976f1c1 の worker2 の数と同じ形）。
+- ★挙動の変わり（表の外、予測に足す）★: 表に無い名の 07 は 前 = 灰色の師匠の胸 → 後 = 顔なし（[Speakers] missing=[] の間は logic の話し手では起きない。mock の PerfSwitches の名の差し替えの画では起きうる）。
+- Unity の番（画・回帰）は worker2 の取り込みの後に boss1 が出す = 未実行。
