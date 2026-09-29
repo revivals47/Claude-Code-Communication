@@ -5,12 +5,13 @@
 # usage: playable_build.sh <master sha (40 hex)> <worktree> [--apply]
 #        playable_build.sh --check-lines <build stdout> <launch log> <probe log> <day log> [<save dir A> <save dir B>]   (no Unity: steps 2 and 4's stop lines
 #        run on logs that already exist - positive = a good run's logs, negative = a copy with one line broken; worker2 H6)
+#        playable_build.sh --check-copy <src dir> <new dir>   (no Unity: step 3's copy alone - the DoNotShip folder left out, the rest copied)
 # Second read fixes (worker2 06:4x, boss1 06:41; worker3's agreement to follow): H1 step 2 reads the Unity batch log that the
 # build stdout names (log=), as regress_all.sh:126-133 - the two lines are not in the stdout; H2 the worktree is an argument
 # (no default: not a worker's active tree) and its branch is put back at the end; H4 timeouts; H6 --check-lines; H7 the seat0
 # session is looked up. H3 (boss1 06:47): exceptions counted as 'Exception:'. H5: the save dir compared as a table (path, mtime, sha256).
 set -u
-if [ "${1:-}" = "--check-lines" ]; then CHECK=1; SHA=none; else CHECK=0
+if [ "${1:-}" = "--check-lines" ] || [ "${1:-}" = "--check-copy" ]; then CHECK=1; SHA=none; else CHECK=0
   SHA=${1:?usage: playable_build.sh <master sha> <worktree> [--apply]}; WT=${2:?usage: playable_build.sh <master sha> <worktree> [--apply] (H2: no default worktree)}
   APPLY=0; [ "${3:-}" = "--apply" ] && APPLY=1
 fi
@@ -22,6 +23,18 @@ LOG=${LOG:-/tmp/playable_build_$([ $CHECK = 1 ] && echo check || echo ${SHA:0:7}
 say(){ echo "$(date +%H:%M:%S) $*" | tee -a "$LOG"; }
 stop(){ say "STOP: $*"; exit 1; }
 dirsha(){ (cd "$1" && find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-64); }
+
+# step 3's copy (PRESIDENT 09:5x, boss1 09:45): Builds/Linux -> the dir handed over, WITHOUT Unity's Burst debug folder
+# (<product>_BurstDebugInformation_DoNotShip - its name says do not ship; 52e33b5 and 7261648 carried it, ba3de36's was removed
+# by hand 09:4x). diff -rq skips that one name; a DoNotShip folder left in the copy stops. $1 = Builds/Linux, $2 = the new dir.
+copyout() {
+  cp -a "$1" "$2" || stop "copy failed"
+  rm -rf "$2"/*_BurstDebugInformation_DoNotShip
+  [ -z "$(find "$2" -maxdepth 1 -name '*_DoNotShip')" ] || stop "a DoNotShip folder is still in $2"
+  local e   # diff every top-level entry but the removed one (diff -x would skip that name at every depth - worker2 09:48 check (2))
+  for e in "$1"/* "$1"/.[!.]*; do [ -e "$e" ] || continue; case "${e##*/}" in *_BurstDebugInformation_DoNotShip) continue;; esac
+    diff -rq "$e" "$2/${e##*/}" >>"$LOG" 2>&1 || stop "diff -rq not empty at ${e##*/}"; done
+}
 
 SEAT=$(loginctl | awk '/seat0/{print $1; exit}')   # H7: not a fixed number
 # the stop lines of steps 2 and 4, one place (the --apply path and --check-lines both call them)
@@ -52,6 +65,10 @@ check4() {   # $1 launch log, $2 probe log, $3 day log
   grep -q '\[Speakers\] logic names=[0-9]* in table=[0-9]* missing=\[\]' "$1" || stop "no [Speakers] line with missing=[] (UiTheme.CheckSpeakers)"
   [ "$(grep -c 'Exception:' "$3")" = 0 ] || stop "Exception: in the AutoPilot day"   # H3
   }
+if [ "$1" = "--check-copy" ]; then   # step 3's copy on a given src (no Unity): --check-copy <src dir> <new dir (must not exist)>
+  [ -e "${3:?new dir}" ] && stop "$3 exists"; copyout "${2:?src dir}" "$3"
+  say "CHECK-COPY: $(find "$2" -type f | wc -l) files in, $(find "$3" -type f | wc -l) out, top-level DoNotShip in the copy: $(find "$3" -maxdepth 1 -name '*_DoNotShip' | wc -l), deeper: $(find "$3" -mindepth 2 -name '*_DoNotShip' | wc -l)"; exit 0
+fi
 if [ $CHECK = 1 ]; then
   say "CHECK-LINES (no Unity): build stdout ${2:?} | launch ${3:?} | probe ${4:?} | day ${5:?}"
   check2 "$2"; check4 "$3" "$4" "$5"
@@ -82,8 +99,7 @@ git -C "$WT" switch --detach "$SHA" >>"$LOG" 2>&1 || stop "detach failed"
 check2 "$LOG.build"
 [ "$(git -C "$WT" status --porcelain | wc -l)" = 0 ] || stop "tree not clean after the build"
 # 3. copy and measure
-mkdir -p "$PLAY"; cp -a "$WT/Builds/Linux" "$OUT" || stop "copy failed"
-diff -rq "$WT/Builds/Linux" "$OUT" >>"$LOG" 2>&1 || stop "diff -rq not empty"
+mkdir -p "$PLAY"; copyout "$WT/Builds/Linux" "$OUT"
 n=$(find "$OUT" -type f | wc -l); b=$(find "$OUT" -type f -printf '%s\n' | awk '{s+=$1} END {print s}')
 say "3 $OUT: $n files, $b bytes, folder sha256 $(dirsha "$OUT"), Ikada.x86_64 sha256 $(sha256sum "$OUT/Ikada.x86_64" | cut -c1-64)"
 # 4. launch checks (the copied player; the save dir must not appear)
