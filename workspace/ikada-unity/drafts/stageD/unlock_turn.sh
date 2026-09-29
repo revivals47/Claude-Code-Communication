@@ -5,7 +5,7 @@
 # usage: unlock_turn.sh [--rehearse] [--expect-practice SHA] [--expect-goal SHA] [--expect-input SHA]   (defaults = the shas of 18:2x)
 set -u
 U=/home/ken/Documents/ikada-unity
-P=${EXPECT_PRACTICE:-8f28659}; G=${EXPECT_GOAL:-67a65c4}; I=${EXPECT_INPUT:-2d51b94}; D=${EXPECT_DROP:-a27a1ae}; M=${EXPECT_MASTER:-ba3de36}   # 18:2x: practice 8f28659 (+ the practice live entry), stage 4 dropside a27a1ae
+P=${EXPECT_PRACTICE:-8f28659}; G=${EXPECT_GOAL:-67a65c4}; I=${EXPECT_INPUT:-2d51b94}; D=${EXPECT_DROP:-a01c863}; M=${EXPECT_MASTER:-ba3de36}   # 18:2x: practice 8f28659 (+ the practice live entry), stage 4 dropside a01c863 (boss1 21:16: a27a1ae + its child, the free5/free4 mock entry)
 R=0   # --rehearse: skip ONLY the lock / Runner.Worker guards (to run the git checks while the screen is locked), said on every stop line
 while [ $# -gt 0 ]; do case $1 in --expect-practice) P=$2; shift;; --expect-goal) G=$2; shift;; --expect-input) I=$2; shift;; --rehearse) R=1;; esac; shift; done
 say(){ echo "$(date +%H:%M:%S) $*"; }
@@ -42,5 +42,5 @@ say " 3  master + track2/input-us (pin 22e566a from master) -> regress: live 'lo
 say " 3b drafts/stageC/live_rebase.py dry-run (tag pre-us_) -> table to boss1 -> pictures to PRESIDENT -> GO -> --apply"
 say " 3c regress again -> 15/15;  3d live F 10-15 seed 1 to 2830 s: the say at 2812.5 s = RefCheck F's 2812017 ms line (通りすがり 割れてから待ちすぎかも…)"
 say "    -> PRESIDENT GO -> master <- that tree"
-say " 4  (master after 3) + pin d0118ce + cherry-pick track1/dropside $D (drafts/stageD/pin_0220.sh, worker1) -> bake (font unchanged) + regress 15/15 against the STAGE-3 baseline; 4b editor tide-line boxes; 4c live F 06"
+say " 4  (master after 3) + pin d0118ce + cherry-pick track1/dropside a27a1ae..$D (drafts/stageD/pin_0220.sh DROP, worker1) -> bake (font unchanged) + regress 15/15 against the STAGE-3 baseline; 4b editor tide-line boxes; 4c live F 06"
 say "DRY-RUN: nothing built, merged or launched"
