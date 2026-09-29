@@ -151,3 +151,9 @@ FightReviewView {
 - M2 チヌ 53 cm 種 1〜10: REJECTED 0/10, やめた 0。YieldN 最大 4.56 N（世界）。
 - 法則（推論, 2 点で合う）: YieldN 最大 = 2.6 × a（世界 N）, a = (L/40)²（FightAi.Rest.cs:30,83）。53 cm: 4.56 / 80 cm: 10.40, 比 0.438 = (53/80)² 0.439。10 を越えるのは **チヌ L > 78.4 cm** だけ。
 - 遊びの見積もり: 遊びのチヌの最大は 53 cm（冬 1 月）= 上限の 46 %。クロは yield を送らない。= 物語・自由釣りでは起きない（試験の scenario だけの大きさ）。ba3de36 の既知には入れない案。ただし 拒みを捨てる 3 か所は 訳と別に直す（PRESIDENT 20:1x (1)）。
+
+### §17 拒みを捨てる 3 か所 → 1 つの記録 + 試験の赤（boss1 20:16 GO）— 予測（code の前, 動かさない）
+- 形: Ikada.Logic.Fight.DeviceRxLog（1 class）。Note(返り, bytes, 時刻) を 3 か所（IkadaSession.cs:221 / DeviceThread.cs:114 / RivalFight.cs Push）が呼ぶ。Ok は割り当て無し（直前の取られた 0x05 を固定 buffer に写すだけ, DeviceThread の 「loop 内で割り当て無し」を守る）。Ok 以外だけ 1 行: 時刻・型・seq・返りの種類、0x05 の REJECTED は 欄と値（C の検査で 1 欄ずつ戻す = 計測と同じ, 読む側で計算）。DebugView に数と最後の 1 行（F1 のみ）。RivalDay の結果に拒みの行（足すだけ）。FightWire.TryDecodeFight を足す（Encode の鏡, 往復の試験 + CRC 壊しの陰性）。
+- 予測 P1（陽性）: チヌ 80 cm 種 1（0.01 s 刻み）で session の記録 = REJECTED 13 行、最初の行の欄 = YieldN 10.4（取られた 0）、他の種類 0。試験はこれを赤にする形（「拒み 0」を assert する試験が落ちる）を 陽性対照として 1 本。
+- 予測 P2（陰性）: チヌ 53 cm・クロ 45 cm 種 1〜10 = 記録 0 行（REJECTED も IGNORED も STALE も）。生の device は着いた後の END を取る（生きた fight）ので IGNORED は出ない、と読む（外れたら数える）。
+- 予測 P3: 全体の試験は 緑のまま・RefCheck 11/11 不変（記録は読むだけ、送る物・順番を変えない）。ただし 既存の試験で わざと悪い message を push するもの（HookMessageTests / VdevNativeTests）は 自分の Vdev を直接使い session を通らない = 記録に来ない、と読む。
