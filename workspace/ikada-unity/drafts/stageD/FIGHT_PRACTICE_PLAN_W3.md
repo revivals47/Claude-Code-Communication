@@ -74,3 +74,9 @@ FightReviewView {
 - ★私の誤り 2 つ（直した）★: ①次の投で消す を「CastRecord が替わった時」で書いた = 取り込んだ投は 日誌に書いた直後に Current が null になる = 1 frame も出なかった（F1 の陽性対照が i > 0 で落ちて見つけた）→ ★null でない新しい投の時だけ消す★ ②`SlackMs` を「報告ごとの時間」と読んで 足した = ★定義は 今の糸ふけが続いている長さ（C の slack_s は糸ふけの間 += dt、終われば 0、core/ikd_fight_risk.c:73-80・protocol/ikd_fight_msg.c:41,51）★= 足すと重ねて数える（F3 で 帯 0.30 s に対し 1.83 s）→ 1 回の糸ふけの最後の値を 1 度だけ足す形に（直した後 #3 = 帯 2 つ 0.26 s、#5 = 帯 5 つ 0.87 s、F3 の ≤ 0.25 s に入る）。
 - ★予測の外れ 2 つ★: 最初の動きの区間は「0 から」（予測）→ 0.11 s（観測 = FightAi.PeriodS 0.1 ＋ 1 tick 0.01、5 本とも）。1 度目の直しで PeriodS と読んだのも外れ（2 度目）→ 測った形（PeriodS ＋ Dt）で assert。
 - ★陽性の無い所（未閉）★: OverS（ハリスの 8 割を越えた秒）は 5 本とも 0.0 = AutoPilot の巻きでは 張りすぎが起きない = 0 でない値の試験が無い。切れた・外れた本も 0 本 = EndCause の 1 以外の言葉は この run で出ていない。物語の 4/20 の 1800 s は ファイト 0 本（F4 は 物語の日に欄が出ない形の試験だけ）。
+
+## 10. 陽性の無い所を埋める 2 本（boss1 18:48、★回す前に登録★、18:5x）
+- 形: 練習（Drill.FightReview）の日、AutoPilot で 仕掛けが底に着いたら `StartScenarioFight`（FightSlackTests.cs と同じ口）、その後は試験の手で:
+  - F6 切れ: チヌ 55 cm・閂、★巻きを最大（Reel 1）・ドラグを上げ続ける（DragUp を毎 0.2 s）★ = 張りすぎ。予測 = EndCause 4（張りすぎて切れた）か 5（擦れて切れた）、End の言葉がそのどちらか、★OverS > 0★、日誌の FightRecord と同じ終わり方。
+  - F7 外れ: チヌ 40 cm・閂、★巻かない・親指も離す（Reel 0・Thumb 0 = FightSlackTests の FreeLetGo）★ = 糸ふけ。予測 = ★SlackS > 0・Slack の帯が 1 つ以上★、終わり方は 2（糸ふけで外れた）の見込み。ただし 外れの閾値は ファイトごとに引く `pull_slack_ms`（0xFFFF = 外れない、core/ikd_fight.h:109）= 種によっては外れずに取り込み・切れになる → ★種を 1〜5 で回し 最初に EndCause 2 が出た種を 試験に固定★（その種の値を回した後に書く）。5 種とも 2 が出なければ 外れの陽性は この口では作れない = 記録して SlackS > 0 だけ assert。
+- 全体を回し直す（FloatChainGuard の直しの後）: 予測 = 全体 877 ＋ 2 = 879、失敗 0、RefCheck 11 値 #13。
