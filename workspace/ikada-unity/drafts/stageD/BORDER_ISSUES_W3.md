@@ -17,3 +17,7 @@
 ## 1 段目の結果（観測、16:1x、build と新しい試験だけ）
 - build errors 0。BorderIssuesTests 3/3（境 3 つ）。★1 回目は 3 つとも落ちた = 私の誤り 2 つ★: ①日の終わりのセーブを写す時点が早かった（Flow.Day が替わった時 = AdvanceStory の WriteSave の前）→ DayIndex が増えた時に（GameFlow.cs:259-268 = DayIndex++ の後 同じ呼びで WriteSave）②B2 の assert を「通しと同じ」で書いた = 登録した『外れうる所』どおり、途中の日から始めた道では 前の章の課題（第1章 task1.issue = 底ば取れ、FishingDays ≥ 1 が条件 ChapterTasks.cs:163）も境で出る → 狭い規則は その章の課題だけ組み直す = assert を「その章の課題の数と通しの順」に直した。
 - 境のセーブの pendingIssues（観測）: 第2章 = task1.issue,task2_1.issue（その章 1）・第3章 = task1.issue,task3_1〜3（3）・第4章 = task1.issue,task4_1・4_2（2）。B1 = 続きからの InnLines は 通しと同じ列（3 つとも）。B2 = 古い形（鍵なし）は 宿の行 ＋ その章の課題（1・3・2）を通しの順で。B3 = 日の終わりのセーブからの続きからは 課題の行 0（翌日の 07 の InnLines は空）。
+
+## 2 段目の結果と commit（観測、16:4x）
+- 全体 864 = 合格 859・失敗 0・スキップ 5（Runner.Worker 0 で始めた、log の 1 行目）。RefCheck 5 日 ＋ 種 1〜3 = 11 値とも #13 と同じ、5 日の log は byte で同じ = ★予測どおり★。ContractTests 変わらず（公開の欄の変更なし）。
+- commit = ikada-sim-w3 border-issues f53cc746bfb155fc67b2c1c14610f28f64032575（af9cc7e の上 1 つ、ローカル、origin に push しない）。
