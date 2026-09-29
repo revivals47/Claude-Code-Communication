@@ -40,3 +40,31 @@
 - 1 技能 = 「切らさず・外さず浮かせる」で良いか（ドラグの出し入れは その中の 1 行）。
 - 事後に魚の走り（Phase）の帯を出すか（体力は出さない）。
 - 組にするか（10 本）、1 本ずつの練習（B の前の A と同じ）から始めるか。推す = 1 本ずつの答え合わせを先（F1〜F5）、組は後。
+
+## 8. GO（boss1 18:25・PRESIDENT 18:4x）の後 — ★code の前に登録（18:3x）★
+- 決め: (1) 切らさず・外さず浮かせる (3) 1 本ずつが先 (2) ★事後に 魚の動きの区間（走る・止まる・首振り・突っ込み ほか）の帯は出す、体力は出さない★、ファイト中は何も足さない。
+- ★全部の魚で動きの区間を記録する形（足した 1 行）★: 動きの区間は FightAi の中の Phase を直に読まず、★logic が装置へ送る FightParams（毎 tick の送り、`Phase`・首振りの `ShakeMs`、FightAi.cs:366-392 の Build）の列から作る★ = 種（チヌ・クロ・ボラ・餌取りの掛かり）に依らず 同じ 1 つの道で 全部のファイトに付く。首振り = Pause の始めに送る ShakeMs の長さ（FightAi.cs:384）。
+- 木: ikada-sim-w3、branch `fight-review`（origin/main d0118ce から、ローカル）。版 0.23.0。
+### 欄（API 0.23.0、MINOR）
+```
+RenderSnapshot.FightReview : FightReviewView?   // 練習の新しい Drill.FightReview（「ファイトの答え合わせ」）だけ、1 本のファイトが日誌に書かれた時から 次の投まで
+FightReviewView {
+  int Seq; int CastIndex;
+  int EndCause;          // 日誌の FightRecord.EndCause と同じ（FightEnd の値、1 取り込んだ・2 糸ふけ・3 首振り・4 張りすぎ・5 擦れ・6 巻かれ・8 やめた・9 口切れ）
+  float Seconds;         // 日誌の FightRecord.Seconds と同じ
+  float HarisuN;         // ハリスの強さ（世界の N）
+  List<FightSample> Tension;   // FightSample { float S, N } = 装置の報告ごとの 世界の張力（TWorldN）、S = ファイトの秒
+  List<FightSpan> Moves;       // FightSpan { int Kind, float FromS, ToS }: Kind = FightPhase の値（1 走る・2 止まる・3 向きを変える・4 突っ込み・5 横へ・6 浮く・7 寄る）
+  List<FightSpan> Shakes;      // 首振り（Kind 0）
+  List<FightSpan> Slack;       // 糸ふけ（報告の SlackStart〜SlackEnd）
+  List<FightSpan> DragSlip;    // ドラグが滑った（DragSlipStart〜End）
+  float SlackS, OverS;         // 糸ふけの秒（報告の SlackMs の和）・ハリスの 8 割を越えた秒
+  string End, SlackWord, OverWord;   // 分けた 3 つの言葉（総合点なし）
+}
+```
+- ★Stamina の欄は無い★（契約の一覧に Stamina の語が増えないことを試験で見る）。
+### 予測
+- Q1 RefCheck 5 日 ＋ 種 1〜3 の 11 値とも #13（照合は物語の日 = Drill.None、読む口は乱数・状態を変えない）、5 日の log は byte で同じ。
+- Q2 ContractTests の一覧の差 = 版の行 ＋ `FightReview`・`FightReviewView`・`FightSample`・`FightSpan` の欄だけ（消える行 0）、`Stamina` の語は 足しの中に 0。
+- Q3 練習（Drill.FightReview、種 20260925、AutoPilot、1800 s）で ファイト 2 本以上、各本で F1（ファイト中の全 frame で null、日誌に書かれた frame から非 null）・F2（EndCause・Seconds が日誌と同じ）・F3（糸ふけの帯の和 と SlackS の差 ≤ 報告 1 つ分 0.1 s × 本数ではなく 1 本あたり ≤ 0.25 s）・Moves は時刻の順・重ならない・最初の区間は 0 から。
+- Q4 F4: 物語の 4/20 で 1 frame も非 null にならない。全体の試験 = 今の数 ＋ 新しい試験、落ちる 0（ContractTests は書き直しの後）。
