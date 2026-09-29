@@ -1,0 +1,20 @@
+diff --git a/15_logic_game_interface.md b/15_logic_game_interface.md
+index db5510a..266077b 100644
+--- a/15_logic_game_interface.md
++++ b/15_logic_game_interface.md
+@@ -351,6 +351,15 @@ namespace Ikada.Game
+ 
+ ## 11. 変更履歴（API・装置・流れ。Linux 側が読むこと）
+ 
++### 2026-09-29 夕の回（API 0.22.0、PRESIDENT 16:1x の案 1〜4、Linux 側 worker3（1・4）・worker2（3）・worker1（2）。ikada-sim f53cc74・4fa273d・07d87a5・6d513ab（＋ d0118ce は道具だけ）、main 〔sha は main に入った時に〕）
++| 何 | 中身 | 版 | Linux 側ですること |
++|---|---|---|---|
++| **打ち込みの向きの有無**（案 2） | `RenderSnapshot.DropSideOn`（bool）＝ `DropSide` が意味を持つ日か（第3章の日で まき餌の筋が出ている）＝ 0 正面 と「今日は打ち込みの向きなし」を分ける。依頼者が自分で選んだ向きだけ（筋そのものではない）。 | **MINOR 0.22.0** | 偽の日は打ち込みの向きを描かない。 |
++| **自由釣りの月**（案 3） | `DayConfig.FreeMonth`（int）＝ 自由釣りの初めの月（1〜12、0 ＝ その場所の初めの月、0〜12 の外は受け付けない）。選びの頁に「月」の行（その場所の選べる月だけ ◀▶、日は 20 日、1・2 月は翌年）。 | 同上 | 選びの頁は `PanelView.Lines` の数で描く（行の数は固定でない）。 |
++| **譲られた竿**（案 4） | 公開の欄の足しなし。物語のセーブが `RodGiven` の時だけ 自由釣りの選びの頁に「竿　いつもの／兄弟子の竿」の行（出かける の直前、場所・月・狙いを替えても戻さない）。選んだ日は ★今の `RodGrade` 2・`TipTitanium` 真★（借りた竿と同じ表の行、描きだけ・判定は変わらない）。行の順の決め ＝ 場所・月・今日の狙い・竿・出かける（workspace drafts/stageD/FREE_SELECT_ROWS.md）。 | ― | 竿の行の字は logic の文字列のまま描く。 |
++| **章の境の続きから**（案 1） | 公開の欄の足しなし。章の始めの課題の出す行を ★セーブの `pendingIssues` に持つ★（空でない時だけ書く ＝ 他のセーブは byte が同じ、セーブの版 1 のまま、★SaveGame は公開の取り決めの外★）＝ 境のセーブから続きからでも その章の最初の 07 の `PrepView.InnLines` に課題が出る。古い build の境のセーブは 狭い規則で組み直す（その章の日がまだ無い・課題が出た印あり の時だけ）。 | ― | なし（07 の描きは今のまま）。 |
++- RefCheck：★固定し直しではない★（案 1〜4 とも 照合の物語の日の events・numbers を動かさない。1・4 は各段で 5 日 ＋ 種 1〜3 の 11 値とも #13・5 日の log は byte で同じ〔worker3 の手元〕）〔全体の CI の値は main に入った時に〕。
++
+ ### 2026-09-29 昼の回（API 0.21.0、練習 A「アワセの答え合わせ」・B「練習の組」・C「組のまとめ」、PRESIDENT 12:0x〜13:4x、Linux 側 worker3（A）・worker2（B・C）。ikada-sim d838408 ＋ a599c8d、main a599c8d 2026-09-29 14:38）
+ | 何 | 中身 | 版 | Linux 側ですること |
+ |---|---|---|---|
