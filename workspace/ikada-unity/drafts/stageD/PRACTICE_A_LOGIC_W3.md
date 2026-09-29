@@ -83,3 +83,10 @@ BiteSpan { int State; float FromS, ToS; }   // State = FishState の値（1〜4�
 - Q3 全体の試験 = 839 ＋ 新しい 5 本、落ちる試験 0（ContractTests は書き直しの後）。
 - Q4 T1: 練習の 1 日で 全部の答え合わせについて「閉じる前の frame では 欄が 前の答え合わせのまま か null」、閉じた frame から非 null、Spans は時刻の順・重ならない・割れた後だけ、StrikeAtS は最後の区間の終わりと同じ。陽性対照 = 閉じる前に入れる写しで赤。
 - Q5 T4: 物語の日（ReferenceRun と同じ 4/20・種 20260925）で 欄が 1 frame も非 null にならない。
+
+## 8. 結果（観測、12:3x）
+- ikada-sim practice-a = d83840849619666753f21ac470b302c53b59bac8（777950e から 1 commit、origin/practice-a に push、stage2 はまだ）。
+- Q1 ★当★: RefCheck 5 日 ＋ 種 1〜3 の events・numbers 11 とも #13 と同じ、5 日の log は byte で同じ。
+- Q2 ★当★: 一覧の差 = api と定数の版の行 ＋ `StrikeReview`・`StrikeReviewView` の欄 14・`BiteSpan` の欄 3（消える行 0）。
+- Q3 ★外れ 1★: 全体 844 = 合格 838・スキップ 5・★失敗 1 = UpmPackageTests（Unity の写しの PracticeStrike.cs が古い = 私が直す前に sync した）★ → sync し直して UpmPackageTests 6/6。
+- Q4・Q5 ★当（直した後）★: 新しい 5 本とも合格。★1 回目は T1〜T3・T5 が落ちた = 私の 2 つの誤り: ①離れた時に最後の区間を 2 度足した ②離れた魚を その投の間ずっと追わなかった（同じ魚が 122 s 後に戻って来て TAKE で掛かった = 区間なしの答え合わせ）→ 合わせた魚だけ「一度 状態の外へ出るまで」追わない形に直した。★ 練習の半時間（種 20260925）で 答え合わせ 13（合わせて掛かった 6・掛からなかった 1・空合わせ 3・合わせずに離れた 3）。物語の 4/20 は 107854 frame で 0 回。
