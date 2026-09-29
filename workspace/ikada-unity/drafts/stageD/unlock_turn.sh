@@ -2,10 +2,10 @@
 # unlock_turn.sh - the player turn after the screen lock lifts (worker3, boss1 15:58; UNLOCK_TURN_PLAN_W3.md). DRY RUN ONLY:
 # every check is read-only (git rev-parse / merge-base / merge-tree, pgrep, loginctl); the steps are printed, nothing is built,
 # merged or launched. A stop line = exit 1. Order: 1 practice alone -> 2 (master + practice) + goal-band -> 3 (+ input-us).
-# usage: unlock_turn.sh [--expect-practice SHA] [--expect-goal SHA] [--expect-input SHA]   (defaults = the shas of 15:58)
+# usage: unlock_turn.sh [--rehearse] [--expect-practice SHA] [--expect-goal SHA] [--expect-input SHA]   (defaults = the shas of 18:2x)
 set -u
 U=/home/ken/Documents/ikada-unity
-P=${EXPECT_PRACTICE:-ea3919f}; G=${EXPECT_GOAL:-67a65c4}; I=${EXPECT_INPUT:-2d51b94}; M=${EXPECT_MASTER:-ba3de36}
+P=${EXPECT_PRACTICE:-8f28659}; G=${EXPECT_GOAL:-67a65c4}; I=${EXPECT_INPUT:-2d51b94}; D=${EXPECT_DROP:-a27a1ae}; M=${EXPECT_MASTER:-ba3de36}   # 18:2x: practice 8f28659 (+ the practice live entry), stage 4 dropside a27a1ae
 R=0   # --rehearse: skip ONLY the lock / Runner.Worker guards (to run the git checks while the screen is locked), said on every stop line
 while [ $# -gt 0 ]; do case $1 in --expect-practice) P=$2; shift;; --expect-goal) G=$2; shift;; --expect-input) I=$2; shift;; --rehearse) R=1;; esac; shift; done
 say(){ echo "$(date +%H:%M:%S) $*"; }
@@ -18,8 +18,8 @@ if [ $R = 1 ]; then say "REHEARSAL: lock and Runner.Worker guards skipped (NOT a
 [ "$(pgrep -xc Unity)" = 0 ] || stop "a Unity is running"
 [ "$(ps -eo comm | grep -c '^Ikada')" = 0 ] || stop "an Ikada player is running"
 chk(){ local want=$1 ref=$2 got; got=$(git -C "$U" rev-parse --short=7 "$ref" 2>/dev/null) || stop "no $ref"; [ "$got" = "$want" ] || stop "$ref is $got, expected $want"; say "0 $ref = $got"; }
-chk "$M" master; chk "$P" track1/practice; chk "$G" track1/goal-band; chk "$I" track2/input-us
-for b in track1/practice track1/goal-band track2/input-us; do
+chk "$M" master; chk "$P" track1/practice; chk "$G" track1/goal-band; chk "$I" track2/input-us; chk "$D" track1/dropside
+for b in track1/practice track1/goal-band track2/input-us track1/dropside; do
   git -C "$U" merge-base --is-ancestor master "$b" || stop "$b is not on master"
 done
 for wt in "$U-track1" "$U-track2" "$U-track3"; do
@@ -29,11 +29,12 @@ done
 mt(){ local out rc; out=$(git -C "$U" merge-tree --write-tree --name-only "$1" "$2" 2>&1); rc=$?
       say "merge-tree $1 + $2: rc $rc, conflicted: $(echo "$out" | sed -n '2,/^$/p' | grep -v '^$' | tr '\n' ' ')"; }
 mt track1/practice track1/goal-band           # expected: ScreenRegistry.cs only (PS1/PS2 vs 06G), resolved as the union
-mt track1/practice track2/input-us            # expected: none
+mt track1/practice track2/input-us            # expected (18:2x): LiveHost.cs only (practice's LivePractice field and input-us's pilotFrames/pilotUs under :60), resolved as the union
 mt track1/goal-band track2/input-us           # expected: none
+for b in track1/practice track1/goal-band track2/input-us; do mt "$b" track1/dropside; done   # expected: none (stage 4 cherry-picks dropside)
 say "DRY-RUN steps (each regress sees ONE new change):"
 say " 1  track1/practice $P as is = $M + practice: REGRESS_LIVE=1 tools/regress_all.sh -> 15/15, input_test checks=91, mock 26/26 0 px, live logic = baseline"
-say " 1b a practice-day live (the set HUD 「組 k/10」, the answer check after closing) if the host has the practice entry (W1) - else the editor mocks"
+say " 1b a practice-day live: -ikadaLivePractice 5 (practice 8f28659, drafts/stageD/PRACTICE_LIVE_PLAN_W1.md) - the set HUD 「組 k/10」, the answer check after closing"
 say "    -> PRESIDENT GO -> master <- track1/practice"
 say " 2  master + track1/goal-band (ScreenRegistry.cs: keep both entries) -> regress 15/15 + editor 06G + player G (12-10 seed 1) / F (10-15 seed 1) 06"
 say "    -> PRESIDENT GO -> master <- that tree"
@@ -41,4 +42,5 @@ say " 3  master + track2/input-us (pin 22e566a from master) -> regress: live 'lo
 say " 3b drafts/stageC/live_rebase.py dry-run (tag pre-us_) -> table to boss1 -> pictures to PRESIDENT -> GO -> --apply"
 say " 3c regress again -> 15/15;  3d live F 10-15 seed 1 to 2830 s: the say at 2812.5 s = RefCheck F's 2812017 ms line (通りすがり 割れてから待ちすぎかも…)"
 say "    -> PRESIDENT GO -> master <- that tree"
+say " 4  (master after 3) + pin d0118ce + cherry-pick track1/dropside $D (drafts/stageD/pin_0220.sh, worker1) -> bake (font unchanged) + regress 15/15 against the STAGE-3 baseline; 4b editor tide-line boxes; 4c live F 06"
 say "DRY-RUN: nothing built, merged or launched"
