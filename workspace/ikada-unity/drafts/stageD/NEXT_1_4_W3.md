@@ -26,9 +26,9 @@
 ### 今（観測）
 - 竿は 描きだけ（判定は変わらない、TackleGrades.cs:44-47 の注「The given rod in free fishing waits for the shop / belongings decision. It changes no judgement」）。今日の竿 = `TackleGrades.TodayRod(storyDay, rodLent)`（:48）= 物語の日で RodLent の時だけ 上の竿（チタン）、呼び手は SnapshotBuilder.cs:111-112 だけ（RodGrade・TipTitanium）。
 - 譲り = EpilogueFour（GameFlow.Chapter4.cs:84 `RodGiven = true` → :89 WriteSave）= 物語のセーブに在る。
-- ★自由釣りは 新しい空の SaveGame で始まる★（GameFlow.cs:164 `Save = new SaveGame { SaveSeed = Cfg.Seed }`、書かない）= 物語のセーブの RodGiven が 自由釣りから見えない。
+- ★自由釣りは 新しい空の SaveGame で始まる★（GameFlow.cs:163 `Save = new SaveGame { SaveSeed = Cfg.Seed }`、書かない）= 物語のセーブの RodGiven が 自由釣りから見えない。
 ### 形（推奨）
-- 自由釣りの選びの頁（FreeInput、GameFlow.cs:150-170、行 3 つ = 場所・狙い・決定）に ★RodGiven の時だけ 1 行「竿　いつもの ／ 兄弟子の竿」★（←→）。RodGiven は 物語のセーブを 題の画面で読む時（続きからの有無を見る所）に 1 回読んで持つ（SaveCheck.TryLoad、読めない・無い = 行なし）。
+- 自由釣りの選びの頁（FreeInput、GameFlow.cs:151-170、行 3 つ = 場所・狙い・決定）に ★RodGiven の時だけ 1 行「竿　いつもの ／ 兄弟子の竿」★（←→）。RodGiven は 物語のセーブを 題の画面で読む時（続きからの有無を見る所）に 1 回読んで持つ（SaveCheck.TryLoad、読めない・無い = 行なし）。
 - 選んだら DayPlan に 1 つ（例 `GivenRod`）→ `TodayRod` に「自由釣りで GivenRod」の枝を 1 つ（同じ表の上の竿 = 2 つ目の道を作らない、PRESIDENT 22:3x）= RenderSnapshot.RodGrade 2・TipTitanium true。★判定は変わらない（描きだけ）★。
 - API: 欄は既に在る（RodGrade・TipTitanium、0.19.0）= ★型の変更なし★。ただし 選びの頁の行が 3 → 4 になる（PanelView.Lines の中身）= Unity の自由釣りの選びの描きが 行の数で固定なら 1 行足す（Unity 側、未確認 = 読んでから）。
 ### 試験の案と予測
