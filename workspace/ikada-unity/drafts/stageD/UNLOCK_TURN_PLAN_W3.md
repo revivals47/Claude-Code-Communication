@@ -31,3 +31,4 @@
 
 ## script = `drafts/stageD/unlock_turn.sh`（dry-run だけ、16:01 に回した、観測）
 - 錠の間の素の run = 「STOP: the screen is locked」（rc 1）= 錠の見張りが効いている。`--rehearse`（錠と Runner.Worker の見張りだけ外す、行に「NOT a go signal」）= master ba3de36・3 つの branch の sha・master の上か・3 つの worktree の porcelain 0 が通り、merge-tree = practice＋goal-band が ScreenRegistry.cs だけ衝突、他の 2 組は 0（上の表どおり）、段を印字して rc 0。陰性対照 `--expect-goal 1234567` = 「STOP: track1/goal-band is 67a65c4, expected 1234567」rc 1。
+- ★決め（boss1 16:02）★: goal-band は track3 を detach して使う（track3 = track3/sub-wrap、master の外の commit 0・porcelain 0 = 作業中の物なし、16:0x に見た）。ScreenRegistry.cs の衝突は merge の時に boss1 が和で解く = ★practice の PS1・PS2 の 2 行（:48-50）と goal-band の 06G の 2 行（:52-53）を 両方 残す（順は practice → goal-band、どちらも Cycle の外）★。練習の日の live の口は worker1。
