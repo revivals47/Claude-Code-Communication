@@ -12,3 +12,8 @@
 - R3（陰性）: RodGiven の無いセーブ・セーブなし = 行 4（竿の行なし、worker2 の頁と同じ）、出かけた日 RodGrade −1・TipTitanium false。「いつもの」を選んだ日も −1・false。
 - R4: 物語の日は変わらない（RodFieldsTests がそのまま通る = TodayRod(false, true) は null のまま〔3 つ目の引数の既定 false〕）。
 - RefCheck: 11 値とも #13（照合は物語の日、自由釣りの頁も TodayRod の物語の枝も通らない）。全体 = 今の数 ＋ 新しい試験、落ちる = ContractTests（worker2 の段からの赤、案 2 の版で緑）だけ。
+
+## 結果（観測、17:2x）
+- R1〜R4 ★当★: FreeRodTests 2/2（竿あり 5 行・兄弟子の竿 = 2/true・場所 月 狙いを替えても残る・いつもの = −1/false、竿なし・セーブなし = 4 行・−1/false）、RodFieldsTests 3/3。★1 回目の build は私の using 漏れ（GameDate）で落ちた = その時の試験の run は古い dll = 数えない★。
+- 全体 874 = 合格 868・スキップ 5・失敗 1 = ContractTests（差 = `+ DayConfig.FreeMonth` の 1 行だけ = 案 3 の分、予測どおり、私の段は公開の欄を足していない）。RefCheck 11 値 #13・5 日の log byte 同じ。
+- commit = ikada-sim-w3 free-rod 07d87a50ac14ea732499920136f9b02e5fd0c9ea（4fa273d の上、ローカル）。
