@@ -13,3 +13,7 @@
 - B4 普通の道: 今の InnLinesTests（9/1・12/1・4/20）がそのまま通る、日の終わりのセーブに pendingIssues の鍵なし（出した後）。
 - RefCheck: 5 日 ＋ 種 1〜3 の 11 値とも #13（照合の日は通し、InnLines と セーブの中身は hash の外 ReferenceRun.cs:86-103。欠航の後へ取り出しを移しても 照合の日は欠航でない）。
 - ContractTests: 変わらない（ChapterProgress・SaveGame は取り決めの外、公開の欄の変更なし）。全体の試験 = 今の数 ＋ 新しい試験、落ちる 0。
+
+## 1 段目の結果（観測、16:1x、build と新しい試験だけ）
+- build errors 0。BorderIssuesTests 3/3（境 3 つ）。★1 回目は 3 つとも落ちた = 私の誤り 2 つ★: ①日の終わりのセーブを写す時点が早かった（Flow.Day が替わった時 = AdvanceStory の WriteSave の前）→ DayIndex が増えた時に（GameFlow.cs:259-268 = DayIndex++ の後 同じ呼びで WriteSave）②B2 の assert を「通しと同じ」で書いた = 登録した『外れうる所』どおり、途中の日から始めた道では 前の章の課題（第1章 task1.issue = 底ば取れ、FishingDays ≥ 1 が条件 ChapterTasks.cs:163）も境で出る → 狭い規則は その章の課題だけ組み直す = assert を「その章の課題の数と通しの順」に直した。
+- 境のセーブの pendingIssues（観測）: 第2章 = task1.issue,task2_1.issue（その章 1）・第3章 = task1.issue,task3_1〜3（3）・第4章 = task1.issue,task4_1・4_2（2）。B1 = 続きからの InnLines は 通しと同じ列（3 つとも）。B2 = 古い形（鍵なし）は 宿の行 ＋ その章の課題（1・3・2）を通しの順で。B3 = 日の終わりのセーブからの続きからは 課題の行 0（翌日の 07 の InnLines は空）。
