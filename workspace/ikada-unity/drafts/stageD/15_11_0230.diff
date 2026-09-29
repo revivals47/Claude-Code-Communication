@@ -1,0 +1,18 @@
+diff --git a/15_logic_game_interface.md b/15_logic_game_interface.md
+index a8f9d22..2fb7f50 100644
+--- a/15_logic_game_interface.md
++++ b/15_logic_game_interface.md
+@@ -351,6 +351,13 @@ namespace Ikada.Game
+ 
+ ## 11. 変更履歴（API・装置・流れ。Linux 側が読むこと）
+ 
++### 2026-09-29 夜の回（API 0.23.0、D ファイトの練習「ファイトの答え合わせ」と 端末が取らなかった message の記録、PRESIDENT 18:4x〜20:2x、Linux 側 worker3。ikada-sim 661f934 ＋ 047a8ce、main 047a8ce 2026-09-29 21:1x）
++| 何 | 中身 | 版 | Linux 側ですること |
++|---|---|---|---|
++| **ファイトの答え合わせ**（練習 D） | `RenderSnapshot.FightReview`（`FightReviewView?`）＝ ★練習の新しい `Drill.FightReview`（「ファイトの答え合わせ」）の時だけ、日誌がその fight を記帳した時から次の投まで非 null★。★fight の途中は 1 度も出さない ＝ 13 §9.1 の 2★、★体力の欄は無い ＝ 13 §9.1 の 1★。中身：`Seq`・`CastIndex`・`EndCause`（int、`FightEnd` の値）・`Seconds`（日誌の `FightRecord` と同じ）・`Tension`（`FightSample { S, N, PeakN, Wear }` ＝ 端末の報告ごと、★N は世界の N★）・`Moves`（`FightSpan { Kind, FromS, ToS }`、Kind ＝ logic が端末へ送った FightParams の Phase：1 走り・2 止まり・3 反転・4 突っ込み・5 横走り・6 浮き・7 取り込み）・`Shakes`（首振り、止まりの頭で送った ShakeMs）・`Slack`（糸ふけ）・`DragSlip`（ドラグの滑り、どちらも報告の event から）・`Jolts`（▲ ＝ 報告の間の張力の上がりが 送った衝撃の閾値を越えた時刻、C の定数は FightParams から読む）・`HarisuN`（名目のハリス、世界 N、送った値）・`DragN`（ドラグ、世界 N ＝ 端末の N ÷ g_T）・`SlackS`・`OverS`（ハリスの 8 割を越えていた秒）・言葉 `End`／`SlackWord`／`OverWord`。★切れの言葉は ▲ に頼らない（報告は切れた瞬間の衝撃を見落とすことがある：最強ドラグ 種 1〜20 の 18 切れのうち 4）＝ 最後の張力 と `HarisuN` で分ける：下なら「急に強く引かれて切れた」、以上なら「張りすぎて切れた」★。 | **MINOR 0.23.0** | 答え合わせの画（張力の線・8 割の線・ドラグの線・▲・動きの帯・糸ふけ／滑りの帯・3 つの言葉）。線はすべて世界の N で描く（`HarisuN`・`DragN`・`Tension[].N` は同じ単位）。 |
++| **端末が取らなかった message**（記録） | `DebugView.DeviceRefusals`（long）・`DebugView.DeviceRefusal`（string）＝ ★F1 のみ・記録用★、端末が取らなかった message の数と 最後の 1 行（時刻・型・seq・返りの種類、0x05 が REJECTED なら C が拒む欄と値）。logic の中では 3 か所の push（lockstep・1 kHz の DeviceThread・兄弟子の fight）の返りを 1 つの記録 `DeviceRxLog` へ（前は捨てていた ＝ 拒まれた 0x05 は 1 s 後に端末の ABORT「やめた」としてしか見えなかった）。遊びで拒まれる大きさ（休みの型の YieldN が C の 10 を越える チヌ 78.4 cm 超）は 物語・自由釣りでは掛からない（最大 53 cm）。 | 同上 | 描かない。0 でない時は 記録に残す（log）だけ。 |
++- RefCheck：★固定し直しではない★（練習は照合の物語の日を通らない・記録は返りを読むだけ ＝ 送る物も順番も変わらない）。各 commit で 5 日 ＋ 種 1〜3 の 11 値とも #13・5 日の log は byte で同じ〔worker3 の手元〕。CI stage2 run 36562866623 の Linux 3 job success（mono precision 109387649920 ＝ .NET SAME as Mono・linux/gcc-14 109387650367・linux/clang 109387650372、試験 889 ＝ 合格 884・失敗 0・スキップ 5、libikd OK sources 9653822bcec4 abi 3）、refhash 16 行は ★#13 と同じ★（d0118ce の run の gcc と行の集合が同じ・gcc と clang も同じ）。
++
+ ### 2026-09-29 夕の回（API 0.22.0、PRESIDENT 16:1x の案 1〜4、Linux 側 worker3（1・4）・worker2（3）・worker1（2）。ikada-sim f53cc74・4fa273d・07d87a5・6d513ab（＋ d0118ce は道具だけ）、main d0118ce 2026-09-29 18:1x）
+ | 何 | 中身 | 版 | Linux 側ですること |
+ |---|---|---|---|
