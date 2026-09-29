@@ -122,7 +122,7 @@ FightReviewView {
 ### 誰が Abort を出すか（source, 観測）
 - C で ABORT を作る口は 1 つ: mcu/ikd_vdev.c:222-224（最後に受けた 0x05 の valid_until+hold から 1000 ms 新しい 0x05 が無い, :78）。ikd_fight_abort の呼び元はここだけ（grep）。PC は device の EndCause をそのまま記録（FightAi.cs:194-197 → FishingSession.Fight.cs:161）。
 - 0x05 を device が取らない口は 3 つ（mcu/ikd_vdev_rx.c）: REJECTED（ikd_fight_params_invalid, :105-107, limit_flags に REQ_CLAMP）/ IGNORED（ikd_fight_update が 0, :111,122）/ STALE（seq, :158）。
-- PC はその結果を 2 か所で捨てる: pc/src/Ikada.Game/IkadaSession.cs:221（lockstep）と pc/src/Ikada.Desktop/DeviceThread.cs:114（本物の device thread）。
+- PC はその結果を 3 か所で捨てる: pc/src/Ikada.Game/IkadaSession.cs:221（lockstep）と pc/src/Ikada.Desktop/DeviceThread.cs:114（本物の device thread）。 と pc/src/Ikada.Logic/Story/RivalFight.cs:64（ライバルの fight, 長さ無し = 比 1）。
 - 訂正（20:04 の便）: 「PC は毎 tick 送る」は誤り。FightAi.Tick は dirty か PeriodS 経過の時だけ送る（FightAi.cs:222）。
 
 ### 種ごとの長さの幅（source の表, 観測）と 戦いの大きさの比 L / L_ref（FightSize.RefCm）
