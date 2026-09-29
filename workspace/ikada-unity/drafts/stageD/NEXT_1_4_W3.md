@@ -38,6 +38,7 @@
 - RefCheck: ★不変★（照合は物語の日、TodayRod の物語の枝は同じ、自由釣りを通らない）。
 
 ## 案 3（worker2 の月）と 案 4（竿）の 自由釣りの選びの頁の行（boss1 16:06、worker2 の FREE_MONTH_PLAN_W2.md を読んだ）
+- ★決めは 1 か所 = `drafts/stageD/FREE_SELECT_ROWS.md`（worker2 がまとめ、worker3 同意 16:08）★。下は その前の私の読み（同じ順）。
 - ★行の順（推奨）= 場所 ／ 月 ／ 今日の狙い ／ 竿（RodGiven の時だけ）／ 出かける★。boss1 の見込み（場所・月・竿・狙い・出かける）と 竿と狙いの順を替えた理由: ①月は場所で決まり（worker2 §1 の表）、狙いは場所で決まり 月でも意味が変わる（例 蒲江 12 月は クロの密度 0 = Places の KuroByMonth、worker2 F4）= 場所 → 月 → 狙い の順に 上から決まる ②★出たり出なかったりする竿の行を 出かける の直前に置くと 上の 3 行（0 場所・1 月・2 狙い）の番号が 竿の有無で動かない★ = code の行の番号と試験（worker2 の F2 の行の番号）が 竿の有無で分かれない。竿は他の行に依らない。行の数 = 竿なし 4・竿あり 5。
 - ★Unity の描きは行数固定でない（観測、ikada-unity master ba3de36）★: 自由釣りの選びの頁は `Screen.Prep`（GameFlow.cs:80-86 の `_ => Screen.Prep`）= Prep07 の一覧 = `ListLayout(n)`（Prep07.cs:49-57）で 行の数から間を決める（高さ 320 px、PitchMax 80・PitchMin 30、Prep07.cs:39-40）= 5 行 = 間 64 px・流しなし、行の数が変わると 作り直し（Prep07.cs:104-105 `n != count` → RebuildReason.Panel）= ★Unity の code の変更なしで 4・5 行とも描ける見込み★（画は錠の後）。今の 07 の宿の頁は 7 行。
 - API: 月（worker2 の DayConfig.FreeMonth を足すなら MINOR）以外は 型の変更なし。竿は DayConfig に足さない（試験は頁の ◀▶ で動かす）案 = 版を月の 1 回にまとめられる。
