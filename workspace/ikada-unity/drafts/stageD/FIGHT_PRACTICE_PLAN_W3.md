@@ -157,3 +157,4 @@ FightReviewView {
 - 予測 P1（陽性）: チヌ 80 cm 種 1（0.01 s 刻み）で session の記録 = REJECTED 13 行、最初の行の欄 = YieldN 10.4（取られた 0）、他の種類 0。試験はこれを赤にする形（「拒み 0」を assert する試験が落ちる）を 陽性対照として 1 本。
 - 予測 P2（陰性）: チヌ 53 cm・クロ 45 cm 種 1〜10 = 記録 0 行（REJECTED も IGNORED も STALE も）。生の device は着いた後の END を取る（生きた fight）ので IGNORED は出ない、と読む（外れたら数える）。
 - 予測 P3: 全体の試験は 緑のまま・RefCheck 11/11 不変（記録は読むだけ、送る物・順番を変えない）。ただし 既存の試験で わざと悪い message を push するもの（HookMessageTests / VdevNativeTests）は 自分の Vdev を直接使い session を通らない = 記録に来ない、と読む。
+- §17 結果（観測, 20:3x）: P1 当たり（80 cm 種 1: 記録 REJECTED 13 行 = 再生 13、最初 YieldN 10.4 (taken 0)、guard が赤で YieldN を名指し）。P2 当たり（クロ 45・チヌ 53 種 1〜10: 0 行・やめた 0）。ライバル 種 1〜5: 12 fight・0 行。P3 当たり（全体 889 = 884 合格 / 0 失敗 / 5 スキップ, Runner.Worker 0, RefCheck 11/11 = #13・5 日 log byte 一致）。API 追加 DebugView.DeviceRefusals / DeviceRefusal だけ。sha: 661f934（練習）+ 047a8ce（拒みの記録）, fight-review local。
