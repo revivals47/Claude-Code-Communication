@@ -116,3 +116,29 @@ FightReviewView {
 - 次の予測（大きい魚 80 cm, 同条件, 種 1〜10, 回す前に書く）: 分からない。魚の引きが大きくなれば H 越えがありうる。0 件なら「道具最強・80 cm でも H を越える切れは 0」を数で書く。
 - 80 cm の結果（観測, 19:4x）: 切れ 5, H 以上 1（種 10, 最後 23.17 N ≥ 23.13 N → 「張りすぎて切れた」= 陽性あり, 余裕は 0.04 N）。F11 は over ≥ 1 を assert に。5 本が やめた（Abort, 3.6〜6.2 s, 最後 0.16 N）= 原因未調査（④ 札: 材料 = Abort を出す口の全列挙）。
 - 全体（Runner.Worker 0）: 884 = 879 合格 / 0 失敗 / 5 スキップ。RefCheck 11/11 = #13, 5 日の log は byte 一致。sha 661f934（fight-review, local, push しない）。
+
+## §16 やめた（Abort）の訳（boss1 20:03 / PRESIDENT 20:1x）— source で読んだ事（観測）と 計測の前の予測
+
+### 誰が Abort を出すか（source, 観測）
+- C で ABORT を作る口は 1 つ: mcu/ikd_vdev.c:222-224（最後に受けた 0x05 の valid_until+hold から 1000 ms 新しい 0x05 が無い, :78）。ikd_fight_abort の呼び元はここだけ（grep）。PC は device の EndCause をそのまま記録（FightAi.cs:194-197 → FishingSession.Fight.cs:161）。
+- 0x05 を device が取らない口は 3 つ（mcu/ikd_vdev_rx.c）: REJECTED（ikd_fight_params_invalid, :105-107, limit_flags に REQ_CLAMP）/ IGNORED（ikd_fight_update が 0, :111,122）/ STALE（seq, :158）。
+- PC はその結果を 2 か所で捨てる: pc/src/Ikada.Game/IkadaSession.cs:221（lockstep）と pc/src/Ikada.Desktop/DeviceThread.cs:114（本物の device thread）。
+- 訂正（20:04 の便）: 「PC は毎 tick 送る」は誤り。FightAi.Tick は dirty か PeriodS 経過の時だけ送る（FightAi.cs:222）。
+
+### 種ごとの長さの幅（source の表, 観測）と 戦いの大きさの比 L / L_ref（FightSize.RefCm）
+| 種 | 掛かる長さの出所 | 幅 [cm] | L_ref [cm] | 最大の比 |
+|---|---|---|---|---|
+| チヌ（物語・自由） | EcoSim.cs:399 Range(30,50) | 30–50 | 40（EcoSpecies.cs:38） | 1.25 |
+| チヌ（冬 12/1/2 月） | Chapter4Season.cs:18-20,42 | 30–52/53/51 | 40 | 1.325（1 月 53） |
+| チヌ（練習） | EcoSim.Practice.cs:96 | 30–50 | 40 | 1.25 |
+| クロ | EcoSim.Kuro.cs:21 | 20–45 | 26（EcoSpecies.cs:47） | **1.73** |
+| クロ（練習） | EcoSim.Practice.cs:96 | 22–32 | 26 | 1.23 |
+| キビレ | FishingSession.Kibire.cs:20 | 25–46 | 35（FightSize.cs:23） | 1.31 |
+| エサ取り 8 種 + 夏 2 種（EcoSim.cs:76-80） | 長さ無し → FishingSession.Fight.cs:103-106 = l0 × [0.85, 1.15] | 例 ボラ 38.3–51.8 | l0 と同じ | 1.15 |
+| 真鯛 | 行が無い（EcoSpecies default 15 cm, arr 0）・Stealers にも Places.Targets（Places.cs:27,80,83,87）にも無い | 掛からない（推論: 生む口が無い） | 40（FightSize.cs:23） | — |
+- 真鯛 〜79 cm（27 §3）は 設計の表で 実装に生む口が無い（grep Species.Madai: DielTide / SpeciesHooking / FightSpecies / FightSize / SmallMadai のみ）。
+
+### 計測の前の予測（回す前, 動かさない）
+- 境は 比 1.375（チヌ 55 cm, 0/10）と 2.0（80 cm, 5/10）の間。遊びで入りうる最大の比は **クロ 45 cm = 1.73** → この間 = 読みでは決まらない = 計測で決める。
+- 80 cm 種 1 の最初に取られなかった 0x05: 種類は REJECTED と予測（IGNORED/STALE でない）、時刻は Abort の 3.6 s − 約 1.0 s 前後。欄は分からない（静的 2 回外し: shake 3.0 cap / F_floor 0.3）。残る候補 F_bias×g ≤ F_limit / x_anchor_max ≤ 50 / yield ≤ 10 / tow ≤ 10 / slack_N×g ≤ 2.0 のどれか。
+- 計測: (a) 取られなかった 0x05 を 新しい Vdev に 1 欄ずつ 直前の取られた値へ戻して push → Ok に変わる欄 = 拒んだ欄（C の検査そのもの, 定数を C# に写さない）。(b) 境: クロ 45 cm 種 1〜10 / チヌ 53 cm 種 1〜10 の 取られなかった 0x05 の数。0 なら「遊びでは起きない」を数で。
