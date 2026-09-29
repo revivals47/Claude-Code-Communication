@@ -68,3 +68,9 @@ FightReviewView {
 - Q2 ContractTests の一覧の差 = 版の行 ＋ `FightReview`・`FightReviewView`・`FightSample`・`FightSpan` の欄だけ（消える行 0）、`Stamina` の語は 足しの中に 0。
 - Q3 練習（Drill.FightReview、種 20260925、AutoPilot、1800 s）で ファイト 2 本以上、各本で F1（ファイト中の全 frame で null、日誌に書かれた frame から非 null）・F2（EndCause・Seconds が日誌と同じ）・F3（糸ふけの帯の和 と SlackS の差 ≤ 報告 1 つ分 0.1 s × 本数ではなく 1 本あたり ≤ 0.25 s）・Moves は時刻の順・重ならない・最初の区間は 0 から。
 - Q4 F4: 物語の 4/20 で 1 frame も非 null にならない。全体の試験 = 今の数 ＋ 新しい試験、落ちる 0（ContractTests は書き直しの後）。
+
+## 9. 新しい試験の結果（観測、18:3x〜18:4x）と 外れ・私の誤り
+- FightReviewTests 3/3（F1〜F3・F4・F5）。練習 1800 s（種 20260925）で ファイト 5 本、5 本とも 取り込んだ（EndCause 1）、区間の例 #1 = 走る・止まる を 6 回 繰り返し 45.4 s から 浮く、首振り 9、ドラグが滑った 4。
+- ★私の誤り 3 つ（直した）★: ①次の投で消す を「CastRecord が替わった時」で書いた = 取り込んだ投は 日誌に書いた直後に Current が null になる = 1 frame も出なかった（F1 の陽性対照が i > 0 で落ちて見つけた）→ ★null でない新しい投の時だけ消す★ ②`SlackMs` を「報告ごとの時間」と読んで 足した = ★定義は 今の糸ふけが続いている長さ（C の slack_s は糸ふけの間 += dt、終われば 0、core/ikd_fight_risk.c:73-80・protocol/ikd_fight_msg.c:41,51）★= 足すと重ねて数える（F3 で 帯 0.30 s に対し 1.83 s）→ 1 回の糸ふけの最後の値を 1 度だけ足す形に（直した後 #3 = 帯 2 つ 0.26 s、#5 = 帯 5 つ 0.87 s、F3 の ≤ 0.25 s に入る）。
+- ★予測の外れ 2 つ★: 最初の動きの区間は「0 から」（予測）→ 0.11 s（観測 = FightAi.PeriodS 0.1 ＋ 1 tick 0.01、5 本とも）。1 度目の直しで PeriodS と読んだのも外れ（2 度目）→ 測った形（PeriodS ＋ Dt）で assert。
+- ★陽性の無い所（未閉）★: OverS（ハリスの 8 割を越えた秒）は 5 本とも 0.0 = AutoPilot の巻きでは 張りすぎが起きない = 0 でない値の試験が無い。切れた・外れた本も 0 本 = EndCause の 1 以外の言葉は この run で出ていない。物語の 4/20 の 1800 s は ファイト 0 本（F4 は 物語の日に欄が出ない形の試験だけ）。
