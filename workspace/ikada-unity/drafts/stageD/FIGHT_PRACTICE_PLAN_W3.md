@@ -142,3 +142,12 @@ FightReviewView {
 - 境は 比 1.375（チヌ 55 cm, 0/10）と 2.0（80 cm, 5/10）の間。遊びで入りうる最大の比は **クロ 45 cm = 1.73** → この間 = 読みでは決まらない = 計測で決める。
 - 80 cm 種 1 の最初に取られなかった 0x05: 種類は REJECTED と予測（IGNORED/STALE でない）、時刻は Abort の 3.6 s − 約 1.0 s 前後。欄は分からない（静的 2 回外し: shake 3.0 cap / F_floor 0.3）。残る候補 F_bias×g ≤ F_limit / x_anchor_max ≤ 50 / yield ≤ 10 / tow ≤ 10 / slack_N×g ≤ 2.0 のどれか。
 - 計測: (a) 取られなかった 0x05 を 新しい Vdev に 1 欄ずつ 直前の取られた値へ戻して push → Ok に変わる欄 = 拒んだ欄（C の検査そのもの, 定数を C# に写さない）。(b) 境: クロ 45 cm 種 1〜10 / チヌ 53 cm 種 1〜10 の 取られなかった 0x05 の数。0 なら「遊びでは起きない」を数で。
+
+### §16 計測の結果（観測, 20:1x-20:2x, ikada-sim-w3 fight-review 661f934 + 試験だけ FightRejectTests.cs, logic 不変）
+- 器: 送った 0x05 を 0.01 s 刻みで全部集め 新しい Vdev(null) に push（C の検査）。陽性陰性 M0 緑（preset = Ok / fight_id 0 = Rejected, 犯人に FightId）。
+- 器の穴 1 つ（1 回目で見つけて直した）: 着いた後の END（Flags 20）を 新しい device は IGNORED で返す（END は生きた fight しか終わらせない, ikd_vdev_rx.c:109-111）= 再生の artefact。拒みの数から除いて別に数える。
+- M1 チヌ 80 cm 種 1: 送った 63 通のうち REJECTED 13。最初 = pause（phase 2）の **YieldN 10.40 N（世界）> C の yield_N ≤ 10（core/ikd_fight.c:58）**、直前の取られた値 0。予測（REJECTED・欄は候補のうち）は当たり、欄は yield（候補に挙げたうちの 1 つ）。
+- M2 クロ 45 cm 種 1〜10: REJECTED 0/10, やめた 0。YieldN 最大 0.00（rest model はチヌだけ, FightAi.Rest.cs:25）。
+- M2 チヌ 53 cm 種 1〜10: REJECTED 0/10, やめた 0。YieldN 最大 4.56 N（世界）。
+- 法則（推論, 2 点で合う）: YieldN 最大 = 2.6 × a（世界 N）, a = (L/40)²（FightAi.Rest.cs:30,83）。53 cm: 4.56 / 80 cm: 10.40, 比 0.438 = (53/80)² 0.439。10 を越えるのは **チヌ L > 78.4 cm** だけ。
+- 遊びの見積もり: 遊びのチヌの最大は 53 cm（冬 1 月）= 上限の 46 %。クロは yield を送らない。= 物語・自由釣りでは起きない（試験の scenario だけの大きさ）。ba3de36 の既知には入れない案。ただし 拒みを捨てる 3 か所は 訳と別に直す（PRESIDENT 20:1x (1)）。
