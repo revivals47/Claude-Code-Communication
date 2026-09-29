@@ -1,17 +1,22 @@
 diff --git a/15_logic_game_interface.md b/15_logic_game_interface.md
-index af99542..3d5f90f 100644
+index af99542..dd6cd11 100644
 --- a/15_logic_game_interface.md
 +++ b/15_logic_game_interface.md
-@@ -351,6 +351,13 @@ namespace Ikada.Game
+@@ -351,6 +351,18 @@ namespace Ikada.Game
  
  ## 11. 変更履歴（API・装置・流れ。Linux 側が読むこと）
  
-+### 2026-09-29 昼の回（API 0.21.0、練習 A「アワセの答え合わせ」、PRESIDENT 12:2x、Linux 側 worker3。ikada-sim 〔sha は main に入った時に〕）
++### 2026-09-29 昼の回（API 0.21.0、練習 A「アワセの答え合わせ」・B「練習の組」・C「組のまとめ」、PRESIDENT 12:0x〜13:4x、Linux 側 worker3（A）・worker2（B・C）。ikada-sim d838408 ＋ a599c8d、main 〔sha は main に入った時に〕）
 +| 何 | 中身 | 版 | Linux 側ですること |
 +|---|---|---|---|
 +| **アワセの答え合わせ**（練習 A） | `RenderSnapshot.StrikeReview`（`StrikeReviewView?`）＝ ★練習の新しい `Drill.Strike`（「アワセの答え合わせ」）の時だけ、答え合わせが閉じた時から次の投まで非 null★。閉じる時 ＝ 合わせの報告 1 回ごと（空合わせも）か、TASTE まで行った魚が合わせなしで離れた時。★アタリの途中は 1 度も出さない ＝ 13 §9.1 の 2（穂先より先に知らせない）を形で守る★。中身：`Seq`（閉じるたび＋1）・`CastIndex`（その投）・`Spans`（`BiteSpan { State 1〜4, FromS, ToS }` ＝ その魚の状態の区間、★ダンゴが割れた後だけ★、最初の区間の始まり ＝ 0 秒、1 尾だけ ＝ 合わせた魚／離れた魚）・`StrikeAtS`（合わせなし −1）・`StrikeState`（装置が合わせの時に判じた魚の状態 ＝ `FishState`、−1）・`Band`（0 WEAK・1 OK・2 STRONG・3 SLOW、−1）・`V`・`A`・`Outcome`（`HookOutcome`、−1）・`Silent`（空合わせ）・`Timing`／`Stroke`／`Result`（分けた 3 つの言葉、★HOLD で合わせたのを早い・誤りと言わない★）。 | **MINOR 0.21.0** | 練習の答え合わせの画（区間の帯・合わせの印・3 つの言葉）。穂先の再生は Unity が snapshot を貯める形（logic は区間の時刻だけ）。 |
 +| **1 日の記録** | `PracticeDrills.Reviews`（その日の答え合わせの列）＝ 練習 B（見送りの組）・C（まとめと前回との比べ）の ★ただ 1 つの出所★（魚の状態を 2 つの道で読まない）。公開の取り決めの外（`Flow` ののぞき窓）。 | ― | B・C はこの列から数える。 |
-+- RefCheck：★固定し直しではない★（練習の時だけ動く ＝ 照合の物語の日は通らない、新しい欄は hash に入らない）。5 日 ＋ 種 1〜3 の 11 とも #13 と同じ、5 日の log は byte で同じ。
++| **練習の組**（B） | `Drill.Miokuri`（5「見送りの組」）・`Drill.Winter`（6「冬のもたれの組」）。10 投 ＝ 食う 6・触るだけ 3・来ない 1、順は組ごとに混ぜる。★投げた後 アタリの前（引いた時刻の 3〜15 s 前【仮定】）までは logic が自分で回す（先回り: 着底・割れを待たない）★、その間 依頼者の入力は読まない、手に返す時に字幕「ここから見る」（状態の名は出さない）。冬の組 ＝ TASTE 2〜4 回・HOLD 3〜8 s・HOLD→TAKE 半分【仮定】、HOLD で合わせても誤りにしない。組の間は 普通のチヌ・クロ・餌取りのサシエつつき なし（組のチヌだけを読む）。 | MINOR | 練習の選びの ←→ に 2 つ増える（`PracticeDrills.Names`）。組の途中も 1 投ごとの答え合わせ（A の `StrikeReview`）が出る。先回りの間は 画が速く進む（1 host frame に 6 s 分）= 描きは そのまま。 |
++| **組のまとめ**（C） | 10 投目が終わり竿が札に戻った時、Info の頁「見送りの組の まとめ」／「冬のもたれの組の まとめ」＝ TASTE までに合わせた n/m・TAKE を見逃した n/m・ストローク OK n/m・見送れた n/m（冬は HOLD で合わせた n/m と掛かった数）、前の同じ種類の組と並べる（数だけ、総合点なし、分母 0 は「機会なし」）。閉じると次の組。 | MINOR | Info の頁の形のまま（新しい画面なし）。 |
++| **練習の記録の file** | `practice.json`（セーブの path の隣、`PracticeHistory`）＝ ★SaveGame とは別★、直近 20 組、数は整数の n/d。セーブの path が無い（none・試験・確かめ）なら書かない。途中でやめた組は書かない。 | ― | playable の段 4d（save の dir が前後で同じ）は -ikadaSavePath none なので変わらない見込み。 |
++| **組のまとめの表**（C） | `RenderSnapshot.PracticeSummary`（`PracticeSummaryView?`）＝ ★組のまとめの頁を出している間だけ非 null★。`Kind`（1 見送りの組・2 冬のもたれの組）・`Title`・`Rows`（`PracticeSummaryRow { Label, N, D, PrevN, PrevD }` ＝ この組の n/d と 前の同じ種類の組の n/d、d 0 ＝ 機会なし〔割らない〕、前の組なし ＝ −1/−1）・`WinterRows`（冬の組だけ：もたれで合わせた）。数だけ・総合点なし・差の欄は host が作る。頁の字の行（`GameFlow.InfoLines`）はそのまま。 | MINOR | まとめの頁を表で描く（前の組と並べる）。 |
++| **組の先回り**（B の中身） | `IkadaSession.LeadInFrames`（300）・`LeadInTicks`（2）・`LeadIns`（回数）＝ 組の投で アタリの前まで logic が自分で回す時の frame の数と 1 frame の logic の tick（10 ms、lockstep と同じ ＝ 決定的）。 | 同上 | 読むだけ（先回りの間は入力を読まない）。 |
++- RefCheck：★固定し直しではない★（A・B・C とも練習の時だけ動く ＝ 照合の物語の日は通らない、新しい欄は hash に入らない。B の新しい乱数の流れ `RngStream.PracticeSet = 12` は組の時だけ）。A の時点（d838408）で 5 日 ＋ 種 1〜3 の 11 とも #13 と同じ・5 日の log は byte で同じ〔a599c8d の後の値と CI は main に入った時に〕。
 +
  ### 2026-09-29 朝の回（API 0.20.0、PRESIDENT 07:3x 第 3 案、Linux 側 worker3。ikada-sim 777950e、main 2026-09-29 08:36）
  | 何 | 中身 | 版 | Linux 側ですること |
