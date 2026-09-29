@@ -6,12 +6,13 @@
 #        playable_build.sh --check-lines <build stdout> <launch log> <probe log> <day log> [<save dir A> <save dir B>]   (no Unity: steps 2 and 4's stop lines
 #        run on logs that already exist - positive = a good run's logs, negative = a copy with one line broken; worker2 H6)
 #        playable_build.sh --check-copy <src dir> <new dir>   (no Unity: step 3's copy alone - the DoNotShip folder left out, the rest copied)
+#        playable_build.sh --check-players <dir>   (no Unity: the pids of players running from <dir>, by /proc/<pid>/exe - step 4.s window check)
 # Second read fixes (worker2 06:4x, boss1 06:41; worker3's agreement to follow): H1 step 2 reads the Unity batch log that the
 # build stdout names (log=), as regress_all.sh:126-133 - the two lines are not in the stdout; H2 the worktree is an argument
 # (no default: not a worker's active tree) and its branch is put back at the end; H4 timeouts; H6 --check-lines; H7 the seat0
 # session is looked up. H3 (boss1 06:47): exceptions counted as 'Exception:'. H5: the save dir compared as a table (path, mtime, sha256).
 set -u
-if [ "${1:-}" = "--check-lines" ] || [ "${1:-}" = "--check-copy" ]; then CHECK=1; SHA=none; else CHECK=0
+if [ "${1:-}" = "--check-lines" ] || [ "${1:-}" = "--check-copy" ] || [ "${1:-}" = "--check-players" ]; then CHECK=1; SHA=none; else CHECK=0
   SHA=${1:?usage: playable_build.sh <master sha> <worktree> [--apply]}; WT=${2:?usage: playable_build.sh <master sha> <worktree> [--apply] (H2: no default worktree)}
   APPLY=0; [ "${3:-}" = "--apply" ] && APPLY=1
 fi
@@ -36,6 +37,15 @@ copyout() {
     diff -rq "$e" "$2/${e##*/}" >>"$LOG" 2>&1 || stop "diff -rq not empty at ${e##*/}"; done
 }
 
+# the players still up from a dir (boss1 02:00, PRESIDENT 02:0x: the window must be gone before PRESIDENT starts the build on the
+# client's screen). By /proc/<pid>/exe, not by comm (Unity renames it) nor by the cmdline (a ./Ikada.x86_64 start from inside the
+# dir has no path in it - tonight's client player). exe is absolute even for a relative start; " (deleted)" = the file was replaced.
+# (cwd alone is not used: a shell sitting in the dir would count.) Prints the pids, one per line.
+playersof() {
+  local want p e; want=$(readlink -f "$1")/Ikada.x86_64
+  for p in /proc/[0-9]*; do e=$(readlink "$p/exe" 2>/dev/null) || continue; [ "${e% (deleted)}" = "$want" ] && echo "${p#/proc/}"; done; return 0
+}
+nowin() { local l; l=$(playersof "$OUT" | tr '\n' ' '); [ -z "$l" ] || stop "a player from $OUT is still up ($1): pid $l"; say "no player from $OUT ($1)"; }
 SEAT=$(loginctl | awk '/seat0/{print $1; exit}')   # H7: not a fixed number
 # the stop lines of steps 2 and 4, one place (the --apply path and --check-lines both call them)
 check2() {   # $1 = the build's stdout (tools/unity-batch.sh exec ... BuildPerf)
@@ -65,6 +75,9 @@ check4() {   # $1 launch log, $2 probe log, $3 day log
   grep -q '\[Speakers\] logic names=[0-9]* in table=[0-9]* missing=\[\]' "$1" || stop "no [Speakers] line with missing=[] (UiTheme.CheckSpeakers)"
   [ "$(grep -c 'Exception:' "$3")" = 0 ] || stop "Exception: in the AutoPilot day"   # H3
   }
+if [ "$1" = "--check-players" ]; then   # the window check alone (no Unity): --check-players <dir> = the pids of players from it, 0 lines = none
+  l=$(playersof "${2:?dir}"); say "CHECK-PLAYERS $2: $(echo -n "$l" | grep -c .) player(s) [$(echo "$l" | tr '\n' ' ')]"; exit 0
+fi
 if [ "$1" = "--check-copy" ]; then   # step 3's copy on a given src (no Unity): --check-copy <src dir> <new dir (must not exist)>
   [ -e "${3:?new dir}" ] && stop "$3 exists"; copyout "${2:?src dir}" "$3"
   say "CHECK-COPY: $(find "$2" -type f | wc -l) files in, $(find "$3" -type f | wc -l) out, top-level DoNotShip in the copy: $(find "$3" -maxdepth 1 -name '*_DoNotShip' | wc -l), deeper: $(find "$3" -mindepth 2 -name '*_DoNotShip' | wc -l)"; exit 0
@@ -104,10 +117,15 @@ n=$(find "$OUT" -type f | wc -l); b=$(find "$OUT" -type f -printf '%s\n' | awk '
 say "3 $OUT: $n files, $b bytes, folder sha256 $(dirsha "$OUT"), Ikada.x86_64 sha256 $(sha256sum "$OUT/Ikada.x86_64" | cut -c1-64)"
 # 4. launch checks (the copied player; the save dir must not appear)
 before=$(savesnap "$SAVE")   # H5
-timeout 25 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -logFile "$LOG.launch" >/dev/null 2>&1
-timeout 120 "$OUT/Ikada.x86_64" -ikadaSessionProbe -logFile "$LOG.probe" >/dev/null 2>&1   # H4
-timeout 900 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -ikadaLive -ikadaLockstep -ikadaLiveAutoPilot \
+nowin "before 4"
+# -k 15: a player that does not end on timeout's TERM is killed 15 s later (a TERM-ignoring child is otherwise waited for; worker2 02:00)
+timeout -k 15 25 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -logFile "$LOG.launch" >/dev/null 2>&1
+nowin "after 4a"
+timeout -k 15 120 "$OUT/Ikada.x86_64" -ikadaSessionProbe -logFile "$LOG.probe" >/dev/null 2>&1   # H4
+nowin "after 4b"
+timeout -k 15 900 "$OUT/Ikada.x86_64" -screen-width 1920 -screen-height 1080 -screen-fullscreen 0 -ikadaLive -ikadaLockstep -ikadaLiveAutoPilot \
   -ikadaLiveSpeed 300 -ikadaSavePath none -ikadaLiveSeed 1 -ikadaLiveQuitAfterS ${DAY_S:-9200} -logFile "$LOG.day" >/dev/null 2>&1   # H4
+nowin "after 4c"
 check4 "$LOG.launch" "$LOG.probe" "$LOG.day"
 savecmp "$before" "$(savesnap "$SAVE")" "$SAVE before vs after"   # H5
 say "4 launch: $(grep -o '\[Live\] start api[^ ]* [^ ]*' "$LOG.launch" | head -1) | $(grep -o '\[SessionProbe\] RESULT.*' "$LOG.probe" | head -1) | $(grep -o '\[Live\] RESULT.*' "$LOG.day" | head -1 | cut -c1-160)"
