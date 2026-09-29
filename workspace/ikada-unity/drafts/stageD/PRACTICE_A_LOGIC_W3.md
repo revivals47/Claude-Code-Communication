@@ -54,3 +54,32 @@ public struct BiteSpan { public int State; public float FromS, ToS; }   // State
 - 区間を 割れる前の CONTACT から入れるか（穂先に出ない所を区間に入れない案 = 割れた後だけ）。
 - 次の投で StrikeReview を消すか残すか。
 - 1 投に 2 尾が寄った時（別の Id が CONTACT）= 合わせた魚（h.fish_id）の区間だけ出す案。
+
+## 7. GO（boss1 12:15・PRESIDENT 12:2x）の後の形と予測 — ★code の前に登録★（12:2x）
+- 決め: (1) 区間は割れた後から (2) 次の投で消す (3) 2 尾なら合わせた魚／離れた魚だけ。worker2 の要望: 投の種類・合わせごとの fish_state・band・outcome・Silent を A の記録に（ChinuAgent を 2 経路で読まない = B・C は A の記録だけを読む）。
+- 木: ikada-sim-w3、branch `practice-a`（origin/main 777950e4ee1bc0572bbafe9bbf5de881eb992fc5 から）、A だけで 1 commit。
+### 欄（API 0.21.0、MINOR）
+```
+RenderSnapshot.StrikeReview : StrikeReviewView?   // 練習の Drill.Strike の時だけ、答え合わせが閉じた後から 次の投まで非 null
+StrikeReviewView {
+  int Seq;               // 閉じるたびに +1（1 日の中で）
+  int CastIndex;         // その投の番号（CastRecord.Index、1 始まり）= B の「投の種類」は この番号に B が付ける（A は種類を作らない）
+  List<BiteSpan> Spans;  // 割れた後の その魚の区間、時刻は 最初の区間の始まり = 0 の秒
+  float StrikeAtS;       // 合わせの時刻（同じ軸）、合わせなし = -1
+  int StrikeState;       // 合わせた時の魚の状態 = 装置の fish_state（FishState の値 0 None・1 Contact・2 Taste・3 Hold・4 Take・5 Reject）、合わせなし = -1
+  int Band;              // 0 WEAK・1 OK・2 STRONG・3 SLOW、合わせなし = -1
+  float V, A;            // 合わせの速さ・加速（v_r_peak・a_r_peak）
+  int Outcome;           // 装置の outcome（HookOutcome の値）、合わせなし = -1
+  bool Silent;           // HooksetLedger.Silent（魚なし・arm なし・ダンゴの道 = 空合わせ）
+  string Timing, Stroke, Result;   // 分けた 3 つの言葉
+}
+BiteSpan { int State; float FromS, ToS; }   // State = FishState の値（1〜4）
+```
+- 閉じる時: ①合わせ 1 回ごと（Silent も含む = 空合わせは Spans 空・Result「魚はいなかった」）②割れた後に TASTE 以上まで行った魚が 合わせなしで Reject/Cooldown/Near に戻った時（Result「合わせずに離れた」）。★どちらも 閉じた後にだけ 欄に入る★。
+- 記録の本体 = `PracticeDrills.Reviews`（1 日の List<StrikeReviewView>、C の集計の出所）。FishingSession の読む口 = 今の tick の合わせの報告の列 と ChinuAgent の列（読むだけ、乱数・状態は変えない）。
+### 予測
+- Q1 RefCheck 5 日 ＋ 種 1〜3: events・numbers とも #13 と 1 文字も同じ（物語の日は Drill.None）。
+- Q2 ContractTests の一覧の差 = `+ StrikeReview` と StrikeReviewView・BiteSpan の欄だけ（消える行 0）→ MINOR 0.21.0。
+- Q3 全体の試験 = 839 ＋ 新しい 5 本、落ちる試験 0（ContractTests は書き直しの後）。
+- Q4 T1: 練習の 1 日で 全部の答え合わせについて「閉じる前の frame では 欄が 前の答え合わせのまま か null」、閉じた frame から非 null、Spans は時刻の順・重ならない・割れた後だけ、StrikeAtS は最後の区間の終わりと同じ。陽性対照 = 閉じる前に入れる写しで赤。
+- Q5 T4: 物語の日（ReferenceRun と同じ 4/20・種 20260925）で 欄が 1 frame も非 null にならない。
