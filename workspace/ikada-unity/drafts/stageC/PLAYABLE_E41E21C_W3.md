@@ -28,3 +28,8 @@
 - 4b ★未のまま★: 本物の日の 03 = 取り込みの時 = この 4 日は釣れない（AutoPilot は投げて上がる）。芦北の日の 03 は mock の決め打ちの字（八代海・芦北）と見分けられない = 第3・4章の日で釣れる種を探す必要（種の走査 = 別の番）。
 - 5 ★当たり（D6 の線）★: 1/20 = [Tip] kind SoftGlass -> StiffTitanium at T=0.080N, casts today=0, rig=Card（その日の最初の投の前 = ev4.tip）。曲がり 前 3 frame 0.004379 / 0.004443 / 0.004507 m → 後 0.004419 / 0.004092 / 0.003633 m: 切り替えの frame の |Δ| 0.000088 ≤ 前後の |Δ| の最大 0.000459 = 跳びなし。T = 0.080 N > 0 = 後の下がりは竿を替えた分（T/80 → T/120 の向き, worker2 の注のとおり）。
 - 6 数え（Unity なし, 観測）: Unity = git log --first-parent 2cb67ab..e41e21c = 27 個、logic = 2cb67ab の pin 7fe4233..418b374 の first-parent = 63 個（API 0.14.0 → 0.23.0）。c30 §12 の下書きは worker1 の file = この数を boss1 経由で渡す（私は直さない）。
+
+## --apply の結果（観測, 05:01:48-05:03:52）
+- build Succeeded errors 0（23 s）→ ★ikada-play/e41e21c = 176 file・744,002,735 bytes★（予測 176・744,002,735 ± 数 KB = ★ぴったり当たり★）、folder sha256 e0c874e07a0f0810ddb382b6817e9ebf4e93da06233f7bf22ec848267dfeed48、Ikada.x86_64 sha256 a9a83136f9f1e9bb13e145b651e13a947bbff6d6a9281f92f0791afc397104cb。
+- 起動 = [Live] start api 0.23.0 / SessionProbe RESULT ok=True api=0.23.0 abi=3 LinuxPlayer Mono / AutoPilot の 1 日 RESULT ok=True steps 539333 simS 8989.1 page=Info / save の dir 前後同じ。各段の後 no player、--check-players 0。track3 は pr-capture へ戻った。
+- ba3de36 との差（sha256 で全 file）: 11 file = Ikada_Data/Managed の 5 dll（Assembly-CSharp・Ikada.Desktop/Game/Logic/Native）・boot.config・globalgamemanagers・globalgamemanagers.assets・level0・resources.assets・sharedassets0.assets。Ikada.x86_64・UnityPlayer.so・libdecor 2 つは同じ（予測どおり）、libikd は差に無い（C の sources 9653822bcec4 のまま）。
