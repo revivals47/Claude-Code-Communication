@@ -5,7 +5,7 @@
 # usage: unlock_turn.sh [--rehearse] [--expect-practice SHA] [--expect-goal SHA] [--expect-input SHA]   (defaults = the shas of 18:2x)
 set -u
 U=/home/ken/Documents/ikada-unity
-P=${EXPECT_PRACTICE:-8f28659}; G=${EXPECT_GOAL:-67a65c4}; I=${EXPECT_INPUT:-2d51b94}; D=${EXPECT_DROP:-a01c863}; M=${EXPECT_MASTER:-ba3de36}   # 18:2x: practice 8f28659 (+ the practice live entry), stage 4 dropside a01c863 (boss1 21:16: a27a1ae + its child, the free5/free4 mock entry)
+P=${EXPECT_PRACTICE:-8f28659}; G=${EXPECT_GOAL:-67a65c4}; I=${EXPECT_INPUT:-4239835}; D=${EXPECT_DROP:-a01c863}; M=${EXPECT_MASTER:-ba3de36}   # 18:2x: practice 8f28659 (+ the practice live entry), stage 4 dropside a01c863 (boss1 21:16: a27a1ae + its child, the free5/free4 mock entry)
 R=0   # --rehearse: skip ONLY the lock / Runner.Worker guards (to run the git checks while the screen is locked), said on every stop line
 while [ $# -gt 0 ]; do case $1 in --expect-practice) P=$2; shift;; --expect-goal) G=$2; shift;; --expect-input) I=$2; shift;; --rehearse) R=1;; esac; shift; done
 say(){ echo "$(date +%H:%M:%S) $*"; }
