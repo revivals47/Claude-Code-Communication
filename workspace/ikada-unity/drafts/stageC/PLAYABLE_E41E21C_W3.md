@@ -17,3 +17,7 @@
 ## --apply の予測（回す前, 動かさない）
 - 出来る dir = ikada-play/e41e21c。★file 176・bytes 744,002,735 ± 数 KB★（同じ木の build = ikada-unity-stage5/Builds/Linux 04:31 の DoNotShip 抜きの数）。前の版 ba3de36 = 176 file・743,932,319 bytes = ★file 数は同じ、+約 70 KB★。Ikada.x86_64・UnityPlayer.so・libdecor の 2 つは ba3de36 と同じ sha256（Unity の版が同じ, 推論）、違うのは Ikada_Data の中（Managed の dll・resources・font）。
 - 起動（step 4）: [Live] start api 0.23.0 の行・Exception: 0・SessionProbe ok・AutoPilot の 1 日 RESULT ok=True・simS < 9200・[Speakers] missing=[]・save の表 前後同じ。
+
+## StoryRun S0〜S7 を 418b374 で（boss1 04:42: --apply の前）— 予測（回す前, 動かさない）
+- S0 例外 0・365 日が順に 1 回ずつ（missing []）。S1 章の頁 = 第1章 おわり → 第2章 → 第2章 おわり → 第3章 → 第3章 おわり → 第4章 → 第4章 おわり（「第1章」の頁なし）。S2 各章の終わりの最初と最後の行 = GameFlow の字のまま（五月が終わった… / 八月… / 十一月… / 一年…）。S3 場所 = 3〜8 芦北・9 御所浦・10〜11 樋島・12〜1 蒲江（湾のカセ）・2 芦北。S5 章の境 4 か所の続きから = 通しの次の日と同じ。S6 RodLent 真・RodGiven 真。S7 約 14 分（前回 13.8〜14.1）。
+- ★動く向き（418b374 = 宙止めの記録の直し）★: S4 の課題の進みの頁は 4 章とも課題の行が全部出る（見出しの集合は d0118ce と同じ）が、★課題の済みの日・頁の数は 替わりうる★（底置きが記録される = 底の課題・握りの速さの確かめが 前より早く済む向き, 推論）。港の言葉（too_few → faster/slower 等）は summary に出ない = ここでは見ない。照合の numbers（RefCheck の hud の hash）は記録の直しで不変の見込み（418b374 の message は events だけ固定し直し = 推論）= StoryRun の外。
