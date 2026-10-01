@@ -12,6 +12,7 @@ set -u
 T=${1:?usage: pin_0230.sh <worktree> <new sha> [--dry] [--table <file>]}; NEW=${2:?new ikada-sim sha (40 hex)}; shift 2
 DRY=""; TABLEF=""
 while [ $# -gt 0 ]; do case "$1" in --dry) DRY=1;; --table) TABLEF=${2:?--table <file>}; shift;; *) echo "unknown arg $1"; exit 2;; esac; shift; done
+[ -n "$TABLEF" ] && TABLEF=$(readlink -f "$TABLEF")   # the script cds into the worktree below (a relative --table failed at 04:14)
 OLD=${PIN_OLD:-}   # empty = read from the tree's manifest below (the re-pin from 22d6f61, boss1 02:57); the first use was d0118ce
 SIM=/home/ken/Documents/ikada-sim                       # the repo tools/logic_font_chars.py reads (its SIM)
 say() { echo "[pin0230] $(date '+%F %T') $*"; }
