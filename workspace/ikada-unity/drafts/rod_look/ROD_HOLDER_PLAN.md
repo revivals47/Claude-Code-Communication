@@ -135,3 +135,10 @@
   - through: 横 = 手の間 0・置く間 0（★当たり★）、pre = 手の間 297/297・置く間 206（予測 ≈146 は frame の器の換算で外れ, 柱を通るのは当たり）。
   - 直しの候補（未着手）: 沈みの間は 足しの下げを τ で追わず 描きの角 = min(logic, −0.10) を直に（移りの時だけ τ）= 17 px の振れを消す。log の秒を sim の秒（snapshot の TimeS）に。
 - ★練習の組の lead-in（source 418b374 を辿った, 推論, 撮りは次の番）★: 札を閉じた step で Drop は外の Build に乗り host へ届く（RodHand = 手・沈み）→ 次の step から LeadInAdvance（IkadaSession.cs:128）の中の Build（LeadIn.cs:53）が events を吸う = Bottom・割れは host に来ない → 手に返す（HandOver, PracticeSet.cs:28）は event なし・札も来ない → ★予測: 手に返された frame で 竿は 手（横, 穂先 −0.10）のまま = 受けに無い★（「札で受けへ戻る」は 次の札まで来ない）。直しの案（Unity だけ）: LiveHost が持つ session の FishingSession.LeadIn（logic の状態そのもの, PracticeSet.cs:18）を RodHand.Step に渡し、lead-in の間は 受け（lead-in は 1 host frame に 6 s 進む早送り = 停まりはその中で過ぎる）。
+
+## 16. 練習の組の 手に返す frame（PRESIDENT 13:5x）と 直し（3d6330e, Roslyn 0）の予測（回す前, 動かさない）
+- 直し: RodHand.Step(s, leadIn) = LiveHost が session の FishingSession.LeadIn（logic の状態）を渡す、events の後に lead-in なら 受け（札を閉じた step で lead-in が始まる = 同じ step で Drop → 手 → 受け）。沈みの間は 描きの角そのものを min(logic, −0.10) へ τ で（17 px の振れを消す）、それ以外は logic の角を即＋手の差が減る（W/S は遅れない）。log の秒は TimeS。陰性対照 = IKADA_RODHAND_NO_LEADIN=1（eb8f9e0 の振る舞い）。LivePractice に IKADA_PRACTICE_HANDOVER_SHOTS=1（最初の lead-in の終わりの frame と 2 s 後を撮って終わる）。
+- 撮り（drill 5 見送りの組, -ikadaLivePractice 5, worker1 の PRACTICE_LIVE_PLAN_W1.md の回し方）2 run:
+  - (A) 直しあり: [RodHand] hand (sinking) at drop と rest at lead-in が ★同じ TimeS★、[Practice] hand-over の行で rodInHand=False、06_handover1・_p2s の穂先 y = 635±1（受け, 休みと同じ）、竿は受けの U 字の中。
+  - (B) 陰性対照 NO_LEADIN: [RodHand] hand (sinking) at drop の後 lead-in の間に替わりなし（Bottom は吸われる）→ hand-over の行で rodInHand=True、穂先 y ≈ 702（横の手, −0.10 を保つ）。=(A) と (B) が分かれれば 直しが効いた証し・source の辿りの当たり。分かれなければ（B も受け）= H4（例: Drop も lead-in に吸われる）→ log の [RodHand] の行で切る。
+- 7/20 種 1 の 2 run（regress）: 沈みの間 穂先 y 701〜703 を drop の 1 s 後から Bottom まで保つ（c176 の 686〜703 の振れが無くなる）、W/S なしの待ちは c176 と同じ。
