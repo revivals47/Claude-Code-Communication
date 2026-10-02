@@ -142,3 +142,4 @@
   - Good: ドラグ 3 N > 抜ける閾 0.9〜2.5 N で 魚が引いている間に区域へ入る = 逃げが大半 → ★巻かれ 20〜23% → 0〜5%★、取り込み率 ≥ 90%、取り込み/日の減り ≤ 10%。
   - Slack: 巻かれ 18〜27% → 3〜15%（Good より多い = 腕で分かれる）。
   - DIVE/ファイト 2.3〜3.1 のまま（AfterRun は替えていない）、d の差は 小さいまま。
+- ★予測 1 の外れ（観測, 04:25）★: 262b676 の dotnet test = 失敗 11（base 2750f49 = 10）、増えた 1 = FloatChainGuardTests.NoUnstoredFloatIntermediatesOnTheJudgementPath（FightAi.cs:293 `_run.VAnchor * 1.3f * dt` = float の途中の値, #15）= 私の code の決定性の規則違反（RNG・hash ではなく 規則の器が拾った）。直し dcb796a = double で計算し 1 回だけ丸める（pc/src と unity 同一）、probe の枝にも cherry-pick（641a71f）。base の 10 = 全部 CastScenarioTests.MatchesSimCli（sim_cli の在処 IKADA_SIM_CLI を渡していない = 環境, A/B の両方で同じ）。fix の段は dcb796a でやり直し。
