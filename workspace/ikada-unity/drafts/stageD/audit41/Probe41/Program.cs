@@ -13,6 +13,7 @@ using Ikada.Game.Flow;
 using Ikada.Game.Input;
 using Ikada.Game.Render;
 using Ikada.Logic.Fight;
+using Ikada.Logic.Journal;
 using Ikada.Logic.Story;
 using Ikada.Tests.Ecology;
 using Ikada.Tests.Fight;
@@ -64,7 +65,7 @@ static class Program
 
     static void Human(int days)
     {
-        var skills = new (string, PlayerSkill)[] { ("Good", PlayerSkill.Good), ("Slack", PlayerSkill.Slack), ("Locked", PlayerSkill.Locked) };
+        var skills = new (string, PlayerSkill)[] { ("Good", PlayerSkill.Good), ("Slack", PlayerSkill.Slack), ("Locked", PlayerSkill.Locked), ("PumpSlack(control: real slack)", PlayerSkill.PumpSlack) };
         foreach (var (season, m) in new (string, SeasonMonth?)[] { ("spring", null), ("July", Chapter2Season.For(7)) })
             foreach (var (sk, skill) in skills)
             {
@@ -119,7 +120,7 @@ static class Program
                     if (fa != cur) { cur = fa; ring.Clear(); counted = false; }
                     if (fa != null && !counted)
                     {
-                        if (!fa.Ended) { ring.Add(frames * 1000 / 60, (float)fq.GetValue(fa)! - session.Rig.X, false);   // lowT n/a here (slack_N's units) pullMs = fa.PullSlackMs; }
+                        if (!fa.Ended) { ring.Add(frames * 1000 / 60, (float)fq.GetValue(fa)! - session.Rig.X, false); pullMs = fa.PullSlackMs; }   // lowT n/a here (slack_N's units)
                         else { counted = true; T.End(fa.End, ring.Window(pullMs), $"{d} seed {seed} t={t:0.0}"); }
                     }
                 }

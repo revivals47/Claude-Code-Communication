@@ -1,0 +1,25 @@
+pilot 4-20 seed 1: casts 62 fights so far 0 pull_slack this day 0 (light 0) frames 720000
+pilot 4-20 seed 2: casts 63 fights so far 4 pull_slack this day 1 (light 1) frames 720000
+pilot 4-20 seed 3: casts 62 fights so far 7 pull_slack this day 0 (light 0) frames 720000
+pilot 4-20 seed 4: casts 61 fights so far 8 pull_slack this day 0 (light 0) frames 720000
+pilot 4-20 seed 5: casts 63 fights so far 10 pull_slack this day 0 (light 0) frames 720000
+pilot 7-20 seed 1: casts 65 fights so far 11 pull_slack this day 0 (light 0) frames 720000
+pilot 7-20 seed 2: casts 64 fights so far 12 pull_slack this day 0 (light 0) frames 720000
+pilot 7-20 seed 3: casts 65 fights so far 14 pull_slack this day 0 (light 0) frames 720000
+pilot 7-20 seed 4: casts 64 fights so far 18 pull_slack this day 0 (light 0) frames 720000
+pilot 7-20 seed 5: casts 64 fights so far 20 pull_slack this day 0 (light 0) frames 720000
+pilot 10-15 seed 1: casts 57 fights so far 20 pull_slack this day 0 (light 0) frames 720000
+pilot 10-15 seed 2: casts 57 fights so far 23 pull_slack this day 0 (light 0) frames 720000
+pilot 10-15 seed 3: casts 55 fights so far 25 pull_slack this day 0 (light 0) frames 720000
+pilot 10-15 seed 4: casts 56 fights so far 27 pull_slack this day 1 (light 1) frames 720000
+pilot 10-15 seed 5: casts 56 fights so far 29 pull_slack this day 1 (light 0) frames 720000
+pilot 12-10 seed 1: casts 54 fights so far 29 pull_slack this day 0 (light 0) frames 720000
+pilot 12-10 seed 2: casts 53 fights so far 29 pull_slack this day 0 (light 0) frames 720000
+pilot 12-10 seed 3: casts 54 fights so far 30 pull_slack this day 0 (light 0) frames 720000
+pilot 12-10 seed 4: casts 52 fights so far 30 pull_slack this day 0 (light 0) frames 720000
+pilot 12-10 seed 5: casts 53 fights so far 30 pull_slack this day 0 (light 0) frames 720000
+== pilot: days 20 fights 30 | ends Landed=26 PullSlack=3 MouthTear=1
+   PULL_SLACK 3 (10.0% of fights) = LIGHT(#41) 2 + really slack 1; per day max 1, days with a LIGHT end 2/20
+  PULL_SLACK 4-20 seed 2 t=6018.6 taut_share=1.000 lowT_share=0.000 samples=83 -> LIGHT(#41)
+  PULL_SLACK 10-15 seed 4 t=4924.4 taut_share=1.000 lowT_share=0.000 samples=67 -> LIGHT(#41)
+  PULL_SLACK 10-15 seed 5 t=7748.1 taut_share=0.031 lowT_share=0.000 samples=65 -> really slack

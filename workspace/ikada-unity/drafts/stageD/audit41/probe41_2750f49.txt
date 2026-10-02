@@ -1,0 +1,3 @@
+A light-but-taut (audit): x=4.998 geom=0 end=2 (pull_slack=2) ticks=1001 gap_end=+0.002000 F_filt=0.4000 slack_N=0.450 window=1000 taut_share=1.000
+B same, SLACK_GEOM on: x=4.998 geom=1 end=0 (pull_slack=2) ticks=3000 gap_end=+0.002000 F_filt=0.4000 slack_N=0.450 window=1000 taut_share=1.000
+C really slack: x=5.100 geom=0 end=2 (pull_slack=2) ticks=1001 gap_end=-0.100000 F_filt=0.3000 slack_N=0.450 window=1000 taut_share=0.000

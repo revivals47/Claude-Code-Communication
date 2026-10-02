@@ -1,0 +1,185 @@
+== human spring Good: days 200 fights 446 | ends Landed=446
+   PULL_SLACK 0 (0.0% of fights) = LIGHT(#41) 0 + really slack 0; per day max 0, days with a LIGHT end 0/200
+== human spring Slack: days 200 fights 450 | ends Landed=403 PullSlack=47
+   PULL_SLACK 47 (10.4% of fights) = LIGHT(#41) 22 + really slack 25; per day max 2, days with a LIGHT end 20/200
+  PULL_SLACK day 4 fight 6 Chinu 50cm taut_share=1.000 lowT_share=1.000 samples=405 -> LIGHT(#41)
+  PULL_SLACK day 11 fight 26 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=453 -> LIGHT(#41)
+  PULL_SLACK day 17 fight 39 Chinu 32cm taut_share=0.000 lowT_share=1.000 samples=258 -> really slack
+  PULL_SLACK day 20 fight 47 Chinu 41cm taut_share=0.000 lowT_share=1.000 samples=540 -> really slack
+  PULL_SLACK day 24 fight 53 Chinu 47cm taut_share=0.000 lowT_share=1.000 samples=954 -> really slack
+  PULL_SLACK day 27 fight 59 Chinu 36cm taut_share=1.000 lowT_share=1.000 samples=357 -> LIGHT(#41)
+  PULL_SLACK day 39 fight 90 Chinu 33cm taut_share=1.000 lowT_share=1.000 samples=150 -> LIGHT(#41)
+  PULL_SLACK day 40 fight 92 Chinu 49cm taut_share=1.000 lowT_share=1.000 samples=213 -> LIGHT(#41)
+  PULL_SLACK day 45 fight 106 Chinu 47cm taut_share=0.018 lowT_share=1.000 samples=768 -> really slack
+  PULL_SLACK day 48 fight 111 Chinu 43cm taut_share=1.000 lowT_share=1.000 samples=150 -> LIGHT(#41)
+  PULL_SLACK day 48 fight 112 Chinu 34cm taut_share=1.000 lowT_share=1.000 samples=339 -> LIGHT(#41)
+  PULL_SLACK day 52 fight 119 Chinu 49cm taut_share=1.000 lowT_share=0.995 samples=423 -> LIGHT(#41)
+  PULL_SLACK day 52 fight 120 Chinu 45cm taut_share=1.000 lowT_share=1.000 samples=306 -> LIGHT(#41)
+  PULL_SLACK day 59 fight 132 Chinu 49cm taut_share=0.000 lowT_share=1.000 samples=711 -> really slack
+  PULL_SLACK day 60 fight 135 Chinu 45cm taut_share=0.001 lowT_share=1.000 samples=921 -> really slack
+  PULL_SLACK day 61 fight 138 Chinu 43cm taut_share=0.000 lowT_share=1.000 samples=318 -> really slack
+  PULL_SLACK day 67 fight 149 Chinu 48cm taut_share=1.000 lowT_share=1.000 samples=333 -> LIGHT(#41)
+  PULL_SLACK day 69 fight 157 Chinu 37cm taut_share=0.000 lowT_share=1.000 samples=549 -> really slack
+  PULL_SLACK day 71 fight 160 Chinu 31cm taut_share=1.000 lowT_share=1.000 samples=216 -> LIGHT(#41)
+  PULL_SLACK day 73 fight 167 Chinu 50cm taut_share=0.000 lowT_share=1.000 samples=321 -> really slack
+  PULL_SLACK day 75 fight 170 Chinu 31cm taut_share=1.000 lowT_share=1.000 samples=162 -> LIGHT(#41)
+  PULL_SLACK day 78 fight 174 Chinu 46cm taut_share=0.000 lowT_share=1.000 samples=858 -> really slack
+  PULL_SLACK day 85 fight 190 Chinu 33cm taut_share=0.000 lowT_share=1.000 samples=162 -> really slack
+  PULL_SLACK day 95 fight 216 Chinu 48cm taut_share=1.000 lowT_share=1.000 samples=150 -> LIGHT(#41)
+  PULL_SLACK day 98 fight 223 Chinu 41cm taut_share=0.000 lowT_share=1.000 samples=150 -> really slack
+  PULL_SLACK day 100 fight 229 Chinu 49cm taut_share=0.000 lowT_share=1.000 samples=216 -> really slack
+  PULL_SLACK day 104 fight 241 Chinu 46cm taut_share=0.000 lowT_share=1.000 samples=465 -> really slack
+  PULL_SLACK day 106 fight 244 Chinu 44cm taut_share=1.000 lowT_share=1.000 samples=327 -> LIGHT(#41)
+  PULL_SLACK day 114 fight 262 Chinu 36cm taut_share=0.000 lowT_share=1.000 samples=249 -> really slack
+  PULL_SLACK day 115 fight 266 Chinu 50cm taut_share=0.000 lowT_share=1.000 samples=744 -> really slack
+  PULL_SLACK day 117 fight 274 Chinu 36cm taut_share=0.000 lowT_share=1.000 samples=687 -> really slack
+  PULL_SLACK day 123 fight 288 Chinu 39cm taut_share=0.000 lowT_share=1.000 samples=507 -> really slack
+  PULL_SLACK day 126 fight 294 Chinu 31cm taut_share=1.000 lowT_share=1.000 samples=150 -> LIGHT(#41)
+  PULL_SLACK day 127 fight 296 Chinu 49cm taut_share=0.002 lowT_share=1.000 samples=630 -> really slack
+  PULL_SLACK day 127 fight 297 Chinu 31cm taut_share=1.000 lowT_share=1.000 samples=324 -> LIGHT(#41)
+  PULL_SLACK day 129 fight 302 Chinu 39cm taut_share=1.000 lowT_share=1.000 samples=420 -> LIGHT(#41)
+  PULL_SLACK day 131 fight 309 Chinu 32cm taut_share=1.000 lowT_share=1.000 samples=165 -> LIGHT(#41)
+  PULL_SLACK day 133 fight 314 Chinu 49cm taut_share=1.000 lowT_share=1.000 samples=207 -> LIGHT(#41)
+  PULL_SLACK day 139 fight 324 Chinu 50cm taut_share=0.000 lowT_share=1.000 samples=294 -> really slack
+  PULL_SLACK day 142 fight 330 Chinu 30cm taut_share=1.000 lowT_share=1.000 samples=282 -> LIGHT(#41)
+  ... 7 more (cap 40, the counts above are complete)
+== human spring Locked: days 200 fights 464 | ends Landed=461 PullSlack=3
+   PULL_SLACK 3 (0.6% of fights) = LIGHT(#41) 0 + really slack 3; per day max 1, days with a LIGHT end 0/200
+  PULL_SLACK day 117 fight 285 Chinu 36cm taut_share=0.004 lowT_share=0.985 samples=687 -> really slack
+  PULL_SLACK day 134 fight 326 Chinu 36cm taut_share=0.003 lowT_share=1.000 samples=297 -> really slack
+  PULL_SLACK day 160 fight 375 Chinu 36cm taut_share=0.036 lowT_share=0.993 samples=276 -> really slack
+== human spring PumpSlack(control: real slack): days 200 fights 466 | ends Landed=123 PullSlack=293 PullShake=50
+   PULL_SLACK 293 (62.9% of fights) = LIGHT(#41) 215 + really slack 78; per day max 4, days with a LIGHT end 140/200
+  PULL_SLACK day 1 fight 1 Chinu 32cm taut_share=1.000 lowT_share=1.000 samples=2355 -> LIGHT(#41)
+  PULL_SLACK day 2 fight 3 Chinu 31cm taut_share=0.178 lowT_share=1.000 samples=180 -> really slack
+  PULL_SLACK day 3 fight 4 Chinu 39cm taut_share=1.000 lowT_share=1.000 samples=594 -> LIGHT(#41)
+  PULL_SLACK day 3 fight 5 Chinu 32cm taut_share=1.000 lowT_share=1.000 samples=1350 -> LIGHT(#41)
+  PULL_SLACK day 4 fight 6 Chinu 50cm taut_share=0.000 lowT_share=1.000 samples=1509 -> really slack
+  PULL_SLACK day 5 fight 7 Chinu 36cm taut_share=1.000 lowT_share=1.000 samples=684 -> LIGHT(#41)
+  PULL_SLACK day 5 fight 10 Chinu 35cm taut_share=1.000 lowT_share=1.000 samples=417 -> LIGHT(#41)
+  PULL_SLACK day 5 fight 11 Chinu 39cm taut_share=0.000 lowT_share=1.000 samples=210 -> really slack
+  PULL_SLACK day 6 fight 12 Chinu 50cm taut_share=0.000 lowT_share=1.000 samples=354 -> really slack
+  PULL_SLACK day 6 fight 13 Chinu 41cm taut_share=1.000 lowT_share=1.000 samples=432 -> LIGHT(#41)
+  PULL_SLACK day 7 fight 15 Chinu 42cm taut_share=1.000 lowT_share=1.000 samples=816 -> LIGHT(#41)
+  PULL_SLACK day 8 fight 18 Chinu 33cm taut_share=1.000 lowT_share=1.000 samples=489 -> LIGHT(#41)
+  PULL_SLACK day 8 fight 19 Chinu 48cm taut_share=1.000 lowT_share=1.000 samples=207 -> LIGHT(#41)
+  PULL_SLACK day 9 fight 20 Chinu 32cm taut_share=1.000 lowT_share=1.000 samples=642 -> LIGHT(#41)
+  PULL_SLACK day 9 fight 22 Chinu 36cm taut_share=1.000 lowT_share=1.000 samples=702 -> LIGHT(#41)
+  PULL_SLACK day 11 fight 23 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=861 -> LIGHT(#41)
+  PULL_SLACK day 11 fight 24 Chinu 49cm taut_share=1.000 lowT_share=1.000 samples=723 -> LIGHT(#41)
+  PULL_SLACK day 11 fight 25 Chinu 35cm taut_share=1.000 lowT_share=1.000 samples=813 -> LIGHT(#41)
+  PULL_SLACK day 14 fight 28 Chinu 42cm taut_share=1.000 lowT_share=1.000 samples=900 -> LIGHT(#41)
+  PULL_SLACK day 14 fight 30 Chinu 46cm taut_share=0.000 lowT_share=1.000 samples=237 -> really slack
+  PULL_SLACK day 14 fight 31 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=735 -> LIGHT(#41)
+  PULL_SLACK day 15 fight 33 Chinu 39cm taut_share=1.000 lowT_share=1.000 samples=852 -> LIGHT(#41)
+  PULL_SLACK day 16 fight 34 Chinu 42cm taut_share=1.000 lowT_share=1.000 samples=495 -> LIGHT(#41)
+  PULL_SLACK day 17 fight 35 Chinu 33cm taut_share=1.000 lowT_share=1.000 samples=843 -> LIGHT(#41)
+  PULL_SLACK day 17 fight 36 Chinu 32cm taut_share=0.000 lowT_share=1.000 samples=258 -> really slack
+  PULL_SLACK day 18 fight 39 Chinu 37cm taut_share=1.000 lowT_share=1.000 samples=459 -> LIGHT(#41)
+  PULL_SLACK day 18 fight 40 Chinu 42cm taut_share=1.000 lowT_share=1.000 samples=213 -> LIGHT(#41)
+  PULL_SLACK day 19 fight 42 Chinu 37cm taut_share=1.000 lowT_share=1.000 samples=357 -> LIGHT(#41)
+  PULL_SLACK day 19 fight 43 Chinu 39cm taut_share=1.000 lowT_share=1.000 samples=348 -> LIGHT(#41)
+  PULL_SLACK day 20 fight 44 Chinu 41cm taut_share=1.000 lowT_share=1.000 samples=540 -> LIGHT(#41)
+  PULL_SLACK day 21 fight 46 Chinu 31cm taut_share=0.015 lowT_share=1.000 samples=1362 -> really slack
+  PULL_SLACK day 22 fight 47 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=555 -> LIGHT(#41)
+  PULL_SLACK day 23 fight 49 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=606 -> LIGHT(#41)
+  PULL_SLACK day 24 fight 50 Chinu 47cm taut_share=1.000 lowT_share=0.987 samples=954 -> LIGHT(#41)
+  PULL_SLACK day 25 fight 54 Chinu 50cm taut_share=0.000 lowT_share=1.000 samples=597 -> really slack
+  PULL_SLACK day 26 fight 55 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=843 -> LIGHT(#41)
+  PULL_SLACK day 26 fight 56 Chinu 35cm taut_share=0.026 lowT_share=1.000 samples=999 -> really slack
+  PULL_SLACK day 26 fight 57 Chinu 50cm taut_share=1.000 lowT_share=1.000 samples=936 -> LIGHT(#41)
+  PULL_SLACK day 26 fight 58 Chinu 48cm taut_share=0.000 lowT_share=1.000 samples=150 -> really slack
+  PULL_SLACK day 27 fight 59 Chinu 36cm taut_share=1.000 lowT_share=1.000 samples=417 -> LIGHT(#41)
+  ... 253 more (cap 40, the counts above are complete)
+== human July Good: days 200 fights 473 | ends Landed=472 PullSlack=1
+   PULL_SLACK 1 (0.2% of fights) = LIGHT(#41) 1 + really slack 0; per day max 1, days with a LIGHT end 1/200
+  PULL_SLACK day 193 fight 456 Chinu 41cm taut_share=1.000 lowT_share=0.960 samples=150 -> LIGHT(#41)
+== human July Slack: days 200 fights 490 | ends Landed=423 PullSlack=66 PullShake=1
+   PULL_SLACK 66 (13.5% of fights) = LIGHT(#41) 34 + really slack 32; per day max 2, days with a LIGHT end 32/200
+  PULL_SLACK day 4 fight 10 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=411 -> LIGHT(#41)
+  PULL_SLACK day 6 fight 15 Chinu 46cm taut_share=1.000 lowT_share=1.000 samples=354 -> LIGHT(#41)
+  PULL_SLACK day 6 fight 16 Chinu 39cm taut_share=1.000 lowT_share=1.000 samples=351 -> LIGHT(#41)
+  PULL_SLACK day 7 fight 20 Chinu 46cm taut_share=0.000 lowT_share=1.000 samples=714 -> really slack
+  PULL_SLACK day 8 fight 24 Chinu 31cm taut_share=1.000 lowT_share=1.000 samples=282 -> LIGHT(#41)
+  PULL_SLACK day 10 fight 34 Chinu 49cm taut_share=1.000 lowT_share=1.000 samples=435 -> LIGHT(#41)
+  PULL_SLACK day 11 fight 37 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=453 -> LIGHT(#41)
+  PULL_SLACK day 14 fight 46 Chinu 37cm taut_share=0.000 lowT_share=1.000 samples=309 -> really slack
+  PULL_SLACK day 17 fight 57 Chinu 33cm taut_share=0.000 lowT_share=1.000 samples=258 -> really slack
+  PULL_SLACK day 20 fight 66 Chinu 47cm taut_share=0.003 lowT_share=1.000 samples=687 -> really slack
+  PULL_SLACK day 27 fight 75 Chinu 45cm taut_share=1.000 lowT_share=1.000 samples=150 -> LIGHT(#41)
+  PULL_SLACK day 27 fight 76 Chinu 47cm taut_share=0.000 lowT_share=1.000 samples=825 -> really slack
+  PULL_SLACK day 31 fight 84 Chinu 46cm taut_share=0.000 lowT_share=1.000 samples=186 -> really slack
+  PULL_SLACK day 32 fight 85 Chinu 33cm taut_share=1.000 lowT_share=1.000 samples=441 -> LIGHT(#41)
+  PULL_SLACK day 40 fight 105 Chinu 50cm taut_share=1.000 lowT_share=1.000 samples=213 -> LIGHT(#41)
+  PULL_SLACK day 47 fight 115 Chinu 37cm taut_share=0.000 lowT_share=1.000 samples=327 -> really slack
+  PULL_SLACK day 48 fight 118 Chinu 43cm taut_share=1.000 lowT_share=1.000 samples=150 -> LIGHT(#41)
+  PULL_SLACK day 53 fight 130 Chinu 42cm taut_share=1.000 lowT_share=1.000 samples=237 -> LIGHT(#41)
+  PULL_SLACK day 59 fight 140 Chinu 48cm taut_share=0.000 lowT_share=1.000 samples=450 -> really slack
+  PULL_SLACK day 60 fight 142 Chinu 35cm taut_share=0.000 lowT_share=1.000 samples=261 -> really slack
+  PULL_SLACK day 65 fight 152 Chinu 47cm taut_share=0.000 lowT_share=1.000 samples=150 -> really slack
+  PULL_SLACK day 67 fight 157 Chinu 50cm taut_share=1.000 lowT_share=1.000 samples=402 -> LIGHT(#41)
+  PULL_SLACK day 71 fight 169 Chinu 31cm taut_share=1.000 lowT_share=1.000 samples=216 -> LIGHT(#41)
+  PULL_SLACK day 72 fight 174 Chinu 37cm taut_share=1.000 lowT_share=1.000 samples=423 -> LIGHT(#41)
+  PULL_SLACK day 73 fight 177 Chinu 34cm taut_share=1.000 lowT_share=1.000 samples=150 -> LIGHT(#41)
+  PULL_SLACK day 75 fight 180 Chinu 38cm taut_share=1.000 lowT_share=1.000 samples=183 -> LIGHT(#41)
+  PULL_SLACK day 77 fight 183 Chinu 40cm taut_share=0.000 lowT_share=1.000 samples=237 -> really slack
+  PULL_SLACK day 78 fight 184 Chinu 46cm taut_share=0.000 lowT_share=1.000 samples=858 -> really slack
+  PULL_SLACK day 80 fight 189 Chinu 42cm taut_share=1.000 lowT_share=1.000 samples=150 -> LIGHT(#41)
+  PULL_SLACK day 85 fight 202 Chinu 48cm taut_share=0.068 lowT_share=1.000 samples=162 -> really slack
+  PULL_SLACK day 98 fight 233 Chinu 42cm taut_share=0.000 lowT_share=1.000 samples=150 -> really slack
+  PULL_SLACK day 102 fight 245 Chinu 44cm taut_share=0.000 lowT_share=1.000 samples=891 -> really slack
+  PULL_SLACK day 104 fight 253 Chinu 39cm taut_share=1.000 lowT_share=1.000 samples=180 -> LIGHT(#41)
+  PULL_SLACK day 105 fight 256 Chinu 36cm taut_share=1.000 lowT_share=1.000 samples=285 -> LIGHT(#41)
+  PULL_SLACK day 106 fight 257 Chinu 44cm taut_share=1.000 lowT_share=1.000 samples=327 -> LIGHT(#41)
+  PULL_SLACK day 106 fight 259 Chinu 45cm taut_share=0.004 lowT_share=1.000 samples=282 -> really slack
+  PULL_SLACK day 111 fight 272 Chinu 38cm taut_share=0.000 lowT_share=1.000 samples=234 -> really slack
+  PULL_SLACK day 113 fight 278 Chinu 46cm taut_share=0.053 lowT_share=1.000 samples=150 -> really slack
+  PULL_SLACK day 114 fight 279 Chinu 36cm taut_share=0.000 lowT_share=1.000 samples=249 -> really slack
+  PULL_SLACK day 119 fight 296 Chinu 32cm taut_share=1.000 lowT_share=1.000 samples=174 -> LIGHT(#41)
+  ... 26 more (cap 40, the counts above are complete)
+== human July Locked: days 200 fights 514 | ends Landed=512 PullSlack=1 MouthTear=1
+   PULL_SLACK 1 (0.2% of fights) = LIGHT(#41) 0 + really slack 1; per day max 1, days with a LIGHT end 0/200
+  PULL_SLACK day 160 fight 406 Chinu 36cm taut_share=0.036 lowT_share=0.993 samples=276 -> really slack
+== human July PumpSlack(control: real slack): days 200 fights 496 | ends Landed=121 PullSlack=329 PullShake=46
+   PULL_SLACK 329 (66.3% of fights) = LIGHT(#41) 248 + really slack 81; per day max 6, days with a LIGHT end 148/200
+  PULL_SLACK day 1 fight 1 Chinu 32cm taut_share=1.000 lowT_share=1.000 samples=2355 -> LIGHT(#41)
+  PULL_SLACK day 2 fight 2 Chinu 47cm taut_share=0.008 lowT_share=1.000 samples=987 -> really slack
+  PULL_SLACK day 2 fight 3 Chinu 45cm taut_share=0.000 lowT_share=1.000 samples=411 -> really slack
+  PULL_SLACK day 2 fight 4 Chinu 34cm taut_share=1.000 lowT_share=1.000 samples=768 -> LIGHT(#41)
+  PULL_SLACK day 3 fight 5 Chinu 37cm taut_share=1.000 lowT_share=1.000 samples=594 -> LIGHT(#41)
+  PULL_SLACK day 3 fight 6 Chinu 49cm taut_share=1.000 lowT_share=1.000 samples=198 -> LIGHT(#41)
+  PULL_SLACK day 3 fight 7 Chinu 35cm taut_share=1.000 lowT_share=1.000 samples=351 -> LIGHT(#41)
+  PULL_SLACK day 4 fight 8 Chinu 50cm taut_share=0.000 lowT_share=1.000 samples=1509 -> really slack
+  PULL_SLACK day 4 fight 9 Chinu 50cm taut_share=1.000 lowT_share=1.000 samples=930 -> LIGHT(#41)
+  PULL_SLACK day 5 fight 10 Chinu 36cm taut_share=1.000 lowT_share=1.000 samples=684 -> LIGHT(#41)
+  PULL_SLACK day 5 fight 12 Chinu 30cm taut_share=1.000 lowT_share=1.000 samples=1458 -> LIGHT(#41)
+  PULL_SLACK day 5 fight 13 Chinu 37cm taut_share=1.000 lowT_share=1.000 samples=579 -> LIGHT(#41)
+  PULL_SLACK day 6 fight 14 Chinu 46cm taut_share=0.000 lowT_share=1.000 samples=354 -> really slack
+  PULL_SLACK day 6 fight 15 Chinu 31cm taut_share=1.000 lowT_share=1.000 samples=492 -> LIGHT(#41)
+  PULL_SLACK day 7 fight 17 Chinu 44cm taut_share=1.000 lowT_share=1.000 samples=816 -> LIGHT(#41)
+  PULL_SLACK day 8 fight 20 Chinu 32cm taut_share=0.014 lowT_share=1.000 samples=1338 -> really slack
+  PULL_SLACK day 8 fight 21 Chinu 34cm taut_share=1.000 lowT_share=1.000 samples=207 -> LIGHT(#41)
+  PULL_SLACK day 8 fight 22 Chinu 34cm taut_share=1.000 lowT_share=1.000 samples=936 -> LIGHT(#41)
+  PULL_SLACK day 9 fight 24 Chinu 32cm taut_share=1.000 lowT_share=1.000 samples=642 -> LIGHT(#41)
+  PULL_SLACK day 9 fight 26 Chinu 37cm taut_share=0.970 lowT_share=1.000 samples=2688 -> LIGHT(#41)
+  PULL_SLACK day 10 fight 28 Chinu 40cm taut_share=0.000 lowT_share=1.000 samples=1365 -> really slack
+  PULL_SLACK day 11 fight 30 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=861 -> LIGHT(#41)
+  PULL_SLACK day 11 fight 31 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=723 -> LIGHT(#41)
+  PULL_SLACK day 11 fight 32 Chinu 40cm taut_share=1.000 lowT_share=1.000 samples=813 -> LIGHT(#41)
+  PULL_SLACK day 11 fight 33 Chinu 50cm taut_share=0.000 lowT_share=1.000 samples=2088 -> really slack
+  PULL_SLACK day 11 fight 34 Chinu 49cm taut_share=1.000 lowT_share=1.000 samples=744 -> LIGHT(#41)
+  PULL_SLACK day 11 fight 35 Chinu 35cm taut_share=1.000 lowT_share=1.000 samples=834 -> LIGHT(#41)
+  PULL_SLACK day 12 fight 36 Chinu 43cm taut_share=1.000 lowT_share=1.000 samples=708 -> LIGHT(#41)
+  PULL_SLACK day 12 fight 37 Chinu 46cm taut_share=0.000 lowT_share=1.000 samples=567 -> really slack
+  PULL_SLACK day 12 fight 38 Chinu 30cm taut_share=1.000 lowT_share=1.000 samples=1707 -> LIGHT(#41)
+  PULL_SLACK day 12 fight 39 Chinu 44cm taut_share=1.000 lowT_share=1.000 samples=453 -> LIGHT(#41)
+  PULL_SLACK day 13 fight 40 Chinu 36cm taut_share=1.000 lowT_share=1.000 samples=642 -> LIGHT(#41)
+  PULL_SLACK day 14 fight 42 Chinu 33cm taut_share=1.000 lowT_share=1.000 samples=693 -> LIGHT(#41)
+  PULL_SLACK day 14 fight 45 Chinu 36cm taut_share=1.000 lowT_share=1.000 samples=309 -> LIGHT(#41)
+  PULL_SLACK day 15 fight 48 Chinu 43cm taut_share=1.000 lowT_share=1.000 samples=450 -> LIGHT(#41)
+  PULL_SLACK day 15 fight 49 Chinu 48cm taut_share=1.000 lowT_share=1.000 samples=381 -> LIGHT(#41)
+  PULL_SLACK day 16 fight 50 Chinu 47cm taut_share=1.000 lowT_share=1.000 samples=519 -> LIGHT(#41)
+  PULL_SLACK day 16 fight 52 Chinu 47cm taut_share=1.000 lowT_share=1.000 samples=312 -> LIGHT(#41)
+  PULL_SLACK day 16 fight 53 Chinu 37cm taut_share=1.000 lowT_share=1.000 samples=207 -> LIGHT(#41)
+  PULL_SLACK day 16 fight 54 Chinu 42cm taut_share=1.000 lowT_share=1.000 samples=786 -> LIGHT(#41)
+  ... 289 more (cap 40, the counts above are complete)
