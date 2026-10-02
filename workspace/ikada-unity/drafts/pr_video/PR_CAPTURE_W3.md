@@ -17,3 +17,24 @@
 ## 4. 音の口（最初の Unity の試し 1 本, boss1 が番を割り当てる）の予測（回す前, 動かさない）
 - 形（案）: DemoCapture に `-ikadaDemoAudio <wav>` = 撮りの窓の初めに AudioRenderer.Start()、毎 frame AudioRenderer.Render(NativeArray) で取り、窓の終わり（か終了）に Stop して 16-bit PCM wav を書く（Time.captureFramerate = 60 の固定時計 = 音も sim の時間に合う、PR_VIDEO_PLAN.md §0 の案）。
 - 予測: (a) wav の長さ = 撮った sim の秒 ± 1/60 s（frame の数 / 30 と同じ）(b) 標本 48000 Hz・ch 2（AudioSettings.outputSampleRate・speakerMode の既定、未確認）(c) 無音でない（ambient の海の音が入る = live_regress 5 の配線が wired）(d) AudioRenderer は player の build で動く（editor だけの API ではない、Unity の文書の記述 = 未確認）。外れたら = 音なしで出す か PR_VIDEO_PLAN.md §3 の別 run の案。
+
+## 5. 載せ直しと 音の口の code（2026-10-02 11:2x, Unity なし）
+- track3/pr-capture = 18330ac（master e41e21c を merge、LiveHost.cs の衝突 = demo の 1 行を lastSnap = s の直後・master の CastLines() をその後 = 和）＋ ★ee307b0 の音の口★（`-ikadaDemoAudio <wav>`: slow window の最初の frame で AudioRenderer.Start、毎 frame Render〔60 / s の sim 時計〕、窓の終わりか終了で Stop → 16-bit PCM、log に frame 数・標本数・秒・peak）。e41e21c との差 = DemoCapture.cs（新, 159 行）・.meta・LiveHost.cs +6。未 compile。
+
+## 6. 撮りの段取りと時刻の見込み（推論, 依頼者の窓が閉じて LOCK の後から数える）
+| 段 | 中身 | 見込み |
+|---|---|---|
+| 0 | Roslyn（errors 0, 負の対照 1）→ BuildPerf（track3, 前回 23 s）| 3 分 |
+| 1 | ★音の試し 1 本★: 種 26・4/20・窓 `780-800`（20 s）を `-ikadaLiveFrames -ikadaDemoAudio -ikadaHud off -ikadaDemoHud off` で | 3 分 |
+| 2 | 種 26 の掛け・取り込みの時刻を RefCheck（418b374, dotnet 20 s）で取り直す（22e566a では 792.4 / 865.4 s, 記録の直しで動きうる）| 2 分 |
+| 3 | 本の撮り 1 本: 種 26 の窓 = 掛けの −7 s 〜 取り込み ＋4 s（約 84 s × 30 = 約 2,500 枚, 前回 2,730 枚で約 12 分の見込み）＋ 旗あり・なしの陽性陰性（短い窓 2 本）| 15 分 |
+| 4 | 静止画: 種 26 の 06 を ShotAt で 6〜8 枚（朝〜夕）・StoryFrom 7-20 / 10-15 / 12-10 の 06 の朝 1 枚ずつ（HUD なし）| 5 分 |
+| 5 | 穂先: 06 の穂先の窓の crop が粗ければ 06 の竿の弧が見える frame で代える（画を見て決める）| 3 分 |
+| 6 | カットの表 → assemble_pr.py → pr_30s_v1.mp4（ffprobe: h264 1920x1080 30/1 900 frame 30 s, 音 aac 1）| 5 分 |
+- ★合計 約 35 分（Unity の番 約 25 分 ＋ dotnet 2 分 ＋ 組み立て 8 分）★。
+
+## 7. 予測（回す前, 動かさない）
+- 段 0: Roslyn errors 0（NativeArray は UnityEngine.CoreModule = 追加の参照なし, 推論）。
+- 段 1（音）: §4 のとおり = wav の秒 = 撮った sim 秒（20 s ± 1/60 s）、48000 Hz・2 ch（未確認）、peak > 0（無音でない）、AudioRenderer.Start true（player で動く = 未確認）。外れ（Start false・無音）= 音なしで出す（PR_VIDEO_PLAN §3 の代わり）を boss1 へ。
+- 段 3: 旗あり・なしで RESULT の steps・page・screens 同じ、`[Demo] HUD hidden on N frames` N > 0、画の差は HUD の所だけ。frame の数 = 窓の秒 × 30 ± 2。
+- 段 6: 900 frame・30.000 s・h264・1920x1080・30/1・音 aac 1 本・約 25 MB（PR_VIDEO_PLAN §3 の見込み）。
