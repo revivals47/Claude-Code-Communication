@@ -61,6 +61,7 @@ static class Program
         int days = a.Length > 1 ? int.Parse(a[1]) : 20;
         if (mode == "rope") { Rope(days, a[2], a[3], a[4]); return 0; }
         if (mode == "ropetrace") { RopeTrace(days, a[2], a[3], a[4]); return 0; }
+        if (mode == "weather") return Weather(days, a[2]);   // PR v2 (2): weather <seeds N> <M-D>
         if (mode == "human") Human(days); else Pilot(days, a.Length > 2 ? a[2] : "4-20,7-20,10-15,12-10");
         return 0;
     }
@@ -212,6 +213,26 @@ static class Program
         FightHarness.TickProbe = null; FightHarness.RopeAheadM = null;
         Console.WriteLine($"ropetrace {skillName} {season} d={ropeArg} days={days} fights={fights} zone entries={entries} dive ticks outside the zone={diveTicksNoZone} | " +
                           string.Join(" ", outc.OrderByDescending(k => k.Value).Select(k => $"[{k.Key}]={k.Value}")));
+    }
+
+    // PR v2 (2) (worker3, PR_VIDEO_V2_PLAN.md): the day's weather of world seeds 1..N on one date (Calendar.Get with RngTree.World(seed),
+    // the drawn sky = SnapshotBuilder.SkyOf(Weather) for the whole day). Positive control: seed 26 on 4/20 = 雨 (its live 4/20 was rain all day,
+    // PR_CAPTURE_W3.md §9). Prints the counts and one line per sunny, not cancelled seed (seed, wind) = the input of sunny_seed_scan.sh.
+    static int Weather(int n, string md)
+    {
+        var d = new GameDate(Ikada.Game.Flow.Calendar.First.Year, int.Parse(md.Split('-')[0]), int.Parse(md.Split('-')[1]));
+        var count = new Dictionary<string, int>(); var sunny = new List<string>();
+        for (uint seed = 1; seed <= (uint)n; seed++)
+        {
+            DayInfo i = Ikada.Game.Flow.Calendar.Get(d, Ikada.Logic.Rng.RngTree.World(seed));
+            string k = i.Weather + (i.Cancelled ? "/欠航" : "");
+            count[k] = count.GetValueOrDefault(k) + 1;
+            if (i.Weather == "晴れ" && !i.Cancelled) sunny.Add($"{seed}\t{i.Wind}");
+            if (seed == 26) Console.Error.WriteLine($"[weather] control seed 26 {md}: {i.Weather} {i.Wind} cancelled={i.Cancelled}");
+        }
+        Console.Error.WriteLine($"[weather] {md} seeds 1-{n}: " + string.Join(", ", count.OrderByDescending(x => x.Value).Select(x => $"{x.Key} {x.Value}")) + $"; sunny not cancelled {sunny.Count}");
+        foreach (string l in sunny) Console.WriteLine(l);
+        return 0;
     }
 
     static void Report(string name, Tally T)
