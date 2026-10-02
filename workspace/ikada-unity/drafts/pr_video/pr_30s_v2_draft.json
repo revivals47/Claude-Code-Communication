@@ -1,0 +1,98 @@
+{
+ "out": "pr_30s_v2_draft.mp4",
+ "caption_y": 930,
+ "cuts": [
+  {
+   "kind": "stills",
+   "images": [
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/dawn/dawn_df0.png"
+   ],
+   "each": 4.0,
+   "xfade": 0,
+   "label": "夜明け（player mock 06, dawn_clear）"
+  },
+  {
+   "kind": "frames",
+   "dir": "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/frames",
+   "from": 787.0,
+   "dur": 5.0,
+   "crop": [
+    16,
+    166,
+    503,
+    595
+   ],
+   "fit": true,
+   "label": "穂先の窓 種26 4/20 787-792 s"
+  },
+  {
+   "kind": "frames",
+   "dir": "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/fight/frames",
+   "from": 792.0,
+   "dur": 5.5,
+   "label": "ファイト 種26 4/20 792- s"
+  },
+  {
+   "kind": "frames",
+   "dir": "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/fight/frames",
+   "from": 860.5,
+   "dur": 3.5,
+   "label": "取り込み 種26 4/20 860.5- s"
+  },
+  {
+   "kind": "stills",
+   "images": [
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/t720/live_06_t40.0.png",
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/t1015/live_06_t40.0.png",
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/t1210/live_06_t40.0.png"
+   ],
+   "each": 2.0,
+   "xfade": 0.3,
+   "labels": [
+    "7/20 芦北",
+    "10/15 樋島",
+    "12/10 蒲江（湾のカセ）"
+   ]
+  },
+  {
+   "kind": "stills",
+   "images": [
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/journal/live_J.png"
+   ],
+   "each": 3.5,
+   "xfade": 0,
+   "label": "日誌 種26 4/20"
+  },
+  {
+   "kind": "stills",
+   "images": [
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/title/frames/f_000058.jpg"
+   ],
+   "each": 2.5,
+   "xfade": 0,
+   "label": "題 05（v1 の撮り）"
+  }
+ ],
+ "captions": [
+  {
+   "text": "夜明けの筏。",
+   "from": 0.4,
+   "to": 3.8
+  },
+  {
+   "text": "穂先が、語る。",
+   "from": 4.4,
+   "to": 8.8
+  },
+  {
+   "text": "待って、合わせる。",
+   "from": 9.4,
+   "to": 14.1
+  },
+  {
+   "text": "海の一日を、記録に。",
+   "from": 24.3,
+   "to": 27.3
+  }
+ ]
+}

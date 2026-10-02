@@ -81,15 +81,28 @@ def caption(im, text, y, px=54):
 
 def build(table, out_dir, copy_dir):
     fps = table.get('fps', 30); size = tuple(table.get('size', [1920, 1080]))
-    frames, report = [], []
+    frames, report, marks = [], [], []
     for c in table['cuts']:
         part, what = {'frames': frames_cut, 'stills': stills_cut, 'title': title_cut}[c['kind']](c, fps, size)
+        labels = c.get('labels') or [c.get('label', c['kind'])]
+        if c['kind'] == 'stills':   # one mark in the middle of each still's clean span (before its crossfade), named by its label
+            each = round(c['each'] * fps); xf = round(c.get('xfade', 0) * fps)
+            for k in range(len(c['images'])): marks.append((len(frames) + k * each + (each - xf) // 2, labels[min(k, len(labels) - 1)]))
+        else:
+            marks.append((len(frames) + len(part) // 2, labels[0]))
         report.append(f"[assemble_pr] cut {len(report) + 1} {c['kind']}: {what} -> video {len(frames) / fps:.2f}..{(len(frames) + len(part)) / fps:.2f} s")
         frames += part
     for cap in table.get('captions', []):
         for i in range(round(cap['from'] * fps), min(len(frames), round(cap['to'] * fps))):
             frames[i] = caption(frames[i], cap['text'], table.get('caption_y', 868))
         report.append(f"[assemble_pr] caption '{cap['text']}' {cap['from']}..{cap['to']} s")
+    # the check sheet: one frame per mark, named by the cut's label and its video second (never by the time alone - v1's 21.0 s frame was
+    # 10/15 and read as 7/20, PR_VIDEO_V2_PLAN.md ③)
+    W, H = 480, 270; cols = 4; rows_n = (len(marks) + cols - 1) // cols
+    sheet = Image.new('RGB', (cols * (W + 6), rows_n * (H + 22)), (30, 30, 30)); ds = ImageDraw.Draw(sheet); lf = ImageFont.truetype(FONT, 16)
+    for n, (i, lab) in enumerate(marks):
+        x, y = (n % cols) * (W + 6), (n // cols) * (H + 22)
+        sheet.paste(frames[min(i, len(frames) - 1)].resize((W, H)), (x, y + 20)); ds.text((x + 2, y + 1), f'{i / fps:.1f} s  {lab}', font=lf, fill=(255, 255, 255))
     tmp = tempfile.mkdtemp(); seq = os.path.join(tmp, 'seq'); os.makedirs(seq)
     for i, im in enumerate(frames): im.save(os.path.join(seq, f'{i:06d}.jpg'), quality=95)
     os.makedirs(out_dir, exist_ok=True); out = os.path.join(out_dir, table['out'])
@@ -99,6 +112,7 @@ def build(table, out_dir, copy_dir):
     cmd += ['-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', str(fps), '-crf', str(table.get('crf', 18)), '-movflags', '+faststart']
     cmd += (['-c:a', 'aac', '-b:a', '192k', '-shortest'] if au else ['-an']) + [out]
     subprocess.run(cmd, check=True); shutil.rmtree(tmp)
+    sheet_path = os.path.splitext(out)[0] + '_sheet.png'; sheet.save(sheet_path)
     h = lambda p: hashlib.sha256(open(p, 'rb').read()).hexdigest()
     if copy_dir:
         os.makedirs(copy_dir, exist_ok=True); cp = os.path.join(copy_dir, os.path.basename(out)); shutil.copy2(out, cp)
@@ -108,7 +122,7 @@ def build(table, out_dir, copy_dir):
          capture_output=True, text=True, check=True).stdout)
     v = [s for s in pr['streams'] if s['codec_type'] == 'video'][0]; a = [s for s in pr['streams'] if s['codec_type'] == 'audio']
     for l in report: print(l)
-    print(f"[assemble_pr] frames built {len(frames)} ({len(frames) / fps:.3f} s); mp4 {out}")
+    print(f"[assemble_pr] frames built {len(frames)} ({len(frames) / fps:.3f} s); mp4 {out}; check sheet {sheet_path} ({len(marks)} labelled frames)")
     print(f"[assemble_pr] ffprobe: video {v['codec_name']} {v['pix_fmt']} {v['width']}x{v['height']} r={v['r_frame_rate']} frames={v['nb_read_frames']} "
           f"duration={float(pr['format']['duration']):.3f}s size={int(pr['format']['size']) / 1e6:.1f}MB audio_streams={len(a)}"
           f"{' (' + a[0]['codec_name'] + ')' if a else ' (none: no wav given)'}; sha256 {h(out)}")
