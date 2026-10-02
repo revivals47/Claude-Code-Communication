@@ -60,6 +60,7 @@ static class Program
         string mode = a.Length > 0 ? a[0] : "human";
         int days = a.Length > 1 ? int.Parse(a[1]) : 20;
         if (mode == "rope") { Rope(days, a[2], a[3], a[4]); return 0; }
+        if (mode == "ropetrace") { RopeTrace(days, a[2], a[3], a[4]); return 0; }
         if (mode == "human") Human(days); else Pilot(days, a.Length > 2 ? a[2] : "4-20,7-20,10-15,12-10");
         return 0;
     }
@@ -157,6 +158,60 @@ static class Program
                           $"Landed={E(FightEnd.Landed)} Wrapped={E(FightEnd.Wrapped)} PullSlack={E(FightEnd.PullSlack)} PullShake={E(FightEnd.PullShake)} " +
                           $"BreakT={E(FightEnd.BreakTension)} BreakW={E(FightEnd.BreakWear)} Mouth={E(FightEnd.MouthTear)} Abort={E(FightEnd.Abort)} " +
                           $"dives/fight={(fights == 0 ? 0 : dives / (double)fights):0.00} median_s={(secs.Count == 0 ? 0 : secs[secs.Count / 2]):0}");
+    }
+
+    // #42 trace: each rope-zone entry (FightAi._ropeZone false -> true, only updated in DIVE) followed tick by tick (10 ms)
+    static void RopeTrace(int days, string skillName, string season, string ropeArg)
+    {
+        var BF = System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance;
+        var ty = typeof(FightAi);
+        var fZone = ty.GetField("_ropeZone", BF)!; var fHold = ty.GetField("_ropeHoldT", BF)!; var fLow = ty.GetField("_ropeLowT", BF)!;
+        var fWrap = ty.GetField("_tWrap", BF)!; var fRun = ty.GetField("_run", BF)!; var fQ = ty.GetField("_q", BF)!; var fS = ty.GetField("_s", BF)!;
+        PlayerSkill skill = (PlayerSkill)Enum.Parse(typeof(PlayerSkill), skillName);
+        SeasonMonth? m = season == "July" ? Chapter2Season.For(7) : null;
+        FightHarness.RopeAheadM = float.Parse(ropeArg, CultureInfo.InvariantCulture);
+        FightAi? cur = null; bool inEp = false; int fights = 0, entries = 0, diveTicksNoZone = 0, lines = 0;
+        var outc = new Dictionary<string, int>();
+        int epTicks = 0, epHoldTicks = 0, epCross = 0; float epHoldMax = 0, epLowMax = 0, epTmin = 0, epTmax = 0, epTsum = 0, epWrap = 0, epHoldN = 0, epQ = 0, epRope = 0; bool lastHi = false;
+        float prevHold = 0, prevLow = 0;
+        void Close(FightAi ai, string why)
+        {
+            string k = why; outc[k] = outc.GetValueOrDefault(k) + 1;
+            if (lines++ < 60)
+                Console.WriteLine($"  entry {entries}: {k} ticks={epTicks} T mean={epTsum / Math.Max(1, epTicks):0.00} min={epTmin:0.00} max={epTmax:0.00} hold(0.8FRun)={epHoldN:0.00} " +
+                                  $"T>=hold {100.0 * epHoldTicks / Math.Max(1, epTicks):0}% crossings={epCross} holdT max={epHoldMax:0.00}s lowT max={epLowMax:0.00}s tWrap={epWrap:0.00}s q={epQ:0.00} ropeQ={epRope:0.00}");
+            inEp = false;
+        }
+        FightHarness.TickProbe = (ai, now) =>
+        {
+            if (ai != cur) { if (inEp && cur != null) Close(cur, "fight-switch"); cur = ai; fights++; }
+            bool zone = (bool)fZone.GetValue(ai)!; float hold = (float)fHold.GetValue(ai)!, low = (float)fLow.GetValue(ai)!;
+            float T = ai.LastTensionN; float frun = ((FightParams)fRun.GetValue(ai)!).FBias; float h = 0.8f * frun;
+            if (ai.Phase == FightPhase.Dive && !zone) diveTicksNoZone++;
+            if (zone && !inEp)
+            {
+                inEp = true; entries++; epTicks = epHoldTicks = epCross = 0; epHoldMax = epLowMax = epTsum = 0; epTmin = epTmax = T; lastHi = T >= h;
+                epWrap = (float)fWrap.GetValue(ai)!; epHoldN = h; epQ = (float)fQ.GetValue(ai)!; epRope = ((FightSetup)fS.GetValue(ai)!).RopeQ;
+            }
+            if (inEp)
+            {
+                if (zone) { epTicks++; epTsum += T; epTmin = Math.Min(epTmin, T); epTmax = Math.Max(epTmax, T); bool hi = T >= h; if (hi) epHoldTicks++; if (hi != lastHi) epCross++; lastHi = hi;
+                            epHoldMax = Math.Max(epHoldMax, hold); epLowMax = Math.Max(epLowMax, low); prevHold = hold; prevLow = low; }
+                if (ai.Ended) Close(ai, ai.End == FightEnd.Wrapped ? "WRAPPED (lowT >= tWrap, 50% cut)" : "fight ended " + ai.End);
+                else if (!zone) Close(ai, prevHold >= 0.29f ? "ESCAPED (holdT 0.3 s)" : prevLow >= epWrap - 0.011f ? "survived wrap draw (+wear, pause)" : "left zone otherwise");
+            }
+        };
+        var p = new Profile(16, StrikeTiming.OnTake, 150f, 45f, fight: skill);
+        for (uint s = 1; s <= (uint)days; s++)
+        {
+            var c = m == null ? new DayConditions() : new DayConditions { TempC = m.TempC, Activity = m.Activity };
+            if (m != null) { c.Density[Ikada.Native.Species.Chinu] = m.ChinuSeason; foreach (var kv in m.Stealers) c.Density[kv.Key] = kv.Value; }
+            c.Purchase = Ikada.Logic.Tackle.Inventory.Default();
+            FishingDay.Run(s, p, 8f, 0f, c);
+        }
+        FightHarness.TickProbe = null; FightHarness.RopeAheadM = null;
+        Console.WriteLine($"ropetrace {skillName} {season} d={ropeArg} days={days} fights={fights} zone entries={entries} dive ticks outside the zone={diveTicksNoZone} | " +
+                          string.Join(" ", outc.OrderByDescending(k => k.Value).Select(k => $"[{k.Key}]={k.Value}")));
     }
 
     static void Report(string name, Tally T)

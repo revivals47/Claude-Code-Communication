@@ -99,3 +99,11 @@
 - 機構（★未解明★）: 私の仮説「ドラグ 3 N では 0.8×FRun に届かず抜けられない」は ★誤り★（codex, source で確かめた: チヌ 40 cm の F_bias 2.0 N = ikd_fight_draw.c:55 の F_run 列（:41 の型の順）、(L/40)² で 30〜50 cm は 1.1〜3.1 N = 抜ける閾 0.9〜2.5 N は 3 N より下、単位も同じ device N）。Locked が d に依らず全く同じ数 = 区域に一度も入っていない見込み（推論）。2 回外したので 推論をやめ 計測へ: ★区域の入りごとに 張力・0.8×FRun・_ropeHoldT・_ropeLowT・_tWrap を出す trace（試験の器だけ）で 抜け / 巻かれ の分かれ目を測る★ = 次の dotnet の番で。
 - 読み（観測の範囲）: ★RopeQ を今の作りのまま渡すと、張って巻く腕でも ファイトの約 2 割が巻かれて終わり、取り込みは 1 日 約 3 割減る★。Locked（締めきる）だけが巻かれ 0。= 入れるなら Rope の閾・確率の釣り合いの見直しが先（推論）。
 - codex 済（2 回: 初稿の RNG の主張を訂正・機構の仮説を否定）。
+
+## #42 の trace（PRESIDENT 04:0x GO, 閾はいじらない）— 器と予測（回す前, 動かさない）
+- 器: FightHarness.TickProbe（局所 25b4f4f, 10 ms の FightAi.Tick の後）＋ Probe41 `ropetrace <日> <腕> <季節> <d>`: FightAi の _ropeZone・_ropeHoldT・_ropeLowT・_tWrap・_run.FBias・_q・_s.RopeQ を reflection で読み、区域の入り（_ropeZone false→true）ごとに: tick 数・T（LastTensionN = Rope に渡る値）の平均/最小/最大・hold = 0.8×FRun・T ≥ hold の割合・閾をまたいだ回数・holdT / lowT の最大・_tWrap・入った時の q と RopeQ・出方（逃げた = holdT 0.3 s / 巻かれた = lowT ≥ tWrap で 50% に当たる / 巻きの抽選を生き延びた / 他の終わり）。注: Rope() は DIVE の中でだけ呼ばれる（FightAi.cs:292）= 区域の判定も DIVE の間だけ。
+- cell: Good / Slack / Locked × 春 × d 2 × 50 日。
+- 予測（推論, H を 1 つに決めない）:
+  - ★Locked: 区域の入り 0、DIVE の tick は出る（区域の外）= 「区域に入らない」の確かめ★。
+  - Good・Slack: 入り 1〜4 / ファイト。出方: 巻かれ ＋ 抽選を生き延び ≥ 70%、逃げ < 30%（巻かれ = 抽選の約半分 = PWrapCut 0.5）。
+  - 分かれ目の候補: (H1) 区域の T がずっと hold より下（T ≥ hold の割合 < 10%）、(H2) T が hold をまたいで揺れ（またぎ ≥ 5 / 入り）holdT が 0.3 s に届く前に 0 に戻る、(H3) 他。予測 = Good は H2、Slack は H1（推論）。
