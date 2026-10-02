@@ -159,3 +159,8 @@
 - codex 済: 今の遊び（+∞）は分岐・RNG とも不変 = 同意。DIVE の増えは code どおり。巻かれは「閾の下が途切れず tWrap」で起きる（またいだ後の最後の 1 区間）。★私の見積りの穴★: core のアンカー a は 糸に引き戻される時 q まで戻る（ikd_fight.c:259 `a = min(a, q)`）が、_diveA は前へ進むだけ = 実のアンカーが届かない区域を「入った」と言いうる（ロープの 2〜4 m 手前の入りと合う）。もう 1 つ: 張力が閾をまたぎ続けると どちらの時計も満ちず DIVE が終わらない道（前からある, 見積りで近くなる）= 今回の 18 cell では Abort 0。
 - 読み（推論）: 形を仕様へ寄せると「巻かれ」は腕で分かれるようになった（Locked・Slack 0、Good 17%）が、向きは予測の逆で、残る巻かれは「ドラグを滑らせて張る腕 × 大きい魚 × 閾の近くの張力の揺れ」に集まる。釣れ方の減りは Slack・Locked ではほぼ消え（Slack 1 日 2.05 → 1.95〜2.00）、Good は 約 25% 減が残る。
 - 次の候補（決めは PRESIDENT）: (1) _diveA を 引き戻しでも q まで戻す（core と同じ min(a, q)）= 見積りを core に近づける、(2) 閾の判定を 山の 1 tick でなく 平滑した張力で（揺れでの時計の戻りを減らす）、(3) 数（0.8×F_run・0.3 s・t_wrap・p_wrap_cut）を依頼者の感覚で（#41 と一緒の 1 問）。RopeQ を通常の遊びに渡すのは まだ（決めどおり）。
+
+## (1) _diveA の引き戻し — 着手前の source 読み（観測, 04:5x）
+- core のアンカー: 初めは q（ikd_fight.c:238）、毎 1 ms `a += v_anchor·dt` → [0, x_anchor_max] に clamp（:250-251）、★糸に引かれている時（dragged = xdot < qdot かつ k(q−x)+c(qdot−xdot) > margin, :252）だけ★ `a = min(a, q)`（:259）。引かれていない時は a は q より先にいてよい（魚がアンカーを追う, :265）。a は phase をまたいで続く（DIVE で q に戻さない）。
+- PC が見られるもの: 0x84 の報告 = Q・LineOutM・張力の山・Events（HOOK_PULLED・HARISU_BREAK・SLACK・SHAKE_END・LIMIT_HIT・DRAG_SLIP, ikd_fight.h:63-66）= ★dragged も a も無い★。試験の器の VdevView（mcu/ikd_vdev.c:296-311）にも a は無い。
+- ★= PC の式で core の a を「差 0」で写すことはできない★（dragged の判定は 1 ms ごとの x・xdot・ばねの力で決まり、PC には 10 ms の報告しか来ない; 始まりの値も DIVE 前から続く a）。差 0 を試験で縛るには ★判断を 1 経路にする★ 必要。
