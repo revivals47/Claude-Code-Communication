@@ -38,3 +38,4 @@
 - 段 1（音）: §4 のとおり = wav の秒 = 撮った sim 秒（20 s ± 1/60 s）、48000 Hz・2 ch（未確認）、peak > 0（無音でない）、AudioRenderer.Start true（player で動く = 未確認）。外れ（Start false・無音）= 音なしで出す（PR_VIDEO_PLAN §3 の代わり）を boss1 へ。
 - 段 3: 旗あり・なしで RESULT の steps・page・screens 同じ、`[Demo] HUD hidden on N frames` N > 0、画の差は HUD の所だけ。frame の数 = 窓の秒 × 30 ± 2。
 - 段 6: 900 frame・30.000 s・h264・1920x1080・30/1・音 aac 1 本・約 25 MB（PR_VIDEO_PLAN §3 の見込み）。
+- ★段 2 の結果（観測, 11:2x, RefCheck 418b374 --seed 26 4/20）★: つつき 787.917 s → 本アタリ（Take）791.817 s → 掛け（HookSet, band 1）792.383 s → LandingStart 859.917 s → Landed 865.417 s = 22e566a の 787.9 / 791.8 / 792.4 / 865.4 と同じ（記録の直しで動かない）。その日 catches 3・hooksets 4（2 匹目の掛け 2565.833 s・Landed 2630.350 s）。events 75dbeaea44599520・numbers 5c4981ab58484a76・frames 539333（= live の種 26 の基準の steps 539212 とは別の数 = live の窓は frame/60 の pilot、ここは照合の frames）。→ 本の撮りの窓 = `785-870`（つつきの −3 s 〜 取り込みの ＋4.6 s, 85 s ≈ 2,550 枚）。
