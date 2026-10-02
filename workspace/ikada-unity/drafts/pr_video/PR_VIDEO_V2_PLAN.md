@@ -89,3 +89,7 @@ v1 = drafts/user_review/pr_30s_v1.mp4（sha 14b7bde4…, PR_CAPTURE_W3.md §9-10
 - 器: drafts/pr_video/sunny_seed_scan_v2.sh（Probe41 `weather 500 4-20` = Calendar.Get(4/20, RngTree.World(seed)) の天気・欠航 → 晴れ・欠航なしの最初の 30 種を RefCheck 4/20（2750f49）→ 種ごとに 最初の掛け・その後の Landed・ファイトの長さ・掛けの前の投の Drop と Bottom（置いて待つ のカット）。種の間で $O/STOP を見る = 区切れる）。前の throwaway の xunit（ZzWeatherScan.cs.txt）は sim の試験の木に入れない形に替えた。
 - 予測: 陽性対照 ★種 26 = 雨★（違えば world seed の出し方の仮定が誤り = 先へ進まない）。晴れ ≈ 45%（500 中 約 225）・晴れで欠航なし ≈ 41%（約 208）（Calendar.cs:70-88 の u < 0.45 と 4 月の強風欠航, 推論）。最初の 30 の晴れの種のうち ★掛けが 1500 s より前・取り込み・ファイト ≥ 30 s が 3 種以上★、ファイトの長さの中央値 50〜90 s（種 26 = 73 s）、掛けの前の投の Bottom がある（底に着いた投）が その半分以上、Drop→Bottom 5〜15 s（7/20 種 1 = 8.9 s, c177）。
 - 選び方: 掛け < 1500 s・ファイト 30〜120 s・Bottom あり・風 微風 の中で 掛けが一番早い種。
+
+### ① 竿先の寄り — code と予測（Unity の前, 動かさない）
+- code（track3/pr-capture, Roslyn 0, 合わせた木が master に入った後に rebase）: `-ikadaDemoCam tip [-ikadaDemoCamZoom z]`（既定 z 4）= ★目の位置は動かさず★ 向きと fov だけ: vfov = 2·atan(tan(50°/2)/z)（z 4 = 13.3°）、向き = RuntimeRod.LastTip ＋ (−0.02, −0.06, −0.23) m（穂先と 0.47 m 後ろの受けの間, 柱が入るよう少し下）、毎 LateUpdate（竿を組んだ後）。目を動かさない訳 = 遠景・板は この目のための絵（BackdropBuilder.cs:140 が目の位置と向きを置き、絵は world の物 :208/:219）= 回して寄るだけなら 絵の合いは崩れない（推論）。
+- 予測（試し撮り 1 枚, 合わせた木の上で）: (a) 穂先が画の中央付近・受けの U 字と柱が画の下の方に入る（z 4 で 穂先の所の画の縦 約 1.0 m = 竿の高さ 0.30 m の受けが入る, 計算）、(b) 遠景・島の絵は 4 倍に拡大 = ★ぼけが見える★（絵の画素 1 つが画で 約 4 px, 推論）= 判じるのは画で（ぼけが目立つなら z 2.5〜3 に下げる）、(c) 旗なしの run は 今と byte 同一（LateUpdate の頭で z 0 なら何もしない）、(d) 水面は 3D = 寄っても鮮明（推論, 未確認）。外れ（例: 穂先が画の外）= 向きの足しを画で直す。
