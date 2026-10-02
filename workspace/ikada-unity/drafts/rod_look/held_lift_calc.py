@@ -20,3 +20,5 @@ for L in (0.05, 0.10, 0.30):
     a = max(-0.10, -math.atan(max(0.0, L - c)/dc))   # codex 12:5x: tan, not sin
     report(f"over the rest L {L:.2f}", L, a)
 report("aside L 0.05 side 0.10 (full -0.10)", 0.05, -0.10, 0.10)
+# boss1 12:55 / PRESIDENT 12:5x: aside 0.10 + lift 0.05 with the drawn dip scaled (logic -0.10 -> drawn -0.07)
+report("aside L 0.05 side 0.10 drawn -0.07", 0.05, -0.07, 0.10)
