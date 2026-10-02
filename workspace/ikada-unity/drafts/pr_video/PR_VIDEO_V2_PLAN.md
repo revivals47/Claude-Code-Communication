@@ -64,7 +64,7 @@ v1 = drafts/user_review/pr_30s_v1.mp4（sha 14b7bde4…, PR_CAPTURE_W3.md §9-10
 
 ### 撮りの前に要る物（順, 推論の工数）
 1. 合わせた木が master に入る（worker2・boss1, 待ち）。
-2. ④ 音の口（track3/pr-capture 99c3760 = e41e21c が元）を 新しい master に rebase（衝突の見込み = DemoCapture・2 つの Audio だけ = 竿の file と重ならない, merge-tree で確かめる）— 10 分。
+2. ④ 音の口（track3/pr-capture 99c3760 = e41e21c が元）を 新しい master に rebase（★merge-tree 観測: track2/rod-combined 71658a6 × track3/pr-capture 99c3760 = rc 0・衝突 0★。pr-capture の差 = 5 file 248 行, LiveHost.cs 6 行は RodHand の行と同じ file だが衝突なし）— 10 分。
 3. ① 竿先の寄り（-ikadaDemoCam tip）の code — 1〜1.5 h（受けを画に入れる姿勢の 1 枚の試し撮りを先に）。
 4. ② 晴れて釣れる種: Calendar の走査（ZzWeatherScan.cs.txt, 試験 1 本）＋ RefCheck（その種の掛け・取り込みの時刻）— dotnet 約 10 分（boss1 の合図で）。種を替えるなら 2・3・4・6 の窓を取り直す。
 5. 撮り（Unity の LOCK）: 本の 1 run（窓 = 置いて待つ の投〜取り込み）＋ 季節 3 枚（ShotAt を Bottom の後に）＋ mock の夜明け。音の陽性・陰性（旗なしは今と同じ, ④の予測どおり）。
