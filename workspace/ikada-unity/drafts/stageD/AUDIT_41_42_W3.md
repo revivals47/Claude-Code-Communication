@@ -135,3 +135,10 @@
 - 直し（11 §5.3:376）: (a) 区域の判定 = DIVE のアンカーの位置（PC の見積り: DIVE に入った時の q から VAnchor×1.3 で進み XAnchorMax = RopeQ+0.5 で止まる = 0x05 で送る値と同じ式）が RopeQ 以上、(b) RopeQ が有限の時 RUN の目標 _runEndQ を RopeQ で止める。RNG の引き方・閾・確率は替えない。
 - ★予測 1（今の遊び, RopeQ +∞）: 何も変わらない★ = RUN の目標は min(_q+len, +∞) で同じ・DIVE は起きない（AfterRun の RopeQ 有限の条件）・区域の判定は呼ばれない → ★RefCheck 11 本 = #15 の値のまま★、dotnet test 全体 = 2750f49 と同じ合否（pre-existing の失敗があれば同じ件数・名前）。
 - 予測 2（試験の器 24 cell, RopeQ = 深さ＋d）は 測り直しの前に別に登録する。
+- code 済（観測）: w3/rope-shape 262b676 = FightAi.cs（pc/src と unity Runtime の 2 つ, cmp 同一）+6/−2: _diveA（DIVE に入った時の q から VAnchor×1.3×dt で進み min(50, RopeQ+0.5) で止まる = 0x05 の値と同じ）、Rope の inZone = _diveA ≥ RopeQ、StartRun で RopeQ 有限なら _runEndQ = min(_q+len, RopeQ)。測りの枝 w3/rope-shape-probe = 262b676 ＋ 器の hook 3 つ（cherry-pick, push なし）。
+- RefCheck の確かめ方: 11 本 = CI の 8 cell（4/20・7/20 × 種 20260925・1・2・3, ci.yml:104-107）＋ README の E′（4/20 三番筏）・F（10/15 種 1）・G（12/10 種 1）。★A/B = 2750f49 と 262b676 で 11 本の events・numbers の hash が全部同じ★（README の固定値も照合）。
+- ★予測 2（試験の器 24 cell, 形の直しの後, RopeQ = 深さ＋d）★（推論）:
+  - Locked: 区域の入りが ★0 から増える★（アンカーで判定 = 魚が動けなくても DIVE のアンカーは RopeQ+0.5 へ進む）、張力が高いので 入りはほぼ全部「逃げる」、巻かれ 0〜1%。
+  - Good: ドラグ 3 N > 抜ける閾 0.9〜2.5 N で 魚が引いている間に区域へ入る = 逃げが大半 → ★巻かれ 20〜23% → 0〜5%★、取り込み率 ≥ 90%、取り込み/日の減り ≤ 10%。
+  - Slack: 巻かれ 18〜27% → 3〜15%（Good より多い = 腕で分かれる）。
+  - DIVE/ファイト 2.3〜3.1 のまま（AfterRun は替えていない）、d の差は 小さいまま。
