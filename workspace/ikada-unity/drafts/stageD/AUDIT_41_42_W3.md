@@ -164,3 +164,10 @@
 - core のアンカー: 初めは q（ikd_fight.c:238）、毎 1 ms `a += v_anchor·dt` → [0, x_anchor_max] に clamp（:250-251）、★糸に引かれている時（dragged = xdot < qdot かつ k(q−x)+c(qdot−xdot) > margin, :252）だけ★ `a = min(a, q)`（:259）。引かれていない時は a は q より先にいてよい（魚がアンカーを追う, :265）。a は phase をまたいで続く（DIVE で q に戻さない）。
 - PC が見られるもの: 0x84 の報告 = Q・LineOutM・張力の山・Events（HOOK_PULLED・HARISU_BREAK・SLACK・SHAKE_END・LIMIT_HIT・DRAG_SLIP, ikd_fight.h:63-66）= ★dragged も a も無い★。試験の器の VdevView（mcu/ikd_vdev.c:296-311）にも a は無い。
 - ★= PC の式で core の a を「差 0」で写すことはできない★（dragged の判定は 1 ms ごとの x・xdot・ばねの力で決まり、PC には 10 ms の報告しか来ない; 始まりの値も DIVE 前から続く a）。差 0 を試験で縛るには ★判断を 1 経路にする★ 必要。
+
+## #42 をここで止める（boss1 04:47 / PRESIDENT 04:5x）— 訳と再開の条件
+- 決め: 案 A（core が アンカー a を 0x84 の報告に載せ、PC の区域の判断はそれだけ = 1 経路）を採る。★ただし今は入れない★。
+- 訳: RopeQ は 今の遊びに渡していない機能（+∞）= 遊びは何も変わらない一方、A は protocol / ABI・libikd（Unity 同梱の作り直し）・Unity の pin を動かす = 今の釣り合いに合わない。
+- 置いておく物: ikada-sim-w3 の局所の枝 ★w3/rope-shape dcb796a（push しない）★（区域をアンカーの見積りで・RUN を RopeQ で止める; RefCheck 11/11 不変・test 同じ）、測りの枝 w3/rope-shape-probe・w3/audit41-probe（試験の器の hook, push しない）、器 Probe41 と結果（audit41/・audit41/shape/）。
+- ★再開の条件★: 依頼者の「ロープで巻かれる割合」などの答え（PRESIDENT から #41 と一緒の 1 問）が来て、★ロープを遊びに入れると決めた時★に、(1) 案 A（a を報告に・_diveA を消す・試験 = 区域の判断が報告の a から来る、陽性対照 = dcb796a の見積りと core の a の差）、(2) 区域の数（0.8×F_run・0.3 s・t_wrap・p_wrap_cut・摩耗）を答えに合わせて、(3) FishingSession が RopeQ を渡す（筏ごとの位置）を ★1 つの版で★。その版で RefCheck の固定し直し（RopeQ を渡すと動く見込み）と 24 cell の測り直し。
+- 残る既知: 閾をまたぎ続けると DIVE が終わらない道（前からある; 18 cell では Abort 0）、Good の残りの巻かれ（大きいチヌ × 閾の近くの張力の揺れ）。
