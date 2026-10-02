@@ -1,0 +1,2 @@
+[weather] control seed 26 4-20: 雨 強風 cancelled=False
+[weather] 4-20 seeds 1-500: 晴れ 199, くもり 159, 雨 102, 晴れ/欠航 17, くもり/欠航 16, 雨/欠航 7; sunny not cancelled 199
