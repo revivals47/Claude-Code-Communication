@@ -38,3 +38,8 @@ v1 = drafts/user_review/pr_30s_v1.mp4（sha 14b7bde4…, PR_CAPTURE_W3.md §9-10
 ## ③ の済み（観測, 11:5x, 組み立てだけ・Unity なし）
 - assemble_pr.py: 各カットに label / labels（日付・場所・出所）→ 組み立てのたびに `<名>_sheet.png` = 静止画は各枚の フェード前のきれいな所の真ん中・他はカットの真ん中を 1 枚、名 = 動画の秒 ＋ label（時刻だけの名を出さない）。selftest PASS。
 - pr_30s_v2_draft.json: 季節 = 1 枚 2.0 s・クロスフェード 0.3 s（18.0〜24.0 s）、足りない 1.5 s はファイト 7.0 → 5.5 s（v2 の晴れの種の撮りで差し替えるまでの仮）、合計 30.000 s・900 frame。下書きの sheet = drafts/pr_video/pr_30s_v2_draft_sheet.png（18.8 s 7/20 芦北 = 青空、20.8 s 10/15 樋島 = 曇り、22.8 s 12/10 蒲江 = 夕）。下書きの mp4 は scratch だけ（user_review・ikada-play へは出さない）。
+
+## ④ の code（観測, 12:0x, track3/pr-capture, Unity なし, Roslyn 0）と予測（回す前）
+- code: AmbientAudio・FishingAudio に `CaptureTap`（static bool, 既定 false）・`CaptureStart()`（窓の前に溜まった波・きしみ・Snap を捨てる）・`PullAdd(mono, n)`（OnAudioFilterRead と同じ手順を主の thread で, 足し込み）、各 OnAudioFilterRead の頭に `if (CaptureTap) return;` の 1 行。DemoCapture = -ikadaDemoAudio の時だけ CaptureTap を立て（:63）、slow window の毎 frame 800 標本（48000/60）を 2 つから足して × AudioListener.volume、16-bit stereo の wav。AudioRenderer は外した。
+- ★旗が無い時は今と同じ（boss1 11:48 の条件）の証し（観測, grep / git diff）★: CaptureTap に書く所 = DemoCapture.cs:63 の 1 か所だけ（-ikadaDemoAudio の枝の中）、2 つの音の file の git diff で 消した・替えた行 0、古い OnAudioFilterRead の中に足した行 = 偽の guard 1 行ずつだけ。★撮りの番での陽性（予定）★: 旗なしの regress（REGRESS_LIVE=1）の live 5（音の判定, AUDIO.txt = 基準）が 今と同じ = 音の数え（fed・wave の数・callbacks の形）が変わらない。
+- 予測（撮りの番, 回す前）: wav の秒 = 窓の秒 ± 1/60 s（20 s 窓なら 960000 標本 × 2 = 19.98〜20.02 s）、peak > 0 で 桁 0.1〜0.6（実時間の [Ambient] peak 0.572 × listener 0.8 の桁）、[Ambient] RESULT の wave_hits が 0 でない・callbacks 0（音の thread は作らない）、player の窓は無音。外れ（peak 0 など）= 計測へ（PullAdd の中の chunk の数と synth の counter）。
