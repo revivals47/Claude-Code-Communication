@@ -54,9 +54,12 @@
    "xfade": 0
   },
   {
-   "kind": "title",
-   "text": "筏の涯へ",
-   "dur": 2.5
+   "kind": "stills",
+   "images": [
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/title/frames/f_000058.jpg"
+   ],
+   "each": 2.5,
+   "xfade": 0
   }
  ],
  "captions": [
