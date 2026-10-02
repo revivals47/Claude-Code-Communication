@@ -1,0 +1,1 @@
+ropetrace Locked spring d=2 days=50 fights=115 zone entries=0 dive ticks outside the zone=217600 | 

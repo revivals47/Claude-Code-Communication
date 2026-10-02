@@ -1,0 +1,61 @@
+  entry 1: WRAPPED (lowT >= tWrap, 50% cut) ticks=185 T mean=0.40 min=0.30 max=3.28 hold(0.8FRun)=2.49 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.83s tWrap=1.82s q=16.83 ropeQ=14.00
+  entry 2: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.55 min=3.36 max=3.65 hold(0.8FRun)=2.33 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.54s q=14.19 ropeQ=14.00
+  entry 3: survived wrap draw (+wear, pause) ticks=155 T mean=0.38 min=0.30 max=3.28 hold(0.8FRun)=2.33 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.53s tWrap=1.54s q=19.17 ropeQ=14.00
+  entry 4: WRAPPED (lowT >= tWrap, 50% cut) ticks=154 T mean=0.40 min=0.30 max=1.85 hold(0.8FRun)=2.33 T>=hold 0% crossings=0 holdT max=0.00s lowT max=1.54s tWrap=1.54s q=22.96 ropeQ=14.00
+  entry 5: WRAPPED (lowT >= tWrap, 50% cut) ticks=143 T mean=0.33 min=0.30 max=2.04 hold(0.8FRun)=2.11 T>=hold 0% crossings=0 holdT max=0.00s lowT max=1.43s tWrap=1.43s q=19.29 ropeQ=14.00
+  entry 6: WRAPPED (lowT >= tWrap, 50% cut) ticks=110 T mean=0.34 min=0.30 max=2.05 hold(0.8FRun)=2.05 T>=hold 0% crossings=0 holdT max=0.00s lowT max=1.10s tWrap=1.10s q=17.58 ropeQ=14.00
+  entry 7: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.69 min=3.69 max=3.69 hold(0.8FRun)=2.48 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.38s q=14.02 ropeQ=14.00
+  entry 8: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.62 min=3.51 max=3.68 hold(0.8FRun)=2.48 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.38s q=14.01 ropeQ=14.00
+  entry 9: WRAPPED (lowT >= tWrap, 50% cut) ticks=141 T mean=0.51 min=0.30 max=3.27 hold(0.8FRun)=2.48 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.39s tWrap=1.38s q=16.91 ropeQ=14.00
+  entry 10: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.74 min=2.73 max=2.74 hold(0.8FRun)=1.86 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.62s q=14.31 ropeQ=14.00
+  entry 11: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.21 min=2.07 max=2.32 hold(0.8FRun)=1.86 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.62s q=14.23 ropeQ=14.00
+  entry 12: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.21 min=2.06 max=2.32 hold(0.8FRun)=1.86 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.62s q=14.08 ropeQ=14.00
+  entry 13: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.54 min=3.32 max=3.66 hold(0.8FRun)=2.49 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.63s q=14.11 ropeQ=14.00
+  entry 14: survived wrap draw (+wear, pause) ticks=165 T mean=0.46 min=0.30 max=3.29 hold(0.8FRun)=2.49 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.63s tWrap=1.63s q=17.87 ropeQ=14.00
+  entry 15: survived wrap draw (+wear, pause) ticks=165 T mean=0.37 min=0.30 max=3.28 hold(0.8FRun)=2.49 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.63s tWrap=1.63s q=16.98 ropeQ=14.00
+  entry 16: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.01 min=2.99 max=3.08 hold(0.8FRun)=2.38 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=2.25s q=14.50 ropeQ=14.00
+  entry 17: WRAPPED (lowT >= tWrap, 50% cut) ticks=228 T mean=0.99 min=0.50 max=3.27 hold(0.8FRun)=2.38 T>=hold 1% crossings=1 holdT max=0.02s lowT max=2.26s tWrap=2.25s q=15.25 ropeQ=14.00
+  entry 18: survived wrap draw (+wear, pause) ticks=192 T mean=0.52 min=0.30 max=3.33 hold(0.8FRun)=2.19 T>=hold 2% crossings=1 holdT max=0.03s lowT max=1.89s tWrap=1.90s q=15.45 ropeQ=14.00
+  entry 19: survived wrap draw (+wear, pause) ticks=191 T mean=0.89 min=0.30 max=3.33 hold(0.8FRun)=2.19 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.89s tWrap=1.90s q=15.05 ropeQ=14.00
+  entry 20: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.02 min=3.00 max=3.18 hold(0.8FRun)=2.46 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.60s q=14.49 ropeQ=14.00
+  entry 21: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.19 min=3.04 max=3.35 hold(0.8FRun)=2.46 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.60s q=14.42 ropeQ=14.00
+  entry 22: WRAPPED (lowT >= tWrap, 50% cut) ticks=163 T mean=0.97 min=0.41 max=3.28 hold(0.8FRun)=2.46 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.61s tWrap=1.60s q=15.07 ropeQ=14.00
+  entry 23: WRAPPED (lowT >= tWrap, 50% cut) ticks=119 T mean=0.40 min=0.30 max=3.29 hold(0.8FRun)=2.40 T>=hold 2% crossings=1 holdT max=0.02s lowT max=1.17s tWrap=1.16s q=16.53 ropeQ=14.00
+  entry 24: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.69 min=3.69 max=3.69 hold(0.8FRun)=2.27 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.48s q=14.00 ropeQ=14.00
+  entry 25: WRAPPED (lowT >= tWrap, 50% cut) ticks=150 T mean=1.10 min=0.54 max=3.28 hold(0.8FRun)=2.27 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.48s tWrap=1.48s q=14.70 ropeQ=14.00
+  entry 26: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.19 min=3.15 max=3.34 hold(0.8FRun)=1.88 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.55s q=14.01 ropeQ=14.00
+  entry 27: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.56 min=2.55 max=2.56 hold(0.8FRun)=1.88 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.55s q=14.27 ropeQ=14.00
+  entry 28: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.55 min=3.33 max=3.67 hold(0.8FRun)=2.22 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.09s q=14.05 ropeQ=14.00
+  entry 29: survived wrap draw (+wear, pause) ticks=111 T mean=1.17 min=1.02 max=3.41 hold(0.8FRun)=2.22 T>=hold 3% crossings=1 holdT max=0.03s lowT max=1.08s tWrap=1.09s q=14.53 ropeQ=14.00
+  entry 30: survived wrap draw (+wear, pause) ticks=110 T mean=0.79 min=0.50 max=3.34 hold(0.8FRun)=2.22 T>=hold 2% crossings=1 holdT max=0.02s lowT max=1.08s tWrap=1.09s q=15.36 ropeQ=14.00
+  entry 31: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.21 min=3.15 max=3.36 hold(0.8FRun)=1.89 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.43s q=14.01 ropeQ=14.00
+  entry 32: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.17 min=3.14 max=3.26 hold(0.8FRun)=1.86 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.51s q=14.00 ropeQ=14.00
+  entry 33: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.66 min=2.13 max=2.97 hold(0.8FRun)=1.86 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.51s q=14.00 ropeQ=14.00
+  entry 34: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.21 min=2.06 max=2.32 hold(0.8FRun)=1.86 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.51s q=14.09 ropeQ=14.00
+  entry 35: survived wrap draw (+wear, pause) ticks=185 T mean=0.80 min=0.30 max=3.35 hold(0.8FRun)=2.17 T>=hold 2% crossings=3 holdT max=0.03s lowT max=0.97s tWrap=0.98s q=14.95 ropeQ=14.00
+  entry 36: survived wrap draw (+wear, pause) ticks=99 T mean=0.69 min=0.30 max=3.34 hold(0.8FRun)=2.17 T>=hold 2% crossings=1 holdT max=0.02s lowT max=0.97s tWrap=0.98s q=15.04 ropeQ=14.00
+  entry 37: WRAPPED (lowT >= tWrap, 50% cut) ticks=228 T mean=0.36 min=0.30 max=3.29 hold(0.8FRun)=2.46 T>=hold 1% crossings=1 holdT max=0.02s lowT max=2.26s tWrap=2.25s q=18.39 ropeQ=14.00
+  entry 38: fight ended PullSlack ticks=79 T mean=0.35 min=0.30 max=2.03 hold(0.8FRun)=2.17 T>=hold 0% crossings=0 holdT max=0.00s lowT max=0.78s tWrap=0.81s q=21.48 ropeQ=14.00
+  entry 39: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.36 min=3.18 max=3.55 hold(0.8FRun)=1.98 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.70s q=14.01 ropeQ=14.00
+  entry 40: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.14 min=2.04 max=2.20 hold(0.8FRun)=1.98 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.70s q=14.35 ropeQ=14.00
+  entry 41: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.14 min=2.03 max=2.19 hold(0.8FRun)=1.98 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.70s q=14.25 ropeQ=14.00
+  entry 42: survived wrap draw (+wear, pause) ticks=207 T mean=1.06 min=0.30 max=3.11 hold(0.8FRun)=1.98 T>=hold 3% crossings=3 holdT max=0.04s lowT max=1.70s tWrap=1.70s q=14.68 ropeQ=14.00
+  entry 43: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.95 min=2.95 max=2.95 hold(0.8FRun)=1.98 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.70s q=14.81 ropeQ=14.00
+  entry 44: ESCAPED (holdT 0.3 s) ticks=97 T mean=1.38 min=0.72 max=2.10 hold(0.8FRun)=1.98 T>=hold 33% crossings=2 holdT max=0.30s lowT max=0.65s tWrap=1.70s q=14.62 ropeQ=14.00
+  entry 45: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.69 min=3.69 max=3.69 hold(0.8FRun)=2.12 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.09s q=14.02 ropeQ=14.00
+  entry 46: survived wrap draw (+wear, pause) ticks=110 T mean=0.55 min=0.30 max=3.32 hold(0.8FRun)=2.12 T>=hold 2% crossings=1 holdT max=0.02s lowT max=1.08s tWrap=1.09s q=17.81 ropeQ=14.00
+  entry 47: WRAPPED (lowT >= tWrap, 50% cut) ticks=111 T mean=0.40 min=0.30 max=3.29 hold(0.8FRun)=2.12 T>=hold 2% crossings=1 holdT max=0.02s lowT max=1.09s tWrap=1.09s q=16.70 ropeQ=14.00
+  entry 48: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.69 min=3.69 max=3.69 hold(0.8FRun)=2.30 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.98s q=14.01 ropeQ=14.00
+  entry 49: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.36 min=2.97 max=3.59 hold(0.8FRun)=2.30 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.98s q=14.29 ropeQ=14.00
+  entry 50: survived wrap draw (+wear, pause) ticks=200 T mean=0.90 min=0.30 max=3.30 hold(0.8FRun)=2.30 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.98s tWrap=1.98s q=15.33 ropeQ=14.00
+  entry 51: WRAPPED (lowT >= tWrap, 50% cut) ticks=201 T mean=1.11 min=0.45 max=3.31 hold(0.8FRun)=2.30 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.99s tWrap=1.98s q=14.64 ropeQ=14.00
+  entry 52: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.47 min=3.21 max=3.62 hold(0.8FRun)=2.01 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.16s q=14.01 ropeQ=14.00
+  entry 53: WRAPPED (lowT >= tWrap, 50% cut) ticks=119 T mean=0.37 min=0.30 max=3.37 hold(0.8FRun)=2.01 T>=hold 3% crossings=1 holdT max=0.03s lowT max=1.16s tWrap=1.16s q=15.19 ropeQ=14.00
+  entry 54: WRAPPED (lowT >= tWrap, 50% cut) ticks=163 T mean=0.65 min=0.30 max=3.35 hold(0.8FRun)=2.14 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.61s tWrap=1.61s q=15.85 ropeQ=14.00
+  entry 55: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.69 min=3.69 max=3.69 hold(0.8FRun)=2.47 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.97s q=14.01 ropeQ=14.00
+  entry 56: survived wrap draw (+wear, pause) ticks=199 T mean=1.00 min=0.50 max=3.29 hold(0.8FRun)=2.47 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.97s tWrap=1.97s q=15.10 ropeQ=14.00
+  entry 57: WRAPPED (lowT >= tWrap, 50% cut) ticks=200 T mean=0.42 min=0.30 max=3.29 hold(0.8FRun)=2.47 T>=hold 1% crossings=1 holdT max=0.02s lowT max=1.98s tWrap=1.97s q=18.90 ropeQ=14.00
+  entry 58: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.44 min=3.20 max=3.60 hold(0.8FRun)=2.00 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.84s q=14.01 ropeQ=14.00
+  entry 59: ESCAPED (holdT 0.3 s) ticks=30 T mean=2.18 min=2.17 max=2.20 hold(0.8FRun)=2.00 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.84s q=14.00 ropeQ=14.00
+  entry 60: ESCAPED (holdT 0.3 s) ticks=30 T mean=3.32 min=3.17 max=3.51 hold(0.8FRun)=1.96 T>=hold 100% crossings=0 holdT max=0.30s lowT max=0.00s tWrap=1.88s q=14.01 ropeQ=14.00
+ropetrace Good spring d=2 days=50 fights=111 zone entries=82 dive ticks outside the zone=193734 | [ESCAPED (holdT 0.3 s)]=42 [WRAPPED (lowT >= tWrap, 50% cut)]=21 [survived wrap draw (+wear, pause)]=18 [fight ended PullSlack]=1
