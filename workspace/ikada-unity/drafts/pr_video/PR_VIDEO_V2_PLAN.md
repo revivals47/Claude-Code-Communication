@@ -43,3 +43,30 @@ v1 = drafts/user_review/pr_30s_v1.mp4（sha 14b7bde4…, PR_CAPTURE_W3.md §9-10
 - code: AmbientAudio・FishingAudio に `CaptureTap`（static bool, 既定 false）・`CaptureStart()`（窓の前に溜まった波・きしみ・Snap を捨てる）・`PullAdd(mono, n)`（OnAudioFilterRead と同じ手順を主の thread で, 足し込み）、各 OnAudioFilterRead の頭に `if (CaptureTap) return;` の 1 行。DemoCapture = -ikadaDemoAudio の時だけ CaptureTap を立て（:63）、slow window の毎 frame 800 標本（48000/60）を 2 つから足して × AudioListener.volume、16-bit stereo の wav。AudioRenderer は外した。
 - ★旗が無い時は今と同じ（boss1 11:48 の条件）の証し（観測, grep / git diff）★: CaptureTap に書く所 = DemoCapture.cs:63 の 1 か所だけ（-ikadaDemoAudio の枝の中）、2 つの音の file の git diff で 消した・替えた行 0、古い OnAudioFilterRead の中に足した行 = 偽の guard 1 行ずつだけ。★撮りの番での陽性（予定）★: 旗なしの regress（REGRESS_LIVE=1）の live 5（音の判定, AUDIO.txt = 基準）が 今と同じ = 音の数え（fed・wave の数・callbacks の形）が変わらない。
 - 予測（撮りの番, 回す前）: wav の秒 = 窓の秒 ± 1/60 s（20 s 窓なら 960000 標本 × 2 = 19.98〜20.02 s）、peak > 0 で 桁 0.1〜0.6（実時間の [Ambient] peak 0.572 × listener 0.8 の桁）、[Ambient] RESULT の wave_hits が 0 でない・callbacks 0（音の thread は作らない）、player の窓は無音。外れ（peak 0 など）= 計測へ（PullAdd の中の chunk の数と synth の counter）。
+
+## v2 の撮り直しの支度（worker3, boss1 04:47 / PRESIDENT 04:5x, text だけ）— 竿の直しの後の形で カットごとに見直し
+依頼者の根本の指摘（竿の置き方・ファイトの竿の高さ・リールの向き, PRESIDENT 12:0x）の直し = 合わせた木（track2/rod-combined, ROD_COMBINED_PLAN.md §1）の既定: ★竿受け（待ちは受けに水平）・手に持つ（Drop → 手で穂先 −0.10・横 0.10・lift 0.05 → Bottom で受けへ τ 0.5 s、HookSet/StrikeMiss → 手、次の札で受け, RodHand §15-16）・握り +0.30・ファイトの下限 余白 0.6・糸 iii・リール外巻き★。★撮りは この木が master に入った後★（今の v1 の撮りは 全部 直しの前の竿 = 使い回せるのは 竿の映らないカットだけ）。
+
+### カットごと（v2 下書き pr_30s_v2_draft.json の順, 秒は下書き）
+| # | 秒 | 中身・出所 | 竿の状態（直しの後, 推論） | 映る直し | 撮り直し | 確かめ（撮りの時, 予測は撮る前に登録） |
+|---|---|---|---|---|---|---|
+| 1 | 0–4 | 夜明け = player mock 06（dawn_clear, HUD・穂先の枠 off） | 受けに水平（mock は RodHand を回さない = 受け, RodHand.cs の注） | ★竿受け・外巻き★（リールは画の下の端, 台詞の箱の後ろ = mock は台詞なし） | 要 | 受けの U 字に竿・リールの向き（外巻き）が画で読めるか（下の端で切れていないか） |
+| 2 | 4–9 | 穂先のアップ = ★3D の竿先の寄り（v2 ①, -ikadaDemoCam tip）★、種 26・4/20 787–792 s（つつき 787.9・本アタリ 791.8） | 待ち = 受けに水平（Bottom の後, 投の後 数 s で受けへ） | ★竿受け★（穂先は受けの先 0.47 m = 寄りの画に受けの U 字が入りうる） | 要（①の code が先） | ①の寄りの姿勢で 受けと穂先の両方を入れるか・穂先だけか（推奨 = 受けを画の端に入れる = 「置いて待つ」が見える）。near clip が受けにかからないか |
+| 3 | 9–14.5 | 合わせ〜ファイト, 種 26 792–797.5 s（掛け 792.4） | 掛けで 手 → ファイトの竿（握り +0.30・下限 0.6・糸 iii） | ★ファイトの竿の高さ・リール外巻き・糸★ | 要 | ★晴れて釣れる種（v2 ②）に替えるか★: 種 26・4/20 は一日 曇り・雨（PR_CAPTURE §2-3）。②の走査（Calendar の晴れ × RefCheck の掛け）は dotnet 未実行 = 次の dotnet の番で。替えるなら 2・3・4・6 を同じ種の 1 run に |
+| 4 | 14.5–18 | 取り込み, 種 26 860.5–864 s（LandingStart 859.9・Landed 865.4） | 手（HookSet から次の札まで） | 握り・外巻き | 要 | 取り込みの間 竿が受けに戻らない（RodHand = 手のまま, §16 の予測）・リールの向き |
+| 5 | 18–24 | 季節 3 枚 = 種 1 の 7/20 芦北・10/15 樋島・12/10 蒲江 の 06 を ShotAt 40 s | 7/20 種 1 = Drop 7.0 s・Bottom 15.9 s（c177 の観測）→ ★40 s は受け★。10/15・12/10 は ★沈みの長さ 未確認★（深い所なら 40 s で まだ手 = 横・穂先 −0.10） | 竿受け（or 手） | 要 | ★3 枚の竿の状態をそろえる★: 撮りの log の [RodHand] rest at bottom の時刻で 40 s を Bottom の後に動かす（推奨 = 3 枚とも受け = 季節の違いだけが目に入る） |
+| 6 | 24–27.5 | 日誌 J（種 26 の日の終わり） | 竿なし | – | 種を替えたら要（釣果が替わる） | 釣果の字 |
+| 7 | 27.5–30 | 題 05（題だけの frame は無い = v1 の確かめ） | 竿なし | – | 不要（v1 の撮り） | – |
+
+### 足すかの決め（PRESIDENT へ, 推奨 1 つ）
+- ★推奨: 「置いて待つ」を 1 カット足す★ = 依頼者の 1 つ目の指摘（竿の置き方）の直しが 今の 7 カットでは「受けに置かれている」静止の画でしか見えない。足す案 = ダンゴを落とす → 手に持って沈める → 停まって受けへ置く（RodHand の移り τ 0.5 s）を 3〜4 s（沈みの間を切り詰めて 2 区間: 落とす 1.5 s ＋ 置く 2 s）。出所 = 本の撮りと同じ種の 1 つ前の投の窓（Drop と Bottom の時刻は 撮りの log の [RodHand] で取る = 今は 未確認）。入れるなら 1 を 4 → 2.5 s、季節 6 → 5 s で 30 s に収める（下書きの計算, 未組み立て）。
+- 入れない場合: 2 の寄りに受けを入れる（上の表）で 置き方の直しは見える。
+
+### 撮りの前に要る物（順, 推論の工数）
+1. 合わせた木が master に入る（worker2・boss1, 待ち）。
+2. ④ 音の口（track3/pr-capture 99c3760 = e41e21c が元）を 新しい master に rebase（衝突の見込み = DemoCapture・2 つの Audio だけ = 竿の file と重ならない, merge-tree で確かめる）— 10 分。
+3. ① 竿先の寄り（-ikadaDemoCam tip）の code — 1〜1.5 h（受けを画に入れる姿勢の 1 枚の試し撮りを先に）。
+4. ② 晴れて釣れる種: Calendar の走査（ZzWeatherScan.cs.txt, 試験 1 本）＋ RefCheck（その種の掛け・取り込みの時刻）— dotnet 約 10 分（boss1 の合図で）。種を替えるなら 2・3・4・6 の窓を取り直す。
+5. 撮り（Unity の LOCK）: 本の 1 run（窓 = 置いて待つ の投〜取り込み）＋ 季節 3 枚（ShotAt を Bottom の後に）＋ mock の夜明け。音の陽性・陰性（旗なしは今と同じ, ④の予測どおり）。
+6. 組み立て（assemble_pr.py, Unity なし）→ 出所の表（各カットの run・秒）→ 一覧の sheet を見てから PRESIDENT へ。
+- ★動画は ゲームの画だけ（生成の画・作った HUD の値なし）、カットの出所の表を組み立ての前に出す（規則）★。
