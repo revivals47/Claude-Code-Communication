@@ -29,3 +29,8 @@ v1 = drafts/user_review/pr_30s_v1.mp4（sha 14b7bde4…, PR_CAPTURE_W3.md §9-10
 
 ## 合計の見積り（撮りの日の前の code）
 - ①④ の code 約 4 h ＋ ②の dotnet 10 分 ＋ 締め・飛ばす 25 分。撮りの番（Unity）= Roslyn・build 5 分 ＋ 撮り（晴れの種で 785-870 相当の窓・竿先の寄り・音つき）約 25 分 ＋ 組み立て 5 分。
+
+## ② の code と予測（回す前, boss1 11:48: 順 = ② → ③ → ④ → ①, dotnet は boss1 の合図）
+- 読んだ事（観測）: 天気 = Calendar.Get（ikada-sim Calendar.cs:70-88）= 日ごとの流れ RngTree.Sub(worldSeed, Noise, 0xCA100 + n) の u で 晴れ u < 0.45・くもり < 0.8・雨、風 w、強風なら 4 月は 0.5 で欠航。描く空 = SnapshotBuilder.SkyOf(Info.Weather)（:175, :184）= その日ずっと同じ。
+- code: 試験 ZzWeatherScan（commit しない, 種 1〜500 の 4/20 の天気、陽性対照 = 種 26 が 雨）→ drafts/pr_video/sunny_seed_scan.sh（晴れ・欠航なしの最初の 30 種を RefCheck 418b374 で、最初の hookset・Landed・catches の表）。
+- 予測: 晴れ ≈ 45 %（500 中 約 225）、晴れで欠航なし ≈ 41 %（約 208, 強風 15 % × 欠航 0.5 を引く）、種 26 = 雨（陽性対照）。最初の 30 の晴れの種のうち Landed が 1500 s より前の種は 3 個以上（推論: 種 26 は 3 匹・最初の掛け 792 s）。選ぶ = 掛けが早く・ファイト ≥ 30 s・風 微風（波が穏やかな絵）。
