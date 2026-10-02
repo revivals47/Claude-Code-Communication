@@ -12,11 +12,11 @@ def pose(L, a, side=0.0):
     t = (b[0]+u[0]*Lr*math.cos(a), b[1]+Lr*math.sin(a), b[2]+u[2]*Lr*math.cos(a))
     return b, t
 def report(name, L, a, side=0.0):
-    b, t = pose(L, a, side); cy = L + dc*math.sin(a)
+    b, t = pose(L, a, side); cy = L + dc*math.tan(a)
     bs, ts = S(b), S(t); print(f"{name}: a {a:+.4f} rad  rod at the cradle {cy:+.3f} m vs point  tip ({ts[0]:.0f}, {ts[1]:.0f})  dy_tip {ts[1]-S(tip)[1]:+.0f} px  butt ({bs[0]:.0f}, {bs[1]:.0f})")
 print(f"rest tip {tuple(round(v) for v in S(tip))}, butt {tuple(round(v) for v in S(butt))}, butt->cradle {dc:.3f} m, rod {Lr:.3f} m")
 report("pre-holder (no rest, L 0, a -0.10)", 0.0, -0.10)
 for L in (0.05, 0.10, 0.30):
-    a = max(-0.10, -math.asin(max(0.0, L - c)/dc))
+    a = max(-0.10, -math.atan(max(0.0, L - c)/dc))   # codex 12:5x: tan, not sin
     report(f"over the rest L {L:.2f}", L, a)
 report("aside L 0.05 side 0.10 (full -0.10)", 0.05, -0.10, 0.10)
