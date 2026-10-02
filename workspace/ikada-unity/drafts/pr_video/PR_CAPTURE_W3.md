@@ -39,3 +39,8 @@
 - 段 3: 旗あり・なしで RESULT の steps・page・screens 同じ、`[Demo] HUD hidden on N frames` N > 0、画の差は HUD の所だけ。frame の数 = 窓の秒 × 30 ± 2。
 - 段 6: 900 frame・30.000 s・h264・1920x1080・30/1・音 aac 1 本・約 25 MB（PR_VIDEO_PLAN §3 の見込み）。
 - ★段 2 の結果（観測, 11:2x, RefCheck 418b374 --seed 26 4/20）★: つつき 787.917 s → 本アタリ（Take）791.817 s → 掛け（HookSet, band 1）792.383 s → LandingStart 859.917 s → Landed 865.417 s = 22e566a の 787.9 / 791.8 / 792.4 / 865.4 と同じ（記録の直しで動かない）。その日 catches 3・hooksets 4（2 匹目の掛け 2565.833 s・Landed 2630.350 s）。events 75dbeaea44599520・numbers 5c4981ab58484a76・frames 539333（= live の種 26 の基準の steps 539212 とは別の数 = live の窓は frame/60 の pilot、ここは照合の frames）。→ 本の撮りの窓 = `785-870`（つつきの −3 s 〜 取り込みの ＋4.6 s, 85 s ≈ 2,550 枚）。
+
+## 8. 音の試し 1 回目の結果と 2 回目（計測）の予測
+- 1 回目（観測, 11:23, shots/pr_audio_trial_1123, build ee307b0 系 11:22:34, Roslyn 0・負の対照 1 = 当たり）: AudioRenderer.Start ★True★・48000 Hz・Stereo（未確認だった 2 つ = 当たり）、1200 frame・959488 標本 × 2 ch = 19.989 s（20 s ± 1/60 = 当たり）、★peak 0.0000 = 無音 = 外れ★。HUD hidden 7 frame（> 0）、RESULT ok・Exception 0・600 枚・player 0。
+- 読んだ事（観測）: PlayerPrefs に音量の鍵なし（= 既定の音量）、ProjectSettings の AudioManager m_DisableAudio 0・m_Volume 1、★runInBackground: 0★（ProjectSettings.asset）、ゲームの試験は focus が無い時のために runInBackground = true を立てる（KeyTest・PlayerShot など）。
+- ★2 回目の予測（計測, -ikadaDemoAudioProbe, 回す前）★: 仮説 = 窓に focus が無い（依頼者が PC を使っている）+ runInBackground false で Unity が音を止める → frame 0〜599: isFocused False・runInBackground False・peak 0、frame 600 で runInBackground true・pause false にした後 peak > 0 に変わる。替わらなければ H4（例: sources playing 0 = この窓で鳴る音が無い / AudioRenderer の取り方）→ その時は sources の数と音量で次を決める。
