@@ -59,6 +59,7 @@ static class Program
         CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
         string mode = a.Length > 0 ? a[0] : "human";
         int days = a.Length > 1 ? int.Parse(a[1]) : 20;
+        if (mode == "rope") { Rope(days, a[2], a[3], a[4]); return 0; }
         if (mode == "human") Human(days); else Pilot(days, a.Length > 2 ? a[2] : "4-20,7-20,10-15,12-10");
         return 0;
     }
@@ -129,6 +130,33 @@ static class Program
             }
         }
         Report("pilot", T);
+    }
+
+    // #42: one cell = skill x season x rope distance (m beyond the start line, or "none" = +inf), one line (chunkable runs)
+    static void Rope(int days, string skillName, string season, string ropeArg)
+    {
+        PlayerSkill skill = (PlayerSkill)Enum.Parse(typeof(PlayerSkill), skillName);
+        SeasonMonth? m = season == "July" ? Chapter2Season.For(7) : null;
+        FightHarness.RopeAheadM = ropeArg == "none" ? (float?)null : float.Parse(ropeArg, CultureInfo.InvariantCulture);
+        var p = new Profile(16, StrikeTiming.OnTake, 150f, 45f, fight: skill);
+        int hooked = 0, landed = 0, dives = 0, fightsWithDive = 0; var ends = new Dictionary<FightEnd, int>(); var secs = new List<float>();
+        FightHarness.Record = new List<(Ikada.Native.Species, float, FightEnd)>();
+        for (uint s = 1; s <= (uint)days; s++)
+        {
+            var c = m == null ? new DayConditions() : new DayConditions { TempC = m.TempC, Activity = m.Activity };
+            if (m != null) { c.Density[Ikada.Native.Species.Chinu] = m.ChinuSeason; foreach (var kv in m.Stealers) c.Density[kv.Key] = kv.Value; }
+            c.Purchase = Ikada.Logic.Tackle.Inventory.Default();
+            DayTally t = FishingDay.Run(s, p, 8f, 0f, c);
+            hooked += t.Hooked; landed += t.Landed; dives += t.FightDives; secs.AddRange(t.FightSeconds);
+            foreach (var kv in t.Ends) ends[kv.Key] = ends.GetValueOrDefault(kv.Key) + kv.Value;
+        }
+        FightHarness.RopeAheadM = null;
+        int fights = ends.Values.Sum(); secs.Sort();
+        string E(FightEnd e) => $"{ends.GetValueOrDefault(e)}({(fights == 0 ? 0 : 100.0 * ends.GetValueOrDefault(e) / fights):0.0}%)";
+        Console.WriteLine($"rope {skillName} {season} d={ropeArg} days={days} hooked={hooked} fights={fights} landed/day={landed / (double)days:0.00} " +
+                          $"Landed={E(FightEnd.Landed)} Wrapped={E(FightEnd.Wrapped)} PullSlack={E(FightEnd.PullSlack)} PullShake={E(FightEnd.PullShake)} " +
+                          $"BreakT={E(FightEnd.BreakTension)} BreakW={E(FightEnd.BreakWear)} Mouth={E(FightEnd.MouthTear)} Abort={E(FightEnd.Abort)} " +
+                          $"dives/fight={(fights == 0 ? 0 : dives / (double)fights):0.00} median_s={(secs.Count == 0 ? 0 : secs[secs.Count / 2]):0}");
     }
 
     static void Report(string name, Tally T)
