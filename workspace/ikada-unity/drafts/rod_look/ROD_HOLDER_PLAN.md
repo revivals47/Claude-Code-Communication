@@ -127,3 +127,4 @@
   - 横（既定）: 穂先 y = 701〜702（c175 と同じ形）を ★drop の 1 s 後から Bottom まで保つ★（c175 は 10.5 s で戻った = 今度は戻らない）、Bottom の後: 0.40 s で受けの上へ（横が 0.045 を切る）、受けの上では角 0・lift の分だけ上 = dy ≈ lift = ★1.5 s（3τ）で 0.0025 m、dy ≤ 0.002 は 1.61 s★、placed = 3.45 s（横 0.10 が 1e-4 まで = 0.5 ln 1000）、through（手の間・置く間）0。
   - 受けの前（pre）: 穂先 y ≈ 717（受けの前の形 +81 px, 計算）を Bottom まで、竿は受けの柱の所を通る = through = 手の全 frame（dy ≈ −0.26 m）、置く間 through ≈ 146 frame（足しの下げが −0.00076 rad を越えるまで 2.44 s）、placed 3.45 s。リールは入らない（竿尻は動かない）。
 - 撮り: 2 run（横・pre）× 6.5〜60 s を 1 s 刻み、quit 61 s。Bottom の時刻は log で読み、その前後の画を並べる。
+- 分ける案（boss1 13:13, 今は分けない）: RuntimeRod.cs は eb8f9e0 で 501 行 = 500 行の目安を越えた → (A)(B) を合わせる時に `public sealed partial class RuntimeRod` にして 手と受けの所（Rest・HolderLog・OnDestroy・hand/rest の field と定数・env の HeldLift/Side/DipScale/HandPos、約 110 行）を RuntimeRod.Hold.cs へ移す（RodHand.InHand を読むのはそこだけになる）。今の RuntimeRod に partial は無い（grep 0）= 宣言に 1 語足すだけ、.meta は新 file に 1 つ。
