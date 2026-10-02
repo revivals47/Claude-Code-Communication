@@ -44,3 +44,15 @@
 - 1 回目（観測, 11:23, shots/pr_audio_trial_1123, build ee307b0 系 11:22:34, Roslyn 0・負の対照 1 = 当たり）: AudioRenderer.Start ★True★・48000 Hz・Stereo（未確認だった 2 つ = 当たり）、1200 frame・959488 標本 × 2 ch = 19.989 s（20 s ± 1/60 = 当たり）、★peak 0.0000 = 無音 = 外れ★。HUD hidden 7 frame（> 0）、RESULT ok・Exception 0・600 枚・player 0。
 - 読んだ事（観測）: PlayerPrefs に音量の鍵なし（= 既定の音量）、ProjectSettings の AudioManager m_DisableAudio 0・m_Volume 1、★runInBackground: 0★（ProjectSettings.asset）、ゲームの試験は focus が無い時のために runInBackground = true を立てる（KeyTest・PlayerShot など）。
 - ★2 回目の予測（計測, -ikadaDemoAudioProbe, 回す前）★: 仮説 = 窓に focus が無い（依頼者が PC を使っている）+ runInBackground false で Unity が音を止める → frame 0〜599: isFocused False・runInBackground False・peak 0、frame 600 で runInBackground true・pause false にした後 peak > 0 に変わる。替わらなければ H4（例: sources playing 0 = この窓で鳴る音が無い / AudioRenderer の取り方）→ その時は sources の数と音量で次を決める。
+
+## 9. v1 のカットと出所（assemble の前, PRESIDENT 11:3x (5)）— 表 = drafts/pr_video/pr_30s_v1.json
+| 動画の秒 | カット | 出所（全部 ゲームの画, 木 = track3/pr-capture 4969177 の build 11:34 / 最初の撮りは 5d476ad の build 11:25）| 字幕 |
+|---|---|---|---|
+| 0.0–4.0 | 夜明けの筏 | player の mock 06（-ikadaMock -ikadaScreen 06 -ikadaDayFrac 0 -ikadaSky Sunny, far = bg_fishing_dawn_clear）HUD・穂先の枠 off。★mock = HUD の値は描かない（HUD off）★ | 夜明けの筏。 |
+| 4.0–9.0 | 穂先のアップ | live 種 26・4/20（芦北）785-870 の撮り（HUD off・穂先の枠 on）の 787.0–792.0 s（つつき 787.9・本アタリ 791.8）、左の穂先の窓 x16–503 y166–595 を縦横比のまま拡大（fit） | 穂先が、語る。 |
+| 9.0–16.0 | 合わせとファイト | live 種 26・4/20 792-867 の撮り（HUD・穂先の枠 off）の 792.0–799.0 s（掛け 792.4）| 待って、合わせる。 |
+| 16.0–19.5 | 取り込み | 同じ撮りの 860.5–864.0 s（LandingStart 859.9・Landed 865.4）| — |
+| 19.5–24.0 | 場所と季節 | live 種 1 の物語の日 7/20 芦北・10/15 樋島・12/10 蒲江（湾のカセ）の 06 を ShotAt 40 s（HUD・穂先の枠 off）、1.5 s ずつ・クロスフェード 0.4 s | — |
+| 24.0–27.5 | 日誌 | live 種 26・4/20 の日の終わりの J（ShotScreens J）= 釣果 チヌ 40/35/30 cm | 海の一日を、記録に。 |
+| 27.5–30.0 | 題 | ★組み立ての字（黒地に「筏の涯へ」, Noto Serif CJK）= ゲームの画でない★（PR_VIDEO_PLAN §1 カット 8 の案）| — |
+- 音なし（PRESIDENT 11:3x (1)）。種 26 の 4/20 は一日中曇り・雨 = 朝〜夕の移りのカットは入れない（夜明けは mock の dawn_clear）。

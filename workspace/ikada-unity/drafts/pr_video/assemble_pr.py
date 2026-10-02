@@ -4,13 +4,14 @@
 
 Input = a cut table (JSON):
   {"fps": 30, "size": [1920, 1080], "out": "pr_<tag>.mp4",
-   "cuts": [ {"kind": "frames", "dir": <DemoCapture dir>, "from": <sim s>, "dur": <s>, "crop": [x0, y0, x1, y1]?},
+   "cuts": [ {"kind": "frames", "dir": <DemoCapture dir>, "from": <sim s>, "dur": <s>, "crop": [x0, y0, x1, y1]?, "fit": true?},
              {"kind": "stills", "images": [<png>...], "each": <s>, "xfade": <s>},
              {"kind": "title", "text": "筏の涯へ", "dur": <s>, "image": <png>?} ],
    "captions": [ {"text": "夜明けの筏。", "from": <s>, "to": <s>} ],
    "caption_y": 868, "audio": {"wav": <path>, "from": <s in the wav>}? }
 - frames: the DemoCapture frames (frames.tsv, kind f) with sim t >= from, the first dur*fps of them (a capture is 30 fps of sim
-  time); fewer than that = an error (never padded silently). crop = a box cut out and scaled to the size (no crop = as shot).
+  time); fewer than that = an error (never padded silently). crop = a box cut out and scaled to the size (no crop = as shot);
+  with "fit": the box keeps its aspect, scaled to fit and centred on a dark ground ("ground": [r, g, b]).
 - stills: each image shown `each` s, the next fading in over `xfade` s (PIL blend, linear).
 - title: the text large in the centre, white, on black (or on `image`, darkened).
 - captions: drawn on the frames whose time in the video is in [from, to): white, soft dark shadow, centred at caption_y.
@@ -35,7 +36,11 @@ def frames_cut(c, fps, size):
     out = []
     for r in pick:
         im = Image.open(os.path.join(c['dir'], f"f_{int(r['index']):06d}.jpg")).convert('RGB')
-        if c.get('crop'): im = im.crop(tuple(c['crop'])).resize(size, Image.LANCZOS)
+        if c.get('crop') and c.get('fit'):   # aspect kept: scaled to fit, centred on a dark ground (a near-square panel never stretched)
+            part = im.crop(tuple(c['crop'])); k = min(size[0] / part.width, size[1] / part.height)
+            part = part.resize((round(part.width * k), round(part.height * k)), Image.LANCZOS)
+            im = Image.new('RGB', size, tuple(c.get('ground', [10, 16, 24]))); im.paste(part, ((size[0] - part.width) // 2, (size[1] - part.height) // 2))
+        elif c.get('crop'): im = im.crop(tuple(c['crop'])).resize(size, Image.LANCZOS)
         elif im.size != tuple(size): im = im.resize(size, Image.LANCZOS)
         out.append(im)
     return out, f"frames t {pick[0]['t']}..{pick[-1]['t']} ({len(pick)})"
@@ -124,7 +129,7 @@ def selftest():
         {'kind': 'title', 'text': '筏の涯へ', 'dur': 2},
         {'kind': 'stills', 'images': st, 'each': 2, 'xfade': 0.6},
         {'kind': 'frames', 'dir': fd, 'from': 101.0, 'dur': 10},
-        {'kind': 'frames', 'dir': fd, 'from': 103.0, 'dur': 5, 'crop': [16, 166, 503, 595]},
+        {'kind': 'frames', 'dir': fd, 'from': 103.0, 'dur': 5, 'crop': [16, 166, 503, 595], 'fit': True},
         {'kind': 'title', 'text': '筏の涯へ', 'dur': 7}],
         'captions': [{'text': '夜明けの筏。', 'from': 2, 'to': 8}, {'text': '穂先が、語る。', 'from': 8, 'to': 14}]}
     v, a, n = build(table, os.path.join(t, 'out'), None)

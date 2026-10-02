@@ -1,0 +1,84 @@
+{
+ "out": "pr_30s_v1.mp4",
+ "caption_y": 930,
+ "cuts": [
+  {
+   "kind": "stills",
+   "images": [
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/dawn/dawn_df0.png"
+   ],
+   "each": 4.0,
+   "xfade": 0
+  },
+  {
+   "kind": "frames",
+   "dir": "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/frames",
+   "from": 787.0,
+   "dur": 5.0,
+   "crop": [
+    16,
+    166,
+    503,
+    595
+   ],
+   "fit": true
+  },
+  {
+   "kind": "frames",
+   "dir": "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/fight/frames",
+   "from": 792.0,
+   "dur": 7.0
+  },
+  {
+   "kind": "frames",
+   "dir": "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/fight/frames",
+   "from": 860.5,
+   "dur": 3.5
+  },
+  {
+   "kind": "stills",
+   "images": [
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/t720/live_06_t40.0.png",
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/t1015/live_06_t40.0.png",
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/t1210/live_06_t40.0.png"
+   ],
+   "each": 1.5,
+   "xfade": 0.4
+  },
+  {
+   "kind": "stills",
+   "images": [
+    "/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/pr_main_1127/journal/live_J.png"
+   ],
+   "each": 3.5,
+   "xfade": 0
+  },
+  {
+   "kind": "title",
+   "text": "筏の涯へ",
+   "dur": 2.5
+  }
+ ],
+ "captions": [
+  {
+   "text": "夜明けの筏。",
+   "from": 0.4,
+   "to": 3.8
+  },
+  {
+   "text": "穂先が、語る。",
+   "from": 4.4,
+   "to": 8.8
+  },
+  {
+   "text": "待って、合わせる。",
+   "from": 9.4,
+   "to": 15.6
+  },
+  {
+   "text": "海の一日を、記録に。",
+   "from": 24.3,
+   "to": 27.3
+  }
+ ]
+}
