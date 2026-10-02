@@ -1,0 +1,18 @@
+  復元対象のプロジェクトを決定しています...
+  /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.UpmCompile/Ikada.UpmCompile.csproj を復元しました (97 ミリ秒)。
+  /home/ken/Documents/ikada-sim-w3/pc/Ikada.Proto/Ikada.Proto.csproj を復元しました (1.05 秒)。
+  8 個中 6 個の復元対象のプロジェクトは最新です。
+  Ikada.Native -> /home/ken/Documents/ikada-sim-w3/pc/src/Ikada.Native/bin/Release/netstandard2.1/Ikada.Native.dll
+  Ikada.Logic -> /home/ken/Documents/ikada-sim-w3/pc/src/Ikada.Logic/bin/Release/netstandard2.1/Ikada.Logic.dll
+  Ikada.Desktop -> /home/ken/Documents/ikada-sim-w3/pc/src/Ikada.Desktop/bin/Release/netstandard2.1/Ikada.Desktop.dll
+  Ikada.Game -> /home/ken/Documents/ikada-sim-w3/pc/src/Ikada.Game/bin/Release/netstandard2.1/Ikada.Game.dll
+  Ikada.Tests -> /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/bin/Release/net8.0/Ikada.Tests.dll
+  Ikada.Proto -> /home/ken/Documents/ikada-sim-w3/pc/Ikada.Proto/bin/Release/net8.0/Ikada.Proto.dll
+  Ikada.UpmCompile -> /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.UpmCompile/bin/Release/netstandard2.1/Ikada.UpmCompile.dll
+  Ikada.RefCheck -> /home/ken/Documents/ikada-sim-w3/pc/tools/Ikada.RefCheck/bin/Release/net8.0/Ikada.RefCheck.dll
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:09.20

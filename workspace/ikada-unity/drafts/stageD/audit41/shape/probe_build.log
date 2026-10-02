@@ -1,0 +1,16 @@
+  復元対象のプロジェクトを決定しています...
+  復元対象のすべてのプロジェクトは最新です。
+  Ikada.Native -> /tmp/claude-1000/-home-ken-Documents-Claude-Code-Communication/7c5144a7-e556-4299-98c8-a56dfe00444d/scratchpad/audit41/probe41bin/Ikada.Native.dll
+  Ikada.Logic -> /tmp/claude-1000/-home-ken-Documents-Claude-Code-Communication/7c5144a7-e556-4299-98c8-a56dfe00444d/scratchpad/audit41/probe41bin/Ikada.Logic.dll
+  Ikada.Desktop -> /tmp/claude-1000/-home-ken-Documents-Claude-Code-Communication/7c5144a7-e556-4299-98c8-a56dfe00444d/scratchpad/audit41/probe41bin/Ikada.Desktop.dll
+  Ikada.Game -> /tmp/claude-1000/-home-ken-Documents-Claude-Code-Communication/7c5144a7-e556-4299-98c8-a56dfe00444d/scratchpad/audit41/probe41bin/Ikada.Game.dll
+/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/stageD/audit41/Probe41/Program.cs(143,48): warning CS0219: 変数 'fightsWithDive' は割り当てられていますが、その値は使用されていません [/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/stageD/audit41/Probe41/Probe41.csproj]
+  Probe41 -> /tmp/claude-1000/-home-ken-Documents-Claude-Code-Communication/7c5144a7-e556-4299-98c8-a56dfe00444d/scratchpad/audit41/probe41bin/Probe41.dll
+
+ビルドに成功しました。
+
+/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/stageD/audit41/Probe41/Program.cs(143,48): warning CS0219: 変数 'fightsWithDive' は割り当てられていますが、その値は使用されていません [/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/stageD/audit41/Probe41/Probe41.csproj]
+    1 個の警告
+    0 エラー
+
+経過時間 00:00:02.48

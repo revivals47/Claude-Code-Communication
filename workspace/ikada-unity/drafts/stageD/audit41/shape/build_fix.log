@@ -1,0 +1,16 @@
+  復元対象のプロジェクトを決定しています...
+  復元対象のすべてのプロジェクトは最新です。
+  Ikada.Native -> /home/ken/Documents/ikada-sim-w3/pc/src/Ikada.Native/bin/Release/netstandard2.1/Ikada.Native.dll
+  Ikada.Logic -> /home/ken/Documents/ikada-sim-w3/pc/src/Ikada.Logic/bin/Release/netstandard2.1/Ikada.Logic.dll
+  Ikada.Desktop -> /home/ken/Documents/ikada-sim-w3/pc/src/Ikada.Desktop/bin/Release/netstandard2.1/Ikada.Desktop.dll
+  Ikada.Game -> /home/ken/Documents/ikada-sim-w3/pc/src/Ikada.Game/bin/Release/netstandard2.1/Ikada.Game.dll
+  Ikada.Tests -> /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/bin/Release/net8.0/Ikada.Tests.dll
+  Ikada.Proto -> /home/ken/Documents/ikada-sim-w3/pc/Ikada.Proto/bin/Release/net8.0/Ikada.Proto.dll
+  Ikada.UpmCompile -> /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.UpmCompile/bin/Release/netstandard2.1/Ikada.UpmCompile.dll
+  Ikada.RefCheck -> /home/ken/Documents/ikada-sim-w3/pc/tools/Ikada.RefCheck/bin/Release/net8.0/Ikada.RefCheck.dll
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:04.44

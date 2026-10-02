@@ -1,0 +1,32 @@
+start build_base 04:14:09
+2750f49 API 0.24.0 (RenderEventKind.Rest = an added enum val
+build rc=0
+end build_base 04:14:19
+start test_base 04:14:19
+test rc=1
+end test_base 04:18:54
+start ref_base 04:18:54
+end ref_base 04:21:00
+start build_fix 04:21:00
+262b676 #42 rope zone as 11 §5.3:376 (local, not pushed): t
+build rc=0
+end build_fix 04:21:06
+start test_fix 04:21:06
+test rc=1
+end test_fix 04:25:44
+start ref_fix 04:25:44
+STOPPED before ref fix seed=3 date=4-20 04:26:18
+--- reset fix stages for dcb796a (262b676 failed FloatChainGuard) 04:26:37
+start build_fix 04:26:37
+dcb796a #42 rope zone: the DIVE anchor estimate in double, r
+build rc=0
+end build_fix 04:26:42
+start test_fix 04:26:42
+test rc=1
+end test_fix 04:31:50
+start ref_fix 04:31:50
+end ref_fix 04:33:56
+start probe_build 04:33:56
+probe build rc=0
+end probe_build 04:33:59
+ALL DONE 04:42:18

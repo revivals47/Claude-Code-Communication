@@ -1,0 +1,97 @@
+/home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/bin/Release/net8.0/Ikada.Tests.dll (.NETCoreApp,Version=v8.0) のテスト実行
+VSTest のバージョン 17.11.1 (x64)
+
+テスト実行を開始しています。お待ちください...
+合計 1 個のテスト ファイルが指定されたパターンと一致しました。
+[xUnit.net 00:00:18.26]     Ikada.Tests.Ecology.ChumOnlyBalanceTests.ChumOnlyIsSituationalNotAlwaysBetter [SKIP]
+  スキップ Ikada.Tests.Ecology.ChumOnlyBalanceTests.ChumOnlyIsSituationalNotAlwaysBetter [1 ms]
+[xUnit.net 00:02:26.56]     Ikada.Tests.Fight.FightSizeTests.AjiPumpingTearsOften [SKIP]
+  スキップ Ikada.Tests.Fight.FightSizeTests.AjiPumpingTearsOften [1 ms]
+[xUnit.net 00:02:37.10]     Ikada.Tests.Ecology.KikiAgeBalanceTests.KikiAgeEdgeIsAtLeastTenPercentInChapterOne [SKIP]
+  スキップ Ikada.Tests.Ecology.KikiAgeBalanceTests.KikiAgeEdgeIsAtLeastTenPercentInChapterOne [1 ms]
+[xUnit.net 00:02:45.99]     Ikada.Tests.Fight.FightAiTests.ReelOnlyOftenStallsOnAFortyCentimetreChinuWithTheSlowReel [SKIP]
+  スキップ Ikada.Tests.Fight.FightAiTests.ReelOnlyOftenStallsOnAFortyCentimetreChinuWithTheSlowReel [1 ms]
+[xUnit.net 00:02:49.36]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--stop 6 --brake 0.8") [FAIL]
+[xUnit.net 00:02:49.37]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--nominal") [FAIL]
+[xUnit.net 00:02:49.37]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "") [FAIL]
+[xUnit.net 00:02:49.37]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--pecks 0.5 --seed 7") [FAIL]
+[xUnit.net 00:02:49.37]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--mix red --n 8 --seed 3") [FAIL]
+[xUnit.net 00:02:49.37]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--stop 6 --hardstop") [FAIL]
+[xUnit.net 00:02:49.37]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--jerk 20") [FAIL]
+[xUnit.net 00:02:49.37]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--water 1.2 --seed 5") [FAIL]
+[xUnit.net 00:02:49.37]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--stop 6") [FAIL]
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--stop 6 --brake 0.8") [2 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--nominal") [< 1 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at InvokeStub_CastScenarioTests.MatchesSimCli(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "") [< 1 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at InvokeStub_CastScenarioTests.MatchesSimCli(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--pecks 0.5 --seed 7") [< 1 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at InvokeStub_CastScenarioTests.MatchesSimCli(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--mix red --n 8 --seed 3") [< 1 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at InvokeStub_CastScenarioTests.MatchesSimCli(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--stop 6 --hardstop") [< 1 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at InvokeStub_CastScenarioTests.MatchesSimCli(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--jerk 20") [< 1 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at InvokeStub_CastScenarioTests.MatchesSimCli(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--water 1.2 --seed 5") [1 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at InvokeStub_CastScenarioTests.MatchesSimCli(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--stop 6") [< 1 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at InvokeStub_CastScenarioTests.MatchesSimCli(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:02:49.37]     Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--depth 18 --temp 12 --current 0.3 --seed 9") [FAIL]
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--depth 18 --temp 12 --current 0.3 --seed 9") [< 1 ms]
+  エラー メッセージ:
+   sim_cli not found: build ikada-sim or set IKADA_SIM_CLI
+  スタック トレース:
+     at Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(String args) in /home/ken/Documents/ikada-sim-w3/pc/tests/Ikada.Tests/Harness/CastScenarioTests.cs:line 69
+   at InvokeStub_CastScenarioTests.MatchesSimCli(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:03:08.28]     Ikada.Tests.Ecology.EndToEndTests.BeginnerBand [SKIP]
+  スキップ Ikada.Tests.Ecology.EndToEndTests.BeginnerBand [1 ms]
+
+失敗!   -失敗:    10、合格:   895、スキップ:     5、合計:   910、期間: 4 m 32 s - Ikada.Tests.dll (net8.0)

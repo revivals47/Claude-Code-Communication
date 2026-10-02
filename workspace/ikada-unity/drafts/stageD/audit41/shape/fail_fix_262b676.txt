@@ -1,0 +1,11 @@
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "") 
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--depth 18 --temp 12 --current 0.3 --seed 9") 
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--jerk 20") 
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--mix red --n 8 --seed 3") 
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--nominal") 
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--pecks 0.5 --seed 7") 
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--stop 6 --brake 0.8") 
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--stop 6 --hardstop") 
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--stop 6") 
+  失敗 Ikada.Tests.Harness.CastScenarioTests.MatchesSimCli(args: "--water 1.2 --seed 5") 
+  失敗 Ikada.Tests.Rng.FloatChainGuardTests.NoUnstoredFloatIntermediatesOnTheJudgementPath 
