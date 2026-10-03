@@ -24,3 +24,8 @@
 ## worker2 track2/okiami-word 130435a の読み（RodHand に Rest, boss1 04:41）
 - 当たり（source, ikada-sim 2750f49 FishingSession.cs）: 底では Rest は Bottom と同じ frame（:246-247）= Set は同じ状態なら何もしない＝2 度目の替わり無し。Bottom・Rest とも ★State が InWater の時だけ★（:243 `if (State != RigState.InWater) continue;`）= ファイト中に受けへ戻る漏れは無い。lead-in の中の Rest は Bottom と同じく吸われるが RodHand は lead-in で受け＝重なりなし。
 - 残る件: Rest は 1 投に 1 回（TRest < 0 の時だけ, :247・:288）＝ ★宙で止めた後に放して沈め直した投は 受けのまま沈む★（沈み直しの event が無い）。直すなら logic に「沈み直し」の event（Drop と同じ扱いで 手へ）が要る＝ RodHand だけでは閉じない。
+
+## --apply の結果（観測, 04:44:22-04:46:21, rc 0）
+- build Succeeded errors 0（17.5 s）→ ★ikada-play/c5125b3 = 176 file・744,021,999 bytes★（予測 176・744,002,735 ＋ 数 KB〜100 KB → +19,264 bytes = ★当たり★）、folder sha256 729dea51a22a51f606bc7034a15453c898687dd429906b6b67d5a9d90dbc6f0d、Ikada.x86_64 sha256 a9a83136f9f1e9bb13e145b651e13a947bbff6d6a9281f92f0791afc397104cb（e41e21c と同じ）。DoNotShip 抜き・diff -rq 0。陽性対照 2cb67ab の folder sha は記録どおり。
+- 起動の確かめ: 4a〜4c の前後とも player 0、[Live] start api 0.24.0 | SessionProbe RESULT ok=True api=0.24.0 abi=3 screen=Title | [Live] RESULT ok=True steps=539333 simS=8989.1 page=Info、セーブの dir は前後で同じ（無し）。閉じた後 --check-players 0・/proc/exe で player・Unity 0。worktree は track3/pr-capture に戻った。
+- e41e21c との差（sha256 で全 file）: 11 file = Managed の 5 dll（Assembly-CSharp・Ikada.Game・Ikada.Logic・Ikada.Desktop・Ikada.Native）・boot.config・globalgamemanagers・globalgamemanagers.assets・level0・resources.assets・sharedassets0.assets。予測との照合: 「変わる」6 つ ★当たり★、「変わりうる」level0・sharedassets0 = 変わった、★Ikada.Logic/Desktop/Native.dll は source が変わっていないのに変わった = 「決定的な compile なら同じ」は外れ★（Unity の compile は byte で再現しない見込み, 推論; e41e21c と ba3de36 の差も同じ 11 file の形）。同じ = Ikada.x86_64・UnityPlayer.so・libdecor 2 つ・libikd（★当たり★）。
