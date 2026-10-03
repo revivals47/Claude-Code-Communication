@@ -1,0 +1,28 @@
+S7 wall 6.0 min, sim 220040 s, ended=True
+S0 dates reached 365 (distinct 365), expected 365; in order and complete = True; missing []
+S1 chapter pages in order: [第1章 おわり → 第2章 → 第2章 おわり → 第3章 → 第3章 おわり → 第4章 → 第4章 おわり]
+S2 第1章 おわり (2000-06-01): first「五月が終わった。芦北の筏で過ごした春が、日誌の中に残っている。【仮の文】」 last「師匠は、冬の筏の話を一度だけした。兄弟子の名前と一緒に。【仮の文】」
+S2 第2章 おわり (2000-09-01): first「八月が終わった。夏の筏で覚えたことが、日誌の中に残っている。【仮の文】」 last「師匠は「秋は、また別の海ぞ」とだけ言った。【仮の文】」
+S2 第3章 おわり (2000-12-01): first「十一月が終わった。島の筏で読んだ潮が、日誌の中に残っている。【仮の文】」 last「兄弟子の「冬は蒲江においで」を、師匠が繰り返した。【仮の文】」
+S2 第4章 おわり (2001-03-01): first「一年が終わった。春の底取り、夏のもたせ、秋の潮、冬の一回。日誌の中に、全部残っている。【仮の文】」 last「兄弟子から、細い穂先の竿を譲られた。【仮の文】」
+S3 2000-03: place=八代海・芦北 raft=一番筏 chapter=C6 はじまりの筏
+S3 2000-04: place=八代海・芦北 raft=一番筏 chapter=C6 はじまりの筏
+S3 2000-05: place=八代海・芦北 raft=一番筏 chapter=C6 はじまりの筏
+S3 2000-06: place=八代海・芦北 raft=一番筏 chapter=C6 第2章 夏の筏
+S3 2000-07: place=八代海・芦北 raft=一番筏 chapter=C6 第2章 夏の筏
+S3 2000-08: place=八代海・芦北 raft=一番筏 chapter=C6 第2章 夏の筏
+S3 2000-09: place=八代海・御所浦 raft=島の筏 chapter=C6 第3章 島の秋
+S3 2000-10: place=八代海・樋島 raft=瀬戸の筏 chapter=C6 第3章 島の秋
+S3 2000-11: place=八代海・樋島 raft=瀬戸の筏 chapter=C6 第3章 島の秋
+S3 2000-12: place=大分南部・蒲江 raft=湾のカセ chapter=C6 第4章 冬のカセ
+S3 2001-01: place=大分南部・蒲江 raft=湾のカセ chapter=C6 第4章 冬のカセ
+S3 2001-02: place=八代海・芦北 raft=一番筏 chapter=C6 第4章 冬のカセ
+S4 chapter 1: 83 progress pages, task heads [課題1,課題2,課題3,課題4]
+S4 chapter 2: 88 progress pages, task heads [課題2-1,課題2-2,課題2-3,課題2-4]
+S4 chapter 3: 84 progress pages, task heads [課題3-1,課題3-2,課題3-3,課題3-4]
+S4 chapter 4: 83 progress pages, task heads [課題4-1,課題4-2,課題4-4]
+S6 RodLent=True RodGiven=True chapter=4 closed=True date=2001-03-01
+S5 第2章: continue -> first day 2000-06-01, pages []; the run's next day 2000-06-01  OK
+S5 第3章: continue -> first day 2000-09-01, pages []; the run's next day 2000-09-01  OK
+S5 第4章: continue -> first day 2000-12-01, pages []; the run's next day 2000-12-01  OK
+S5 第4章 おわり: continue -> first day none, pages [第4章 おわり]; the run's next day none  OK
