@@ -12,3 +12,6 @@
 - 出来る dir = ikada-play/c5125b3。★file 176★（e41e21c と同じ = 足した script は dll の中、新しい file は無い）、★bytes 744,002,735 ＋ 数 KB〜100 KB★（字の asset の source +4.1 KB = 3 字 消画語 の焼き足し、竿の code・Ikada.Game の code が増えた分, 推論）。
 - e41e21c との差（sha256 で全 file）: ★変わる = Managed/Assembly-CSharp.dll・Ikada.Game.dll・boot.config・globalgamemanagers・globalgamemanagers.assets・resources.assets（字）★、変わりうる = level0・sharedassets0.assets（場面の参照）・Ikada.Logic/Desktop/Native.dll（source は 2750f49 の Runtime で Game だけ変わった = 決定的な compile なら同じ, 未確認）。★同じ = Ikada.x86_64・UnityPlayer.so・libdecor 2 つ・libikd（C は 418b374→2750f49 で 0 file, 観測）★。
 - 起動の確かめ: 自分たちの起動で 05 の題が出る・[Live] でなく普通の起動の log に Exception 0・閉じた後 --check-players 0。
+
+## playable_build.sh の dry（観測, 04:35:45, worktree = ikada-unity-track3〔track3/pr-capture, porcelain 0〕）
+- rc 0: HEAD IdleHint=no LockedHint=no・Runner.Worker 0・load 0.95・df 33.6 GB・DRY-RUN、master = c5125b3…、pin #2750f491…、陽性対照 = ikada-play/2cb67ab の folder sha 75dc972e…（記録どおり）、would 1) detach 2) BuildPerf 3) cp + diff -rq + 数・bytes・folder sha 4) 起動の確かめ（25 s HostInput・SessionProbe・AutoPilot の 1 日）。worktree の branch は track3/pr-capture のまま（触っていない）。
