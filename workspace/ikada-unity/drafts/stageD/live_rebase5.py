@@ -17,6 +17,8 @@ Default = dry run: prints the table (name, state, sha before, source sha) and wr
 --apply: re-reads every sha, refuses if any differs from the table file given with --table (the table is the pre-check),
 renames / copies, checks every new file's sha = source and every <tag>_ file's sha = the old one, then appends to each B's
 NOTE_baseline_changes.md one line per file with the reason. Any failed check stops before the NOTE lines are written.
+After a swap (live here, or the mock baseline by hand): once a regress sees the mock baseline 26/26 0 px, run tools/baseline_pin.sh
+<mock baseline dir> <that regress id> [project] so refcheck_decide.sh reads the right pin (boss1 20:5x).
 usage: live_rebase.py <regress dir> --tag pre090 --reason "..." --table <md> [--seeds 20260925,1] [--shots <dir>] [--apply]
 """
 import argparse, hashlib, os, shutil, sys, time
