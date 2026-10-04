@@ -52,7 +52,7 @@ python3 tools/logic_font_chars.py "$NEW" "$OLD" . Assets/Scripts/UI/LogicChars.c
 grep -q "new since ${OLD:0:7}: 0" /tmp/pin0230_chars.$$ || say "NOTE new chars since ${OLD:0:7}: $(grep '^\[chars\] new' /tmp/pin0230_chars.$$ | cut -c1-120) (bake at the Unity turn)"
 rm -f /tmp/pin0230_chars.$$
 NEW7=${NEW:0:7}
-if [ -n "$TABLEF" ]; then TN="re-fixed at $NEW7 from $(basename "$TABLEF") for the named keys, the rest still #13"; else TN="still #13 at $NEW7, checked by this probe at the pin"; fi
+if [ -n "$TABLEF" ]; then TN="re-fixed at $NEW7 from $(basename "$TABLEF") for the named keys, the rest unchanged"; else TN="unchanged at $NEW7 (the last re-fix stands; name its number by hand if it matters)"; fi   # was a fixed 'still #13' = wrong after #14-#16 (worker1 18:47, worker3 PIN_A8CCA9E_W3.md)
 NOTE_B="API $API = ikada-sim $NEW7 (the table is $TN; $OLDAPI = ${OLD:0:7}: the table is"
 python3 - "$P" "$NOTE_A" "$NOTE_B" <<'EOF'
 import sys
