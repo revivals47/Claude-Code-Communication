@@ -1,0 +1,17 @@
+[v4] 2026-10-04 17:24:19 head 6ac9bcf
+[v4] 2026-10-04 17:24:30 roslyn: [bundle_compile8] sim rc=0 errors=0 files=175 [bundle_compile8] 6ac9bcf game rc=0 errors=0 files=130 ikada-refs-from-Library=0 [bundle_compile8] 6ac9bcf editor rc=0 errors=0 files=20 
+[v4] 2026-10-04 17:24:51 V4_1wait_06 rc=0 png=yes exc=0 env=[] | [TipAngle] main 0.0 deg below horizontal (last span), close-up 0.0 deg, deflection 0.000 m, T 0.00 N, p 4.0, soft x1.0
+[v4] 2026-10-04 17:25:06 V4_2held_06 rc=0 png=yes exc=0 env=[IKADA_ROD_ANGLE=0.30] | [TipAngle] main -17.2 deg below horizontal (last span), close-up -17.2 deg, deflection 0.000 m, T 0.00 N, p 4.0, soft x1.0
+[v4] 2026-10-04 17:25:22 V4_3fight_08 rc=0 png=yes exc=0 env=[] | [TipAngle] main 55.8 deg below horizontal (last span), close-up 59.3 deg, deflection 0.185 m, T 3.80 N, p 4.0, soft x1.0
+[v4] 2026-10-04 17:25:38 B_T1.0_p3_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=1.0 IKADA_ROD_ARC_P=3] | [TipAngle] main 33.2 deg below horizontal (last span), close-up 8.5 deg, deflection 0.056 m, T 1.00 N, p 3.0, soft x1.0
+[v4] 2026-10-04 17:25:53 B_T1.0_p4_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=1.0 IKADA_ROD_ARC_P=4] | [TipAngle] main 31.4 deg below horizontal (last span), close-up 14.5 deg, deflection 0.056 m, T 1.00 N, p 4.0, soft x1.0
+[v4] 2026-10-04 17:26:09 B_T1.0_p5_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=1.0 IKADA_ROD_ARC_P=5] | [TipAngle] main 29.8 deg below horizontal (last span), close-up 19.8 deg, deflection 0.056 m, T 1.00 N, p 5.0, soft x1.0
+[v4] 2026-10-04 17:26:25 B_T1.0_p4soft2_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=1.0 IKADA_ROD_ARC_P=4 IKADA_TIP_SOFT=2] | [TipAngle] main 31.4 deg below horizontal (last span), close-up 41.4 deg, deflection 0.113 m, T 1.00 N, p 4.0, soft x2.0
+[v4] 2026-10-04 17:26:40 B_T3.8_p3_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=3.8 IKADA_ROD_ARC_P=3] | [TipAngle] main 57.2 deg below horizontal (last span), close-up 52.9 deg, deflection 0.185 m, T 3.80 N, p 3.0, soft x1.0
+[v4] 2026-10-04 17:26:55 B_T3.8_p4_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=3.8 IKADA_ROD_ARC_P=4] | [TipAngle] main 55.8 deg below horizontal (last span), close-up 59.3 deg, deflection 0.185 m, T 3.80 N, p 4.0, soft x1.0
+[v4] 2026-10-04 17:27:10 B_T3.8_p5_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=3.8 IKADA_ROD_ARC_P=5] | [TipAngle] main 54.4 deg below horizontal (last span), close-up 63.6 deg, deflection 0.185 m, T 3.80 N, p 5.0, soft x1.0
+[v4] 2026-10-04 17:27:26 B_T3.8_p4soft2_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=3.8 IKADA_ROD_ARC_P=4 IKADA_TIP_SOFT=2] | [TipAngle] main 55.8 deg below horizontal (last span), close-up 75.0 deg, deflection 0.371 m, T 3.80 N, p 4.0, soft x2.0
+[v4] 2026-10-04 17:27:26 V4 06 vs 177002a: diff_px=43449 bbox=(654, 633, 1512, 1079)
+[v4] 2026-10-04 17:27:27 V4 08 vs 177002a: diff_px=41702 bbox=(24, 196, 1166, 894)
+[v4] 2026-10-04 17:27:27 porcelain [ M Assets/Generated/Backdrop/RodBlank.mat;?? Assets/Generated/Backdrop/RodGold.mat;?? Assets/Generated/Backdrop/RodGold.mat.meta;]
+[v4] 2026-10-04 17:27:27 done
