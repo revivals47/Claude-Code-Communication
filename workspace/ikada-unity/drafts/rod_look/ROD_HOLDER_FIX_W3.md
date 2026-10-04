@@ -289,3 +289,11 @@
 - 外れの読み（推論）: 小さい張力の予測（0.85 × q × 糸の向き）は 小さい q で 曲がる部分（0.3 + 0.7q）も短くなり 竿の上げ角が残る分を入れていなかった = 予測の式が q の大きい所でだけ合う形。窓の −7.7° = 窓の傾き（竿の上げ角, TipBendLayer の tilt）が 小さいたわみ（0.021 m）より勝って 穂先が上を向く（推論, 窓の傾きの値は log の [TipView] 行で確かめていない）。
 - 輪: 16 → 4 mm の等比（8828b78）= 元の輪が大きく 穂先へ小さく並ぶ（目の読み, c189）。
 - 決めの材料（推論）: チヌで「かなり下」= 糸が縦なら 満ち 2 N（どちらの指数でも 2.55 N で 80°）、小アジを浅く見せるなら 指数 0.5（0.37 N で 4〜12°）、窓は ×2〜2.5 で チヌの中央 1.34 N でも 52〜60°。
+
+### 7.19 boss1 の問い 2 つ（source の行, Unity なし）
+- ★(1) 糸 0.5 rad は どの面の角か・描きの糸と RodBend の糸は同じ物か★: ★同じ物ではない（2 経路）★。
+  - RodBend の糸の向き: RenderSnapshot.LineAngleRad =「垂直からの角、+ は side の側」（RodBend.cs の Points の引数の注）、RuntimeRod は side = ★世界の X（画面の左右）・up = 世界の Y★ を渡す（RuntimeRod.cs:200-201）= ★画面の面の中の 左右の傾き（奥行きではない）★。mock 08 の値 = LineAngleRad 0.5（MockFight.cs:21）、撮りの IKADA_ROD_LINE が上書き（RuntimeRod.cs:174 → 遅れを付けて rodLine :141）。竿の横寝かせ（Laid, :195）も この rodLine を読む。
+  - 描きの糸: いったん entry = (穂先 x ＋ tan(rodLine) × 穂先の高さ, 0, 穂先 z) = 右へ傾いた糸（RuntimeRod.cs:209）を作るが、★ファイトでは FightEntry で置き換え（:216）、既定の EntryMode iii（糸 iii, 1c564e3）= 目と穂先を通る縦の面の上に入水点を置く = 画面では 穂先から真下に落ちて見える★（RuntimeRod.Fight.cs:105-112, PRESIDENT 13:0x の決め）。
+  - → ★「糸横 0.5」の 6 枚は 竿の穂先が 描かれていない 右へ傾いた糸の向きへ曲がっている（描きの糸は真下）= 竿と糸が食い違う画★。★「糸縦」の 6 枚は RodBend の糸も縦 = 描きの糸（真下に見える）と 揃う★ = 依頼者に出す 3 段目（糸縦）は 食い違いの無い組。live では LineAngleRad は 魚の横の走りで動く（logic の値）= 横へ走る時は 同じ食い違いが出る（直すなら 描きの糸も rodLine に寄せるか、RodBend の糸の向きを 描きの糸の向きに揃えるかの決め）。
+- ★(2) 窓は指数を見ないか・−7.7° の訳★: ★窓は指数を見ない★ = 窓のたわみの形 = SoftShape = RodBend.Drop(u) = u^(p+1)（TipBendLayer.cs:170 → RodBend.cs）= p だけを読む、q の指数（IKADA_ROD_ARC_EXP）は RodBend.Points の q の中だけ（RodBend.cs:80）、たわみの量 = TipModel の張力から（TipBendLayer.cs:101）= 糸の向きも指数も読まない → 同じ張力の 4 枚は同じ角（観測と合う）。
+  - ★−7.7°（水平より上）= 構えの傾き（上げ角そのものではなく 窓の上限で切った値）から 軽い張力の小さい垂れを引いた残り★: 窓の傾き = clamp(RodAngleRad, −0.15, +0.35)（TipBendLayer.cs:127 付近, TipViewConfig.cs:43）、mock 08 の RodAngleRad 0.6（MockFight.cs:21）→ ★0.35 rad = 20.1° 上★（撮りの log「[TipView] close-up tilt RodAngleRad=0.60 -> 0.35」で確認）。窓の点 = 根から len × u × tan(傾き) 上がり、たわみ D × u^(p+1) 下がる（TipBendLayer.cs:148-150）→ 最後の小片の向き ≈ atan(tan 20.1° − D (p+1) u^p / 0.40)、0.37 N の D = 0.021 m（log）で u 0.95〜1.0 → ★上へ 6.0〜8.4°（計算）= 観測 7.7° と合う★。= ★ばねが上へ戻りすぎる形ではなく、窓の構えの 20° 上向きに 軽い張力の垂れ（約 13°）が勝てない★ = 張力が 1.34 N（D 0.076 m）なら 垂れが勝って 25° 下（観測）。
