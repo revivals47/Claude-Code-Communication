@@ -332,3 +332,8 @@
 - ★merge-tree★: git merge-tree --write-tree 3f7ac9a（dev-pin025, pin ikada-sim b80715f = API 0.25.0、master 0d13af2 を含む）track3/rod-build = ★rc 0・衝突 0（tree dad3a53）★。3f7ac9a の差 9 file に Render/・BackdropBuilder は 0 = 触る file が重ならない。★未確認: API 0.25.0 の logic に対して rod-build の code が compile できるか（Roslyn は合わせた木で門の後）★。
 - ★予測（合わせた木の regress, 回す前）★: 既定の画で替わる = 竿が見える画面 ★mock の 06・06C・06M（待ちの竿: 黒・長い柄と金・ガイド 14・細い先, 06 で約 4 万 px = V4 の 06 vs 177002a の 42,892 px の形）・08（曲がり（指数 0.5・満ち 2 N は mock の 3.8 N では満ち切り = 弧はほぼ今の満ちと同じ）＋ 窓 ×2 で窓の垂れが深く ＋ ★糸の横 ON で mock の LineAngleRad 0.5 → 描きの糸が右へ 約 +338 px 傾く★ = 08 は大きく動く）★、live の 06 系の画（3 種）、player_shots の同じ画面。★03（取り込み）は 竿の 3D が見えるかで替わるか決まる = 未確認★、P1（一時停止の背景）は 未確認。替わらない見込み = 05・07・04・J・S0・Z・P2（竿の 3D なし）。input_test・key・pad・hud・edge・atlas は替わらない見込み。= regress は ★15/15 にならない（基準の差し替えの番が要る）★。
 - 案（PRESIDENT へ, boss1 から）: regress は dev-pin025 と rod-build を合わせた木で 1 回（Roslyn → BuildPerf → regress → 差し替えの dry の表と sheet）。
+
+### 7.23 旧の IKADA_ROD_ARC_D=0 の道（boss1 の問い, source の行）
+- ★何の道★: RodBend の q の指数を (D) の 0.25 から 設計 13 :441 の 0.7 へ戻す 撮りの比べの道（RodBend.cs:44 `ArcD = env != "0"`・:86・注 :23）。d0aee19（2026-09-26）で「撮りだけ、=1 で 0.25、既定 OFF」として入り、61450a3（同日）で A+B+C+D を既定（= 依頼者が見た曲がり）にした時に「=0 で D を切る」比べの道になった（ROD_ARC_SHAPE.md の A/B）。
+- ★既定で通っていたか★: ★通っていない★（env 未設定 = ArcD 真 = 0.25 が既定の道、=0 は比べの撮りだけ）。
+- ★消えて困る物★: tools/・Assets/Editor/・試験に IKADA_ROD_ARC_D の参照は 0（grep: RodBend.cs 自身と doc 2 つ = ROD_HOLDER_FIX_W3.md・DEMO_RAISE_PLAN.md:135 の 9/26 の撮りの記録だけ）= 困る撮り・試験は無い見込み。572e038 で 指数の既定が ARC_EXP の値（0.5）になり =0 の道は通らない（同じ絵は IKADA_ROD_ARC_EXP=0.7）。推奨 = 死んだ道として ArcD を消し、注に「旧の ARC_D=0 = ARC_EXP=0.7」の 1 行（決めは PRESIDENT）。
