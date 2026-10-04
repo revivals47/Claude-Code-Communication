@@ -155,3 +155,11 @@
 - ★替わる基準の list（C）★: player_live の 3 種の live_06・live_06C（数 px）・種 26 の live_08（大）＝ live の差し替え 最大 7 file（3 種 × 06・06C ＋ 08）、mock 26 枚は替わらない（mock は Settle のまま）。PIN は替えない（mock の基準は替わらない）。
 - ★費用（見積り）★: code = LiveHost.Shot の待ちの数を 引数（例 -ikadaLiveShotHold 139, 既定 30 = 今と同じ）にする 数行 ＋ tools/live_regress.sh の引数（-ikadaTipSettle を外し -ikadaLiveShotHold 139 を足す）= tools の変更（regress の道具 = boss1 / worker2 の物に触る → 所有者の確認が要る）。時間 = 1 枚あたり +109 フレーム（1.8 s）× 約 9 枚 × 3 種 ≈ ★+50 s / regress★。番 = Unity 1 回（作り ＋ live 3 種 × 2 本 ＋ dry）＋ 差し替え（最大 7）＋ regress 1 回。
 - 推しの訳: B は 撮りが 遊びの「揺れの途中の 1 枚」になる = 基準が 30 フレームの所の 揺れの位相に縛られ 小さな替わり（張力の 1 step）で 画が大きく動く = 変化を見つける器として弱い。C は 落ち着いた形 = 遊びの式のまま 決まった 1 枚（live_08 の札の「寄せの途中」も消える）。
+
+## §7.42 案 C の code（PRESIDENT 00:2x GO）— 撮りの待ちを引数に（Unity なし = 未 compile）
+- code = ikada-unity-track3 ★track3/shot-hold fe3f1d7★（master 0b53e4a ＋ LiveHost の 1 file +8/−1）: test だけの引数 ★-ikadaLiveShotHold n（1〜600, 既定 30 = 今と同じ）★ = Shot が 撮る前に待つフレーム数（待つ間 logic は止まり 描きは進む）。日誌の 2 枚目以降（2D）の待ちは 30 のまま。遊び・mock の撮り・editor は 不変（引数がなければ 30）。
+- ★触らない物（PRESIDENT 00:2x）★: tools/live_regress.sh（worker2 の物, boss1 が所有者の確認中 = 返事まで触らない）、tools/regress_all.sh:203 と tools/trace04.sh の -ikadaTipSettle。
+- ★表に 1 行: mock の撮り（regress_all.sh:203, -ikadaShot と一緒）の -ikadaTipSettle は残す = mock は 手で置いた値の静止画と最初から決めてある（PRESIDENT 23:5x）= ばねを止めるのは mock の定義どおり、live の「撮りと遊びの差」とは別の理由★。trace04.sh は 調べの道具（基準を作らない）なので残す。
+- live_08（種 26）の札 = C の後は ★「落ち着いた手元」★（アワセの 139 フレーム（2.3 s）後, 竿の戻し 残り < 1 %, 穂先のばね 残り 0.14 %）に書き替える（差し替えの番で）。
+- 予測は §7.41 に登録済（動かさない）: 穂先 1 px 以下・live_06・06C ほぼ不変・種 26 の live_08 は竿が手元へ・2D と logic の並び 不変・2 本で 0 px・替わる基準 live 最大 7・mock 26 と PIN 不変・regress +50 s。live sheet は 1 枚ずつ。
+- 番（Unity は boss1 の合図まで起こさない）: Roslyn fe3f1d7 → 作り → live 3 種を「regress の引数 − -ikadaTipSettle ＋ -ikadaLiveShotHold 139」で 2 本ずつ（私の draft の run.sh で、live_regress.sh は触らない）→ 今の基準と比べ・2 本の一致・live sheet 1 枚ずつ → live_regress.sh の引数の替え（所有者の GO の後）→ 差し替え → regress。
