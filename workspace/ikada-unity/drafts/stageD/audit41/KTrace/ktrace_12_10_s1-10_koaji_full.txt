@@ -1,0 +1,159 @@
+1:12-10 fish: start q 15.0 m total 22.1 s | Run=3.9 Pause=0.5 Turn=1.8 Surfacing=15.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 21.9 s | Run=3.2 Pause=1.3 Turn=1.3 Surfacing=16.1 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 21.8 s | Run=4.2 Pause=0.5 Surfacing=17.1 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 21.8 s | Run=2.4 Pause=2.5 Turn=1.3 Surfacing=15.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 22.8 s | Run=4.1 Pause=2.1 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 22.4 s | Run=3.4 Pause=3.0 Surfacing=16.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 21.9 s | Run=4.2 Pause=0.9 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 22.8 s | Run=5.1 Turn=1.2 Surfacing=16.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 21.6 s | Run=3.0 Pause=0.4 Turn=2.0 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 23.4 s | Run=5.1 Pause=0.1 Turn=1.3 Surfacing=16.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 23.1 s | Run=4.7 Pause=1.7 Surfacing=16.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 23.5 s | Run=4.2 Pause=2.6 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 fish: start q 15.0 m total 21.4 s | Run=4.0 Turn=0.6 Surfacing=16.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+1:12-10 daylog 2000-12-10: casts 38 selfhooks 10 koaji catches 10 all catches 10
+1:12-10 daylog 2000-12-11: casts 20 selfhooks 3 koaji catches 3 all catches 3
+2:12-10 fish: start q 15.0 m total 21.7 s | Run=3.7 Turn=1.5 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+2:12-10 fish: start q 15.0 m total 21.6 s | Run=2.8 Pause=1.2 Turn=1.3 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+2:12-10 fish: start q 15.0 m total 22.3 s | Run=4.7 Turn=1.5 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+2:12-10 fish: start q 15.0 m total 21.7 s | Run=2.5 Pause=1.9 Turn=1.1 Surfacing=16.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+2:12-10 fish: start q 15.0 m total 22.9 s | Run=4.8 Turn=2.0 Surfacing=16.1 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+2:12-10 fish: start q 15.0 m total 21.5 s | Run=2.5 Pause=1.2 Turn=1.7 Surfacing=16.1 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+2:12-10 fish: start q 15.0 m total 22.9 s | Run=5.0 Turn=1.5 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+2:12-10 fish: start q 15.0 m total 21.5 s | Run=4.1 Turn=1.0 Surfacing=16.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+2:12-10 daylog 2000-12-10: casts 35 selfhooks 4 koaji catches 4 all catches 4
+2:12-10 daylog 2000-12-11: casts 20 selfhooks 4 koaji catches 4 all catches 4
+3:12-10 fish: start q 15.0 m total 22.7 s | Run=4.8 Turn=1.7 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 15.0 m total 23.3 s | Run=3.0 Pause=4.0 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 6.6 m total 11.5 s | Run=3.3 Pause=1.7 Surfacing=6.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.06 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 15.0 m total 21.9 s | Run=2.4 Pause=1.7 Turn=2.0 Surfacing=15.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 15.0 m total 22.1 s | Run=4.8 Pause=0.5 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 6.9 m total 11.2 s | Run=2.8 Pause=2.1 Surfacing=6.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.02 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 15.0 m total 22.6 s | Run=4.8 Pause=0.5 Turn=0.8 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 15.0 m total 23.0 s | Run=5.5 Pause=0.5 Surfacing=17.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 15.0 m total 22.3 s | Run=2.5 Pause=4.2 Surfacing=15.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 5.2 m total 8.5 s | Run=2.5 Pause=1.2 Surfacing=4.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.13 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 fish: start q 15.0 m total 22.1 s | Run=4.4 Turn=1.6 Surfacing=16.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+3:12-10 daylog 2000-12-11: casts 36 selfhooks 5 koaji catches 5 all catches 5
+3:12-10 daylog 2000-12-12: casts 21 selfhooks 6 koaji catches 6 all catches 6
+4:12-10 fish: start q 15.0 m total 22.2 s | Run=4.6 Pause=1.0 Surfacing=16.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 21.7 s | Run=4.0 Turn=0.9 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 22.2 s | Run=4.9 Pause=0.5 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 21.7 s | Run=3.3 Pause=0.8 Turn=1.0 Surfacing=16.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 21.9 s | Run=2.6 Pause=2.0 Turn=1.0 Surfacing=16.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 21.7 s | Run=3.4 Pause=0.2 Turn=2.0 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 22.8 s | Run=2.4 Pause=4.1 Turn=1.3 Surfacing=15.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 22.9 s | Run=5.1 Pause=0.6 Turn=0.4 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 22.6 s | Run=4.8 Pause=0.5 Turn=0.7 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 22.1 s | Run=3.9 Pause=1.7 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 22.4 s | Run=2.5 Pause=4.0 Surfacing=15.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 21.9 s | Run=4.2 Turn=1.7 Surfacing=16.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 22.0 s | Run=4.9 Pause=0.5 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 fish: start q 15.0 m total 23.1 s | Run=5.4 Pause=0.6 Surfacing=17.1 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+4:12-10 daylog 2000-12-10: casts 37 selfhooks 10 koaji catches 10 all catches 10
+4:12-10 daylog 2000-12-11: casts 20 selfhooks 4 koaji catches 4 all catches 4
+5:12-10 fish: start q 15.0 m total 21.7 s | Run=4.3 Pause=0.5 Surfacing=16.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 1.2 m total 7.9 s | Run=4.2 Surfacing=3.7 | q<=2m 7.9 ready 3.7 ready&taut 3.7 | bolts near rod 1 | S at 2m 1.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 22.0 s | Run=2.9 Pause=2.6 Surfacing=16.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 23.4 s | Run=5.6 Pause=0.5 Surfacing=17.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 21.9 s | Run=2.4 Pause=2.3 Turn=1.5 Surfacing=15.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 21.9 s | Run=4.1 Turn=1.9 Surfacing=15.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 21.8 s | Run=3.1 Pause=1.8 Surfacing=16.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 22.1 s | Run=2.4 Pause=3.4 Surfacing=16.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 22.0 s | Run=3.3 Pause=2.2 Surfacing=16.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 22.4 s | Run=2.5 Pause=4.0 Surfacing=15.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 23.4 s | Run=5.6 Pause=0.5 Surfacing=17.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 21.8 s | Run=3.7 Pause=0.7 Surfacing=17.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 21.7 s | Run=4.2 Turn=1.5 Surfacing=16.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 3.8 m total 7.0 s | Run=3.3 Surfacing=3.7 | q<=2m 4.2 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.38 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 22.9 s | Run=2.6 Pause=5.1 Surfacing=15.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 fish: start q 15.0 m total 22.4 s | Run=4.5 Turn=2.0 Surfacing=15.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+5:12-10 daylog 2000-12-10: casts 35 selfhooks 7 koaji catches 7 all catches 7
+5:12-10 daylog 2000-12-12: casts 22 selfhooks 9 koaji catches 9 all catches 9
+6:12-10 fish: start q 15.0 m total 22.1 s | Run=4.5 Pause=0.7 Surfacing=16.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 22.0 s | Run=4.2 Pause=0.5 Turn=1.1 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 22.1 s | Run=4.6 Turn=1.1 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 22.6 s | Run=5.0 Turn=1.3 Surfacing=16.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 22.7 s | Run=4.8 Pause=1.0 Surfacing=16.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 22.0 s | Run=4.7 Turn=1.2 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 21.6 s | Run=3.0 Pause=0.7 Turn=1.7 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 22.9 s | Run=3.2 Pause=3.6 Surfacing=16.1 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 22.7 s | Run=5.2 Pause=0.5 Surfacing=16.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 21.6 s | Run=3.9 Turn=1.4 Surfacing=16.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 22.5 s | Run=4.9 Pause=0.7 Turn=0.4 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 fish: start q 15.0 m total 22.2 s | Run=2.4 Pause=4.4 Surfacing=15.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+6:12-10 daylog 2000-12-10: casts 35 selfhooks 7 koaji catches 7 all catches 7
+6:12-10 daylog 2000-12-11: casts 20 selfhooks 5 koaji catches 5 all catches 5
+7:12-10 fish: start q 10.7 m total 15.7 s | Run=3.1 Turn=2.0 Surfacing=10.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 22.1 s | Run=3.2 Pause=1.7 Turn=1.7 Surfacing=15.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 21.6 s | Run=4.6 Surfacing=17.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 14.1 m total 20.4 s | Run=2.8 Pause=1.8 Surfacing=15.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 22.0 s | Run=3.6 Pause=1.0 Turn=1.2 Surfacing=16.1 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 23.4 s | Run=5.1 Pause=1.0 Surfacing=17.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 22.6 s | Run=4.7 Pause=1.4 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 22.9 s | Run=4.9 Turn=1.8 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 21.9 s | Run=2.4 Pause=3.6 Surfacing=15.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 23.4 s | Run=2.4 Pause=5.2 Surfacing=15.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 22.6 s | Run=2.8 Pause=2.8 Turn=1.7 Surfacing=15.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 21.8 s | Run=4.3 Pause=0.6 Surfacing=16.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 21.6 s | Run=3.9 Turn=1.3 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 21.4 s | Run=3.7 Turn=1.7 Surfacing=16.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 fish: start q 15.0 m total 22.7 s | Run=4.9 Pause=1.1 Surfacing=16.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+7:12-10 daylog 2000-12-10: casts 37 selfhooks 9 koaji catches 9 all catches 9
+7:12-10 daylog 2000-12-11: casts 21 selfhooks 6 koaji catches 6 all catches 6
+8:12-10 fish: start q 15.0 m total 21.9 s | Run=3.7 Pause=1.4 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 7.5 m total 12.2 s | Run=3.5 Turn=2.0 Surfacing=6.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.04 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 15.0 m total 21.8 s | Run=2.6 Pause=2.2 Surfacing=17.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 10.8 m total 17.5 s | Run=3.8 Pause=2.1 Surfacing=11.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 15.0 m total 21.6 s | Run=3.5 Pause=1.1 Surfacing=17.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 15.0 m total 21.7 s | Run=3.9 Turn=1.3 Surfacing=16.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 15.0 m total 21.9 s | Run=4.4 Pause=0.5 Surfacing=17.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 15.0 m total 22.0 s | Run=3.4 Pause=1.8 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 15.0 m total 21.8 s | Run=3.0 Pause=1.4 Turn=1.4 Surfacing=15.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 15.0 m total 22.1 s | Run=3.4 Pause=2.4 Surfacing=16.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 fish: start q 11.4 m total 17.1 s | Run=4.2 Pause=0.7 Surfacing=12.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+8:12-10 daylog 2000-12-10: casts 35 selfhooks 3 koaji catches 3 all catches 3
+8:12-10 daylog 2000-12-11: casts 21 selfhooks 8 koaji catches 8 all catches 8
+9:12-10 fish: start q 10.7 m total 16.5 s | Run=4.2 Pause=0.9 Surfacing=11.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 22.3 s | Run=3.8 Pause=2.2 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 22.7 s | Run=3.5 Pause=1.6 Turn=2.0 Surfacing=15.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 22.1 s | Run=3.2 Pause=2.3 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 22.4 s | Run=5.0 Pause=0.5 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 22.2 s | Run=3.9 Pause=1.9 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 21.9 s | Run=4.5 Turn=1.0 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 22.1 s | Run=3.8 Pause=1.6 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 23.3 s | Run=5.0 Pause=0.5 Turn=1.3 Surfacing=16.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 21.6 s | Run=3.5 Pause=1.3 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 21.8 s | Run=4.2 Turn=1.3 Surfacing=16.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 21.6 s | Run=4.1 Pause=0.5 Surfacing=17.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 23.0 s | Run=3.6 Pause=1.9 Turn=1.7 Surfacing=15.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 22.8 s | Run=2.7 Pause=4.2 Surfacing=15.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 fish: start q 15.0 m total 23.4 s | Run=3.0 Pause=4.4 Surfacing=16.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+9:12-10 daylog 2000-12-10: casts 35 selfhooks 9 koaji catches 9 all catches 9
+9:12-10 daylog 2000-12-12: casts 21 selfhooks 6 koaji catches 6 all catches 6
+10:12-10 fish: start q 6.5 m total 11.1 s | Run=3.8 Turn=1.5 Surfacing=5.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.12 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 21.9 s | Run=4.4 Turn=1.5 Surfacing=15.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 23.3 s | Run=4.0 Pause=2.6 Surfacing=16.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 8.7 m total 13.7 s | Run=2.8 Pause=1.3 Turn=1.6 Surfacing=8.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 23.0 s | Run=4.6 Pause=1.6 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.6 s | Run=3.5 Pause=1.9 Turn=1.3 Surfacing=15.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.5 s | Run=4.3 Pause=1.7 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.7 s | Run=5.0 Turn=1.2 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.6 s | Run=4.7 Pause=1.1 Surfacing=16.8 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.4 s | Run=4.9 Turn=1.0 Surfacing=16.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.6 s | Run=2.9 Pause=3.5 Surfacing=16.2 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 3.2 m total 7.1 s | Run=3.3 Turn=0.0 Surfacing=3.7 | q<=2m 5.1 ready 3.7 ready&taut 3.7 | bolts near rod 1 | S at 2m 0.58 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 23.4 s | Run=5.5 Pause=0.5 Surfacing=17.4 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.9 s | Run=4.5 Pause=1.0 Turn=1.1 Surfacing=16.3 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.2 s | Run=4.7 Turn=1.5 Surfacing=16.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.7 s | Run=4.9 Pause=1.1 Surfacing=16.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.1 s | Run=3.1 Pause=1.4 Turn=1.9 Surfacing=15.7 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 21.6 s | Run=4.2 Turn=0.4 Surfacing=16.9 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 21.9 s | Run=4.6 Pause=0.9 Surfacing=16.5 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 23.3 s | Run=4.8 Pause=0.4 Turn=1.5 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.0 s | Run=4.4 Turn=1.5 Surfacing=16.1 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 fish: start q 15.0 m total 22.7 s | Run=4.3 Pause=1.7 Surfacing=16.6 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0 | S at 2m 0.00 | drag slip 0.0 s line out gained 0.00 m | end Landed
+10:12-10 daylog 2000-12-10: casts 36 selfhooks 11 koaji catches 11 all catches 11
+10:12-10 daylog 2000-12-11: casts 23 selfhooks 11 koaji catches 11 all catches 11
+== koaji fights 137: mean total 21.3 s | Run=3.9 Pause=1.2 Turn=0.7 Dive=0.0 Side=0.0 Surfacing=15.5 Landing=0.0 | q<=2m 3.7 ready 3.7 ready&taut 3.7 | bolts near rod 0.0 | S at 2m 0.02 | drag slip 0.00 s line out gained 0.00 m | fights with slip>0 0
+rc=0
