@@ -1,0 +1,20 @@
+[lock_guard] ok: session 2 seat seat0 LockedHint=no
+[builds_prune] deleted Linux_prev_003148 (keeping the newest 2 Linux_prev_*)
+regress_all  sha=f7af1d2  2026-10-05 01:12:16  project=/home/ken/Documents/ikada-unity-track3
+build          PASS     rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-005840.log CS=0 fonts: PASS  species: PASS not_in_table=0 control_drop_fails=True control_old_fails=True
+key_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+pad_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+hud_test       PASS     rc=0 exc=0 control: shown_again=True control_fails=True control_fails=True 
+edge_test      PASS     rc=0 exc=0 control: control_pause_still=True control_old_hookset_fails=True 
+tip_size_test  PASS     rc=0 exc=0 control: control_no_key_378=True 
+input_test     PASS     rc=0 checks=91 failures=0 unevaluated=0 control_wrong_expectation_fails=True rumble_control_fails=True chum_control_fails=True map_control_fails=True width_control_fails=True nudge_control_fails=True reveal_control_fails=True page_control_fails=True exc=0
+atlas          PASS     rc=0 main: test_chars=25 test_missing_before=25 test_missing_after=0 control_chars=11 | control ✥: test_missing_after_list=[✥] | chars: PASS
+refcheck       PASS     rc=0 PASS 11/11 control_flipped_fails=True total_wall=308s  control_flipped_fails=True
+live           PASS     rc=0 | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)  seed 20260925 logic sequence = baseline;seed 20260925 not in the baseline (not judged, counted): 0;seed 20260925 pictures 0 px (6);seed 1 logic sequence = baseline;seed 1 not in the baseline (not judged, counted): 0;seed 1 pictures 0 px (7);seed 26 logic sequence = baseline;seed 26 not in the baseli s20260925 5b=baseline; s1 5b=baseline; s26 5b=baseline; 5bctl=sees
+player_shots   PASS     rc=0 shots=26/26 glyph_lines=26/26 missing_chars=0 unchecked=0 Exception=0 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/f7af1d2_010838
+editor_shots   PASS     rc=0 shots=26/26 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/editor/f7af1d2_005840
+editor_repeat  PASS     waterT=10.0 rows=4/4 max diff>24%=0 (limit < 0.1) bad: none
+compare        PASS     rows=26/26 max diff>24%=0.24 (limit 1.0) bad: none
+git_clean      PASS     start=0 after_build=0 end=0
+baseline       PASS     vs /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/68f766b_113126: 26/26 pairs 0 px over the whole picture (08 apart from the known rod-edge pixel, 06/06C/06M from the subtitle-band pixel); differ: none; known pixel levels (limit 1): 06_A_sans:0 06_B_serif:0 08_A_sans:0 08_B_serif:0 06C_A_sans:0 06C_B_serif:0 06M_A_sans:0 06M_B_serif:0
+RESULT PASS  PASS 16/16  SKIPPED 0  UNEVALUATED 0   (NOT RUN counts as FAIL)  | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)

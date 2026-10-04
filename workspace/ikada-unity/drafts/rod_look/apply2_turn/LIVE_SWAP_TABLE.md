@@ -38,3 +38,6 @@
 | 26 | ARGS.txt | changed | 3cb2b1219a97ab6c3aab893a8ff79f073cb28c2a8b0f461752ae34502c62063e | f6c155a48ff4f3dbc6d6da12c639ebf3cb255890002ce1a958db84001279d83b |
 | 26 | AUDIO.txt | same | d469e8b84724283d2f0e25cdbf91e08b598fee4f6dec55bcc372746678ce7d95 | d469e8b84724283d2f0e25cdbf91e08b598fee4f6dec55bcc372746678ce7d95 |
 - counts: {'changed': 13, 'added': 0, 'gone': 0, 'same': 20}
+
+- labels (PRESIDENT 00:8x): live_06 = after the dango is dropped: the rod in the hand, waiting for it to sink (shot after the 139-frame wait) / live_08 (seed 26) = after the strike: the rod settled in the hand (139-frame wait: the move < 1 %, the tip spring 0.14 %)
+- live.log diff (boss1 01:0x): logic lines 0 diff (3 seeds); frame counts + drawn values differ = drafts/rod_look/apply2_turn/livelog_diff_kinds.md
