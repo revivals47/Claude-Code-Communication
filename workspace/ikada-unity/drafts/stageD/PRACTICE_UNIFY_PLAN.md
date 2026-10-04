@@ -92,7 +92,7 @@ codex 済（要点）: L0〜L4 の主張 6 つを 2750f49 で確かめ = lead-in
 ---
 
 ## U. Unity の節（worker3）
-- ★別の file★ = [drafts/stageD/PRACTICE_UNIFY_U_W3.md](PRACTICE_UNIFY_U_W3.md)（worker3 が持つ。boss1 10:36 = この PLAN.md の持ち主は worker1 1 人、U は分ける）。
+- ★別の file★ = [drafts/stageD/PRACTICE_UNIFY_U_W3.md](PRACTICE_UNIFY_U_W3.md)（804ba6a、§2 = Unity の節 2.1〜2.6。worker3 が持つ。boss1 10:36 = この PLAN.md の持ち主は worker1 1 人、U は分ける）。
 
-## 境の 1 行（worker1・worker3 の合意、worker3 10:36）
-- logic = 何を いつ 出すか（どの欄を null にするか・設定の行の字と値）を決める。Unity = 渡された欄を 1 枚の置き場に描くだけで、出すかどうかを計算し直さない。
+## 境の 1 行（worker1・worker3 の合意。字 = PRACTICE_UNIFY_U_W3.md §3（804ba6a）をそのまま）
+- ★logic = 何を いつ 出すか（どの欄を null にするか・新しい結果だけを入れ古い方を null・設定の行の字と値）を決める。Unity = 渡された欄を 1 枚の置き場（上の中央 x 520–1460・帯 y 170 ＋ 欄）と 一時停止の頁に描くだけで、出すかどうかを計算し直さない（守りは 欄が 2 つ来た時に新しい方〔ファイト〕だけ描く 1 行のみ）。★
