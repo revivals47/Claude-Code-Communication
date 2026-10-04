@@ -1,0 +1,10 @@
+[v4] 2026-10-04 17:34:26 head 95d535f
+[v4] 2026-10-04 17:34:36 roslyn: [bundle_compile8] sim rc=0 errors=0 files=175 [bundle_compile8] 95d535f game rc=0 errors=0 files=130 ikada-refs-from-Library=0 [bundle_compile8] 95d535f editor rc=0 errors=0 files=20 
+[v4] 2026-10-04 17:34:57 W_1wait_06 rc=0 png=yes exc=0 env=[] | [TipAngle] main 0.0 deg below horizontal (last span), close-up 0.0 deg, deflection 0.000 m, T 0.00 N, p 4.0, soft x1.0
+[v4] 2026-10-04 17:35:12 C_T1.0_cn3_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=1.0 IKADA_ROD_ARC_CN=3 IKADA_ROD_ARC_P=4 IKADA_TIP_SOFT=1.5] | [TipAngle] main 36.5 deg below horizontal (last span), close-up 29.7 deg, deflection 0.085 m, T 1.00 N, p 4.0, soft x1.5
+[v4] 2026-10-04 17:35:28 C_T1.0_cn2_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=1.0 IKADA_ROD_ARC_CN=2 IKADA_ROD_ARC_P=4 IKADA_TIP_SOFT=1.5] | [TipAngle] main 43.9 deg below horizontal (last span), close-up 29.7 deg, deflection 0.085 m, T 1.00 N, p 4.0, soft x1.5
+[v4] 2026-10-04 17:35:43 C_T3.8_cn3_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=3.8 IKADA_ROD_ARC_CN=3 IKADA_ROD_ARC_P=4 IKADA_TIP_SOFT=1.5] | [TipAngle] main 56.7 deg below horizontal (last span), close-up 69.7 deg, deflection 0.278 m, T 3.80 N, p 4.0, soft x1.5
+[v4] 2026-10-04 17:36:04 C_T3.8_cn2_08 rc=0 png=yes exc=0 env=[IKADA_ROD_T=3.8 IKADA_ROD_ARC_CN=2 IKADA_ROD_ARC_P=4 IKADA_TIP_SOFT=1.5] | [TipAngle] main 56.7 deg below horizontal (last span), close-up 69.7 deg, deflection 0.278 m, T 3.80 N, p 4.0, soft x1.5
+[v4] 2026-10-04 17:36:04 W 06 vs 177002a: diff_px=42892 bbox=(654, 633, 1512, 1079)
+[v4] 2026-10-04 17:36:04 porcelain []
+[v4] 2026-10-04 17:36:04 done
