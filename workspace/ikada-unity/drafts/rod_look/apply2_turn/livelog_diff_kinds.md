@@ -1,0 +1,46 @@
+seed 20260925:     194 [StageNHud] tide
+seed 20260925:     184 [StageNHud] strip
+seed 20260925:      10 [RodHolder] dip
+seed 20260925:       2 [TmpFlags] rebuilt
+seed 20260925:       2 [TmpFlags] font
+seed 20260925:       2 [PrepN] advice
+seed 20260925:       2 [Live] start
+seed 20260925:       2 [FrameGap] minute
+seed 20260925:       2 [ClutchWire] frames
+seed 20260925:       2 [Catenary] RESULT
+seed 20260925:       2 [Audio] RESULT
+seed 20260925:       2 [Ambient] RESULT
+seed 20260925:       2 Vulkan PSO
+seed 20260925:       2 Processor: Intel(R) Core(TM) iN-N CPU @ N.NGHz, N core(s) @ N MHz 
+seed 20260925:       1 [RodHolder] placed
+seed 1:     200 [StageNHud] tide
+seed 1:     188 [StageNHud] strip
+seed 1:      10 [RodHolder] dip
+seed 1:       2 [TmpFlags] rebuilt
+seed 1:       2 [TmpFlags] font
+seed 1:       2 [PrepN] advice
+seed 1:       2 [Live] start
+seed 1:       2 [FrameGap] minute
+seed 1:       2 [ClutchWire] frames
+seed 1:       2 [Catenary] RESULT
+seed 1:       2 [Audio] RESULT
+seed 1:       2 [Ambient] RESULT
+seed 1:       2 Vulkan PSO
+seed 1:       2 Processor: Intel(R) Core(TM) iN-N CPU @ N.NGHz, N core(s) @ N MHz 
+seed 1:       1 [RodHolder] placed
+seed 26:     200 [StageNHud] tide
+seed 26:     188 [StageNHud] strip
+seed 26:      22 [RodHolder] dip
+seed 26:       2 [TmpFlags] rebuilt
+seed 26:       2 [TmpFlags] font
+seed 26:       2 [PrepN] advice
+seed 26:       2 [Live] start
+seed 26:       2 [FrameGap] minute
+seed 26:       2 [FishSurface] shown
+seed 26:       2 [ClutchWire] frames
+seed 26:       2 [Catenary] RESULT
+seed 26:       2 [Audio] RESULT
+seed 26:       2 [Ambient] RESULT
+seed 26:       2 Vulkan PSO
+seed 26:       2 Processor: Intel(R) Core(TM) iN-N CPU @ N.NGHz, N core(s) @ N MHz 
+seed 26:       1 [RodHolder] placed
