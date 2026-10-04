@@ -1,0 +1,13 @@
+23:52:47 HEAD IdleHint=no LockedHint=no | Runner.Worker 0 | load 0.96 1.07 1.20 | df / 25088937984 B | mode APPLY
+23:52:47 0 master = 0b53e4a3b5618963b1d0e5e7df4f1f1951039f51, pin com.ikada.sim #b80715f96efa90d687296c8e4562e8bb085725f9
+23:52:48 0 positive control: folder sha of /home/ken/Documents/ikada-play/2cb67ab = 75dc972e69da4953b2abd12fbcef41befa5d02d999a7ac90a612913d5be2b71e (as recorded)
+23:53:33 2 build ok: result=Succeeded errors=0 warnings=44 size=744103759 time=00:00:17.5130210 out=/home/ken/Documents/ikada-unity/Builds/Linux/Ikada.x86_64 (log /home/ken/Documents/ikada-unity/Logs/batch/exec-235248.log)
+23:53:36 3 /home/ken/Documents/ikada-play/0b53e4a: 176 files, 744103759 bytes, folder sha256 745e15a8665c396db89a79968cecd9885c4f51cfa82a58bca67ace81ec52f6b7, Ikada.x86_64 sha256 a9a83136f9f1e9bb13e145b651e13a947bbff6d6a9281f92f0791afc397104cb
+23:53:37 no player from /home/ken/Documents/ikada-play/0b53e4a (before 4)
+23:54:03 no player from /home/ken/Documents/ikada-play/0b53e4a (after 4a)
+23:54:07 no player from /home/ken/Documents/ikada-play/0b53e4a (after 4b)
+23:54:44 no player from /home/ken/Documents/ikada-play/0b53e4a (after 4c)
+23:54:44 save dir unchanged (/home/ken/.config/unity3d/DefaultCompany/ikada-unity/save before vs after): 1 line(s) ((no dir))
+23:54:44 4 launch: [Live] start api 0.25.0 | [SessionProbe] RESULT ok=True api=0.25.0 abi=3 screen=Title timeS=10.00 dispose_ms=0 backend=LinuxPlayer Mono error=none | [Live] RESULT ok=True steps=539333 simS=8989.1 page=Info screens=05,07,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,0
+23:54:44 DONE /home/ken/Documents/ikada-play/0b53e4a
+23:54:44 worktree /home/ken/Documents/ikada-unity back to master
