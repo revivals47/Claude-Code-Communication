@@ -39,3 +39,9 @@
   - C G 12/10 種 1: 1 本目の J は ★朝の章の頁（t=2.00）= 撮りの名の外れ★ → 日の終わりの J（t=7661.02）を -ikadaLiveShotAt 7662 で撮り直し: ★「釣果：小アジ　12cm（外道）」＋ 8 行（11〜13 cm・10 cm, すべて（外道））= 9 尾 = GDay v2 の種 1 の 12/10 小アジ 9 尾と一致★ ✓。
   - sheet: drafts/user_review/c178_a8cca9e_practice_koaji_sheet.png（7 枚）。
 - 既知（今回の変えではない）: 07 の Note「やめる時：OPTIONS長押し 長押しの一時停止 …」は 印と字で「長押し」が二重・器の絵の上で読みにくい（2750f49 の Note 以来）。
+
+## 板を広げる（PRESIDENT 15:1x via boss1 15:08, Unity の code, track3/logic-a8cca9e の上 = ★HEAD は次の commit★）— 予測（Unity の番の前, 動かさない）
+- code: Pause01.cs = 行の字の最も広い幅 + 40 px が 800 を超える時だけ 行と板を広げる（板 = 行 + 100、中央）、収まる板は 900 / 800 のまま。Refresh は 行の字で幅が替わったら作り直し。Prep07.cs = Note が 583 px より広い時だけ 2 行（箱の中で折り返し、上端 683 のまま上揃え、60 px）、収まる Note は 今のまま（1 行・中央揃え・30 px）。字は不変。
+- 動く画（由来 = source）: Pause01 を使うのは P1 の画面だけ（ScreenRegistry.cs:44 = mock P1 も live の一時停止・練習の設定も 同じ Pause01）。★広がるのは 行が 800 − 40 を超える板だけ = 練習の設定の free の時（5 行目「はじまり　ふつうに落とす（…）」）★。winter の設定（5 行目「はじまり　アタリの前から（10 投のまとめの時）」）・一時停止 5 行・mock P1（logic の 4 行）は ★0 px★。Note: 07 の Note を出すのは 練習・自由釣りの支度（DayFlow.LeaveHint）と 店の断り（「クーラーにもう入らない」）・mock の shopRefused / shopAdvNote / A9 probe = 短い = ★1 行のまま 0 px★、★練習・自由釣りの 07 だけ 2 行に★。
+- regress（REGRESS_LIVE=1）: ★PASS 15/15・0 px の見込み★（player_shots・editor の 07 は物語の mock = Note なし／店の短い Note、P1 は mock の 4 行; live の画に 練習・自由釣りの 07 と 練習の設定は無い）= boss1 の見込み「動く mock の差し替え」とは違う予測。動いたら 外れとして 差し替えの dry へ。
+- 撮り 1 枚ずつ: A 練習 free の P_settings（5 行目が板の中・板が広い）、A の 07（Note が 2 行で 板の幅の中・器の絵にかからない）、対照 = B winter の P_settings と P_pause は c178 と 0 px。
