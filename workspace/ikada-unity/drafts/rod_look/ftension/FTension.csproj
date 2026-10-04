@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- AJI_HOOKUP (worker3, PRESIDENT 11:4x): story days through IkadaSession + AutoPilot as ReferenceRun.RunAt, measure only; no test-harness
+       links, so it builds against any ikada-sim-w3 checkout (base yaritori / the koaji branch). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>9.0</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+  <PropertyGroup><Sim>$(HOME)/Documents/ikada-sim-w3/pc</Sim></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(Sim)/src/Ikada.Game/Ikada.Game.csproj" />
+  </ItemGroup>
+</Project>

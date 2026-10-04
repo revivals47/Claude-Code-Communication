@@ -1,0 +1,34 @@
+Chinu 30 cm seed 1: fight 46.0 s | T device N median 0.99 p10 0.70 p90 1.55 max 3.21 | end Landed
+Chinu 30 cm seed 2: fight 44.9 s | T device N median 0.99 p10 0.65 p90 1.63 max 3.21 | end Landed
+Chinu 30 cm seed 3: fight 44.1 s | T device N median 0.99 p10 0.59 p90 1.63 max 3.21 | end Landed
+Chinu 30 cm seed 4: fight 45.9 s | T device N median 0.99 p10 0.63 p90 1.55 max 3.21 | end Landed
+Chinu 30 cm seed 5: fight 45.8 s | T device N median 0.99 p10 0.64 p90 1.62 max 3.31 | end Landed
+Chinu 30 cm seed 6: fight 44.7 s | T device N median 0.99 p10 0.60 p90 1.64 max 3.21 | end Landed
+Chinu 30 cm seed 7: fight 45.0 s | T device N median 0.99 p10 0.60 p90 1.64 max 3.21 | end Landed
+Chinu 30 cm seed 8: fight 44.9 s | T device N median 1.01 p10 0.58 p90 1.63 max 3.21 | end Landed
+Chinu 35 cm seed 1: fight 62.9 s | T device N median 1.34 p10 0.81 p90 2.08 max 3.73 | end Landed
+Chinu 35 cm seed 2: fight 55.3 s | T device N median 1.34 p10 0.66 p90 2.16 max 3.69 | end Landed
+Chinu 35 cm seed 3: fight 54.8 s | T device N median 1.34 p10 0.70 p90 2.22 max 3.49 | end Landed
+Chinu 35 cm seed 4: fight 58.5 s | T device N median 1.34 p10 0.64 p90 2.11 max 3.72 | end Landed
+Chinu 35 cm seed 5: fight 56.8 s | T device N median 1.34 p10 0.68 p90 2.11 max 3.67 | end Landed
+Chinu 35 cm seed 6: fight 59.5 s | T device N median 1.34 p10 0.71 p90 2.21 max 3.68 | end Landed
+Chinu 35 cm seed 7: fight 54.8 s | T device N median 1.34 p10 0.60 p90 2.19 max 3.73 | end Landed
+Chinu 35 cm seed 8: fight 56.8 s | T device N median 1.34 p10 0.71 p90 2.21 max 3.69 | end Landed
+Chinu 40 cm seed 1: fight 78.9 s | T device N median 1.31 p10 0.81 p90 2.71 max 3.94 | end Landed
+Chinu 40 cm seed 2: fight 65.3 s | T device N median 2.10 p10 0.65 p90 2.73 max 3.94 | end Landed
+Chinu 40 cm seed 3: fight 82.7 s | T device N median 1.13 p10 0.71 p90 2.70 max 3.81 | end Landed
+Chinu 40 cm seed 4: fight 71.0 s | T device N median 1.75 p10 0.72 p90 2.72 max 3.93 | end Landed
+Chinu 40 cm seed 5: fight 74.1 s | T device N median 1.75 p10 0.78 p90 2.70 max 3.91 | end Landed
+Chinu 40 cm seed 6: fight 78.1 s | T device N median 1.40 p10 0.69 p90 2.70 max 3.92 | end Landed
+Chinu 40 cm seed 7: fight 79.9 s | T device N median 1.42 p10 0.85 p90 2.71 max 3.98 | end Landed
+Chinu 40 cm seed 8: fight 76.0 s | T device N median 1.43 p10 0.70 p90 2.71 max 3.94 | end Landed
+== Chinu all frames 85579: median 1.34 p10 0.69 p25 0.93 p75 1.84 p90 2.55 max 3.98 (device N)
+Koaji 12 cm seed 1: fight 9.7 s | T device N median 0.38 p10 0.17 p90 0.67 max 1.71 | end Landed
+Koaji 12 cm seed 2: fight 9.7 s | T device N median 0.38 p10 0.18 p90 0.65 max 1.74 | end Landed
+Koaji 12 cm seed 3: fight 9.6 s | T device N median 0.37 p10 0.18 p90 0.61 max 1.64 | end Landed
+Koaji 12 cm seed 4: fight 9.6 s | T device N median 0.32 p10 0.17 p90 0.62 max 1.67 | end Landed
+Koaji 12 cm seed 5: fight 9.6 s | T device N median 0.33 p10 0.18 p90 0.62 max 1.67 | end Landed
+Koaji 12 cm seed 6: fight 9.7 s | T device N median 0.38 p10 0.18 p90 0.65 max 1.75 | end Landed
+Koaji 12 cm seed 7: fight 9.6 s | T device N median 0.36 p10 0.17 p90 0.66 max 1.71 | end Landed
+Koaji 12 cm seed 8: fight 9.6 s | T device N median 0.38 p10 0.18 p90 0.63 max 1.64 | end Landed
+== Koaji all frames 4616: median 0.37 p10 0.18 p25 0.22 p75 0.49 p90 0.64 max 1.75 (device N)
