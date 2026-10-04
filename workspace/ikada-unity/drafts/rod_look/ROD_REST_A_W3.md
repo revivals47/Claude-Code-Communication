@@ -59,3 +59,32 @@
   - W3 vs W2 = ★0 px★ → 当たり。Ha3 の穂先 ★(0.027, 0.800, 4.301)★・Hs3 ★(0.026, 0.491, 4.286)★ = 予測と 3 桁で一致 → 当たり。
   - 画（4 倍の拡大, 目）: ★前の受け（遠い小さい V）= 竿は その右を 大きく離れて通る（通り抜けなし）★ → 当たり。★後ろの受け（近い大きい V）= 竿が 右の腕の外の縁に沿って ほぼ接して見える★（世界では 0.047 m 離れる計算, 画で隙はほとんど無い = 目の位置の重なり）。「隙 10 px 以上」は 前の受けの所では当たり、後ろの受けの所は 測りの行を決めていなかった（前の受けの所だけを予測した）= 当たりとは数えない。沈み（Hs3）は 竿が下がり 両方の受けから離れる。
   - c201 = 待つ時（W3）・手（Ha3）・沈み（Hs3）・やり取り（F2b, 0ef08cf の撮り = 手の横はファイトに掛からないので 1b1a1da でも同じ, 推論）、見出しは依頼者の言葉。途中の 1 枚は 0.10 の時の画なので入れていない。
+
+## §7.38 既定にする commit（PRESIDENT 22:5x GO）— code・差し替えの表（予測）・1 点の道の全列挙（撮り・regress の前, 動かさない; Unity なし = 未 compile）
+- code = ikada-unity-track3 ★track3/rod-default 525d9b1★（1b1a1da ＋ 既定の差, 4 file +38/−29）。既定（env 未設定）と 旧に戻す env:
+  | 何 | 既定（新） | 旧に戻す env | 出所 |
+  |---|---|---|---|
+  | 竿受け | 縁を挟む台＋腕＋V 2 つ（EDGE=a） | IKADA_ROD_EDGE=off（縁の 1 点, c196 まで）／=b（V 1 つ） | 依頼者 c198 の答え (a)・PRESIDENT 21:5x |
+  | 竿の位置 | 1.73 m 前（実 0.84 m）, 手・ファイトでは戻す | IKADA_ROD_FORWARD_M=0（EDGE=off なら既定 0） | 同上 ＋ PRESIDENT 22:4x |
+  | 手の横 | 0.158（受けの大きさ ＋ 0.02） | （EDGE=off で 0.10） | PRESIDENT 22:4x 案 A |
+  | 太さの床 | 竿に直角で 1.5 px（F2） | IKADA_ROD_MIN_ACROSS=0 | 依頼者 c197 の答え 案 2・PRESIDENT 21:5x |
+  | ガイドの輪・針金 | 実寸 ×1（F2） | IKADA_ROD_GUIDES_REAL=0 | 同上 |
+  | 下りる糸 | 3 mm | IKADA_ROD_LINE_MM=6 | PRESIDENT 22:5x |
+  - 注の直し: LineDiaM と GuidesReal の注が be3ec28 で割れていた（GuidesReal の注の後に LineDiaM の注と宣言）を 戻した。「shots only」の古い注 5 か所（RodRest2 2・RodDressing 1・RuntimeRod.Hold 2・Props 1 の行末）を今の値へ。
+- ★差し替えの表（予測）★: regress の画面（tools/regress_all.sh:72 BASE_IDS = S0 05 07 06 08 03 04 J Z P1 P2 06C 06M）× A/B。3D の画面（ScreenRegistry の Uses3D = true: 06・06C・06M・08・P1・P2、ほかに 06G は regress 外）だけ替わる:
+  | 画面 | 替わるか | 予測の形 |
+  |---|---|---|
+  | 06・06C・06M・P1・P2（待ち, 受けに置く） | ★替わる★ | 竿は縁の V 2 つに 遠く小さく（c199/c201 の待つ時 = W3 と同じ）、太さ F2、下りる糸 3 mm。★06 の新しい既定 vs W3（1b1a1da の env 撮り）= 下りる糸の所だけの差（糸 6 → 3 mm, 穂先 (964, 614) から下の縦の帯）★。HUD の所は 0 px。 |
+  | 08（ファイト） | ★替わる★ | 竿は手元へ戻り（F2b と同じ形）, 縁に V 2 つと台、F2、糸 3 mm。★08 の新しい既定 vs F2b = 下りる糸の所だけの差（穂先 (1103, 349) から入水 (1441, 836) の線）★。 |
+  | S0・05・07・03・04・J・Z（2D） | 替わらない | ★0 px★ |
+  - regress の baseline（今 ae3b5c4 系）に対しては 3D の 6 画面 × A/B = 12 組が FAIL（替わる = 予測どおり）、2D の 7 画面 × A/B = 14 組は PASS（0 px）の見込み。差し替え = 新しい baseline を PRESIDENT の GO で。
+  - ★対照★: 525d9b1 で 旧に戻す env を全部（IKADA_ROD_EDGE=off IKADA_ROD_MIN_ACROSS=0 IKADA_ROD_GUIDES_REAL=0 IKADA_ROD_LINE_MM=6）付けた 06 vs R0（e7f7269 の既定）= ★0 px★、08 vs master の 08 = 0 px（既定の差が 旧の道を壊していない確かめ）。
+  - live（遊べる版）: 待ち = 竿は縁の受けに、手（落とす・沈み・合わせ〜取り込み）とファイト = 手元へ τ 0.5 s で戻る。log: ★[Cast]・screens・RESULT など logic の行は不変★（描きだけの差）。[RodHolder] rest の cradle = (−0.177, 0.750, 3.791)（今 (−0.172, 0.750, 3.845)）、★[RodHolder] dip の dy は 前の受けの点からの高さ = 竿が手元へ戻るので 意味が替わる（値は大きく替わる, 推論）★、[FightLine] の穂先・入水は ★今（F2 前）と同じ★（戻した竿は (a) の前の位置, F2 は中心線を動かさない; §7.36 で F2b = F0 一致）。
+- ★1 点（RodHolder）の道の全列挙（grep, 1b1a1da/525d9b1, Assets 全部の .cs）★:
+  1. RuntimeRod.Hold.cs:38 `_holder.Place(_butt, _tip, deckTopY, deckFrontZ, radius)` = 1 点の受けを縁に置く道 → ★既定では通らない★（EDGE=off / b の時だけ）。
+  2. RodHolder の部品（Clamp・ClampLip・Post・Cradle の箱）= 既定では Show(false) で描かない。RodHolder の Point（前の受けの点）・TurnAbout（−5° の軸）・HeldAngle（手の角の式）は ★既定でも使う★（2 点の前の受けの点として）。
+  3. RodHolder.SideClearM・RuntimeRod.HeldClearM（0.045）= 1 点の時だけ（SideClear / HeldAngle の引数）→ 既定では通らない。
+  4. RuntimeRod.Hold.cs:26 の f（縁から 1 点の受けの竿の割合）と radius = 1 点の道でだけ使う（2 点では RadiusAt）→ 既定では計算するが使わない。
+  5. BackdropBuilderRodGrip.BuildRodHolder（BackdropBuilderProps.cs:296）= P3/P4 の試しの置き方（TrialPlacement）だけ = 前から既定外。
+  6. pose "holder075"（BackdropBuilderProps.cs:215）= RodPose の env だけ = 前から既定外。
+  7. log: RuntimeRod.Hold.cs の [RodHolder] rest・dip・placed の 5 行 = 既定でも出る（_holder.Point = 2 点の前の受けの点に対して測る）、dip の「clear >= HeldClearM − 0.002」の字は 1 点の値のまま（既定では HeldClear2M 0.10 が効く）= ★字が今の式と合わない 1 か所★（直すなら log の字だけ, code 1 行）。
