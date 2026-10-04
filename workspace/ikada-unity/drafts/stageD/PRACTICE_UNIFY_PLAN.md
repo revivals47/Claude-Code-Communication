@@ -103,3 +103,8 @@ codex 済（要点）: L0〜L4 の主張 6 つを 2750f49 で確かめ = lead-in
 
 ## 境の 1 行（worker1・worker3 の合意。字 = PRACTICE_UNIFY_U_W3.md §3（804ba6a）をそのまま）
 - ★logic = 何を いつ 出すか（どの欄を null にするか・新しい結果だけを入れ古い方を null・設定の行の字と値）を決める。Unity = 渡された欄を 1 枚の置き場（上の中央 x 520–1460・帯 y 170 ＋ 欄）と 一時停止の頁に描くだけで、出すかどうかを計算し直さない（守りは 欄が 2 つ来た時に新しい方〔ファイト〕だけ描く 1 行のみ）。★
+
+### L8. 結果（4c7151f、2026-10-04 11:05〜11:24、drafts/stageD/unify_dotnet/run.log）
+- build 警告 0・エラー 0。練習の試験（ContractTests・PracticeUnify 5・Strike・Fight・Set・Words・Flow・Bite・LeadIn・BackToTitle・Chum）= 64 本とも成功 = P2・P3・P4 当たり（ContractTests 不変 = 0.24.0 のまま）。
+- RefCheck 11 本とも #15 = P1 当たり。
+- ★外れ 1 つ★: 全試験 915 中 合格 909・失敗 1・スキップ 5。失敗 = ActionTokensTests.PracticeMarksAreWordsNotSymbols（Practice.cs の source を読んで `"よし"` の字を探す試験、ActionTokensTests.cs:46）。私が `"　よし"` と区切りの空白ごと書いたので字が見つからなかった（画の字は「よし」のまま）= 予測の「直す試験の list」から漏れていた（source を読む試験を grep していなかった）。→ 1502b30 で 区切りを字の外へ（`"　" + (ok ? "よし" : …)`）。この 1 本の回し直しは dotnet の合図で。
