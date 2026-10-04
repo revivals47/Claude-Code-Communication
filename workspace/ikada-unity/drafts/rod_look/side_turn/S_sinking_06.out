@@ -1,0 +1,38 @@
+[lock_guard] ok: session 2 seat seat0 LockedHint=no
+[lock_guard] ok: session 2 seat seat0 LockedHint=no
+[unity-batch] 08:53:52 start exec
+[unity-batch] 08:54:07 end rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-085352.log
+[unity-batch] error CS lines: 0
+[unity-batch] Exiting batchmode successfully: yes
+[SceneBuilder] dayFrac=0.069 hour=7.09 sun az=97.2 alt=6.5 weights=1.00/0.00/0.00
+[SceneBuilder] sun light fwd=(0.711, -0.114, 0.694) intensity=0.94 color=RGBA(1.000, 0.801, 0.602, 1.000) shadows=Soft
+[SceneBuilder] ambient mode=Trilight probe L0 rgb=(0.224,0.282,0.369) sun=0.94
+[Shot] screen=06 smallFont=sans hud=off texts=22
+[Shot] text Place font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text Weather font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text Chapter font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text Goal font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text DepthLabel font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text DepthValue font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text DangoLabel font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text DangoValue font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text TensionLabel font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text TensionValue font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text TipLabel font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text TackleLabel0 font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text TackleValue0 font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text TackleLabel1 font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text TackleValue1 font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text TackleLabel2 font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text TackleValue2 font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text TackleLabel3 font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text TackleValue3 font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text Subtitle font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text PracticeDrill font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text TipTitle font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] rod side: butt (-0.242, 0.800, 1.222) tip (0.026, 0.491, 4.286) pitch -5.7 deg (+ = tip up) camera (-4.292, 0.400, 3.120) fov 45
+[Shot] camera MainCamera pos=(-4.2922, 0.4000, 3.1201) rot=(0.0000, 95.0000, 0.0000) fov=45.0000
+[Shooter] tip close-up TipViewCamera -> TipView 675x540
+[Shooter] cameras: MainCamera(depth 0)
+[Shooter] wrote /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/side_turn/S_sinking_06.png gfx=Vulkan NVIDIA GeForce RTX 4070
+[shoot] /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/side_turn/S_sinking_06.png size=(1920, 1080) distinct_colours=47756
