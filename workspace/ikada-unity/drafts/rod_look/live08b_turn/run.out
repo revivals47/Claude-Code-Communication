@@ -1,0 +1,32 @@
+[lb] 2026-10-04 23:30:56 roslyn: [bundle_compile8] sim rc=0 errors=0 files=175 [bundle_compile8] b763128 game rc=0 errors=0 files=132 ikada-refs-from-Library=0 [bundle_compile8] b763128 editor rc=0 errors=0 files=20 
+[lb] 2026-10-04 23:31:37 bake: [ubT] Ikada.EditorTools.BuildScript.BuildPerf rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-233056-lb.log exiting_ok=1 exceptions=0 cs=0
+[lb] 2026-10-04 23:31:37 porcelain after the bake: []
+[lb] 2026-10-04 23:31:37 the regress's own args (Logs/regress/ed4fe86_230630/live/seed_26/ARGS.txt): -ikadaLive -ikadaLockstep -ikadaLiveAutoPilot -ikadaLiveSpeed 300 -ikadaSavePath none -ikadaWaterT 10 -ikadaTipSettle -ikadaLiveShotScreens 05,07,06C,06,08,03,04,J -ikadaLiveQuitAfterShots -ikadaLiveSeed 26
+[lb] 2026-10-04 23:32:17 run R1 rc=0 png=[live_03.png live_04.png live_05.png live_06.png live_06C.png live_07.png live_08.png live_J.png ] exc=0 hookset=[[RodHand] hand at HookSet TimeS=792.399] holdlines=400
+[lb] 2026-10-04 23:32:56 run R2 rc=0 png=[live_03.png live_04.png live_05.png live_06.png live_06C.png live_07.png live_08.png live_J.png ] exc=0 hookset=[[RodHand] hand at HookSet TimeS=792.399] holdlines=400
+[lb] 2026-10-04 23:32:57 R1 live_08 vs R2 live_08: diff_px=0 bbox=None
+[lb] 2026-10-04 23:32:57 R1 live_08 vs the ed4fe86 regress live_08: diff_px=0 bbox=None
+[lb] R1 [RodHand] hand at HookSet TimeS=792.399
+[lb] R1 hold frames between HookSet and the 08 picture: 33
+[lb] R1   [RuntimeRod] hold frame 191: frameCount=290 dt=0.0167 TimeS=792.399 fight=True hold=Hand hand=False back=0.1437/1.73 lift=0.0025 side=0.0080 butt=(-0.254, 0.753, 2.816) rest=(-0.177, 0.750, 3.791)
+[lb] R1   [RuntimeRod] hold frame 192: frameCount=291 dt=0.0167 TimeS=792.399 fight=True hold=Hand hand=False back=0.1957/1.73 lift=0.0024 side=0.0077 butt=(-0.259, 0.752, 2.764) rest=(-0.177, 0.750, 3.791)
+[lb] R1   [RuntimeRod] hold frame 222: frameCount=321 dt=0.0167 TimeS=792.399 fight=True hold=Hand hand=False back=1.1656/1.73 lift=0.0009 side=0.0028 butt=(-0.348, 0.751, 1.798) rest=(-0.177, 0.750, 3.791)
+[lb] R1   [RuntimeRod] hold frame 223: frameCount=322 dt=0.0167 TimeS=792.399 fight=True hold=Hand hand=False back=1.1841/1.73 lift=0.0009 side=0.0027 butt=(-0.350, 0.751, 1.780) rest=(-0.177, 0.750, 3.791)
+[lb] R1 [Live] shot screen=08 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08b_turn/R1/live_08.png t=792.40
+[lb] R2 [RodHand] hand at HookSet TimeS=792.399
+[lb] R2 hold frames between HookSet and the 08 picture: 33
+[lb] R2   [RuntimeRod] hold frame 191: frameCount=290 dt=0.0167 TimeS=792.399 fight=True hold=Hand hand=False back=0.1437/1.73 lift=0.0025 side=0.0080 butt=(-0.254, 0.753, 2.816) rest=(-0.177, 0.750, 3.791)
+[lb] R2   [RuntimeRod] hold frame 192: frameCount=291 dt=0.0167 TimeS=792.399 fight=True hold=Hand hand=False back=0.1957/1.73 lift=0.0024 side=0.0077 butt=(-0.259, 0.752, 2.764) rest=(-0.177, 0.750, 3.791)
+[lb] R2   [RuntimeRod] hold frame 222: frameCount=321 dt=0.0167 TimeS=792.399 fight=True hold=Hand hand=False back=1.1656/1.73 lift=0.0009 side=0.0028 butt=(-0.348, 0.751, 1.798) rest=(-0.177, 0.750, 3.791)
+[lb] R2   [RuntimeRod] hold frame 223: frameCount=322 dt=0.0167 TimeS=792.399 fight=True hold=Hand hand=False back=1.1841/1.73 lift=0.0009 side=0.0027 butt=(-0.350, 0.751, 1.780) rest=(-0.177, 0.750, 3.791)
+[lb] R2 [Live] shot screen=08 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08b_turn/R2/live_08.png t=792.40
+[lb] 2026-10-04 23:33:20 run C_strip rc=0 png=[live_08_f0.png live_08_f15.png live_08_f30.png live_08_f6.png live_08_f60.png live_08_f90.png ] exc=0 hookset=[[RodHand] hand at HookSet TimeS=792.399] holdlines=400
+[lb] C [Live] shot screen=08_f0 frame=0 frameCount=600 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08b_turn/C_strip/live_08_f0.png t=792.399
+[lb] C [Live] shot screen=08_f6 frame=6 frameCount=606 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08b_turn/C_strip/live_08_f6.png t=792.499
+[lb] C [Live] shot screen=08_f15 frame=15 frameCount=615 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08b_turn/C_strip/live_08_f15.png t=792.649
+[lb] C [Live] shot screen=08_f30 frame=30 frameCount=630 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08b_turn/C_strip/live_08_f30.png t=792.899
+[lb] C [Live] shot screen=08_f60 frame=60 frameCount=660 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08b_turn/C_strip/live_08_f60.png t=793.399
+[lb] C [Live] shot screen=08_f90 frame=90 frameCount=690 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08b_turn/C_strip/live_08_f90.png t=793.899
+[lb] strip /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08b_turn/strip_frames.png 6
+[lb] 2026-10-04 23:33:21 players left: 0; end porcelain 0 head b763128
+[lb] 2026-10-04 23:33:21 done
