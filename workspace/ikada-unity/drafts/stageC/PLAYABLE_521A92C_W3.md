@@ -6,3 +6,7 @@ master = 521a92c8b5e11f8317c9ba8bf4267992891880d8（dev-pin025 3f7ac9a と track
 - dry: rc 0（陽性 = 2cb67ab の folder sha 一致）。
 - ★build: ~/Documents/ikada-play/521a92c = file 176（0d13af2 と同じ）・bytes 744,034,287 ＋ 0〜200 KB★（竿 V4 の code・material RodGold・logic の DebugView の欄 = level / sharedassets / dll の中、新しい file なし）、Ikada.x86_64 の sha256 = 0d13af2 と同じ（a9a83136…）。0d13af2 との差の file = Managed の dll・boot.config・globalgamemanagers(.assets)・level0・resources.assets・sharedassets0.assets（前の 2 回と同じ種類）。
 - 起動の確かめ: 4a〜4c の script の確かめ ＋ -ikadaDev（閉じ・-ikadaDevOpen で開き = 開発の表示に 今回の足し BaitOn / Fish / Stealers / 投の秒が出る見込み）、Exception 0、player 0。
+
+## StoryRun S0〜S7 を b80715f で（観測, 20:03:50〜20:09:52, drafts/stageC/storyrun_b80715f/, ikada-sim-w3 を b80715f に detach → w3/koaji-selfhook に戻した）
+- ★S0〜S6 = a8cca9e と summary の行が全部同じ・storyrun.log も頭の 3 行の後 diff 0・S7 sim 213468 s（同じ）・wall 5.9 分★ → ★予測 全部 当たり★（時間の飛ばしの潮の式の替わりは 物語の通しに効かない = AutoPilot は押さない、の読みと合う）。
+- 後: build-server shutdown、dotnet 0・VBCS 0（pgrep / ps で確認）。
