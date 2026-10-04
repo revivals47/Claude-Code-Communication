@@ -54,3 +54,12 @@
 
 ## 3. 境の 1 行（worker1 の案に合意 = この字を worker1 が PLAN.md に）
 - ★logic = 何を いつ 出すか（どの欄を null にするか・新しい結果だけを入れ古い方を null・設定の行の字と値）を決める。Unity = 渡された欄を 1 枚の置き場（上の中央 x 520–1460・帯 y 170 ＋ 欄）と 一時停止の頁に描くだけで、出すかどうかを計算し直さない（守りは 欄が 2 つ来た時に新しい方〔ファイト〕だけ描く 1 行のみ）。★
+
+## 4. code（PRESIDENT 10:4x GO, track3/practice-unify = master c5125b3 から, PR の撮りの木とは別）— 予測（code の前, 動かさない）
+- (a) FightReviewParts.Refresh(s, drop): 欄の根を (0, −drop) へ（PracticeParts と同じ手, PracticeReviewPanel.cs:78）、drop = PracticeParts の帯が出ている時の drillDrop（2 行で 26 px, 1 行・無しで 0）。(b) FishingHud: fightOn = FightReviewParts.Has(s) を先に取り、PracticeParts.Refresh(s, fightOn) は fightOn なら アワセの欄を描かない。(c) PracticeParts.Build: Stroke が空なら「ストローク」の行を描かず「結果」を 28 px 上へ。mock: MockPracticeReview に変種 S（Variant(1) と同じで Stroke ""・Band −1）。
+- 予測:
+  - ★今の 15 本の regress の基準は 0 px★（今の mock: IKADA_MOCK_FIGHT の撮りは帯なし = drop 0 で同じ位置、IKADA_MOCK_PRACTICE 1/2/3/L/D は Stroke が空でなく ファイトの欄なし = 同じ）。
+  - 陽性 (a)+(b): IKADA_MOCK_PRACTICE=L ＋ IKADA_MOCK_FIGHT=1 の 06 の mock = 帯 2 行（y 170–232）・★アワセの欄は無く★ やり取りの欄だけ y 240–560（214+26）、帯と欄の重なり 0 px。陰性 = 今の code（c5125b3）で同じ env = 2 つの欄が重なる（アワセ y 240–436 と やり取り y 214–534）＋ やり取りの欄の頭 y 214 が 帯の 2 行目（y 196–232）と重なる。
+  - 陽性 (c): IKADA_MOCK_PRACTICE=S = 時機・結果の 2 行（結果が ストロークの所 = 28 px 上）、▼ の横の語なし。陰性 = 今の code で S = 「ストローク　」の空の行あり（Band −1 で ▼ の横の語は今も無い）。
+  - Roslyn 0、RuntimeRod 等 06 の外の file は触らない。
+- LivePractice の扉: worker1 の版（設定の板の入口・行の字）が main に入るまで ★字の表は L1 の表の字で仮置き★（worker1 に (1) 入口の字と開き方 (2) 行の頭と値の語 (3) 題の「練習」の後の頁 を 10:39 に聞いた）= 走らせる確かめは worker1 の版の後。
