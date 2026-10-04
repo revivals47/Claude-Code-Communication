@@ -1,0 +1,9 @@
+[ir] 2026-10-04 19:29:49 head 506dfab branch integ/next-build porcelain 0
+[ir] 2026-10-04 19:30:05 I0_point1_06 rc=0 png=yes exc=0 env=[] | [RodHolder] rest TimeS=0.000 cradle (-0.172, 0.750, 3.845) rod at the cradle (-0.176, 0.750, 3.802) dy 0.0000 m [RodHolder] rest TimeS=0.000 cradle (-0.172, 0.750, 3.845) rod at the cradle (-0.176, 0.750, 3.802) dy 0.0000 m 
+[ir] 2026-10-04 19:30:20 I1_point2_06 rc=0 png=yes exc=0 env=[IKADA_ROD_HOLDER2=1] | [RodHolder] rest TimeS=0.000 cradle (-0.327, 0.750, 2.067) rod at the cradle (-0.333, 0.755, 2.006) dy 0.0054 m [RodHolder] rest TimeS=0.000 cradle (-0.327, 0.750, 2.067) rod at the cradle (-0.333, 0.755, 2.006) dy 0.0054 m 
+[ir] 2026-10-04 19:30:36 I2_point2_closeup_06 rc=0 png=yes exc=0 env=[IKADA_ROD_HOLDER2=1 IKADA_SHOT_ROD_CLOSEUP=1] | [RodHolder] rest TimeS=0.000 cradle (-0.327, 0.750, 2.067) rod at the cradle (-0.333, 0.755, 2.006) dy 0.0054 m [RodHolder] rest TimeS=0.000 cradle (-0.327, 0.750, 2.067) rod at the cradle (-0.333, 0.755, 2.006) dy 0.0054 m 
+[ir] 2026-10-04 19:30:51 I3_point2_fwd030_06 rc=0 png=yes exc=0 env=[IKADA_ROD_HOLDER2=1 IKADA_ROD_FORWARD_M=0.3] | [RodHolder] rest TimeS=0.000 cradle (-0.301, 0.750, 2.366) rod at the cradle (-0.307, 0.755, 2.305) dy 0.0054 m [RodHolder] rest TimeS=0.000 cradle (-0.301, 0.750, 2.366) rod at the cradle (-0.307, 0.755, 2.305) dy 0.0054 m 
+[ir] 2026-10-04 19:30:51 I1 (2 points, integ) vs c193's holder2 (47a253e): diff_px=0 bbox=None
+[ir] 2026-10-04 19:30:52 I0 (1 point, integ) vs 47a253e now: diff_px=0 bbox=None
+[ir] 2026-10-04 19:30:52 track2 porcelain at the end: 0 []
+[ir] 2026-10-04 19:30:52 done
