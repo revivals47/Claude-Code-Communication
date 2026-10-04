@@ -1,0 +1,4 @@
+23:51:56 HEAD IdleHint=no LockedHint=no | Runner.Worker 0 | load 1.37 1.14 1.23 | df / 24889593856 B | mode DRY-RUN
+23:51:56 0 master = 0b53e4a3b5618963b1d0e5e7df4f1f1951039f51, pin com.ikada.sim #b80715f96efa90d687296c8e4562e8bb085725f9
+23:51:59 0 positive control: folder sha of /home/ken/Documents/ikada-play/2cb67ab = 75dc972e69da4953b2abd12fbcef41befa5d02d999a7ac90a612913d5be2b71e (as recorded)
+23:51:59 DRY-RUN: would 1) detach /home/ken/Documents/ikada-unity to 0b53e4a3b5618963b1d0e5e7df4f1f1951039f51  2) tools/unity-batch.sh exec Ikada.EditorTools.BuildScript.BuildPerf  3) cp -a Builds/Linux /home/ken/Documents/ikada-play/0b53e4a + diff -rq + count/bytes/folder sha  4) launch checks (25 s HostInput, SessionProbe, one AutoPilot day)
