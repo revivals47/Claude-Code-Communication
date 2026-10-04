@@ -1,0 +1,64 @@
+[sw] 2026-10-05 00:31:48 roslyn: [bundle_compile8] sim rc=0 errors=0 files=175 [bundle_compile8] f7af1d2 game rc=0 errors=0 files=132 ikada-refs-from-Library=0 [bundle_compile8] f7af1d2 editor rc=0 errors=0 files=20 
+[sw] 2026-10-05 00:32:28 bake: [ubT] Ikada.EditorTools.BuildScript.BuildPerf rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-003148-sw.log exiting_ok=1 exceptions=0 cs=0
+[sw] 2026-10-05 00:32:28 porcelain after the bake: []
+[sw] 2026-10-05 00:33:18 run new_20260925_a rc=0 png=6 exc=0 start=[seed=20260925 shotWait=139 ] result=[ok=True steps=540682 page=Info ]
+[sw] 2026-10-05 00:34:07 run new_20260925_b rc=0 png=6 exc=0 start=[seed=20260925 shotWait=139 ] result=[ok=True steps=540682 page=Info ]
+[sw] 2026-10-05 00:34:59 run new_1_a rc=0 png=7 exc=0 start=[seed=1 shotWait=139 ] result=[ok=True steps=539333 page=Info ]
+[sw] 2026-10-05 00:35:51 run new_1_b rc=0 png=7 exc=0 start=[seed=1 shotWait=139 ] result=[ok=True steps=539333 page=Info ]
+[sw] 2026-10-05 00:36:45 run new_26_a rc=0 png=8 exc=0 start=[seed=26 shotWait=139 ] result=[ok=True steps=539212 page=Day ]
+[sw] 2026-10-05 00:37:39 run new_26_b rc=0 png=8 exc=0 start=[seed=26 shotWait=139 ] result=[ok=True steps=539212 page=Day ]
+[sw] 2026-10-05 00:37:39 (5) seed 20260925 live_04.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:40 (5) seed 20260925 live_05.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:40 (5) seed 20260925 live_06.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:40 (5) seed 20260925 live_06C.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:41 (5) seed 20260925 live_07.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:41 (5) seed 20260925 live_J.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:42 (5) seed 1 live_04.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:42 (5) seed 1 live_05.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:42 (5) seed 1 live_06.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:43 (5) seed 1 live_06C.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:43 (5) seed 1 live_07.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:44 (5) seed 1 live_J.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:44 (5) seed 1 live_J_p2.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:44 (5) seed 26 live_03.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:45 (5) seed 26 live_04.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:45 (5) seed 26 live_05.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:45 (5) seed 26 live_06.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:46 (5) seed 26 live_06C.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:46 (5) seed 26 live_07.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:47 (5) seed 26 live_08.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:47 (5) seed 26 live_J.png a vs b: diff_px=0 bbox=None
+[sw] 2026-10-05 00:37:47 (5) PASS: every picture of the two runs is 0 px, every seed
+[sw] 2026-10-05 00:38:27 run old_26 rc=0 png=8 exc=0 start=[seed=26 shotWait=30 ] result=[ok=True steps=539212 page=Day ]
+[sw] 2026-10-05 00:38:27 default-30 control seed 26 live_03.png (old args, f7af1d2) vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:28 default-30 control seed 26 live_04.png (old args, f7af1d2) vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:28 default-30 control seed 26 live_05.png (old args, f7af1d2) vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:28 default-30 control seed 26 live_06.png (old args, f7af1d2) vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:29 default-30 control seed 26 live_06C.png (old args, f7af1d2) vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:29 default-30 control seed 26 live_07.png (old args, f7af1d2) vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:29 default-30 control seed 26 live_08.png (old args, f7af1d2) vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:30 default-30 control seed 26 live_J.png (old args, f7af1d2) vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:30 new seed 20260925 live_04.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:31 new seed 20260925 live_05.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:31 new seed 20260925 live_06.png vs baseline: diff_px=24031 bbox=(119, 291, 969, 1080)
+[sw] 2026-10-05 00:38:31 new seed 20260925 live_06C.png vs baseline: diff_px=9 bbox=(288, 282, 385, 291)
+[sw] 2026-10-05 00:38:32 new seed 20260925 live_07.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:32 new seed 20260925 live_J.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:33 new seed 1 live_04.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:33 new seed 1 live_05.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:33 new seed 1 live_06.png vs baseline: diff_px=24027 bbox=(201, 291, 969, 1080)
+[sw] 2026-10-05 00:38:34 new seed 1 live_06C.png vs baseline: diff_px=1 bbox=(416, 291, 417, 292)
+[sw] 2026-10-05 00:38:34 new seed 1 live_07.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:34 new seed 1 live_J.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:35 new seed 1 live_J_p2.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:35 new seed 26 live_03.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:36 new seed 26 live_04.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:36 new seed 26 live_05.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:36 new seed 26 live_06.png vs baseline: diff_px=24015 bbox=(215, 298, 969, 1080)
+[sw] 2026-10-05 00:38:37 new seed 26 live_06C.png vs baseline: diff_px=14 bbox=(324, 284, 416, 296)
+[sw] 2026-10-05 00:38:37 new seed 26 live_07.png vs baseline: diff_px=0 bbox=None
+[sw] 2026-10-05 00:38:37 new seed 26 live_08.png vs baseline: diff_px=32114 bbox=(82, 252, 1306, 899)
+[sw] 2026-10-05 00:38:38 new seed 26 live_J.png vs baseline: diff_px=0 bbox=None
+[sw] sheets 7
+[sw] 2026-10-05 00:38:42 players left: 0; end porcelain 0 head f7af1d2
+[sw] 2026-10-05 00:38:42 done
