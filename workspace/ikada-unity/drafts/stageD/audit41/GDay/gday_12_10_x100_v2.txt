@@ -1,0 +1,601 @@
+base 1:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 1:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 1:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 2:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 2:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 2:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 3:12-10 daylog 2000-12-11: casts 35 selfhooks 0 | catches Chinu=1 | fight s Chinu=91
+base 3:12-10 daylog 2000-12-12: casts 19 selfhooks 0 | catches  | fight s 
+base 3:12-10: casts 54 selfhooks 0 | catches Chinu=1 | fight s Chinu=91
+base 4:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 4:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 4:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 5:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 5:12-10 daylog 2000-12-12: casts 20 selfhooks 0 | catches  | fight s 
+base 5:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 6:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 6:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 6:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 7:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 7:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches Chinu=1 | fight s Chinu=173
+base 7:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=173
+base 8:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 8:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 8:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 9:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 9:12-10 daylog 2000-12-12: casts 19 selfhooks 0 | catches  | fight s 
+base 9:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 10:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 10:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches Chinu=1 | fight s Chinu=80
+base 10:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=80
+koaji 1:12-10 daylog 2000-12-10: casts 37 selfhooks 9 | catches Koaji=9 | fight s Koaji=255
+koaji 1:12-10 daylog 2000-12-11: casts 20 selfhooks 3 | catches Koaji=3 | fight s Koaji=87
+koaji 1:12-10: casts 57 selfhooks 12 | catches Koaji=12 | fight s Koaji=343
+koaji 2:12-10 daylog 2000-12-10: casts 35 selfhooks 5 | catches Koaji=5 Chinu=1 | fight s Koaji=120 Chinu=220
+koaji 2:12-10 daylog 2000-12-11: casts 19 selfhooks 3 | catches Koaji=3 | fight s Koaji=62
+koaji 2:12-10: casts 54 selfhooks 8 | catches Koaji=8 Chinu=1 | fight s Koaji=182 Chinu=220
+koaji 3:12-10 daylog 2000-12-11: casts 37 selfhooks 8 | catches Koaji=8 | fight s Koaji=231
+koaji 3:12-10 daylog 2000-12-12: casts 19 selfhooks 2 | catches Koaji=2 | fight s Koaji=53
+koaji 3:12-10: casts 56 selfhooks 10 | catches Koaji=10 | fight s Koaji=285
+koaji 4:12-10 daylog 2000-12-10: casts 36 selfhooks 8 | catches Koaji=8 Chinu=1 | fight s Koaji=227 Chinu=277
+koaji 4:12-10 daylog 2000-12-11: casts 22 selfhooks 12 | catches Koaji=12 | fight s Koaji=345
+koaji 4:12-10: casts 58 selfhooks 20 | catches Koaji=20 Chinu=1 | fight s Koaji=572 Chinu=277
+koaji 5:12-10 daylog 2000-12-10: casts 35 selfhooks 7 | catches Koaji=7 | fight s Koaji=200 Chinu=85
+koaji 5:12-10 daylog 2000-12-12: casts 22 selfhooks 6 | catches Koaji=6 | fight s Koaji=171
+koaji 5:12-10: casts 57 selfhooks 13 | catches Koaji=13 | fight s Koaji=371 Chinu=85
+koaji 6:12-10 daylog 2000-12-10: casts 35 selfhooks 7 | catches Koaji=7 Chinu=1 | fight s Koaji=199 Chinu=281
+koaji 6:12-10 daylog 2000-12-11: casts 20 selfhooks 5 | catches Koaji=5 | fight s Koaji=144
+koaji 6:12-10: casts 55 selfhooks 12 | catches Koaji=12 Chinu=1 | fight s Koaji=343 Chinu=281
+koaji 7:12-10 daylog 2000-12-10: casts 36 selfhooks 12 | catches Koaji=12 | fight s Koaji=334
+koaji 7:12-10 daylog 2000-12-11: casts 20 selfhooks 5 | catches Koaji=5 | fight s Koaji=142
+koaji 7:12-10: casts 56 selfhooks 17 | catches Koaji=17 | fight s Koaji=477
+koaji 8:12-10 daylog 2000-12-10: casts 37 selfhooks 10 | catches Koaji=10 | fight s Koaji=261
+koaji 8:12-10 daylog 2000-12-11: casts 21 selfhooks 6 | catches Koaji=6 | fight s Koaji=162
+koaji 8:12-10: casts 58 selfhooks 16 | catches Koaji=16 | fight s Koaji=422
+koaji 9:12-10 daylog 2000-12-10: casts 34 selfhooks 6 | catches Koaji=6 | fight s Koaji=163
+koaji 9:12-10 daylog 2000-12-12: casts 20 selfhooks 2 | catches Koaji=2 | fight s Koaji=56
+koaji 9:12-10: casts 54 selfhooks 8 | catches Koaji=8 | fight s Koaji=219
+koaji 10:12-10 daylog 2000-12-10: casts 36 selfhooks 12 | catches Koaji=12 | fight s Koaji=330
+koaji 10:12-10 daylog 2000-12-11: casts 21 selfhooks 5 | catches Koaji=5 | fight s Koaji=125
+koaji 10:12-10: casts 57 selfhooks 17 | catches Koaji=17 | fight s Koaji=454
+base 11:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 11:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 11:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 12:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 12:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 12:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 13:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 13:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 13:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 14:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 14:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 14:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 15:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches Chinu=1 | fight s Chinu=237
+base 15:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 15:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=237
+base 16:12-10 daylog 2000-12-10: casts 36 selfhooks 0 | catches  | fight s 
+base 16:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 16:12-10: casts 56 selfhooks 0 | catches  | fight s 
+base 17:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 17:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 17:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 18:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches Chinu=1 | fight s Chinu=111
+base 18:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 18:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=111
+base 19:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 19:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 19:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 20:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 20:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 20:12-10: casts 53 selfhooks 0 | catches  | fight s 
+koaji 11:12-10 daylog 2000-12-10: casts 37 selfhooks 12 | catches Koaji=12 | fight s Koaji=321
+koaji 11:12-10 daylog 2000-12-11: casts 21 selfhooks 8 | catches Koaji=8 | fight s Koaji=231
+koaji 11:12-10: casts 58 selfhooks 20 | catches Koaji=20 | fight s Koaji=552
+koaji 12:12-10 daylog 2000-12-10: casts 39 selfhooks 20 | catches Koaji=20 | fight s Koaji=530
+koaji 12:12-10 daylog 2000-12-11: casts 22 selfhooks 10 | catches Koaji=10 | fight s Koaji=267
+koaji 12:12-10: casts 61 selfhooks 30 | catches Koaji=30 | fight s Koaji=796
+koaji 13:12-10 daylog 2000-12-10: casts 36 selfhooks 8 | catches Koaji=8 | fight s Koaji=230
+koaji 13:12-10 daylog 2000-12-11: casts 20 selfhooks 7 | catches Koaji=6 | fight s Koaji=174
+koaji 13:12-10: casts 56 selfhooks 15 | catches Koaji=14 | fight s Koaji=403
+koaji 14:12-10 daylog 2000-12-10: casts 36 selfhooks 11 | catches Koaji=11 | fight s Koaji=315
+koaji 14:12-10 daylog 2000-12-11: casts 21 selfhooks 6 | catches Koaji=6 | fight s Koaji=170
+koaji 14:12-10: casts 57 selfhooks 17 | catches Koaji=17 | fight s Koaji=485
+koaji 15:12-10 daylog 2000-12-10: casts 35 selfhooks 9 | catches Koaji=9 | fight s Koaji=256
+koaji 15:12-10 daylog 2000-12-11: casts 22 selfhooks 7 | catches Koaji=7 | fight s Koaji=187
+koaji 15:12-10: casts 57 selfhooks 16 | catches Koaji=16 | fight s Koaji=443
+koaji 16:12-10 daylog 2000-12-10: casts 38 selfhooks 8 | catches Koaji=8 | fight s Koaji=210
+koaji 16:12-10 daylog 2000-12-11: casts 22 selfhooks 8 | catches Koaji=8 | fight s Koaji=203
+koaji 16:12-10: casts 60 selfhooks 16 | catches Koaji=16 | fight s Koaji=413
+koaji 17:12-10 daylog 2000-12-10: casts 42 selfhooks 18 | catches Koaji=18 | fight s Koaji=493
+koaji 17:12-10 daylog 2000-12-11: casts 21 selfhooks 10 | catches Koaji=10 | fight s Koaji=286
+koaji 17:12-10: casts 63 selfhooks 28 | catches Koaji=28 | fight s Koaji=779
+koaji 18:12-10 daylog 2000-12-10: casts 39 selfhooks 20 | catches Koaji=20 Chinu=1 | fight s Koaji=533 Chinu=94
+koaji 18:12-10 daylog 2000-12-11: casts 21 selfhooks 10 | catches Koaji=10 | fight s Koaji=281
+koaji 18:12-10: casts 60 selfhooks 30 | catches Koaji=30 Chinu=1 | fight s Koaji=814 Chinu=94
+koaji 19:12-10 daylog 2000-12-10: casts 40 selfhooks 23 | catches Koaji=23 | fight s Koaji=647
+koaji 19:12-10 daylog 2000-12-11: casts 22 selfhooks 7 | catches Koaji=7 | fight s Koaji=199
+koaji 19:12-10: casts 62 selfhooks 30 | catches Koaji=30 | fight s Koaji=847
+koaji 20:12-10 daylog 2000-12-10: casts 38 selfhooks 18 | catches Koaji=18 | fight s Koaji=512
+koaji 20:12-10 daylog 2000-12-11: casts 22 selfhooks 7 | catches Koaji=7 | fight s Koaji=202
+koaji 20:12-10: casts 60 selfhooks 25 | catches Koaji=25 | fight s Koaji=714
+base 21:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 21:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 21:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 22:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 22:12-10 daylog 2000-12-11: casts 21 selfhooks 0 | catches Chinu=1 | fight s Chinu=75
+base 22:12-10: casts 55 selfhooks 0 | catches Chinu=1 | fight s Chinu=75
+base 23:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 23:12-10 daylog 2000-12-13: casts 19 selfhooks 0 | catches  | fight s 
+base 23:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 24:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 24:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 24:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 25:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches Chinu=1 | fight s Chinu=238
+base 25:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 25:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=238
+base 26:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 26:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 26:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 27:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 27:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 27:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 28:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 28:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 28:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 29:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 29:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches Chinu=1 | fight s Chinu=105
+base 29:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=105
+base 30:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 30:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 30:12-10: casts 52 selfhooks 0 | catches  | fight s 
+koaji 21:12-10 daylog 2000-12-10: casts 37 selfhooks 18 | catches Koaji=18 | fight s Koaji=491
+koaji 21:12-10 daylog 2000-12-11: casts 20 selfhooks 7 | catches Koaji=7 | fight s Koaji=179
+koaji 21:12-10: casts 57 selfhooks 25 | catches Koaji=25 | fight s Koaji=670
+koaji 22:12-10 daylog 2000-12-10: casts 40 selfhooks 17 | catches Koaji=17 | fight s Koaji=486
+koaji 22:12-10 daylog 2000-12-11: casts 23 selfhooks 6 | catches Koaji=6 | fight s Koaji=173
+koaji 22:12-10: casts 63 selfhooks 23 | catches Koaji=23 | fight s Koaji=658
+koaji 23:12-10 daylog 2000-12-10: casts 36 selfhooks 12 | catches Koaji=12 | fight s Koaji=343
+koaji 23:12-10 daylog 2000-12-13: casts 22 selfhooks 12 | catches Koaji=12 | fight s Koaji=342
+koaji 23:12-10: casts 58 selfhooks 24 | catches Koaji=24 | fight s Koaji=686
+koaji 24:12-10 daylog 2000-12-10: casts 35 selfhooks 6 | catches Koaji=6 | fight s Koaji=173
+koaji 24:12-10 daylog 2000-12-11: casts 20 selfhooks 3 | catches Koaji=3 | fight s Koaji=74
+koaji 24:12-10: casts 55 selfhooks 9 | catches Koaji=9 | fight s Koaji=247
+koaji 25:12-10 daylog 2000-12-10: casts 36 selfhooks 5 | catches Koaji=5 Chinu=1 | fight s Koaji=140 Chinu=238
+koaji 25:12-10 daylog 2000-12-11: casts 21 selfhooks 6 | catches Koaji=6 | fight s Koaji=173
+koaji 25:12-10: casts 57 selfhooks 11 | catches Koaji=11 Chinu=1 | fight s Koaji=313 Chinu=238
+koaji 26:12-10 daylog 2000-12-10: casts 35 selfhooks 9 | catches Koaji=9 | fight s Koaji=258
+koaji 26:12-10 daylog 2000-12-11: casts 19 selfhooks 1 | catches Koaji=1 | fight s Koaji=17
+koaji 26:12-10: casts 54 selfhooks 10 | catches Koaji=10 | fight s Koaji=275
+koaji 27:12-10 daylog 2000-12-10: casts 38 selfhooks 14 | catches Koaji=14 | fight s Koaji=401
+koaji 27:12-10 daylog 2000-12-11: casts 21 selfhooks 4 | catches Koaji=4 | fight s Koaji=116
+koaji 27:12-10: casts 59 selfhooks 18 | catches Koaji=18 | fight s Koaji=517
+koaji 28:12-10 daylog 2000-12-10: casts 37 selfhooks 9 | catches Koaji=9 | fight s Koaji=222
+koaji 28:12-10 daylog 2000-12-11: casts 20 selfhooks 5 | catches Koaji=5 | fight s Koaji=145
+koaji 28:12-10: casts 57 selfhooks 14 | catches Koaji=14 | fight s Koaji=367
+koaji 29:12-10 daylog 2000-12-10: casts 39 selfhooks 13 | catches Koaji=13 | fight s Koaji=377
+koaji 29:12-10 daylog 2000-12-11: casts 21 selfhooks 4 | catches Koaji=4 | fight s Koaji=116
+koaji 29:12-10: casts 60 selfhooks 17 | catches Koaji=17 | fight s Koaji=493
+koaji 30:12-10 daylog 2000-12-10: casts 37 selfhooks 12 | catches Koaji=12 | fight s Koaji=344
+koaji 30:12-10 daylog 2000-12-11: casts 20 selfhooks 3 | catches Koaji=3 | fight s Koaji=86
+koaji 30:12-10: casts 57 selfhooks 15 | catches Koaji=15 | fight s Koaji=429
+base 31:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 31:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 31:12-10: casts 55 selfhooks 0 | catches  | fight s 
+base 32:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches Chinu=1 | fight s Chinu=135
+base 32:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 32:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=135
+base 33:12-10 daylog 2000-12-11: casts 33 selfhooks 0 | catches  | fight s 
+base 33:12-10 daylog 2000-12-12: casts 19 selfhooks 0 | catches  | fight s 
+base 33:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 34:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 34:12-10 daylog 2000-12-12: casts 19 selfhooks 0 | catches  | fight s 
+base 34:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 35:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 35:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches Chinu=1 | fight s Chinu=161
+base 35:12-10: casts 54 selfhooks 0 | catches Chinu=1 | fight s Chinu=161
+base 36:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 36:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 36:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 37:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 37:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 37:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 38:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 38:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 38:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 39:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 39:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 39:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 40:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches Chinu=1 | fight s Chinu=266
+base 40:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 40:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=266
+koaji 31:12-10 daylog 2000-12-10: casts 36 selfhooks 6 | catches Koaji=6 | fight s Koaji=170
+koaji 31:12-10 daylog 2000-12-11: casts 22 selfhooks 8 | catches Koaji=8 | fight s Koaji=229
+koaji 31:12-10: casts 58 selfhooks 14 | catches Koaji=14 | fight s Koaji=399
+koaji 32:12-10 daylog 2000-12-10: casts 36 selfhooks 8 | catches Koaji=8 | fight s Koaji=229
+koaji 32:12-10 daylog 2000-12-11: casts 20 selfhooks 4 | catches Koaji=4 | fight s Koaji=113
+koaji 32:12-10: casts 56 selfhooks 12 | catches Koaji=12 | fight s Koaji=342
+koaji 33:12-10 daylog 2000-12-11: casts 34 selfhooks 7 | catches Koaji=7 Chinu=1 | fight s Koaji=182 Chinu=97
+koaji 33:12-10 daylog 2000-12-12: casts 20 selfhooks 2 | catches Koaji=2 | fight s Koaji=56
+koaji 33:12-10: casts 54 selfhooks 9 | catches Koaji=9 Chinu=1 | fight s Koaji=238 Chinu=97
+koaji 34:12-10 daylog 2000-12-10: casts 39 selfhooks 16 | catches Koaji=16 | fight s Koaji=461
+koaji 34:12-10 daylog 2000-12-12: casts 20 selfhooks 4 | catches Koaji=4 | fight s Koaji=115
+koaji 34:12-10: casts 59 selfhooks 20 | catches Koaji=20 | fight s Koaji=576
+koaji 35:12-10 daylog 2000-12-10: casts 38 selfhooks 16 | catches Koaji=16 | fight s Koaji=441
+koaji 35:12-10 daylog 2000-12-11: casts 21 selfhooks 6 | catches Koaji=6 Chinu=1 | fight s Koaji=172 Chinu=173
+koaji 35:12-10: casts 59 selfhooks 22 | catches Koaji=22 Chinu=1 | fight s Koaji=613 Chinu=173
+koaji 36:12-10 daylog 2000-12-10: casts 37 selfhooks 9 | catches Koaji=9 | fight s Koaji=255
+koaji 36:12-10 daylog 2000-12-11: casts 21 selfhooks 3 | catches Koaji=3 | fight s Koaji=85
+koaji 36:12-10: casts 58 selfhooks 12 | catches Koaji=12 | fight s Koaji=340
+koaji 37:12-10 daylog 2000-12-10: casts 38 selfhooks 13 | catches Koaji=13 | fight s Koaji=368
+koaji 37:12-10 daylog 2000-12-11: casts 20 selfhooks 4 | catches Koaji=4 | fight s Koaji=105
+koaji 37:12-10: casts 58 selfhooks 17 | catches Koaji=17 | fight s Koaji=473
+koaji 38:12-10 daylog 2000-12-10: casts 38 selfhooks 11 | catches Koaji=11 | fight s Koaji=315
+koaji 38:12-10 daylog 2000-12-11: casts 20 selfhooks 6 | catches Koaji=6 | fight s Koaji=176
+koaji 38:12-10: casts 58 selfhooks 17 | catches Koaji=17 | fight s Koaji=491
+koaji 39:12-10 daylog 2000-12-10: casts 39 selfhooks 19 | catches Koaji=19 | fight s Koaji=514
+koaji 39:12-10 daylog 2000-12-11: casts 22 selfhooks 7 | catches Koaji=7 | fight s Koaji=187
+koaji 39:12-10: casts 61 selfhooks 26 | catches Koaji=26 | fight s Koaji=701
+koaji 40:12-10 daylog 2000-12-10: casts 36 selfhooks 15 | catches Koaji=15 Chinu=1 | fight s Koaji=397 Chinu=263
+koaji 40:12-10 daylog 2000-12-11: casts 20 selfhooks 4 | catches Koaji=4 | fight s Koaji=116
+koaji 40:12-10: casts 56 selfhooks 19 | catches Koaji=19 Chinu=1 | fight s Koaji=513 Chinu=263
+base 41:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 41:12-10 daylog 2000-12-12: casts 19 selfhooks 0 | catches  | fight s 
+base 41:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 42:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 42:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 42:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 43:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches Chinu=1 | fight s Chinu=224
+base 43:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 43:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=224
+base 44:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 44:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 44:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 45:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 45:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 45:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 46:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 46:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 46:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 47:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 47:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 47:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 48:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 48:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 48:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 49:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 49:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 49:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 50:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 50:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 50:12-10: casts 52 selfhooks 0 | catches  | fight s 
+koaji 41:12-10 daylog 2000-12-10: casts 37 selfhooks 14 | catches Koaji=14 | fight s Koaji=399
+koaji 41:12-10 daylog 2000-12-12: casts 21 selfhooks 7 | catches Koaji=7 | fight s Koaji=199
+koaji 41:12-10: casts 58 selfhooks 21 | catches Koaji=21 | fight s Koaji=598
+koaji 42:12-10 daylog 2000-12-10: casts 37 selfhooks 9 | catches Koaji=9 | fight s Koaji=245
+koaji 42:12-10 daylog 2000-12-11: casts 19 selfhooks 2 | catches Koaji=2 | fight s Koaji=60
+koaji 42:12-10: casts 56 selfhooks 11 | catches Koaji=11 | fight s Koaji=304
+koaji 43:12-10 daylog 2000-12-10: casts 35 selfhooks 4 | catches Koaji=4 | fight s Koaji=109
+koaji 43:12-10 daylog 2000-12-11: casts 20 selfhooks 3 | catches Koaji=3 | fight s Koaji=88
+koaji 43:12-10: casts 55 selfhooks 7 | catches Koaji=7 | fight s Koaji=197
+koaji 44:12-10 daylog 2000-12-10: casts 36 selfhooks 9 | catches Koaji=9 | fight s Koaji=256
+koaji 44:12-10 daylog 2000-12-11: casts 21 selfhooks 8 | catches Koaji=8 | fight s Koaji=232
+koaji 44:12-10: casts 57 selfhooks 17 | catches Koaji=17 | fight s Koaji=487
+koaji 45:12-10 daylog 2000-12-10: casts 37 selfhooks 10 | catches Koaji=10 | fight s Koaji=271
+koaji 45:12-10 daylog 2000-12-11: casts 20 selfhooks 6 | catches Koaji=6 | fight s Koaji=147
+koaji 45:12-10: casts 57 selfhooks 16 | catches Koaji=16 | fight s Koaji=418
+koaji 46:12-10 daylog 2000-12-10: casts 35 selfhooks 8 | catches Koaji=8 | fight s Koaji=222
+koaji 46:12-10 daylog 2000-12-11: casts 21 selfhooks 6 | catches Koaji=6 | fight s Koaji=170
+koaji 46:12-10: casts 56 selfhooks 14 | catches Koaji=14 | fight s Koaji=393
+koaji 47:12-10 daylog 2000-12-10: casts 36 selfhooks 7 | catches Koaji=7 | fight s Koaji=200
+koaji 47:12-10 daylog 2000-12-11: casts 22 selfhooks 7 | catches Koaji=7 Chinu=1 | fight s Koaji=195 Chinu=105
+koaji 47:12-10: casts 58 selfhooks 14 | catches Koaji=14 Chinu=1 | fight s Koaji=395 Chinu=105
+koaji 48:12-10 daylog 2000-12-10: casts 36 selfhooks 9 | catches Koaji=9 | fight s Koaji=234
+koaji 48:12-10 daylog 2000-12-11: casts 23 selfhooks 13 | catches Koaji=13 | fight s Koaji=373
+koaji 48:12-10: casts 59 selfhooks 22 | catches Koaji=22 | fight s Koaji=608
+koaji 49:12-10 daylog 2000-12-10: casts 36 selfhooks 7 | catches Koaji=7 | fight s Koaji=198
+koaji 49:12-10 daylog 2000-12-11: casts 21 selfhooks 4 | catches Koaji=4 | fight s Koaji=113
+koaji 49:12-10: casts 57 selfhooks 11 | catches Koaji=11 | fight s Koaji=311
+koaji 50:12-10 daylog 2000-12-10: casts 34 selfhooks 5 | catches Koaji=5 | fight s Koaji=143
+koaji 50:12-10 daylog 2000-12-11: casts 20 selfhooks 4 | catches Koaji=4 | fight s Koaji=117
+koaji 50:12-10: casts 54 selfhooks 9 | catches Koaji=9 | fight s Koaji=259
+base 51:12-10 daylog 2000-12-11: casts 34 selfhooks 0 | catches  | fight s 
+base 51:12-10 daylog 2000-12-12: casts 20 selfhooks 0 | catches  | fight s 
+base 51:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 52:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 52:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 52:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 53:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches Chinu=1 | fight s Chinu=122
+base 53:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 53:12-10: casts 54 selfhooks 0 | catches Chinu=1 | fight s Chinu=122
+base 54:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 54:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 54:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 55:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 55:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 55:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 56:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 56:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 56:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 57:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 57:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 57:12-10: casts 55 selfhooks 0 | catches  | fight s 
+base 58:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 58:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 58:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 59:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s Chinu=134
+base 59:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 59:12-10: casts 53 selfhooks 0 | catches  | fight s Chinu=134
+base 60:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 60:12-10 daylog 2000-12-12: casts 20 selfhooks 0 | catches  | fight s 
+base 60:12-10: casts 54 selfhooks 0 | catches  | fight s 
+koaji 51:12-10 daylog 2000-12-11: casts 36 selfhooks 9 | catches Koaji=9 | fight s Koaji=250
+koaji 51:12-10 daylog 2000-12-12: casts 21 selfhooks 7 | catches Koaji=7 | fight s Koaji=201
+koaji 51:12-10: casts 57 selfhooks 16 | catches Koaji=16 | fight s Koaji=451
+koaji 52:12-10 daylog 2000-12-10: casts 35 selfhooks 8 | catches Koaji=8 | fight s Koaji=214
+koaji 52:12-10 daylog 2000-12-11: casts 21 selfhooks 5 | catches Koaji=5 | fight s Koaji=141
+koaji 52:12-10: casts 56 selfhooks 13 | catches Koaji=13 | fight s Koaji=355
+koaji 53:12-10 daylog 2000-12-10: casts 39 selfhooks 15 | catches Koaji=15 | fight s Koaji=422
+koaji 53:12-10 daylog 2000-12-11: casts 20 selfhooks 5 | catches Koaji=5 | fight s Koaji=139
+koaji 53:12-10: casts 59 selfhooks 20 | catches Koaji=20 | fight s Koaji=562
+koaji 54:12-10 daylog 2000-12-10: casts 38 selfhooks 16 | catches Koaji=16 | fight s Koaji=441
+koaji 54:12-10 daylog 2000-12-11: casts 22 selfhooks 8 | catches Koaji=8 | fight s Koaji=229
+koaji 54:12-10: casts 60 selfhooks 24 | catches Koaji=24 | fight s Koaji=669
+koaji 55:12-10 daylog 2000-12-10: casts 36 selfhooks 13 | catches Koaji=13 | fight s Koaji=372
+koaji 55:12-10 daylog 2000-12-11: casts 22 selfhooks 9 | catches Koaji=8 | fight s Koaji=255
+koaji 55:12-10: casts 58 selfhooks 22 | catches Koaji=21 | fight s Koaji=627
+koaji 56:12-10 daylog 2000-12-10: casts 39 selfhooks 14 | catches Koaji=14 | fight s Koaji=388
+koaji 56:12-10 daylog 2000-12-11: casts 21 selfhooks 4 | catches Koaji=4 | fight s Koaji=93
+koaji 56:12-10: casts 60 selfhooks 18 | catches Koaji=18 | fight s Koaji=481
+koaji 57:12-10 daylog 2000-12-10: casts 39 selfhooks 14 | catches Koaji=14 | fight s Koaji=407
+koaji 57:12-10 daylog 2000-12-11: casts 21 selfhooks 8 | catches Koaji=8 | fight s Koaji=221
+koaji 57:12-10: casts 60 selfhooks 22 | catches Koaji=22 | fight s Koaji=628
+koaji 58:12-10 daylog 2000-12-10: casts 37 selfhooks 19 | catches Koaji=19 Chinu=1 | fight s Koaji=519 Chinu=136
+koaji 58:12-10 daylog 2000-12-11: casts 21 selfhooks 7 | catches Koaji=7 | fight s Koaji=182
+koaji 58:12-10: casts 58 selfhooks 26 | catches Koaji=26 Chinu=1 | fight s Koaji=701 Chinu=136
+koaji 59:12-10 daylog 2000-12-10: casts 36 selfhooks 10 | catches Koaji=10 | fight s Koaji=259
+koaji 59:12-10 daylog 2000-12-11: casts 20 selfhooks 2 | catches Koaji=2 | fight s Koaji=57
+koaji 59:12-10: casts 56 selfhooks 12 | catches Koaji=12 | fight s Koaji=316
+koaji 60:12-10 daylog 2000-12-10: casts 37 selfhooks 8 | catches Koaji=8 | fight s Koaji=231
+koaji 60:12-10 daylog 2000-12-12: casts 20 selfhooks 5 | catches Koaji=5 | fight s Koaji=144
+koaji 60:12-10: casts 57 selfhooks 13 | catches Koaji=13 | fight s Koaji=375
+base 61:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches Chinu=1 | fight s Chinu=73
+base 61:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 61:12-10: casts 55 selfhooks 0 | catches Chinu=1 | fight s Chinu=73
+base 62:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 62:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 62:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 63:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches Chinu=1 | fight s Chinu=76
+base 63:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 63:12-10: casts 54 selfhooks 0 | catches Chinu=1 | fight s Chinu=76
+base 64:12-10 daylog 2000-12-12: casts 34 selfhooks 0 | catches  | fight s 
+base 64:12-10 daylog 2000-12-13: casts 19 selfhooks 0 | catches  | fight s 
+base 64:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 65:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 65:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 65:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 66:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 66:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 66:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 67:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 67:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 67:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 68:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches Chinu=1 | fight s Chinu=82
+base 68:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 68:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=82
+base 69:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 69:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 69:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 70:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 70:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 70:12-10: casts 53 selfhooks 0 | catches  | fight s 
+koaji 61:12-10 daylog 2000-12-10: casts 36 selfhooks 7 | catches Koaji=7 | fight s Koaji=185
+koaji 61:12-10 daylog 2000-12-11: casts 20 selfhooks 4 | catches Koaji=4 | fight s Koaji=95
+koaji 61:12-10: casts 56 selfhooks 11 | catches Koaji=11 | fight s Koaji=280
+koaji 62:12-10 daylog 2000-12-10: casts 36 selfhooks 4 | catches Koaji=4 | fight s Koaji=113
+koaji 62:12-10 daylog 2000-12-11: casts 21 selfhooks 9 | catches Koaji=9 | fight s Koaji=236
+koaji 62:12-10: casts 57 selfhooks 13 | catches Koaji=13 | fight s Koaji=349
+koaji 63:12-10 daylog 2000-12-10: casts 37 selfhooks 11 | catches Koaji=11 | fight s Koaji=297
+koaji 63:12-10 daylog 2000-12-11: casts 20 selfhooks 5 | catches Koaji=5 | fight s Koaji=127
+koaji 63:12-10: casts 57 selfhooks 16 | catches Koaji=16 | fight s Koaji=425
+koaji 64:12-10 daylog 2000-12-12: casts 39 selfhooks 18 | catches Koaji=18 | fight s Koaji=495
+koaji 64:12-10 daylog 2000-12-13: casts 21 selfhooks 9 | catches Koaji=8 | fight s Koaji=245
+koaji 64:12-10: casts 60 selfhooks 27 | catches Koaji=26 | fight s Koaji=740
+koaji 65:12-10 daylog 2000-12-10: casts 37 selfhooks 15 | catches Koaji=15 | fight s Koaji=393
+koaji 65:12-10 daylog 2000-12-11: casts 23 selfhooks 12 | catches Koaji=12 | fight s Koaji=329
+koaji 65:12-10: casts 60 selfhooks 27 | catches Koaji=27 | fight s Koaji=721
+koaji 66:12-10 daylog 2000-12-10: casts 35 selfhooks 8 | catches Koaji=8 | fight s Koaji=227
+koaji 66:12-10 daylog 2000-12-11: casts 20 selfhooks 2 | catches Koaji=2 | fight s Koaji=57
+koaji 66:12-10: casts 55 selfhooks 10 | catches Koaji=10 | fight s Koaji=284
+koaji 67:12-10 daylog 2000-12-10: casts 35 selfhooks 7 | catches Koaji=7 | fight s Koaji=171
+koaji 67:12-10 daylog 2000-12-11: casts 21 selfhooks 4 | catches Koaji=4 | fight s Koaji=114
+koaji 67:12-10: casts 56 selfhooks 11 | catches Koaji=11 | fight s Koaji=285
+koaji 68:12-10 daylog 2000-12-10: casts 36 selfhooks 9 | catches Koaji=9 | fight s Koaji=244
+koaji 68:12-10 daylog 2000-12-11: casts 21 selfhooks 9 | catches Koaji=9 | fight s Koaji=252
+koaji 68:12-10: casts 57 selfhooks 18 | catches Koaji=18 | fight s Koaji=496
+koaji 69:12-10 daylog 2000-12-10: casts 36 selfhooks 8 | catches Koaji=8 | fight s Koaji=214
+koaji 69:12-10 daylog 2000-12-11: casts 21 selfhooks 5 | catches Koaji=5 | fight s Koaji=141
+koaji 69:12-10: casts 57 selfhooks 13 | catches Koaji=13 | fight s Koaji=355
+koaji 70:12-10 daylog 2000-12-10: casts 39 selfhooks 15 | catches Koaji=15 | fight s Koaji=434
+koaji 70:12-10 daylog 2000-12-11: casts 20 selfhooks 2 | catches Koaji=2 | fight s Koaji=58
+koaji 70:12-10: casts 59 selfhooks 17 | catches Koaji=17 | fight s Koaji=491
+base 71:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 71:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 71:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 72:12-10 daylog 2000-12-11: casts 33 selfhooks 0 | catches  | fight s 
+base 72:12-10 daylog 2000-12-12: casts 19 selfhooks 0 | catches  | fight s 
+base 72:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 73:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 73:12-10 daylog 2000-12-11: casts 21 selfhooks 0 | catches  | fight s 
+base 73:12-10: casts 55 selfhooks 0 | catches  | fight s 
+base 74:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 74:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 74:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 75:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 75:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 75:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 76:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches Chinu=1 | fight s Chinu=111
+base 76:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 76:12-10: casts 54 selfhooks 0 | catches Chinu=1 | fight s Chinu=111
+base 77:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 77:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches Chinu=1 | fight s Chinu=97
+base 77:12-10: casts 52 selfhooks 0 | catches Chinu=1 | fight s Chinu=97
+base 78:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 78:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches Chinu=1 | fight s Chinu=85
+base 78:12-10: casts 52 selfhooks 0 | catches Chinu=1 | fight s Chinu=85
+base 79:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 79:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches Chinu=1 | fight s Chinu=94
+base 79:12-10: casts 55 selfhooks 0 | catches Chinu=1 | fight s Chinu=94
+base 80:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 80:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 80:12-10: casts 52 selfhooks 0 | catches  | fight s 
+koaji 71:12-10 daylog 2000-12-10: casts 36 selfhooks 10 | catches Koaji=10 | fight s Koaji=288
+koaji 71:12-10 daylog 2000-12-11: casts 20 selfhooks 5 | catches Koaji=5 | fight s Koaji=142
+koaji 71:12-10: casts 56 selfhooks 15 | catches Koaji=15 | fight s Koaji=429
+koaji 72:12-10 daylog 2000-12-11: casts 35 selfhooks 5 | catches Koaji=5 | fight s Koaji=136
+koaji 72:12-10 daylog 2000-12-12: casts 21 selfhooks 6 | catches Koaji=6 | fight s Koaji=167
+koaji 72:12-10: casts 56 selfhooks 11 | catches Koaji=11 | fight s Koaji=304
+koaji 73:12-10 daylog 2000-12-10: casts 38 selfhooks 16 | catches Koaji=16 | fight s Koaji=456
+koaji 73:12-10 daylog 2000-12-11: casts 22 selfhooks 8 | catches Koaji=8 | fight s Koaji=207
+koaji 73:12-10: casts 60 selfhooks 24 | catches Koaji=24 | fight s Koaji=663
+koaji 74:12-10 daylog 2000-12-10: casts 36 selfhooks 6 | catches Koaji=6 | fight s Koaji=172
+koaji 74:12-10 daylog 2000-12-11: casts 22 selfhooks 7 | catches Koaji=6 | fight s Koaji=196
+koaji 74:12-10: casts 58 selfhooks 13 | catches Koaji=12 | fight s Koaji=368
+koaji 75:12-10 daylog 2000-12-10: casts 35 selfhooks 7 | catches Koaji=7 | fight s Koaji=183
+koaji 75:12-10 daylog 2000-12-11: casts 23 selfhooks 11 | catches Koaji=11 | fight s Koaji=280
+koaji 75:12-10: casts 58 selfhooks 18 | catches Koaji=18 | fight s Koaji=463
+koaji 76:12-10 daylog 2000-12-10: casts 38 selfhooks 12 | catches Koaji=12 | fight s Koaji=322
+koaji 76:12-10 daylog 2000-12-11: casts 22 selfhooks 8 | catches Koaji=8 | fight s Koaji=228
+koaji 76:12-10: casts 60 selfhooks 20 | catches Koaji=20 | fight s Koaji=549
+koaji 77:12-10 daylog 2000-12-10: casts 35 selfhooks 6 | catches Koaji=6 | fight s Koaji=171
+koaji 77:12-10 daylog 2000-12-11: casts 20 selfhooks 5 | catches Koaji=5 | fight s Koaji=137
+koaji 77:12-10: casts 55 selfhooks 11 | catches Koaji=11 | fight s Koaji=309
+koaji 78:12-10 daylog 2000-12-10: casts 34 selfhooks 6 | catches Koaji=6 | fight s Koaji=151
+koaji 78:12-10 daylog 2000-12-11: casts 20 selfhooks 3 | catches Koaji=3 | fight s Koaji=85
+koaji 78:12-10: casts 54 selfhooks 9 | catches Koaji=9 | fight s Koaji=236
+koaji 79:12-10 daylog 2000-12-10: casts 39 selfhooks 11 | catches Koaji=11 | fight s Koaji=315
+koaji 79:12-10 daylog 2000-12-11: casts 21 selfhooks 3 | catches Koaji=3 | fight s Koaji=86
+koaji 79:12-10: casts 60 selfhooks 14 | catches Koaji=14 | fight s Koaji=401
+koaji 80:12-10 daylog 2000-12-10: casts 35 selfhooks 8 | catches Koaji=8 Chinu=1 | fight s Koaji=231 Chinu=180
+koaji 80:12-10 daylog 2000-12-11: casts 23 selfhooks 11 | catches Koaji=11 | fight s Koaji=314
+koaji 80:12-10: casts 58 selfhooks 19 | catches Koaji=19 Chinu=1 | fight s Koaji=546 Chinu=180
+base 81:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches Chinu=1 | fight s Chinu=161
+base 81:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 81:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=161
+base 82:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 82:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 82:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 83:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 83:12-10 daylog 2000-12-12: casts 19 selfhooks 0 | catches Chinu=1 | fight s Chinu=179
+base 83:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=179
+base 84:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s Chinu=78
+base 84:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 84:12-10: casts 53 selfhooks 0 | catches  | fight s Chinu=78
+base 85:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 85:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 85:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 86:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 86:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 86:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 87:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 87:12-10 daylog 2000-12-12: casts 19 selfhooks 0 | catches  | fight s 
+base 87:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 88:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 88:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 88:12-10: casts 55 selfhooks 0 | catches  | fight s 
+base 89:12-10 daylog 2000-12-11: casts 34 selfhooks 0 | catches  | fight s 
+base 89:12-10 daylog 2000-12-13: casts 20 selfhooks 0 | catches  | fight s 
+base 89:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 90:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches Chinu=1 | fight s Chinu=207
+base 90:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 90:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=207
+koaji 81:12-10 daylog 2000-12-10: casts 36 selfhooks 9 | catches Koaji=9 | fight s Koaji=251
+koaji 81:12-10 daylog 2000-12-11: casts 20 selfhooks 3 | catches Koaji=3 | fight s Koaji=86
+koaji 81:12-10: casts 56 selfhooks 12 | catches Koaji=12 | fight s Koaji=337
+koaji 82:12-10 daylog 2000-12-10: casts 36 selfhooks 12 | catches Koaji=12 | fight s Koaji=314
+koaji 82:12-10 daylog 2000-12-11: casts 23 selfhooks 11 | catches Koaji=11 | fight s Koaji=305
+koaji 82:12-10: casts 59 selfhooks 23 | catches Koaji=23 | fight s Koaji=619
+koaji 83:12-10 daylog 2000-12-10: casts 36 selfhooks 11 | catches Koaji=11 | fight s Koaji=311
+koaji 83:12-10 daylog 2000-12-12: casts 19 selfhooks 2 | catches Koaji=2 | fight s Koaji=59
+koaji 83:12-10: casts 55 selfhooks 13 | catches Koaji=13 | fight s Koaji=370
+koaji 84:12-10 daylog 2000-12-10: casts 37 selfhooks 10 | catches Koaji=10 | fight s Koaji=258
+koaji 84:12-10 daylog 2000-12-11: casts 19 selfhooks 1 | catches Koaji=1 | fight s Koaji=28
+koaji 84:12-10: casts 56 selfhooks 11 | catches Koaji=11 | fight s Koaji=286
+koaji 85:12-10 daylog 2000-12-10: casts 38 selfhooks 14 | catches Koaji=14 Chinu=1 | fight s Koaji=398 Chinu=141
+koaji 85:12-10 daylog 2000-12-11: casts 22 selfhooks 6 | catches Koaji=6 | fight s Koaji=170
+koaji 85:12-10: casts 60 selfhooks 20 | catches Koaji=20 Chinu=1 | fight s Koaji=568 Chinu=141
+koaji 86:12-10 daylog 2000-12-10: casts 37 selfhooks 14 | catches Koaji=14 | fight s Koaji=365
+koaji 86:12-10 daylog 2000-12-11: casts 20 selfhooks 4 | catches Koaji=4 | fight s Koaji=114
+koaji 86:12-10: casts 57 selfhooks 18 | catches Koaji=18 | fight s Koaji=480
+koaji 87:12-10 daylog 2000-12-10: casts 36 selfhooks 9 | catches Koaji=9 | fight s Koaji=260
+koaji 87:12-10 daylog 2000-12-12: casts 20 selfhooks 2 | catches Koaji=2 | fight s Koaji=58
+koaji 87:12-10: casts 56 selfhooks 11 | catches Koaji=11 | fight s Koaji=318
+koaji 88:12-10 daylog 2000-12-10: casts 37 selfhooks 6 | catches Koaji=6 | fight s Koaji=171
+koaji 88:12-10 daylog 2000-12-11: casts 22 selfhooks 8 | catches Koaji=8 | fight s Koaji=221
+koaji 88:12-10: casts 59 selfhooks 14 | catches Koaji=14 | fight s Koaji=392
+koaji 89:12-10 daylog 2000-12-11: casts 39 selfhooks 16 | catches Koaji=16 | fight s Koaji=455
+koaji 89:12-10 daylog 2000-12-13: casts 21 selfhooks 6 | catches Koaji=6 | fight s Koaji=164
+koaji 89:12-10: casts 60 selfhooks 22 | catches Koaji=22 | fight s Koaji=618
+koaji 90:12-10 daylog 2000-12-10: casts 36 selfhooks 9 | catches Koaji=9 | fight s Koaji=238
+koaji 90:12-10 daylog 2000-12-11: casts 20 selfhooks 4 | catches Koaji=4 | fight s Koaji=112
+koaji 90:12-10: casts 56 selfhooks 13 | catches Koaji=13 | fight s Koaji=351
+base 91:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 91:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 91:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 92:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 92:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 92:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 93:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches  | fight s 
+base 93:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches Chinu=1 | fight s Chinu=78
+base 93:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=78
+base 94:12-10 daylog 2000-12-10: casts 33 selfhooks 0 | catches Chinu=1 | fight s Chinu=235
+base 94:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 94:12-10: casts 52 selfhooks 0 | catches Chinu=1 | fight s Chinu=235
+base 95:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 95:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 95:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 96:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 96:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 96:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 97:12-10 daylog 2000-12-11: casts 35 selfhooks 0 | catches  | fight s 
+base 97:12-10 daylog 2000-12-14: casts 19 selfhooks 0 | catches  | fight s 
+base 97:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 98:12-10 daylog 2000-12-10: casts 35 selfhooks 0 | catches  | fight s 
+base 98:12-10 daylog 2000-12-11: casts 20 selfhooks 0 | catches  | fight s 
+base 98:12-10: casts 55 selfhooks 0 | catches  | fight s 
+base 99:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 99:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 99:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 100:12-10 daylog 2000-12-10: casts 34 selfhooks 0 | catches  | fight s 
+base 100:12-10 daylog 2000-12-11: casts 19 selfhooks 0 | catches  | fight s 
+base 100:12-10: casts 53 selfhooks 0 | catches  | fight s 
+koaji 91:12-10 daylog 2000-12-10: casts 39 selfhooks 20 | catches Koaji=20 | fight s Koaji=558
+koaji 91:12-10 daylog 2000-12-11: casts 22 selfhooks 5 | catches Koaji=5 | fight s Koaji=141
+koaji 91:12-10: casts 61 selfhooks 25 | catches Koaji=25 | fight s Koaji=699
+koaji 92:12-10 daylog 2000-12-10: casts 39 selfhooks 15 | catches Koaji=15 Chinu=1 | fight s Koaji=422 Chinu=76
+koaji 92:12-10 daylog 2000-12-11: casts 20 selfhooks 2 | catches Koaji=2 | fight s Koaji=56
+koaji 92:12-10: casts 59 selfhooks 17 | catches Koaji=17 Chinu=1 | fight s Koaji=478 Chinu=76
+koaji 93:12-10 daylog 2000-12-10: casts 36 selfhooks 10 | catches Koaji=10 | fight s Koaji=284
+koaji 93:12-10 daylog 2000-12-11: casts 22 selfhooks 8 | catches Koaji=8 | fight s Koaji=231
+koaji 93:12-10: casts 58 selfhooks 18 | catches Koaji=18 | fight s Koaji=515
+koaji 94:12-10 daylog 2000-12-10: casts 35 selfhooks 8 | catches Koaji=8 | fight s Koaji=229
+koaji 94:12-10 daylog 2000-12-11: casts 21 selfhooks 6 | catches Koaji=6 | fight s Koaji=173
+koaji 94:12-10: casts 56 selfhooks 14 | catches Koaji=14 | fight s Koaji=402
+koaji 95:12-10 daylog 2000-12-10: casts 36 selfhooks 10 | catches Koaji=10 | fight s Koaji=273
+koaji 95:12-10 daylog 2000-12-11: casts 20 selfhooks 1 | catches Koaji=1 | fight s Koaji=28
+koaji 95:12-10: casts 56 selfhooks 11 | catches Koaji=11 | fight s Koaji=301
+koaji 96:12-10 daylog 2000-12-10: casts 35 selfhooks 7 | catches Koaji=7 | fight s Koaji=194
+koaji 96:12-10 daylog 2000-12-11: casts 21 selfhooks 8 | catches Koaji=8 | fight s Koaji=231
+koaji 96:12-10: casts 56 selfhooks 15 | catches Koaji=15 | fight s Koaji=425
+koaji 97:12-10 daylog 2000-12-11: casts 36 selfhooks 4 | catches Koaji=4 | fight s Koaji=115
+koaji 97:12-10 daylog 2000-12-14: casts 19 selfhooks 3 | catches Koaji=3 | fight s Koaji=82
+koaji 97:12-10: casts 55 selfhooks 7 | catches Koaji=7 | fight s Koaji=197
+koaji 98:12-10 daylog 2000-12-10: casts 38 selfhooks 12 | catches Koaji=12 | fight s Koaji=336
+koaji 98:12-10 daylog 2000-12-11: casts 21 selfhooks 5 | catches Koaji=5 Chinu=1 | fight s Koaji=131 Chinu=71
+koaji 98:12-10: casts 59 selfhooks 17 | catches Koaji=17 Chinu=1 | fight s Koaji=468 Chinu=71
+koaji 99:12-10 daylog 2000-12-10: casts 38 selfhooks 15 | catches Koaji=15 | fight s Koaji=417
+koaji 99:12-10 daylog 2000-12-11: casts 19 selfhooks 3 | catches Koaji=3 | fight s Koaji=78
+koaji 99:12-10: casts 57 selfhooks 18 | catches Koaji=18 | fight s Koaji=495
+koaji 100:12-10 daylog 2000-12-10: casts 35 selfhooks 6 | catches Koaji=6 | fight s Koaji=171
+koaji 100:12-10 daylog 2000-12-11: casts 20 selfhooks 5 | catches Koaji=5 | fight s Koaji=102
+koaji 100:12-10: casts 55 selfhooks 11 | catches Koaji=11 | fight s Koaji=272
+done 13:34:42
