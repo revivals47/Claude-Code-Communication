@@ -1,0 +1,14 @@
+[v4] 2026-10-04 18:45:28 head c8c3108
+[v4] 2026-10-04 18:45:38 roslyn: [bundle_compile8] sim rc=0 errors=0 files=175 [bundle_compile8] c8c3108 game rc=0 errors=0 files=130 ikada-refs-from-Library=0 [bundle_compile8] c8c3108 editor rc=0 errors=0 files=20 
+[v4] 2026-10-04 18:45:58 S0_off_line0_08 rc=0 png=yes exc=0 env=[IKADA_ROD_ARC_CN=2 IKADA_ROD_ARC_EXP=0.5 IKADA_ROD_T=2.55 IKADA_ROD_LINE=0] | [TipAngle] main 80.0 deg below horizontal (last span), close-up 49.8 deg, deflection 0.140 m, T 2.55 N, p 4.0, soft x1.0
+[v4] 2026-10-04 18:45:58 S0_off_line0_08 | [FightLine] rodLine 0.000 tip (-0.176,1.606,3.796) px (888,406) entry (-0.196,4.235) px (891,836) deckFrontZ 3.935 tipOverRaft True entryPastEdge True
+[v4] 2026-10-04 18:46:14 S1_on_line0_08 rc=0 png=yes exc=0 env=[IKADA_ROD_ARC_CN=2 IKADA_ROD_ARC_EXP=0.5 IKADA_ROD_T=2.55 IKADA_ROD_LINE=0 IKADA_ROD_LINE_SIDE=1] | [TipAngle] main 80.0 deg below horizontal (last span), close-up 49.8 deg, deflection 0.140 m, T 2.55 N, p 4.0, soft x1.0
+[v4] 2026-10-04 18:46:14 S1_on_line0_08 | [FightLine] rodLine 0.000 tip (-0.176,1.606,3.796) px (888,406) entry (-0.196,4.235) px (891,836) deckFrontZ 3.935 tipOverRaft True entryPastEdge True
+[v4] 2026-10-04 18:46:30 S2_on_lineM05_08 rc=0 png=yes exc=0 env=[IKADA_ROD_ARC_CN=2 IKADA_ROD_ARC_EXP=0.5 IKADA_ROD_T=2.55 IKADA_ROD_LINE=-0.5 IKADA_ROD_LINE_SIDE=1] | [TipAngle] main 63.7 deg below horizontal (last span), close-up 49.8 deg, deflection 0.140 m, T 2.55 N, p 4.0, soft x1.0
+[v4] 2026-10-04 18:46:30 S2_on_lineM05_08 | [FightLine] rodLine -0.500 tip (0.896,1.628,3.315) px (1380,396) entry (0.255,4.235) px (1050,836) deckFrontZ 3.935 tipOverRaft True entryPastEdge True
+[v4] 2026-10-04 18:46:45 S3_on_lineP05_08 rc=0 png=yes exc=0 env=[IKADA_ROD_ARC_CN=2 IKADA_ROD_ARC_EXP=0.5 IKADA_ROD_T=2.55 IKADA_ROD_LINE=0.5 IKADA_ROD_LINE_SIDE=1] | [TipAngle] main 56.7 deg below horizontal (last span), close-up 49.8 deg, deflection 0.140 m, T 2.55 N, p 4.0, soft x1.0
+[v4] 2026-10-04 18:46:45 S3_on_lineP05_08 | [FightLine] rodLine 0.500 tip (0.338,1.784,3.699) px (1103,349) entry (1.362,4.235) px (1441,836) deckFrontZ 3.935 tipOverRaft True entryPastEdge True
+[v4] 2026-10-04 18:46:45 S1 (on, 0) vs S0 (off, 0): diff_px=0 bbox=None
+[v4] 2026-10-04 18:46:46 S0 (off, 0) vs L11 (b8b47ac, same env): diff_px=0 bbox=None
+[v4] 2026-10-04 18:46:46 porcelain []
+[v4] 2026-10-04 18:46:46 done
