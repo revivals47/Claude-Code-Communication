@@ -58,11 +58,11 @@ static class Program
     {
         CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
         string mode = a.Length > 0 ? a[0] : "human";
+        if (mode == "koaji") { Koaji(a[1]); return 0; }      // its 2nd argument is a list, not a number
         int days = a.Length > 1 ? int.Parse(a[1]) : 20;
         if (mode == "rope") { Rope(days, a[2], a[3], a[4]); return 0; }
         if (mode == "ropetrace") { RopeTrace(days, a[2], a[3], a[4]); return 0; }
         if (mode == "weather") return Weather(days, a[2]);   // PR v2 (2): weather <seeds N> <M-D>
-        if (mode == "koaji") { Koaji(a[1]); return 0; }      // AJI_HOOKUP_W3.md §3: koaji "seed:M-D[:raft],..."
         if (mode == "human") Human(days); else Pilot(days, a.Length > 2 ? a[2] : "4-20,7-20,10-15,12-10");
         return 0;
     }

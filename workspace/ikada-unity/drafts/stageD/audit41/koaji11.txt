@@ -1,0 +1,12 @@
+koaji 20260925:4-20:3: casts 59 ecoSteps 116963 | bait pecks: Koaji=15 casts-with-koaji-bait-peck=10 | all bait [Fugu=145 Kawahagi=50 Bera=85 Suzumedai=24 Koaji=15 Bora=4] | dango [Fugu=1205 Kawahagi=259 Bera=485 Chinu=9 Bora=44 Kisu=6]
+koaji 20260925:4-20: casts 63 ecoSteps 118622 | bait pecks: Koaji=0 casts-with-koaji-bait-peck=0 | all bait [Fugu=220 Kawahagi=43 Bera=103] | dango [Fugu=1900 Kawahagi=541 Bera=996 Chinu=46 Bora=39]
+koaji 1:4-20: casts 62 ecoSteps 119824 | bait pecks: Koaji=0 casts-with-koaji-bait-peck=0 | all bait [Fugu=207 Kawahagi=80 Bera=80] | dango [Fugu=2127 Kawahagi=710 Bera=831 Chinu=13 Bora=32]
+koaji 2:4-20: casts 63 ecoSteps 115906 | bait pecks: Koaji=0 casts-with-koaji-bait-peck=0 | all bait [Fugu=200 Kawahagi=66 Bera=75 Kisu=3] | dango [Fugu=1781 Kawahagi=548 Bera=840 Chinu=49 Bora=21 Kisu=12]
+koaji 3:4-20: casts 62 ecoSteps 116326 | bait pecks: Koaji=0 casts-with-koaji-bait-peck=0 | all bait [Fugu=220 Kawahagi=50 Bera=79 Kisu=1] | dango [Fugu=2244 Kawahagi=526 Bera=925 Chinu=27 Bora=36 Kisu=4]
+koaji 20260925:7-20: casts 64 ecoSteps 117648 | bait pecks: Koaji=0 casts-with-koaji-bait-peck=0 | all bait [Fugu=194 Kawahagi=64 Bera=121] | dango [Fugu=1823 Kawahagi=530 Bera=1072 Chinu=26 Bora=44 Aigo=65]
+koaji 1:7-20: casts 65 ecoSteps 119217 | bait pecks: Koaji=0 casts-with-koaji-bait-peck=0 | all bait [Fugu=229 Kawahagi=60 Bera=91] | dango [Fugu=2217 Kawahagi=638 Bera=890 Chinu=38 Bora=29 Kisu=4 Aigo=45]
+koaji 2:7-20: casts 64 ecoSteps 118588 | bait pecks: Koaji=0 casts-with-koaji-bait-peck=0 | all bait [Fugu=233 Kawahagi=50 Bera=85 Kisu=1] | dango [Fugu=2545 Kawahagi=583 Bera=1027 Chinu=34 Bora=48 Kisu=10 Aigo=30]
+koaji 3:7-20: casts 65 ecoSteps 118642 | bait pecks: Koaji=0 casts-with-koaji-bait-peck=0 | all bait [Fugu=195 Kawahagi=53 Bera=124] | dango [Fugu=1839 Kawahagi=556 Bera=981 Chinu=35 Bora=54 Kisu=1 Aigo=87]
+koaji 1:10-15: casts 57 ecoSteps 119808 | bait pecks: Koaji=7 casts-with-koaji-bait-peck=5 | all bait [Fugu=189 Kawahagi=61 Bera=61 Suzumedai=9 Koaji=7] | dango [Fugu=803 Kawahagi=264 Bera=244 Chinu=3 Bora=86 Kisu=3]
+koaji 1:12-10: casts 54 ecoSteps 119810 | bait pecks: Koaji=21 casts-with-koaji-bait-peck=12 | all bait [Fugu=131 Kawahagi=16 Bera=45 Suzumedai=64 Koaji=21 Bora=3 Mebaru=1] | dango [Fugu=426 Kawahagi=62 Bera=192 Chinu=15 Bora=11]
+done 11:42:06
