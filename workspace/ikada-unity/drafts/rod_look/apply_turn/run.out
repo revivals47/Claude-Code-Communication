@@ -1,0 +1,38 @@
+[ap] 2026-10-04 23:37:30 live dry rc=0 - counts: {'changed': 10, 'added': 0, 'gone': 0, 'same': 23}
+[ap] label on the sheet /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/apply_turn/live_sheet.png (1920, 4062)
+[ap] 2026-10-04 23:37:32 live apply rc=0 [live_rebase] applied: {'changed': 10, 'added': 0, 'gone': 0, 'same': 23}; every new file = source, every pre-roddefault_ file = before; NOTE lines appended 
+[ap] mock 06_A_sans.png: d2bdf39aebe9f849 -> 4e36b68383d574be ok
+[ap] mock 06_B_serif.png: 95316b373b3204f5 -> dc566a6b1d959d5b ok
+[ap] mock 06C_A_sans.png: 8e0b7ff734a3b32e -> 8867a60433c6816f ok
+[ap] mock 06C_B_serif.png: dd2a88003828bd01 -> 1d94a78739e075de ok
+[ap] mock 06M_A_sans.png: a51b3249740b9225 -> 400f2cde06db9103 ok
+[ap] mock 06M_B_serif.png: e14b8e38c734012a -> 23efa974656b71c6 ok
+[ap] mock 08_A_sans.png: 10ddf85fff53189c -> 34f6c13be1fc1638 ok
+[ap] mock 08_B_serif.png: cca9f3bd5ebe0b41 -> 513424822a652c5b ok
+[ap] mock P1_A_sans.png: 83442576f407fa97 -> 7a69414590a2706c ok
+[ap] mock P1_B_serif.png: b109f1cdb0da1084 -> c08889af1a75c6f4 ok
+[ap] mock P2_A_sans.png: 800dffbc86b7cde4 -> cff0322d6fcb366c ok
+[ap] mock P2_B_serif.png: d47b12040c2e1edb -> a032938275feccbe ok
+[ap] mock swapped 12
+[ap] 2026-10-04 23:37:32 PIN untouched: pin b80715f96efa90d687296c8e4562e8bb085725f9 regress 506dfab_194806 
+[ap] 2026-10-04 23:50:27 regress rc=0
+[r] build          PASS     rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-233732.log CS=0 fonts: PASS  species: PASS not_in_table=0 control_drop_fails=True control_old_fails=True
+[r] key_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+[r] pad_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+[r] hud_test       PASS     rc=0 exc=0 control: shown_again=True control_fails=True control_fails=True 
+[r] edge_test      PASS     rc=0 exc=0 control: control_pause_still=True control_old_hookset_fails=True 
+[r] tip_size_test  PASS     rc=0 exc=0 control: control_no_key_378=True 
+[r] input_test     PASS     rc=0 checks=91 failures=0 unevaluated=0 control_wrong_expectation_fails=True rumble_control_fails=True chum_control_fails=True map_control_fails=True width_control_fails=True nudge_control_fails=True reveal_control_fails=True page_control_fails=True exc=0
+[r] atlas          PASS     rc=0 main: test_chars=25 test_missing_before=25 test_missing_after=0 control_chars=11 | control ✥: test_missing_after_list=[✥] | chars: PASS
+[r] refcheck       PASS     rc=0 PASS 11/11 control_flipped_fails=True total_wall=306s  control_flipped_fails=True
+[r] live           PASS     rc=0 | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)  seed 20260925 logic sequence = baseline;seed 20260925 not in the baseline (not judged, counted): 0;seed 20260925 pictures 0 px (6);seed 1 logic sequence = baseline;seed 1 not in the baseline (not judged, counted): 0;see
+[r] player_shots   PASS     rc=0 shots=26/26 glyph_lines=26/26 missing_chars=0 unchecked=0 Exception=0 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/b763128_234649
+[r] editor_shots   PASS     rc=0 shots=26/26 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/editor/b763128_233732
+[r] editor_repeat  PASS     waterT=10.0 rows=4/4 max diff>24%=0 (limit < 0.1) bad: none
+[r] compare        PASS     rows=26/26 max diff>24%=0.24 (limit 1.0) bad: none
+[r] git_clean      PASS     start=0 after_build=0 end=0
+[r] baseline       PASS     vs /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/68f766b_113126: 26/26 pairs 0 px over the whole picture (08 apart from the known rod-edge pixel, 06/06C/06M from the subtitle-band pixel); differ: none; known pixel levels (limit 1): 06_A_sans
+[r] RESULT PASS  PASS 16/16  SKIPPED 0  UNEVALUATED 0   (NOT RUN counts as FAIL)  | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)
+[ap] 2026-10-04 23:50:27 regress dir /home/ken/Documents/ikada-unity-track3/Logs/regress/b763128_233732/
+[ap] 2026-10-04 23:50:28 players left: 0; end porcelain 0 head b763128
+[ap] 2026-10-04 23:50:28 done
