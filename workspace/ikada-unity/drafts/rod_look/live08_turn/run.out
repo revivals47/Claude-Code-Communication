@@ -1,0 +1,35 @@
+[l8] 2026-10-04 23:23:01 roslyn: [bundle_compile8] sim rc=0 errors=0 files=175 [bundle_compile8] 4232827 game rc=0 errors=0 files=132 ikada-refs-from-Library=0 [bundle_compile8] 4232827 editor rc=0 errors=0 files=20 
+[l8] 2026-10-04 23:23:41 bake: [ubT] Ikada.EditorTools.BuildScript.BuildPerf rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-232301-l8.log exiting_ok=1 exceptions=0 cs=0
+[l8] 2026-10-04 23:23:41 porcelain after the bake: []
+[l8] 2026-10-04 23:24:08 run A_strip rc=0 png=[live_08_t792.4.png live_08_t792.5.png live_08_t792.7.png live_08_t792.9.png live_08_t793.4.png live_08_t793.9.png ] exc=0 hookset=[[RodHand] hand at HookSet TimeS=792.399] framelines=200
+[l8] 2026-10-04 23:25:03 run B_regress08 rc=0 png=[live_03.png live_04.png live_05.png live_06.png live_06C.png live_07.png live_08.png live_08_t794.7.png live_J.png ] exc=0 hookset=[[RodHand] hand at HookSet TimeS=792.399] framelines=200
+[l8] A_strip [RuntimeRod] fight frame 1: frameCount=600 dt=0.0167 playing=True grip=0.0193/0.30 floor=0.0000 rad tipSettle=False TimeS=792.399 back=0.0567/1.73 butt=(-0.254, 0.769, 2.903) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] A_strip [RuntimeRod] fight frame 2: frameCount=601 dt=0.0167 playing=True grip=0.0374/0.30 floor=0.0000 rad tipSettle=False TimeS=792.416 back=0.1116/1.73 butt=(-0.259, 0.787, 2.849) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] A_strip [RuntimeRod] fight frame 3: frameCount=602 dt=0.0167 playing=True grip=0.0544/0.30 floor=0.0000 rad tipSettle=False TimeS=792.416 back=0.1646/1.73 butt=(-0.264, 0.804, 2.796) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] A_strip [Live] shot screen=08_t792.4 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/A_strip/live_08_t792.4.png t=792.42
+[l8] A_strip [Live] shot screen=08_t792.5 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/A_strip/live_08_t792.5.png t=792.52
+[l8] A_strip [Live] shot screen=08_t792.7 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/A_strip/live_08_t792.7.png t=792.67
+[l8] A_strip [RuntimeRod] fight frame 139: frameCount=738 dt=0.0167 playing=True grip=0.3000/0.30 floor=0.0205 rad tipSettle=False TimeS=792.916 back=1.7132/1.73 butt=(-0.399, 1.050, 1.253) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] A_strip [RuntimeRod] fight frame 140: frameCount=739 dt=0.0167 playing=True grip=0.3000/0.30 floor=0.0206 rad tipSettle=False TimeS=792.916 back=1.7137/1.73 butt=(-0.399, 1.050, 1.253) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] A_strip [RuntimeRod] fight frame 141: frameCount=740 dt=0.0167 playing=True grip=0.3000/0.30 floor=0.0207 rad tipSettle=False TimeS=792.916 back=1.7143/1.73 butt=(-0.399, 1.050, 1.252) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] A_strip [Live] shot screen=08_t792.9 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/A_strip/live_08_t792.9.png t=792.92
+[l8] A_strip [Live] shot screen=08_t793.4 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/A_strip/live_08_t793.4.png t=793.42
+[l8] A_strip [Live] shot screen=08_t793.9 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/A_strip/live_08_t793.9.png t=793.92
+[l8] B_regress08 [Live] shot screen=05 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/B_regress08/live_05.png t=0.02
+[l8] B_regress08 [Live] shot screen=07 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/B_regress08/live_07.png t=2.00
+[l8] B_regress08 [Live] shot screen=06C -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/B_regress08/live_06C.png t=4.50
+[l8] B_regress08 [Live] shot screen=06 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/B_regress08/live_06.png t=5.52
+[l8] B_regress08 [RuntimeRod] fight frame 1: frameCount=731 dt=0.0167 playing=True grip=0.0193/0.30 floor=0.0000 rad tipSettle=True TimeS=792.399 back=0.0567/1.73 butt=(-0.254, 0.769, 2.903) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] B_regress08 [RuntimeRod] fight frame 2: frameCount=732 dt=0.0167 playing=True grip=0.0374/0.30 floor=0.0000 rad tipSettle=True TimeS=792.399 back=0.1116/1.73 butt=(-0.259, 0.787, 2.849) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] B_regress08 [RuntimeRod] fight frame 3: frameCount=733 dt=0.0167 playing=True grip=0.0544/0.30 floor=0.0000 rad tipSettle=True TimeS=792.399 back=0.1646/1.73 butt=(-0.264, 0.804, 2.796) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] B_regress08 [Live] shot screen=08 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/B_regress08/live_08.png t=792.40
+[l8] B_regress08 [RuntimeRod] fight frame 139: frameCount=869 dt=0.0167 playing=True grip=0.3000/0.30 floor=0.0313 rad tipSettle=True TimeS=794.166 back=1.7132/1.73 butt=(-0.399, 1.050, 1.253) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] B_regress08 [RuntimeRod] fight frame 140: frameCount=870 dt=0.0167 playing=True grip=0.3000/0.30 floor=0.0320 rad tipSettle=True TimeS=794.183 back=1.7137/1.73 butt=(-0.399, 1.050, 1.253) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] B_regress08 [RuntimeRod] fight frame 141: frameCount=871 dt=0.0167 playing=True grip=0.3000/0.30 floor=0.0326 rad tipSettle=True TimeS=794.199 back=1.7143/1.73 butt=(-0.399, 1.050, 1.252) rest=(-0.177, 0.750, 3.791) hold=Hand backInHand=True
+[l8] B_regress08 [Live] shot screen=08_t794.7 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/B_regress08/live_08_t794.7.png t=794.72
+[l8] B_regress08 [Live] shot screen=03 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/B_regress08/live_03.png t=865.43
+[l8] B_regress08 [Live] shot screen=04 -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/B_regress08/live_04.png t=8982.00
+[l8] B_regress08 [Live] shot screen=J -> /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/B_regress08/live_J.png t=8987.05
+[l8] strip /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/live08_turn/strip.png 6 shots
+[l8] 2026-10-04 23:25:04 players left: 0; end porcelain 0 head 4232827
+[l8] 2026-10-04 23:25:04 done
