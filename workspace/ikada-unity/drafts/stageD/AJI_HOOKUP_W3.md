@@ -207,3 +207,9 @@ G の日の小アジ（12 cm 前後, 蒲江 = 深さ 15 m, Places.cs:93）の向
 - 器の照らし: 陽性対照（種 1 = 12/10 に 9・12/11 に 3、12 尾 343 s）は §16 で合格、本 run の種 1 の行も同じ。
 - codex 済（13:3x, file から数え直し）: 93 対・チヌ 14 対 10・向こう合わせ 1013/93 = 10.89・ファイト 28068/93 = 301.8 s = 一致。対の検定（両方で取った日 3・base だけ 11・小アジだけ 7, 7/18 の二項）p = 0.48、条件つき 10/24 の二項 p = 0.54 = ★ゆれと分けられない は妥当★。★ただし 有意でない ≠ 効きが無い★（93 日・チヌ 24 尾では −30 % 程度の効きも見えない）。
 - ★12/10 の DayLog が無い 7 種の訳（boss1 13:37, dotnet なし, source と出力）★: 欠航の日は DayLog を作らない（GameFlow.cs:206-213 = info.Cancelled なら「欠航」の頁 → AdvanceStory で return、DayLog は StartFishing の Book.StartDay だけ DayFlow.cs:253）。欠航の抽選 = 風「強風」0.15 × 冬（第4章）0.7（Calendar.cs:76-78, 日ごと・世界の種ごとの筋 = 小アジの枝で替わらない）≈ 0.105 → 100 種で 期待 10.5、観測 7（P(≤7) ≈ 0.16 = 起こりうる）。出力: 7 種とも base と小アジで同じ日付の並び、最初の DayLog が 12/11（64 だけ 12/12 = 12/10・12/11 とも欠航の見込み）、89・97 も 途中の日が抜ける（89: 12/11 → 12/13）= 欠航の跳びと同じ形。→ ★欠航（推論, 強い）★。その日が欠航かを直に見るには Calendar.Get(12/10, 世界の種) を 7 種で評価（dotnet 要）。
+
+## 18. 0.3 s の窓の RigLost（codex via worker1 13:42, boss1 13:43 = w3/koaji-selfhook に 0c09a70 の上で 1 commit、dotnet は worker1 がまとめて）— 予測（code の前, 動かさない）
+- 穴（source で確認）: FishingSession.cs:320 の期限の判断は RigLost を見ない。RigLost が立つ口 = アワセ切れ（Fight.cs:59, InWater のまま）・ハリスを切られた（:381）。新しいつつきは BaitOnHook = BaitOn（!RigLost を含む, :132・:340）で止まる = 穴は 0.3 s の窓だけ。
+- 直し: 判断を internal static SelfHookFires(ref at, castT, rigLost)（期限が来たら消す・RigLost なら掛けない）。
+- 試験 KoajiSelfHookRigLostTests（AutoPilot の日の最初の着底で 期限=今 を reflection で置く）: 対照（RigLost なし）= 次の frame で State Fight、本体（RigLost あり）= Fight にならない。★予測: 0c09a70（直しなし）では 本体が赤・対照は緑／直しの後は 2 本とも緑★。
+- ★RefCheck 11 値: 動かない見込み★（窓の中で RigLost になる投 = 小アジの向こう合わせの 0.3 s 内に AutoPilot のアワセが切れる か ハリスを切られる が要る。照合の日の AutoPilot のアワセ切れ自体が稀で、窓 0.3 s と重なる見込みは小さい; 確度 中）。動いたら 窓と重なる投があった = 直しが効いた日として 外れの印で書く。
