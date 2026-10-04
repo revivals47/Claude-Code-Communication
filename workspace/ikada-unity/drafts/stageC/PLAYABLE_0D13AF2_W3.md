@@ -18,3 +18,11 @@ master = 0d13af262c60e39078eec9f86f86f4a3a899b496 = e0c3850（track3/logic-a8cca
 - ★S0〜S6 = 2750f49 の summary と行が全部同じ★（diff 0 行; 365/365・章の頁の順・終わりの頁の行・場所・課題の見出しと頁の数・S5 4 か所・RodLent/RodGiven）。storyrun.log 737 行も 頭の 3 行の後は diff 0 = 日と頁の並びは 1 行も違わない → ★当たり★。
 - ★S7 = 外れ★: sim ★213468 s★（2750f49 220040 s から −6572 s = −3.0%、予測 帯 ±3000 s の外、向きも逆 = 延びる見込みと書いたが 縮んだ）。wall 5.8 分（予測 5〜8 分 当たり）。どの日で縮んだかは log に秒が無いので ★未特定★（推論: 小アジの向こう合わせで サシエを失う・仕掛けの在庫が早く尽きて 日が早く終わる日がある見込み = FishingSession.Stock / DayStock の道, 未確かめ）。
 - 後片付け: dotnet の compile server（VBCSCompiler, StoryRun の build の残り）を build-server shutdown で止めた → dotnet 0。
+
+## --apply の結果（観測, 15:48:23-15:50:25, rc 0, log scratch pb_0d13af2.out）
+- build Succeeded errors 0（22.8 s）→ ★~/Documents/ikada-play/0d13af2 = 176 file・744,034,287 bytes★（予測 176・744,021,999 ＋ 0〜200 KB → +12,288 bytes = ★当たり★）、folder sha256 ★c9a19a1904c97239205972f22506baca5835006b73d5ea78a5abea3f8c3340d6★、Ikada.x86_64 sha256 ★a9a83136f9f1e9bb13e145b651e13a947bbff6d6a9281f92f0791afc397104cb★（c5125b3 と同じ = ★当たり★）。DoNotShip 抜き・diff -rq 空。
+- c5125b3 との差（sha256 で全 file）: 11 file = Managed の 5 dll（Assembly-CSharp・Ikada.Desktop・Game・Logic・Native）・boot.config・globalgamemanagers・globalgamemanagers.assets・level0・resources.assets・sharedassets0.assets（前回 e41e21c→c5125b3 と同じ 11 種）。
+- 起動の確かめ（script の 4a〜4c）: 前後とも player 0、[Live] start api 0.24.0 | SessionProbe RESULT ok=True api=0.24.0 abi=3 screen=Title | [Live] RESULT ok=True steps=539333 simS=8989.1 page=Info（c5125b3 と同じ steps・simS）、セーブの dir 変わらず（無し）。
+- ★-ikadaDev（play_0d13af2_dev/）★: ① ふだんの起動 + -ikadaDev 25 s = Exception 0、② live + -ikadaDev（閉じ）= 06 に開発の表示 ★無し★（[DevView] built on 06 (open=False)）、③ live + -ikadaDev -ikadaDevOpen = 06 に「開発の表示（F1 で閉じる）・張力 0.1 N ドラグ 3.0 N・ダンゴ 沈み (1.00)・魚の様子 —・朝 6:00 落とした」★有り★、Exception 0 → 予測 ★当たり★。★実の F1 の鍵は未確認（送る道具なし）★ = PRESIDENT の起動の前に F1 を 1 回（boss1 が上げる）。
+- 後: --check-players 0・/proc/exe で player・Unity 0、worktree は track3/logic-a8cca9e に戻った（porcelain 0）。
+- 起動の行: ふだん `~/Documents/ikada-play/0d13af2/Ikada.x86_64` ／ 開発の確かめ `~/Documents/ikada-play/0d13af2/Ikada.x86_64 -ikadaDev`（釣りの画面で F1 で開閉）。
