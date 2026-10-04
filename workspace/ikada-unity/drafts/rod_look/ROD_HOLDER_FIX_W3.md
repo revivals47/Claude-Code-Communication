@@ -319,3 +319,16 @@
 - 予測との照らし: ★S1 vs S0 = 0 px・S0 vs L11（b8b47ac）= 0 px → 当たり★（既定の画は動かない）。入水点 − 穂先: 角 0 = +3（|Δ| ≤ 3, c175 の左流れ無し）★当たり★、+0.5 = +338（+180〜+350）★当たり★、−0.5 = −330（−180〜−350）★当たり★。★板の上の糸 = 0 px★（甲板の行 748〜999・x 700〜1599 で S0 と違う白い糸色の画素 0、S2 の違う画素 1872 は 寝かせた竿とリールの移り = 糸の色でない）→ 当たり。縁の外 = 4 枚とも True → 当たり。
 - ★外れ: 穂先が筏の上 = 4 枚とも True★（予測は −0.5 だけ True）。S0（角 0）も 穂先 z 3.796 < 縁 3.935 = この直しの前からの形（S0 は L11 と 0 px）= ファイトで竿を上げ・曲げると 穂先が縁より手前へ戻る（RuntimeRod.cs:210 の注と同じ形, 寝かせだけの話ではなかった）。直さずに報告（boss1 18:2x）。
 - 読み（推論）: 横の分は RodBend と同じ rodLine から出るので 竿の曲がりの向きと描きの糸が揃う（S3 は穂先が右へ・糸も右へ、S2 は寝かせで穂先が右へ出て 糸は左の入水点へ = 竿の元の側へ引かれる形）。
+
+### 7.22 merge の前の材料（PRESIDENT 18:5x GO = 糸の横 既定 ON・指数 0.5・窓 ×2, boss1; ★Unity・Roslyn・dotnet なし = 未 compile★）
+- track3/rod-build の頭 = ★572e038★（master 0d13af2 の上 13 commit, 386e333 と 572e038 は track3/rod-lineside-on から ff）。
+- ★既定が替わる物★（既定の画が動く）:
+  - 6ac9bcf = V4 を既定に: リールの座 0.197・黒い柄 0.176・ガイド 14（リール ＋ 0.267 から等比に詰まる）・竿の太さ 24 倍 ＋ 画で 1.5 px の最小・地を黒（RodBlank ＋ GearLooks 中級）・金の区 0.206〜0.25（RodGold）・曲がりの形を 1 つに（RodBend.Slope u^p / Drop u^(p+1)、窓も同じ式、p 4）。
+  - fce80d7 = その material（RodBlank.mat 黒・RodGold.mat 新）。
+  - 95d535f → 8828b78 = ガイドの輪の大きさ（最後は 元 16 mm → 先 4 mm の等比 × 2.06・最小 1.5 px）。
+  - 386e333 = 糸の横（LINE_SIDE）既定 ON（角 0 は iii と 0 px = c191）。
+  - 572e038 = 曲がりの指数 0.5・満ち 2 N・窓のばね ×2（★満ち 2 N は 私の判断で足した = c190 の画が 満ち 2 N で撮られた物、指数 0.5 だけ替えて満ち 4 N のままだと チヌの中央 1.34 N で q 0.58 = c190 より浅い = 送る画と既定が食い違うため; 戻すなら env IKADA_ROD_ARC_CN=4★）。
+- ★撮りだけの env の物★（既定 OFF・対照用に残す）: e5e14fe・ff639e8・3d96327・fc1edd0（GRIP_FRAC / GUIDES / ARC_P / TAPER_RATIO / GOLD の env、6ac9bcf の後は 上書き用）、b8b47ac（ARC_EXP）、9649c31（LINE_SIDE、386e333 で既定 ON・"0" で OFF）、c8c3108（[FightLine] の log, editor だけ）、TIP_SOFT・RING_FIRST/LAST_MM・ARC_CN・[TipAngle] の log。旧値に戻す env: IKADA_ROD_ARC_EXP=0.25・IKADA_ROD_ARC_CN=4・IKADA_TIP_SOFT=1・IKADA_ROD_LINE_SIDE=0。注: 572e038 で 指数の既定が env の値になったので 旧の IKADA_ROD_ARC_D=0（指数 0.7）の道は 通らなくなった（ARC_EXP=0.7 で同じ）。
+- ★merge-tree★: git merge-tree --write-tree 3f7ac9a（dev-pin025, pin ikada-sim b80715f = API 0.25.0、master 0d13af2 を含む）track3/rod-build = ★rc 0・衝突 0（tree dad3a53）★。3f7ac9a の差 9 file に Render/・BackdropBuilder は 0 = 触る file が重ならない。★未確認: API 0.25.0 の logic に対して rod-build の code が compile できるか（Roslyn は合わせた木で門の後）★。
+- ★予測（合わせた木の regress, 回す前）★: 既定の画で替わる = 竿が見える画面 ★mock の 06・06C・06M（待ちの竿: 黒・長い柄と金・ガイド 14・細い先, 06 で約 4 万 px = V4 の 06 vs 177002a の 42,892 px の形）・08（曲がり（指数 0.5・満ち 2 N は mock の 3.8 N では満ち切り = 弧はほぼ今の満ちと同じ）＋ 窓 ×2 で窓の垂れが深く ＋ ★糸の横 ON で mock の LineAngleRad 0.5 → 描きの糸が右へ 約 +338 px 傾く★ = 08 は大きく動く）★、live の 06 系の画（3 種）、player_shots の同じ画面。★03（取り込み）は 竿の 3D が見えるかで替わるか決まる = 未確認★、P1（一時停止の背景）は 未確認。替わらない見込み = 05・07・04・J・S0・Z・P2（竿の 3D なし）。input_test・key・pad・hud・edge・atlas は替わらない見込み。= regress は ★15/15 にならない（基準の差し替えの番が要る）★。
+- 案（PRESIDENT へ, boss1 から）: regress は dev-pin025 と rod-build を合わせた木で 1 回（Roslyn → BuildPerf → regress → 差し替えの dry の表と sheet）。
