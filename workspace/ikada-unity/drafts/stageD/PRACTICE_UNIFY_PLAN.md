@@ -108,3 +108,4 @@ codex 済（要点）: L0〜L4 の主張 6 つを 2750f49 で確かめ = lead-in
 - build 警告 0・エラー 0。練習の試験（ContractTests・PracticeUnify 5・Strike・Fight・Set・Words・Flow・Bite・LeadIn・BackToTitle・Chum）= 64 本とも成功 = P2・P3・P4 当たり（ContractTests 不変 = 0.24.0 のまま）。
 - RefCheck 11 本とも #15 = P1 当たり。
 - ★外れ 1 つ★: 全試験 915 中 合格 909・失敗 1・スキップ 5。失敗 = ActionTokensTests.PracticeMarksAreWordsNotSymbols（Practice.cs の source を読んで `"よし"` の字を探す試験、ActionTokensTests.cs:46）。私が `"　よし"` と区切りの空白ごと書いたので字が見つからなかった（画の字は「よし」のまま）= 予測の「直す試験の list」から漏れていた（source を読む試験を grep していなかった）。→ 1502b30 で 区切りを字の外へ（`"　" + (ok ? "よし" : …)`）。この 1 本の回し直しは dotnet の合図で。
+- 回し直し（1502b30、11:24〜11:25）: ActionTokensTests ＋ 練習の試験 = 70 本とも成功。全体は stage2 の CI で。
