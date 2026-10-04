@@ -106,3 +106,11 @@
 - ed4fe86 の s_stillShot = mock の撮りだけ（RuntimeRod.Fight.cs:31 の式 = 引数 -ikadaShot がある時だけ）= 線の中（PRESIDENT 23:5x）。
 - 08 の撮りの時刻 = HookSet ＋ 2.31 s（描きの時間, 戻し τ 0.5 と 握り τ 0.25 の残り 1 % 未満 = 0.5 × ln 100 = 2.303 s）, 遅くした窓（1 倍）の中, regress の引数のまま（PRESIDENT 23:5x GO）。
 - 帯 6 枚（HookSet ＋ 0・0.1・0.25・0.5・1.0・1.5 s）= 見るための 1 回物 = ★-ikadaTipSettle を外す★（穂先の揺れも込み）、別の run。
+- ★ed4fe86 の regress の結果（23:06 LOCK, Logs/regress/ed4fe86_230630, 出力 = default_turn2/）★: Roslyn 0。★14/16 PASS★（FAIL = live・baseline = 差し替え待ち）→ 予測どおり。★compare 08 = 0.01 / 0.02 %★（上限 1.0）→ 当たり。★player の 08 以外 12 画面 = 2932798 の player と 0 px、08 だけ 45,981 px（竿が戻り切る）★ → 当たり。★live の画 3 種の全部 = 2932798 の live と 0 px★（live_08 種 26 も同じ = 寄せ途中のまま）→ 当たり。対照 2 枚 0 px。live dry changed 10。FREE 前 Unity・player・VBCS 0。
+- ★測りの番の code と予測（撮りの前, 動かさない）★: code = track3/rod-default ★4232827★（ed4fe86 ＋ ファイトの frame log に TimeS・戻しの量/作りの量・竿の根元・受けの点・手の状態、上限 120 → 200 行, env IKADA_ROD_FRAME_LOG=1 の時だけ, log だけ）。道具 = live08_turn/run.sh（Roslyn → player の作り → run A 帯 → run B regress の引数 ＋ 2.31 s）。
+  - ★予測（計算: k = 1 − exp(−dt/τ), dt = 1/60 s, 戻し τ 0.5 → k 0.0328, 握り τ 0.25 → k 0.0645）★:
+    - fight frame 1（HookSet の最初の 1 フレーム = regress の live_08 の frame）: ★back = 0.057 / 1.73★、butt ≈ ★(−0.254, 0.769, 2.903)★（受けの位置の竿 (−0.249, 0.750, 2.960) から 竿の向きに 0.057 戻り、握り 0.019 上）、rest = ★(−0.176, 0.750, 3.791)★、hold = ★Hand★、backInHand = True。
+    - n フレーム目: back = 1.73 × (1 − 0.9672ⁿ)。frame 7（＋0.1 s）0.36 m・16（＋0.25 s）0.73・31（＋0.5 s）1.10・61（＋1.0 s）1.50・91（＋1.5 s）1.65。
+    - ★frame 139（＋2.31 s = run B の撮り）: back = 1.713 m（残り 0.017 m = 1.0 %）、grip = 0.300、butt ≈ (−0.398, 1.050, 1.253) = 手元★（手元 (−0.400, 0.750, 1.236) ＋ 握り 0.30 ＋ 残り 0.017）。画は 竿が 左下に大きく（mock の 08 = editor の 08 と同じ形）。
+    - 帯 6 枚: 竿が 受けの所（画の中ほど 小さく）から 左下へ 大きく 滑ってくる、＋1.5 s で ほぼ手元（残り 5 %）。穂先は TipSettle なしで揺れる。
+  - 外れたら止めて報告（PRESIDENT 23:3x）。

@@ -1,0 +1,104 @@
+[d2] 2026-10-04 23:06:30 roslyn: [bundle_compile8] sim rc=0 errors=0 files=175 [bundle_compile8] ed4fe86 game rc=0 errors=0 files=132 ikada-refs-from-Library=0 [bundle_compile8] ed4fe86 editor rc=0 errors=0 files=20 
+[d2] 2026-10-04 23:19:46 regress rc=1
+[r] build          PASS     rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-230630.log CS=0 fonts: PASS  species: PASS not_in_table=0 control_drop_fails=True control_old_fails=True
+[r] key_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+[r] pad_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+[r] hud_test       PASS     rc=0 exc=0 control: shown_again=True control_fails=True control_fails=True 
+[r] edge_test      PASS     rc=0 exc=0 control: control_pause_still=True control_old_hookset_fails=True 
+[r] tip_size_test  PASS     rc=0 exc=0 control: control_no_key_378=True 
+[r] input_test     PASS     rc=0 checks=91 failures=0 unevaluated=0 control_wrong_expectation_fails=True rumble_control_fails=True chum_control_fails=True map_control_fails=True width_control_fails=True nudge_control_fails=True reveal_control_fails=True page_control_fails=True exc=0
+[r] atlas          PASS     rc=0 main: test_chars=25 test_missing_before=25 test_missing_after=0 control_chars=11 | control ✥: test_missing_after_list=[✥] | chars: PASS
+[r] refcheck       PASS     rc=0 PASS 11/11 control_flipped_fails=True total_wall=313s  control_flipped_fails=True
+[r] live           FAIL     rc=1 | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)  seed 20260925 logic sequence = baseline;seed 20260925 not in the baseline (not judged, counted): 0;seed 20260925 FAIL 4: differ: live_06 live_06C;seed 1 logic sequence = baseline;seed 1 not in the baseline (not judged, 
+[r] player_shots   PASS     rc=0 shots=26/26 glyph_lines=26/26 missing_chars=0 unchecked=0 Exception=0 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/ed4fe86_231608
+[r] editor_shots   PASS     rc=0 shots=26/26 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/editor/ed4fe86_230630
+[r] editor_repeat  PASS     waterT=10.0 rows=4/4 max diff>24%=0 (limit < 0.1) bad: none
+[r] compare        PASS     rows=26/26 max diff>24%=0.24 (limit 1.0) bad: none
+[r] git_clean      PASS     start=0 after_build=0 end=0
+[r] baseline       FAIL     vs /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/68f766b_113126: 14/26 pairs 0 px over the whole picture (08 apart from the known rod-edge pixel, 06/06C/06M from the subtitle-band pixel); differ: 06_A_sans 06_B_serif 08_A_sans 08_B_serif P1_
+[r] RESULT FAIL  PASS 14/16  SKIPPED 0  UNEVALUATED 0   (NOT RUN counts as FAIL)  | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)
+[d2] 2026-10-04 23:19:46 regress dir /home/ken/Documents/ikada-unity-track3/Logs/regress/ed4fe86_230630/
+[d2] 2026-10-04 23:19:46 porcelain after the regress: []
+[d2] 2026-10-04 23:20:02 K06_goback rc=0 png=yes exc=0 env=[IKADA_ROD_EDGE=off IKADA_ROD_MIN_ACROSS=0 IKADA_ROD_GUIDES_REAL=0 IKADA_ROD_LINE_MM=6]
+[d2] 2026-10-04 23:20:17 K08_goback rc=0 png=yes exc=0 env=[IKADA_ROD_EDGE=off IKADA_ROD_MIN_ACROSS=0 IKADA_ROD_GUIDES_REAL=0 IKADA_ROD_LINE_MM=6]
+[d2] 2026-10-04 23:20:17 control K06 (go-back envs) vs R0: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:18 control K08 (go-back envs) vs master 08 (/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/editor/506dfab_194806/08_A_sans.png): diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:21 live dry rc=0 - counts: {'changed': 10, 'added': 0, 'gone': 0, 'same': 23}
+| 20260925 | live_06.png | changed | e897505e8a6d3f1238144ece0f9f7f869ec4b13e3e9bf43a63e16144615d4d5f | db8f39
+| 20260925 | live_06C.png | changed | 97ab61e56d2c07ccd7109e62eff028a77dc8bb711cc7ddeb0f01e6b6ad286233 | 9dd90
+| 20260925 | live.log | changed | 29c99210ab554ee73159b827a90d3a113d0bbe093c93fa0558ecd8d38cab77a6 | b0c63d415
+| 1 | live_06.png | changed | 8c7fe197dffba25f28e319768782d828c606fe9b14c09ff4d20174b62147ca04 | 0ff7d4792d9f5
+| 1 | live_06C.png | changed | bc890895903f816f09e5bf7e69d4bfcb20c34f6ae4d3e3693d743e922f2f9ff4 | 6dac74209f40
+| 1 | live.log | changed | e7604ff5dbc90ab2c258cf941fc48cad5bfa4ee14404bd451da441219205cf1e | b81fb63c097b5a54
+| 26 | live_06.png | changed | dd65f53de6565a3e064b12006a8357b7c1126ead721fd964dfeece436d0ed5f4 | f54b2900a96c
+| 26 | live_06C.png | changed | f808beff8ba6c067c2fea36fbd2dc952376677e4689b41597bffc1da9b9e77ed | a1b4391167e
+| 26 | live_08.png | changed | 051362fe4354f656b1573e96829ceff5191831ea5d1eebb9443aa8134c0cf29e | 8db019d593fb
+| 26 | live.log | changed | 9db0602eef01c19a085e2d9f57b1e5382e3054a9ce8b9cdad46edb782806fe2c | 20bc3a1ec82804b
+- counts: {'changed': 10, 'added': 0, 'gone': 0, 'same': 23}
+[d2] 2026-10-04 23:20:21 new editor /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/editor/ed4fe86_230630, new player /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/ed4fe86_231608
+[d2] 2026-10-04 23:20:21 editor S0 A_sans vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:21 editor S0 B_serif vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:22 editor 05 A_sans vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:22 editor 05 B_serif vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:22 editor 07 A_sans vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:23 editor 07 B_serif vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:23 editor 06 A_sans vs master: diff_px=43979 bbox=(611, 612, 1543, 1080)
+[d2] 2026-10-04 23:20:24 editor 06 B_serif vs master: diff_px=43979 bbox=(611, 612, 1543, 1080)
+[d2] 2026-10-04 23:20:24 editor 08 A_sans vs master: diff_px=12561 bbox=(688, 204, 1273, 783)
+[d2] 2026-10-04 23:20:24 editor 08 B_serif vs master: diff_px=12561 bbox=(688, 204, 1273, 783)
+[d2] 2026-10-04 23:20:25 editor 03 A_sans vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:25 editor 03 B_serif vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:25 editor 04 A_sans vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:26 editor 04 B_serif vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:26 editor J A_sans vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:27 editor J B_serif vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:27 editor Z A_sans vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:27 editor Z B_serif vs master: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:28 editor P1 A_sans vs master: diff_px=95715 bbox=(590, 599, 1566, 1080)
+[d2] 2026-10-04 23:20:28 editor P1 B_serif vs master: diff_px=95715 bbox=(590, 599, 1566, 1080)
+[d2] 2026-10-04 23:20:28 editor P2 A_sans vs master: diff_px=79632 bbox=(590, 599, 1566, 1080)
+[d2] 2026-10-04 23:20:29 editor P2 B_serif vs master: diff_px=79684 bbox=(590, 599, 1566, 1080)
+[d2] 2026-10-04 23:20:29 editor 06C A_sans vs master: diff_px=43979 bbox=(611, 612, 1543, 1080)
+[d2] 2026-10-04 23:20:29 editor 06C B_serif vs master: diff_px=43979 bbox=(611, 612, 1543, 1080)
+[d2] 2026-10-04 23:20:30 editor 06M A_sans vs master: diff_px=43979 bbox=(611, 612, 1543, 1080)
+[d2] 2026-10-04 23:20:30 editor 06M B_serif vs master: diff_px=43979 bbox=(611, 612, 1543, 1080)
+[d2] mock sheet /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/default_turn2/mock_sheet.png (1290, 2340)
+[d2] 2026-10-04 23:20:32 player S0 A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:32 player 05 A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:33 player 07 A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:33 player 06 A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:33 player 08 A_sans vs the 2932798 run: diff_px=45981 bbox=(570, 205, 1272, 894)
+[d2] 2026-10-04 23:20:34 player 03 A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:34 player 04 A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:34 player J A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:35 player Z A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:35 player P1 A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:35 player P2 A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:36 player 06C A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:36 player 06M A_sans vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:37 player 08 vs editor 08 (this run): diff_px=388094 bbox=(0, 0, 1920, 1080)
+[d2] 2026-10-04 23:20:37 live seed 20260925 live_04.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:37 live seed 20260925 live_05.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:38 live seed 20260925 live_06.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:38 live seed 20260925 live_06C.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:38 live seed 20260925 live_07.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:39 live seed 20260925 live_J.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:39 live seed 1 live_04.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:40 live seed 1 live_05.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:40 live seed 1 live_06.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:40 live seed 1 live_06C.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:41 live seed 1 live_07.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:41 live seed 1 live_J.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:41 live seed 1 live_J_p2.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:42 live seed 26 live_03.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:42 live seed 26 live_04.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:43 live seed 26 live_05.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:43 live seed 26 live_06.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:43 live seed 26 live_06C.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:44 live seed 26 live_07.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:44 live seed 26 live_08.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] 2026-10-04 23:20:45 live seed 26 live_J.png vs the 2932798 run: diff_px=0 bbox=None
+[d2] compare 08     A_sans        0 /     0       0.09      0.01
+[d2] compare 08     B_serif       0 /     0       0.09      0.02
+[d2] 2026-10-04 23:20:45 players left: 0; end porcelain 0 head ed4fe86
+[d2] 2026-10-04 23:20:45 done
