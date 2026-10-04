@@ -28,3 +28,14 @@
   - A 練習 free ＋ 撮りの env ＋ 07: ★07 = 練習の支度の板（選びの頁なし）★、P_pause = 5 行（5 行目「練習の設定（次の投から）」）、P_settings = 5 行 = 割れの目標 切・ストロークの帯 切・10 投のまとめ 切・★「季節　春（冬は 10 投のまとめの時）」「はじまり　ふつうに落とす（アタリの前からは 10 投のまとめの時）」= 制限の字が 板の中に切れずに見える★（長い行 = 切れるなら外れ）、結果 = 06_review1 か 06_stall の 1 枚。
   - B 練習 winter+break+stroke ＋ 撮りの env: P_settings = 割れの目標 入・ストロークの帯 入・10 投のまとめ 入・季節 冬（◀▶ つき）・はじまり アタリの前から、結果 = J_sum1（組のまとめ）か 06_stall。
   - C G = 12/10 種 1 の物語の日、J（日誌の日の終わり）: 釣果の行に「小アジ　N cm（外道）」（12/10 の小アジ 9 尾 = 行が多い = 頁に入る分だけ見える）。
+
+## Unity の番の結果（観測, 14:51-15:0x, turn_a8cca9e/turn.log, 木 = track3/logic-a8cca9e 5d5a896）
+- Roslyn a222cd6: sim・game・editor errors 0、陽性（注入）game rc 1 errors 1 → ★当たり★。
+- 焼き: ★「標」だけ★、font 2 つ（SansJP-Medium・SerifJP-Bold = dry の「無い」と同じ 2 つ）→ font commit ★5d5a896★、ほかの file 0 → ★当たり★。
+- regress REGRESS_LIVE=1: ★PASS 15/15★（editor 26/26・player 26/26 0 px vs 68f766b_113126・live 3 種とも logic sequence = baseline・画 0 px）→ editor 0 px・種 20260925/1 0 px は ★当たり★、種 26 も 0 px（未確認としていた）。★boss1 の見込み「差し替え」は不要 = live が動かない = dry の表・sheet の差し替えは作らなかった★（live_rebase5 は回さず）。
+- 撮り（player 3 本 ＋ G の 2 本, 終わりに player 0 = /proc/<pid>/exe で確認）:
+  - A 練習 free: ★07 = 支度の板（4月20日、選びの頁なし）★ ✓、P_pause = ★5 行（5 行目「練習の設定（次の投から）」）★ ✓、P_settings = 5 行 ✓、ただし ★5 行目「はじまり　ふつうに落とす（アタリの前からは 10 投のまとめの時）」が 板の左右の縁から はみ出る（字は読めるが 板の外へ 約 20 px ずつ, 1920 の画で目で見た値）= 予測「切れずに板の中に見える」は ★外れ★★。4 行目「季節　春（冬は 10 投のまとめの時）」は板の中。結果 = 06_review1・06_fight1。
+  - B 練習 winter+break+stroke: P_settings = 入・入・入・冬 ◀▶・アタリの前から（10 投のまとめの時）= 板の中 ✓。結果 ★J_sum1「冬のもたれの組の まとめ」★ ✓。06_fight1 = 答え合わせの板が 組の帯（冬のもたれの組 8/10）の下に重ならず ✓（bd777d6 の Drop）。
+  - C G 12/10 種 1: 1 本目の J は ★朝の章の頁（t=2.00）= 撮りの名の外れ★ → 日の終わりの J（t=7661.02）を -ikadaLiveShotAt 7662 で撮り直し: ★「釣果：小アジ　12cm（外道）」＋ 8 行（11〜13 cm・10 cm, すべて（外道））= 9 尾 = GDay v2 の種 1 の 12/10 小アジ 9 尾と一致★ ✓。
+  - sheet: drafts/user_review/c178_a8cca9e_practice_koaji_sheet.png（7 枚）。
+- 既知（今回の変えではない）: 07 の Note「やめる時：OPTIONS長押し 長押しの一時停止 …」は 印と字で「長押し」が二重・器の絵の上で読みにくい（2750f49 の Note 以来）。
