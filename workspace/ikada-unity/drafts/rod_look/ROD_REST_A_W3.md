@@ -100,3 +100,9 @@
   - ★player の 06・06C・06M・P1・P2・2D 7 画面 = 2932798 の player と 0 px★（受けに置く時は 寄せる物が無い = k2 の替わりが効かない）。★player の 08 だけ替わる★（竿が手元へ戻り切る）、player 08 vs editor 08 は 竿の位置が同じになる。
   - ★live の画（3 種）= 2932798 の live と 0 px★（live は -ikadaShot を付けない）、logic sequence = baseline。
   - regress は 14/16 の見込み（FAIL = live・baseline = 差し替え待ちの 2 つ）。対照 2 枚 0 px のまま。
+
+## §7.39 live 08（種 26）の竿の位置 — 測りの番の決め（PRESIDENT 23:1x〜23:5x）
+- 控え（PRESIDENT 23:5x, 別の番）: ★live の撮りで 穂先のばねを止めている（-ikadaTipSettle → TipBendLayer.SettleForShots, TipBendLayer.cs:90-100 = Step の代わりに Settle）= 撮りと遊びの差★。揃える（時刻をずらす方へ）と live 08 の基準が動く。
+- ed4fe86 の s_stillShot = mock の撮りだけ（RuntimeRod.Fight.cs:31 の式 = 引数 -ikadaShot がある時だけ）= 線の中（PRESIDENT 23:5x）。
+- 08 の撮りの時刻 = HookSet ＋ 2.31 s（描きの時間, 戻し τ 0.5 と 握り τ 0.25 の残り 1 % 未満 = 0.5 × ln 100 = 2.303 s）, 遅くした窓（1 倍）の中, regress の引数のまま（PRESIDENT 23:5x GO）。
+- 帯 6 枚（HookSet ＋ 0・0.1・0.25・0.5・1.0・1.5 s）= 見るための 1 回物 = ★-ikadaTipSettle を外す★（穂先の揺れも込み）、別の run。
