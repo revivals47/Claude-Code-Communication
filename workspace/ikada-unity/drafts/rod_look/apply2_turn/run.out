@@ -1,0 +1,33 @@
+[a2] 2026-10-05 00:55:25 regress 1 rc=1 dir /home/ken/Documents/ikada-unity-track3/Logs/regress/f7af1d2_004153/
+[r1] build          PASS     rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-004153.log CS=0 fonts: PASS  species: PASS not_in_table=0 control_drop_fails=True control_old_fails=True
+[r1] key_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+[r1] pad_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+[r1] hud_test       PASS     rc=0 exc=0 control: shown_again=True control_fails=True control_fails=True 
+[r1] edge_test      PASS     rc=0 exc=0 control: control_pause_still=True control_old_hookset_fails=True 
+[r1] tip_size_test  PASS     rc=0 exc=0 control: control_no_key_378=True 
+[r1] input_test     PASS     rc=0 checks=91 failures=0 unevaluated=0 control_wrong_expectation_fails=True rumble_control_fails=True chum_control_fails=True map_control_fails=True width_control_fails=True nudge_control_fails=True reveal_control_fails=True page_contr
+[r1] atlas          PASS     rc=0 main: test_chars=25 test_missing_before=25 test_missing_after=0 control_chars=11 | control ✥: test_missing_after_list=[✥] | chars: PASS
+[r1] refcheck       PASS     rc=0 PASS 11/11 control_flipped_fails=True total_wall=306s  control_flipped_fails=True
+[r1] live           FAIL     rc=1 | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)  seed 20260925 logic sequence = baseline;seed 20260925 not in the baseline (not judged, counted): 0;seed 20260925 FAIL 4: differ: live_06 live_06C;seed 1 logic sequence = baseline;
+[r1] player_shots   PASS     rc=0 shots=26/26 glyph_lines=26/26 missing_chars=0 unchecked=0 Exception=0 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/f7af1d2_005146
+[r1] editor_shots   PASS     rc=0 shots=26/26 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/editor/f7af1d2_004153
+[r1] editor_repeat  PASS     waterT=10.0 rows=4/4 max diff>24%=0 (limit < 0.1) bad: none
+[r1] compare        PASS     rows=26/26 max diff>24%=0.24 (limit 1.0) bad: none
+[r1] git_clean      PASS     start=0 after_build=0 end=0
+[r1] baseline       PASS     vs /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/68f766b_113126: 26/26 pairs 0 px over the whole picture (08 apart from the known rod-edge pixel, 06/06C/06M from the subtitle-band pixel); differ: none;
+[r1] RESULT FAIL  PASS 15/16  SKIPPED 0  UNEVALUATED 0   (NOT RUN counts as FAIL)  | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)
+[a2] 2026-10-05 00:55:27 live dry rc=0 - counts: {'changed': 13, 'added': 0, 'gone': 0, 'same': 20}
+[a2] | 20260925 | live_06.png | changed | db8f3981aec8d8b3abbc01f
+[a2] | 20260925 | live_06C.png | changed | 9dd903c3eb484f33dc3475
+[a2] | 20260925 | live.log | changed | b0c63d415a52c60935b13113bf
+[a2] | 20260925 | ARGS.txt | changed | 24e49553de3a252a6078731f3e
+[a2] | 1 | live_06.png | changed | 0ff7d4792d9f5d3264e79a1a7bbe47
+[a2] | 1 | live_06C.png | changed | 6dac74209f40b3ef079821f9716c6
+[a2] | 1 | live.log | changed | b81fb63c097b5a5478f10e1cc6a84f933
+[a2] | 1 | ARGS.txt | changed | f60ff7496de4b248e07ca50ce48b9272a
+[a2] | 26 | live_06.png | changed | f54b2900a96c60f5e819365a754ae
+[a2] | 26 | live_06C.png | changed | a1b4391167e32643f814dcffdc7c
+[a2] | 26 | live_08.png | changed | 8db019d593fb5092f312c73b1381f
+[a2] | 26 | live.log | changed | 20bc3a1ec82804b66d067a27867fc4ad
+[a2] | 26 | ARGS.txt | changed | 3cb2b1219a97ab6c3aab893a8ff79f07
+[a2] 2026-10-05 00:55:27 STOP: the dry table is not changed 7 / added 0 / gone 0 (prediction) - not applied
