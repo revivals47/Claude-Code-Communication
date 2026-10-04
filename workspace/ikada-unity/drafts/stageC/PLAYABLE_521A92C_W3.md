@@ -10,3 +10,8 @@ master = 521a92c8b5e11f8317c9ba8bf4267992891880d8（dev-pin025 3f7ac9a と track
 ## StoryRun S0〜S7 を b80715f で（観測, 20:03:50〜20:09:52, drafts/stageC/storyrun_b80715f/, ikada-sim-w3 を b80715f に detach → w3/koaji-selfhook に戻した）
 - ★S0〜S6 = a8cca9e と summary の行が全部同じ・storyrun.log も頭の 3 行の後 diff 0・S7 sim 213468 s（同じ）・wall 5.9 分★ → ★予測 全部 当たり★（時間の飛ばしの潮の式の替わりは 物語の通しに効かない = AutoPilot は押さない、の読みと合う）。
 - 後: build-server shutdown、dotnet 0・VBCS 0（pgrep / ps で確認）。
+
+## build の結果（観測, 20:10:25-20:14:00, rc 0, 木 ~/Documents/ikada-unity = master 521a92c に戻った・porcelain 0）
+- build Succeeded errors 0（88 s）→ ★~/Documents/ikada-play/521a92c = 176 file・744,094,379 bytes★（0d13af2 から +60,092 = 予測 0〜200 KB ★当たり★, file 数 ★当たり★）、folder sha256 ★c72d12f9a33cb48beddb9c09f776cb840ea0101236e8f878f2fd41036e1fceb9★、Ikada.x86_64 sha256 ★a9a83136f9f1e9bb13e145b651e13a947bbff6d6a9281f92f0791afc397104cb★（0d13af2 と同じ ★当たり★）。
+- 起動の確かめ（script の 4a〜4c）: 前後とも player 0、[Live] start api 0.25.0 | SessionProbe ok=True api=0.25.0 abi=3 screen=Title | [Live] RESULT ok=True steps=539333 simS=8989.1 page=Info、セーブの dir 不変。
+- -ikadaDev（play_521a92c_dev/）: ふだんの起動 Exception 0、閉じ = 表示なし、-ikadaDevOpen = 「開発の表示（F1 で閉じる）張力・ドラグ・ダンゴ・★サシエ 付いている（6/6）最後に —・魚 —・+0.0 秒 落とした★」= 今回の足し（BaitOn / Fish / 投の秒）が出る ★当たり★、HUD に潮の行「上げ潮・満潮 8:42」。Exception 0、player・Unity 0（/proc）。実の F1 の鍵は 未確認（PRESIDENT の起動の前の確かめ）。
