@@ -63,3 +63,4 @@
   - 陽性 (c): IKADA_MOCK_PRACTICE=S = 時機・結果の 2 行（結果が ストロークの所 = 28 px 上）、▼ の横の語なし。陰性 = 今の code で S = 「ストローク　」の空の行あり（Band −1 で ▼ の横の語は今も無い）。
   - Roslyn 0、RuntimeRod 等 06 の外の file は触らない。
 - LivePractice の扉: worker1 の版（設定の板の入口・行の字）が main に入るまで ★字の表は L1 の表の字で仮置き★（worker1 に (1) 入口の字と開き方 (2) 行の頭と値の語 (3) 題の「練習」の後の頁 を 10:39 に聞いた）= 走らせる確かめは worker1 の版の後。
+- code 済（観測, track3/practice-unify, push なし, Roslyn 0）: bd777d6 = (a)(b)(c)＋ mock S ＋ MockPrep の practice0 が「なし」を自分で書く（PracticeDrills.Names が消えても compile が通る, 今の画は同じ字 = 0 px）、次の commit = LivePractice の扉（worker1 10:39 の字: 一時停止の 5 行目「練習の設定（次の投から）」→ 同じ Panel が 5 行、決定 = ▶、BackLong で戻る、PauseLong で閉じる; 字は file の頭の 1 表）。★今の pin 2750f49 では 一時停止に その行が無い = 扉は 900 frame で諦めの 1 行を出し run は続く = 走らせる確かめは worker1 の版の pin の後★。§2.3 の「6 行（もどる）」は worker1 の決めで ★5 行・もどるの行なし（BackLong）★ に替わった（この節の 2.3 の表は 6 行のまま = 下の決めが正）。
