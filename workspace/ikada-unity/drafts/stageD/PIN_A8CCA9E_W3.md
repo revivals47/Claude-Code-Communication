@@ -11,3 +11,10 @@
   - 練習の設定の頁 = ★5 行（戻るの行なし, 戻るは BackLong）★（PRACTICE_UNIFY_U_W3.md §2）、結果 1 枚（LivePractice の free/set/winter のどれか 1 つ）。
   - refcheck_probe（player の中の RefCheck）11 本: ★#16 の表で 11 本とも一致★（4/20 × 4・7/20 × 4 は #15 から不変、E′・F・G は #16 の新しい値）。陰性対照: #15 の E′ de7c35fa97dcd962・F 7328cadbac53d44e・G 5ecb4be4e588f985 は ★FAIL★。
   - 小アジ: G（12/10 蒲江）の日に 日誌の釣果の行の末が「小アジ　N cm（外道）」（Words.Gedo）・小アジのファイト 1 尾 約 20〜30 s・ドラグの音なし。
+
+## 結果（観測, 14:4x, Unity・dotnet なし）
+- branch track3/logic-a8cca9e（ikada-unity-track3, push なし）: master a54294f → ① merge fb818bd（practice-unify cd6e945, ★衝突 0★, MockPrep.cs は自動の merge = master の オキアミ・三十数えて と こちらの「練習　なし」が両方入るのを diff で確認）→ ② pin ★27bf061★（pin_0230.sh, manifest 1 + lock 2 → a8cca9e, LogicChars 作り直し, refcheck_probe の表 11 key を refcheck_16.table（drafts/stageD）で）。porcelain 0。a8cca9e は GitHub の main（git ls-remote）。
+- 予測との照合: merge 衝突 0 → ★当たり★、ただし前提「master の差 = okiami-word だけ」は ★外れ★（c5125b3..a54294f = 6 commit: RodHand の Rest・mock の字・regress の基準・okiami、MockPrep.cs が両方で触られた = 自動 merge で済んだ）。新しい字 0〜5 → ★1 字「標」★（PracticeOptions.cs:39「割れの目標（30±10秒）」, 両 font に無い = ★Unity の番で焼く★）→ 当たり。Page.PracticeSelect の Unity の参照 0 → ★当たり★（merge の後 git grep 0）。
+- ③ Page.PracticeSelect: ★Unity 側で消す物なし★。logic の enum の値（GameFlow.cs:21, Day = 3・Info = 4 は明示）は worker1 の次の版で消せる（Unity の参照 0 = 消しても Unity の build は替わらない見込み）。
+- 直し: pin_0230.sh の note の字「for the named keys, the rest still #13」は 11 key 全部を直したので誤り → 「for all 11 keys = RefCheck #16, E' / F / G moved by the koaji self-hook, the 8 chapter 1-2 cells the same」に直して amend（前の 9754aea と同じ直し）。表の行の注「(the rest kept)」は 全 key が列挙されているので そのまま。
+- 未確認: C# の compile（Unity の package を a8cca9e で作り直すのは Unity の番; tools/cs_check.sh は 古い package の rsp を使うので 新しい pin の compile の確かめにならない）。
