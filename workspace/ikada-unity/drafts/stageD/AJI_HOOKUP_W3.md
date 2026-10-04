@@ -213,3 +213,4 @@ G の日の小アジ（12 cm 前後, 蒲江 = 深さ 15 m, Places.cs:93）の向
 - 直し: 判断を internal static SelfHookFires(ref at, castT, rigLost)（期限が来たら消す・RigLost なら掛けない）。
 - 試験 KoajiSelfHookRigLostTests（AutoPilot の日の最初の着底で 期限=今 を reflection で置く）: 対照（RigLost なし）= 次の frame で State Fight、本体（RigLost あり）= Fight にならない。★予測: 0c09a70（直しなし）では 本体が赤・対照は緑／直しの後は 2 本とも緑★。
 - ★RefCheck 11 値: 動かない見込み★（窓の中で RigLost になる投 = 小アジの向こう合わせの 0.3 s 内に AutoPilot のアワセが切れる か ハリスを切られる が要る。照合の日の AutoPilot のアワセ切れ自体が稀で、窓 0.3 s と重なる見込みは小さい; 確度 中）。動いたら 窓と重なる投があった = 直しが効いた日として 外れの印で書く。
+- ★結果（worker1 14:06 の報告, worker1 の dotnet; 私の手元では未実行）★: 陽性対照 = 0c09a70 で本体 赤・対照 緑、a8cca9e（yaritori, af4832e の上に 26d61ab を cherry-pick、3 file の差分は行で同じを確認）で 2 本とも緑、RefCheck 11 値とも #16 のまま = §18 の予測 3 つとも ★当たり★。
