@@ -95,3 +95,8 @@
   - editor 26 枚 vs master（506dfab_194806）: ★2D 14 枚 = 0 px★、06・06C・06M = 43,979 px（箱 611,612〜1543,1080）、08 = 12,561 px（688,204〜1273,783）、P1 = 95,715、P2 = 79,632 / 79,684（590,599〜1566,1080）→ 予測（3D の 6 画面が替わる）どおり。
   - ★新しい既定 06 vs W3 = 202 px・箱 x 963〜965・y 615〜717 = 下りる糸の所だけ★ → 当たり。★08 vs F2b = 差（> 30 の 810 px）が 穂先 (1070, 355) から 甲板の縁 (1272, 741) まで 垂れた糸の道に沿う ＋ ほかに 7 px（差 5 以下, x 719〜1046）★ → ほぼ当たり（7 px の細かい差は 予測に無い, 記録）。
   - live dry（live_rebase5, ★apply なし★）: changed 10（live_06・live_06C × 3 種・live_08 種 26・live.log × 3）、added 0・gone 0・same 23。表 = default_turn/LIVE_SWAP_TABLE.md、画 = default_turn/live_sheet.png。mock の新旧 = default_turn/mock_sheet.png（06・06C・06M・08・P1・P2, 旧 master ｜ 新）。
+- ★直し ed4fe86（boss1 23:0x GO）と予測（regress もう 1 回の前, 動かさない）★: RuntimeRod.Hold.Rest の寄せ k2 に s_stillShot（-ikadaShot = player の mock の撮り）を足した（GripRaise と同じ）= player の mock の撮りでも 受け・手・戻しが一度に。live（-ikadaLiveShot, -ikadaShot なし）と遊びは τ 0.5 s のまま。予測:
+  - ★compare の 08 = diff>24 % が 上限 1.0 % の中（前の木の値 0.00〜0.13 程度）★、ほかの画面は 今回（2932798）と同じ値。
+  - ★player の 06・06C・06M・P1・P2・2D 7 画面 = 2932798 の player と 0 px★（受けに置く時は 寄せる物が無い = k2 の替わりが効かない）。★player の 08 だけ替わる★（竿が手元へ戻り切る）、player 08 vs editor 08 は 竿の位置が同じになる。
+  - ★live の画（3 種）= 2932798 の live と 0 px★（live は -ikadaShot を付けない）、logic sequence = baseline。
+  - regress は 14/16 の見込み（FAIL = live・baseline = 差し替え待ちの 2 つ）。対照 2 枚 0 px のまま。
