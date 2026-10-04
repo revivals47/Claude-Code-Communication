@@ -1,0 +1,20 @@
+base 1:12-10: casts 54 selfhooks 0 | catches  | fight s 
+base 2:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 3:12-10: casts 54 selfhooks 0 | catches  | fight s Chinu=91
+base 4:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 5:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 6:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 7:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=173
+base 8:12-10: casts 53 selfhooks 0 | catches  | fight s 
+base 9:12-10: casts 52 selfhooks 0 | catches  | fight s 
+base 10:12-10: casts 53 selfhooks 0 | catches Chinu=1 | fight s Chinu=80
+koaji 1:12-10: casts 57 selfhooks 3 | catches Koaji=3 | fight s Koaji=343
+koaji 2:12-10: casts 54 selfhooks 3 | catches Koaji=3 | fight s Koaji=182 Chinu=220
+koaji 3:12-10: casts 56 selfhooks 2 | catches Koaji=2 | fight s Koaji=285
+koaji 4:12-10: casts 58 selfhooks 12 | catches Koaji=12 | fight s Koaji=572 Chinu=277
+koaji 5:12-10: casts 57 selfhooks 6 | catches Koaji=6 | fight s Koaji=371 Chinu=85
+koaji 6:12-10: casts 55 selfhooks 5 | catches Koaji=5 | fight s Koaji=343 Chinu=281
+koaji 7:12-10: casts 56 selfhooks 5 | catches Koaji=5 | fight s Koaji=477
+koaji 8:12-10: casts 58 selfhooks 6 | catches Koaji=6 | fight s Koaji=422
+koaji 9:12-10: casts 54 selfhooks 2 | catches Koaji=2 | fight s Koaji=219
+koaji 10:12-10: casts 57 selfhooks 5 | catches Koaji=5 | fight s Koaji=454

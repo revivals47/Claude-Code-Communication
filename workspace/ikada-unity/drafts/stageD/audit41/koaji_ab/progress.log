@@ -1,0 +1,19 @@
+start build_base 11:52:52
+1502b30 Practice.cs: the break target's words as separate li
+build rc=0
+end build_base 11:53:03
+start test_base 11:53:03
+test rc=1
+end test_base 11:57:49
+start ref_base 11:57:49
+end ref_base 11:59:55
+start build_fix 11:59:55
+9e11d95 AJI_HOOKUP: a koaji hooks itself on its sashie peck 
+build rc=0
+end build_fix 12:00:02
+start test_fix 12:00:02
+test rc=1
+end test_fix 12:04:26
+start ref_fix 12:04:26
+end ref_fix 12:06:32
+ALL DONE 12:06:32
