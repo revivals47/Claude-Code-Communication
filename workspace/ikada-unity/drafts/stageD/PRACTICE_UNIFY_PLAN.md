@@ -44,6 +44,7 @@
   - 練習を選ぶ頁（GameFlow.cs:101-107・:183-201）。題の「練習」で すぐ練習の日へ。
   - `PracticeDrills.Names` の 8 つの名（設定の行の字に置き換え）。
   - 「なし」= 補助を全部 切 にした形。
+  - 練習を選ぶ頁の Note（「練習では毎投 魚が寄ってきます。割れてから 30〜40 秒は…」、yaritori 254b7f3）も頁と一緒に消える → ★練習の日の最初の投まで `HudView.Drill` の 1 行に出す（logic の字、worker3 10:37 の案）★:「練習では毎投 魚が寄ってきます。割れてから 30〜40 秒は 穂先を見て待ちましょう。設定は ⟦Pause⟧ から」。1 投目を落としたら 消えて 結果の行に替わる。
 - ★はじめの段は「今ある物の組み直し」だけにする（推奨）★:
   - 「アタリの前から」と「冬」は 10 投のまとめ 入 の時だけ選べる（行に「（10 投のまとめの時）」と出す）= 今の Miokuri（春）・Winter（冬）の組をそのまま使う。
   - 新しい魚の作りは 0。
@@ -77,7 +78,7 @@ codex 済（要点）: L0〜L4 の主張 6 つを 2750f49 で確かめ = lead-in
   - Drill の enum は公開の listing に無い（api_contract.txt に Drill の型の行なし、`HudView.Drill` は string、api_contract.txt:184）。
   - 設定の行 = PanelView の行（字と ◀▶、今の板と同じ）。
   - 結果 1 枚 = logic が新しい方だけを入れる（下）。
-  - ストロークの帯 切 = `StrikeReviewView.Stroke` を ""（api_contract.txt:372 の string、今もある欄）。
+  - ストロークの帯 切 = `StrikeReviewView.Stroke` を "" ★と `Band` を −1★（worker3 10:37 の頼み: Band ≥ 0 だと ▼ の横の語が出る = PracticeReviewPanel.cs:32）。−1 は 今も「none」の値（RenderContract.cs:214 `0 WEAK / 1 OK / 2 STRONG / 3 SLOW, -1 = none`）= 値の意味は替わらない。★注: 10 投のまとめは 記録の Band で「ちょうど」を数える（PracticeSetSummary.cs:38 `r.Band == 1`）= −1 にするのは 画へ渡す写しだけ、記録係（StrikeRecorder.Reviews）の Band は替えない★。
 - 結果 1 枚（決め (4)）:
   - logic が決める = その時の一番新しい結果の欄だけを入れ、古い方は null。例: やり取りの答え合わせが出たら StrikeReview を null。
   - `HudView.Drill` の 1 行は「直前の結果」の短い字だけ（目標の字と（n/m）は 補助が入の時の 1 行目だけ）。
