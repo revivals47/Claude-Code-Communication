@@ -62,6 +62,7 @@ static class Program
         if (mode == "rope") { Rope(days, a[2], a[3], a[4]); return 0; }
         if (mode == "ropetrace") { RopeTrace(days, a[2], a[3], a[4]); return 0; }
         if (mode == "weather") return Weather(days, a[2]);   // PR v2 (2): weather <seeds N> <M-D>
+        if (mode == "koaji") { Koaji(a[1]); return 0; }      // AJI_HOOKUP_W3.md §3: koaji "seed:M-D[:raft],..."
         if (mode == "human") Human(days); else Pilot(days, a.Length > 2 ? a[2] : "4-20,7-20,10-15,12-10");
         return 0;
     }
@@ -233,6 +234,51 @@ static class Program
         Console.Error.WriteLine($"[weather] {md} seeds 1-{n}: " + string.Join(", ", count.OrderByDescending(x => x.Value).Select(x => $"{x.Key} {x.Value}")) + $"; sunny not cancelled {sunny.Count}");
         foreach (string l in sunny) Console.WriteLine(l);
         return 0;
+    }
+
+    // AJI_HOOKUP_W3.md §3 (PRESIDENT 11:2x, measure only): the pecks of every species on the hook bait (EcoSim.Pecks, OnBait) per day, on
+    // story days run as ReferenceRun.RunAt does (lockstep, 60 Hz frames, AutoPilot, --place on the prep screen). The eco steps every 10 logic
+    // ticks (FishingSession.cs:315, private _ecoTicks) and clears Pecks each step (EcoSim.cs:294); a frame runs <= 2 ticks, so a wrap of
+    // _ecoTicks within a frame = exactly one eco step, whose Pecks are read once. Positive control: E' (4/20 raft 3, the rig drifts).
+    static void Koaji(string list)
+    {
+        var fTicks = typeof(FishingSession).GetField("_ecoTicks", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        foreach (string item in list.Split(','))
+        {
+            var q = item.Split(':'); uint seed = uint.Parse(q[0]); int mo = int.Parse(q[1].Split('-')[0]), dy = int.Parse(q[1].Split('-')[1]); int raft = q.Length > 2 ? int.Parse(q[2]) : 0;
+            var cfg = new DayConfig { Seed = seed, TimeSpeedIndex = ReferenceRun.TimeSpeedIndex, StoryFrom = new GameDate(Ikada.Game.Flow.Calendar.Year, mo, dy) };
+            using var session = new IkadaSession(new SessionConfig { Day = cfg, SavePath = null, Lockstep = true, HudOn = true });
+            session.Start();
+            var pilot = new AutoPilot { Mode = "ストーリー", FastSkip = false, PreferMix = "赤土" };
+            bool placed = raft <= 0; int frames = 0, casts = 0, ecoSteps = 0; FishingSession? last = null; int prev = 0;
+            var bait = new Dictionary<Ikada.Native.Species, int>(); var dango = new Dictionary<Ikada.Native.Species, int>(); var koajiCasts = new HashSet<int>();
+            while (frames / 60.0 < ReferenceRun.MaxSimS)
+            {
+                frames++; float t = (float)(frames / 60.0);
+                var f = new InputFrame();
+                pilot.Apply(f, session.Flow, session.Link, t);
+                if (!placed && session.Flow.Day != null && session.Flow.Day.SelectRaft(raft)) placed = true;
+                RenderSnapshot s = session.Step(ReferenceRun.FrameS, f);
+                pilot.See(s, t);
+                foreach (RenderEvent e in s.Events) if (e.Kind == RenderEventKind.Drop) casts++;
+                var fs = session.Flow.Day?.Session;
+                if (fs == null) continue;
+                int now = (int)fTicks.GetValue(fs)!;
+                if (fs != last) { last = fs; prev = now; continue; }
+                if (now < prev)                                                       // wrapped = one eco step in this frame
+                {
+                    ecoSteps++;
+                    foreach (var pk in fs.Eco.Pecks)
+                    {
+                        var d = pk.OnBait ? bait : dango; d[pk.Species] = d.GetValueOrDefault(pk.Species) + 1;
+                        if (pk.OnBait && pk.Species == Ikada.Native.Species.Koaji) koajiCasts.Add(casts);
+                    }
+                }
+                prev = now;
+            }
+            string B(Dictionary<Ikada.Native.Species, int> d) => string.Join(" ", d.OrderBy(k => k.Key).Select(k => $"{k.Key}={k.Value}"));
+            Console.WriteLine($"koaji {item}: casts {casts} ecoSteps {ecoSteps} | bait pecks: Koaji={bait.GetValueOrDefault(Ikada.Native.Species.Koaji)} casts-with-koaji-bait-peck={koajiCasts.Count} | all bait [{B(bait)}] | dango [{B(dango)}]");
+        }
     }
 
     static void Report(string name, Tally T)
