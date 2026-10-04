@@ -18,3 +18,13 @@
 - ③ Page.PracticeSelect: ★Unity 側で消す物なし★。logic の enum の値（GameFlow.cs:21, Day = 3・Info = 4 は明示）は worker1 の次の版で消せる（Unity の参照 0 = 消しても Unity の build は替わらない見込み）。
 - 直し: pin_0230.sh の note の字「for the named keys, the rest still #13」は 11 key 全部を直したので誤り → 「for all 11 keys = RefCheck #16, E' / F / G moved by the koaji self-hook, the 8 chapter 1-2 cells the same」に直して amend（前の 9754aea と同じ直し）。表の行の注「(the rest kept)」は 全 key が列挙されているので そのまま。
 - 未確認: C# の compile（Unity の package を a8cca9e で作り直すのは Unity の番; tools/cs_check.sh は 古い package の rsp を使うので 新しい pin の compile の確かめにならない）。
+
+## Unity の番（LOCK 14:48, 27bf061 → a222cd6）— 予測の足し（回す前, 動かさない）
+- a222cd6 = LivePractice に 撮りだけの足し（IKADA_PRACTICE_SETTINGS_SHOT=1: 一時停止の板 P_pause・設定の板 P_settings を撮る、free でも開く。未設定 = 今のまま）。
+- Roslyn: sim・game・editor errors 0、陽性（注入）は赤。
+- 焼き: font の差 = 「標」の 1 字（4 つの font = SansJP-Regular/Medium・SerifJP-Regular/Bold のうち 足りない物に）、ほかの file 0。
+- regress（REGRESS_LIVE=1）: editor の mock 0 px（bd777d6 の Drop は 練習の帯が出る時だけ・stroke の行は Stroke 空の時だけ = 今の mock の基準は替わらない見込み）。live: 種 20260925・1 = 0 px の見込み（4/20 の RefCheck は #15 = #16 で不変）、種 26 = 未確認（照合に無い種; logic の 2750f49..a8cca9e の差 = 練習の統合・小アジ・やり取り・RigLost が 4/20 の種 26 を動かすかは 読めない）。live が FAIL なら 差し替えの dry の表と sheet で止める。
+- 撮り（player, pid で数え 閉じる）:
+  - A 練習 free ＋ 撮りの env ＋ 07: ★07 = 練習の支度の板（選びの頁なし）★、P_pause = 5 行（5 行目「練習の設定（次の投から）」）、P_settings = 5 行 = 割れの目標 切・ストロークの帯 切・10 投のまとめ 切・★「季節　春（冬は 10 投のまとめの時）」「はじまり　ふつうに落とす（アタリの前からは 10 投のまとめの時）」= 制限の字が 板の中に切れずに見える★（長い行 = 切れるなら外れ）、結果 = 06_review1 か 06_stall の 1 枚。
+  - B 練習 winter+break+stroke ＋ 撮りの env: P_settings = 割れの目標 入・ストロークの帯 入・10 投のまとめ 入・季節 冬（◀▶ つき）・はじまり アタリの前から、結果 = J_sum1（組のまとめ）か 06_stall。
+  - C G = 12/10 種 1 の物語の日、J（日誌の日の終わり）: 釣果の行に「小アジ　N cm（外道）」（12/10 の小アジ 9 尾 = 行が多い = 頁に入る分だけ見える）。
