@@ -46,3 +46,17 @@ logic の読みは ikada-sim-w3 `26d61ab`（w3/koaji-selfhook）。数は AJI_HO
 - 切れ目の日の前後 1 日ずつ（物語・自由釣り）で 小アジのつつき・向こう合わせが 前 > 0・後 = 0。
 - G の 12/10 × 100 種（GDay v2）で 向こう合わせとチヌ（切れ目が 12/10 以前の時だけ）。
 - RefCheck 11 値・CI の 8 枠の A/B（動くのは 切れ目の内の照合の日だけ）。
+
+## 7. 月の表を 自由釣りにも掛けるか（PRESIDENT 13:5x の足す案, ★code は依頼者の月の答えの後★）
+- ★今 どこで分かれているか（source）★: 同じ月の表（SeasonMonth）が 2 つの道で読まれる。
+  - 道 1 = どの mode でも: `Calendar.Get`（Calendar.cs:79-87）が 月の表の ★TempC と ChinuSeason★ を DayInfo に入れる → 自由釣り（GameFlow.cs:170 `Info = Calendar.Get(...)`）も DayFlow.cs:259 で チヌの密度 × ChinuSeason を受ける。
+  - 道 2 = 物語の日だけ: 表の ★Stealers（エサ取りの倍率）・Activity・KibireShare・冬の大きさ（EnableWinter）・夏のダンゴ★ は DayFlow.cs:264（第2章, `Plan.Mode == Story && ChapterOf == 2`）・DayFlow.Chapter3.cs:19（`Chapter3Day` = Story）・DayFlow.Chapter4.cs:13（`Chapter4Day` = Story）の中だけ。
+  - → ★自由釣りの冬の蒲江 = 水温 17 ℃・チヌ ×0.7 は冬、エサ取りと活性は 春の ×1★ = 同じ判断（その月の海）が 2 つの道で半分ずつ = boss1 の言う「同じ判断を 2 経路」の形（観測: source の行）。
+  - 練習の日は 日付が いつも 4/20（GameFlow.cs:180）= 表の無い月 = ★掛けても掛けなくても 練習は不変★。
+- ★推奨: 掛ける。ただし「海」の部分だけ★ = Stealers と Activity を 自由釣りの日にも（表の月 = 6〜2 月）。物語の筋の部分（KibireShare = 第3章の島の日の キビレ・EnableWinter = 第4章の大きい型と味・SummerDango・第2章の生け簀の横 ×1.3）は 物語の日だけのまま。入れ方 = 表を引く所を 1 つに（`SeasonMonth.ForDate(date)` = 第2/3/4章の表を日付で 1 回引く関数を Calendar と DayFlow の両方が使う）、DayFlow で Stealers・Activity を mode を問わず掛け、残りを今の Story の条件の中に。§2 の KoajiSeason はその後に掛ける（自由釣りの冬も 切れ目の内なら 0）。
+- 掛けた時の影響（推論, 確度 中）:
+  - 自由釣りの日の 6〜2 月で エサ取りの数・活性が 物語の日と同じに（例 7 月の芦北の自由釣りで 小アジ ×1 → ×3.5・活性 1 → 1.25 = つつきが増え サシエが早く無くなる、冬の蒲江で エサ取り ×1 → ×0.5〜0.3・活性 → 0.7〜0.5 = チヌのアタリも少なく）。
+  - ★RefCheck: 動かない見込み★（照合の 11 値と CI の 8 枠は すべて物語の日 = ReferenceRun の AutoPilot Mode "ストーリー"、ReferenceRun.cs:70）。
+  - 試験: 自由釣りの日を固定した hash の試験は ChumTrailSessionTests（FreeMonth = 4 = 表の無い月 = 不変）だけ見つけた（grep: Free を使う試験 10 file のうち hash は この 1 つ）。FreeMonthTests は 頁と日付だけ = 不変。ほかの自由釣りの試験（TouchdownTip・FreeRod・IkadaSession・RodFields・Replay 等）は 4 月か 中身の hash を持たない見込み（未確認 = dotnet の番で全体を回して確かめる）。
+  - 新しい試験の案: 自由釣りの 7 月の芦北で Eco の小アジの密度 = 3.5・活性 1.25、冬の蒲江で 0.5・0.7（切れ目の後は小アジ 0）、4 月は 1（陰性の対照）。
+- c30 への 1 行（worker2 へ boss1 から）: 「小アジの冬の切れ目は依頼者の答え待ち。答えが無いまま次の区切りが来たら 既定 1/1〜2 月末で仮。」
