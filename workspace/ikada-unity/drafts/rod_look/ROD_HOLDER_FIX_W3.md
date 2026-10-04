@@ -297,3 +297,13 @@
   - → ★「糸横 0.5」の 6 枚は 竿の穂先が 描かれていない 右へ傾いた糸の向きへ曲がっている（描きの糸は真下）= 竿と糸が食い違う画★。★「糸縦」の 6 枚は RodBend の糸も縦 = 描きの糸（真下に見える）と 揃う★ = 依頼者に出す 3 段目（糸縦）は 食い違いの無い組。live では LineAngleRad は 魚の横の走りで動く（logic の値）= 横へ走る時は 同じ食い違いが出る（直すなら 描きの糸も rodLine に寄せるか、RodBend の糸の向きを 描きの糸の向きに揃えるかの決め）。
 - ★(2) 窓は指数を見ないか・−7.7° の訳★: ★窓は指数を見ない★ = 窓のたわみの形 = SoftShape = RodBend.Drop(u) = u^(p+1)（TipBendLayer.cs:170 → RodBend.cs）= p だけを読む、q の指数（IKADA_ROD_ARC_EXP）は RodBend.Points の q の中だけ（RodBend.cs:80）、たわみの量 = TipModel の張力から（TipBendLayer.cs:101）= 糸の向きも指数も読まない → 同じ張力の 4 枚は同じ角（観測と合う）。
   - ★−7.7°（水平より上）= 構えの傾き（上げ角そのものではなく 窓の上限で切った値）から 軽い張力の小さい垂れを引いた残り★: 窓の傾き = clamp(RodAngleRad, −0.15, +0.35)（TipBendLayer.cs:127 付近, TipViewConfig.cs:43）、mock 08 の RodAngleRad 0.6（MockFight.cs:21）→ ★0.35 rad = 20.1° 上★（撮りの log「[TipView] close-up tilt RodAngleRad=0.60 -> 0.35」で確認）。窓の点 = 根から len × u × tan(傾き) 上がり、たわみ D × u^(p+1) 下がる（TipBendLayer.cs:148-150）→ 最後の小片の向き ≈ atan(tan 20.1° − D (p+1) u^p / 0.40)、0.37 N の D = 0.021 m（log）で u 0.95〜1.0 → ★上へ 5.9〜8.6°（計算, u 1.0 → 0.95）= 観測 7.7° と合う★。= ★ばねが上へ戻りすぎる形ではなく、窓の構えの 20° 上向きに 軽い張力の垂れ（約 13°）が勝てない★ = 張力が 1.34 N（D 0.076 m）なら 垂れが勝って 25° 下（観測）。
+
+### 7.20 糸の向きの出所を 1 つに（PRESIDENT 18:2x / 18:3x）— code と予測（撮りの前, 動かさない; 撮りは CI の runner の後 boss1 の門 → LOCK）
+- (A) c190 = drafts/user_review/c190_rod_bend_for_client.png、sha256 0d7b52521f1b292890253720651a2142cb3618fb33768dd1e42648122e53abca（送る時の 1 行:「魚が横へ走る時の糸の向きは 今 直しています」）。
+- code（track3/rod-build ★9649c31★ ＋ ★c8c3108★ = editor の撮りの log だけ）: FightEntry の iii に ★RodBend と同じ rodLine から 横の分 = plumb.x − tip.x = tan(rodLine) × 穂先の高さ（世界の X）を足す★（RuntimeRod.Fight.cs）、★撮りだけの env IKADA_ROD_LINE_SIDE=1（既定 OFF = 今の画のまま）★。rodLine 0 なら 足す分は 0 ちょうど = iii と 1 px も変わらない形、入水点の z は zE（縁をかすめる点 = 縁の外）のまま。[FightLine] の log = 穂先と入水点の 世界と画の px・縁の外か・穂先が筏の上か。
+- 撮り（drafts/rod_look/lineside_shots/run.sh, 08, 張力 2.55 N・指数 0.5・満ち 2 N）: S0 = 角 0・env なし、S1 = 角 0・env あり（対照）、S2 = −0.5（竿の元の側 = Laid で 40° 寝かせる側, 竿尻 x −0.40 → RuntimeRod.cs:411-421）・env あり、S3 = +0.5・env あり。
+- ★予測★:
+  - S1 と S0 = ★0 px★（足す分 0）。S0 と L11（b8b47ac, 同じ env）= ★0 px★（c8c3108 までの差は log と OFF の env だけ）。
+  - 入水点の画の x − 穂先の画の x: S0・S1 = ★|Δ| ≤ 3 px（iii = 真下に落ちる、c175 の −107〜−136 px の左流れは出ない）★、S3（+0.5）= ★右へ +180〜+350 px★、S2（−0.5）= ★左へ −180〜−350 px★（= tan 0.5 × 穂先の高さ 約 1.6〜2.2 m を 縁の奥行き 約 4 m で画にした値, 推論の数）。
+  - 板の上の糸 = ★0 px★（入水点は どれも縁の外 = entryPastEdge True、縁より下の糸は 甲板の深さの箱が隠す今のまま）。
+  - 穂先が筏の上: S0・S1・S3 = False、★S2（−0.5, 40° 寝かせる）= True の恐れ★（RuntimeRod.cs:210 の注「寝かせると穂先が筏の上へ戻る」= この直しの前からの形, 外れなら それを書く）。
