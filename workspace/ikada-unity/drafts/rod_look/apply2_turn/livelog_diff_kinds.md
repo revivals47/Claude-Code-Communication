@@ -59,3 +59,4 @@ seed 26:       1 [RodHolder] placed
 | [TmpFlags] | 7/7 ×3 | frame=・★bit256（49 → 48）・set_none（110 → 101）★ | added・lookup 同じ |
 - ★結論（観測）★: tide・strip・advice = 値の欄は同じ（frame だけ）。★RESULT の値の欄は 一部違う★: [Catenary] max_view_sag_m（描きの最大）、[Audio] clicks・gears、[Ambient] peak・wave_hits ほか（音の thread の数, callbacks の回数と一緒に動く）。logic から渡す数（fed・*_frames・creaks_asked など）は同じ。AUDIO.txt（regress の比べる音の表）は same（dry の表）。
 - 全部の組 = livelog_kinds_table_raw.md。
+- ★[TmpFlags] bit256・set_none の中身（source, boss1 01:0x の問い）★: Assets/Scripts/UI/TmpPairFlags.cs の Sync（:100-114）= フォント（TMP）に その時 足された 字の組の調整の record を数える。bit256 = その中で 印 256（IgnoreSpacingAdjustments）が立って来た数、set_none = それを None に直した数。注（:1-5）「flags differ from run to run (inferred: not initialised on the native side)」= ★文字の並べ（UI の描き）の数で logic ではない、印は 起こすたびに違いうる（native の初期化なし, 推論は注のもの）★。待ちの延びと無関係にも動く（前の regress の live.log の差でも bit256 53 → 51 が出た, 記録）。
