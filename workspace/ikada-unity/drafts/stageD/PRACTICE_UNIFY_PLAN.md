@@ -89,6 +89,13 @@ codex 済（要点）: L0〜L4 の主張 6 つを 2750f49 で確かめ = lead-in
 - logic: Practice.cs の switch を「いつも出す ＋ 補助」に組み直す。PracticeOptions と設定の板の行（DayFlow の新しい partial、500 行の目安）。練習を選ぶ頁を消す（GameFlow）。試験 約 10 file を直す・足す。
 - はじめの段に 新しい魚の作りは無い。
 
+### L7. code の前の予測（PRESIDENT 10:4x GO、branch ikada-sim-w1 yaritori の上。登録 2026-10-04 10:41:03）
+- 字の決め（worker3 へ 10:39 に送った物）: 一時停止の 5 行目（練習の日だけ）「練習の設定（次の投から）」→ 同じ板が 設定の 5 行に替わる（戻るの長押しで戻る）。行 =「割れの目標（30±10秒）　入|切」「ストロークの帯　入|切」「10 投のまとめ　入|切」「季節　春|冬」（まとめ 切 の時「季節　春（冬は 10 投のまとめの時）」= 選べない理由を字で出す）・「はじまり」（まとめ 入 =「アタリの前から（10 投のまとめの時）」、切 =「ふつうに落とす（アタリの前からは 10 投のまとめの時）」）。替えられる行だけ ⟦LeftRight⟧。既定 = 補助 切・まとめ 切・春・ふつう。題の「練習」→ すぐ 07 支度。
+- P1 RefCheck 11 本 = #15 のまま（物語だけ。新しい記録係・HUD の字・結果 1 枚は GameMode.Practice を門に）。
+- P2 ContractTests = 不変（0.24.0）。Page.PracticeSelect の値は Unity の LivePractice が使うので 値は残し 使う code を消す（worker3 の替えの後に値を消す = 持ち主 worker1）。
+- P3 自由な練習の魚・組・冬の値・乱数は替えない = PracticeBiteTests・PracticeLeadInTests は 直さずに通る見込み。直す試験 = PracticeStrikeTests・FightReviewTests・PracticeSetFlowTests（drill を反射で選ぶ所 → 設定へ）・PracticeWordsTests（Drill の名 → 設定の行の字）・PracticeFlowTests（選ぶ頁の Note → HUD の最初の 1 行）。BackToTitleTests は 通る見込み（練習の一時停止は 5 行、題へは 4 行目のまま）。
+- P4 新しい試験 PracticeUnifyTests: 題→練習で選ぶ頁なし・1 投目までの 1 行・Drill なしで 答え合わせ 2 つ・結果 1 枚（やり取りの答え合わせが出たら StrikeReview は null）・設定の板の行と替え・次の投から効く（投の途中で替えても その投は替わらない）・まとめ 入 → 次の投から見送りの組（冬なら冬の組）・帯 切 → 画の Stroke "" ・Band −1、記録の Band はそのまま・物語の日は全部 null。全部 緑の見込み。
+
 ---
 
 ## U. Unity の節（worker3）
