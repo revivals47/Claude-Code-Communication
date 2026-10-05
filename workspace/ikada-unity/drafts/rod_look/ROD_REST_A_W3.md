@@ -326,6 +326,9 @@
   - M2（反実仮想の対照）= M1 ＋ IKADA_ROD_SINK_DEG=0・IKADA_ROD_SINK_BUTT_UP_M=0・IKADA_ROD_SINK_BUTT_FWD_M=0（構えを 0 にする）。
 - ★予測（H が正しければ）★: (1) M1 の live_08 の sha = regress f2b113b_021733 の live_08（log は描きを替えない = 陽性対照）。(2) M1 の log: 720.514〜792.399 の戻りの行 = ★14〜15 フレーム★、沈みの終わりの |stanceA| は 0.452 rad よりずっと小さい（構えは入りきらない）、その後 毎フレーム 同じ比で縮み、★live_08 の shot のフレームで 1e-5 < |stanceA| （かつ sinkUp・sinkFwd > 1e-5）★。(3) ★M2 の live_08 = 基準（5e50ac7_s26_014332）と 0 px・sha 同じ★。(4) M1 と M2 の butt= の行が違う最初のフレーム = 711.98 の沈みの入り、ファイトのフレームでも違いが続き、|stanceA| が 1e-5 を割るフレームで消える。
 - ★H が違えば見える物★: (2) で shot のフレームの 3 つが全部 ≤ 1e-5（回しも動かしも飛ばされる）、または (3) で M2 の live_08 が まだ基準と違う → 原因は構えの残りでない → 次 = M2 と基準の差の所と log の行を 1 行ずつ。
+- ★遊びに時間の早送りは在るか（boss1 02:3x, 読むだけ, ikada-sim は pin の b80715f で読んだ）★: ★沈みの終わり→アワセの間を飛ばす道は無い★。(a) LiveHost.cs:91 speed 1、:159 の 1 より大は 試験（lockstep ＋ AutoPilot ＋ -ikadaLiveSpeed）だけ、遊びは :311 の 1 step / フレーム・logic は 1 フレーム 最大 0.1 s（IkadaSession.cs:53・:121）、Time.timeScale を替える所 0。(b) 遊びの飛ばし DayFlow.cs:327・:328 → Skip :333〜338 → FishingSession.FastForward :458 は State が Card でないと戻る（:460）= 投げの間だけ（Settle・DayFlow.Stock.cs:44〜48 も Card）。(c) DayFlow.cs:325 Clock.CycleSpeed = 時計だけ（GameClock.cs:2・:27, 竿・魚・ダンゴは実時間）。= 遊びで 構えの残りが 1e-5 rad を超えるのは 沈みの終わりから 約 5.4 s 以内のアワセだけ（0.452 × exp(−t/0.5), 計算）= ファイトの頭の 0.5 s の戻りの ease として見える（推論）。
+- ★P1 の対照の誤り（記録）★: shoot.sh は水の時刻を止めない → 2 回の撮りの水の帯が違い 0 px の対照にならなかった（§7.50 の結果）。直しは 次に P1 を使う時（IKADA_WATER_T を両方に）。
+- ★枝★: 測りの木 2ae11c7 は track3/sink-measure（master に入れない, M2 の env 0 も含め）、track3/sink-stance-default は f2b113b のまま。M1・M2 は同じ build で。
 - 直しの案（測ってから決める, 今は何もしない）: H が正しければ ★これは speed 300 の写りでだけ起きる（遊びの速さ 1 では 底からアワセまで 数千フレーム = 残り 0）= 基準の差し替えに live_08 を含める★ を推す（ease の式を替えると 前からの _lift・_side・_back と違う扱いになる）。
 
 ## 次の番の段取り（控え, 竿の長さの答えの後）
