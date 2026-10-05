@@ -1,0 +1,19 @@
+[lock_guard] ok: session 2 seat seat0 LockedHint=no
+regress_all  sha=43beea1  2026-10-06 05:31:47  project=/home/ken/Documents/ikada-unity-track3
+build          PASS     rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-051728.log CS=0 fonts: PASS  species: PASS not_in_table=0 control_drop_fails=True control_old_fails=True
+key_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+pad_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+hud_test       PASS     rc=0 exc=0 control: shown_again=True control_fails=True control_fails=True 
+edge_test      PASS     rc=0 exc=0 control: control_pause_still=True control_old_hookset_fails=True 
+tip_size_test  PASS     rc=0 exc=0 control: control_no_key_378=True 
+input_test     PASS     rc=0 checks=91 failures=0 unevaluated=0 control_wrong_expectation_fails=True rumble_control_fails=True chum_control_fails=True map_control_fails=True width_control_fails=True nudge_control_fails=True reveal_control_fails=True page_control_fails=True exc=0
+atlas          PASS     rc=0 main: test_chars=25 test_missing_before=25 test_missing_after=0 control_chars=11 | control ✥: test_missing_after_list=[✥] | chars: PASS
+refcheck       PASS     rc=0 PASS 11/11 control_flipped_fails=True total_wall=308s  control_flipped_fails=True (auto: run  pin db43865 != a9106ea_234105's PIN b80715f (regress 273fecb_032003); decide_control_ok=True)
+live           FAIL     rc=1 | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)  seed 20260925 FAIL 2: logic sequence differs (pictures not compared; steps compared: y);seed 1 logic sequence = baseline;seed 1 not in the baseline (not judged, counted): 0;seed 1 FAIL 4: differ: live_06 live_06C;seed 26 logic sequence = baseline;seed 26 not in the baseline (not judged, counted): 0; s20260925 5b=FAIL; s1 5b=baseline; s26 5b=FAIL; 5bctl=sees
+player_shots   PASS     rc=0 shots=30/30 glyph_lines=30/30 missing_chars=0 unchecked=0 Exception=0 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/43beea1_052745
+editor_shots   PASS     rc=0 shots=30/30 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/editor/43beea1_051728
+editor_repeat  PASS     waterT=10.0 rows=4/4 max diff>24%=0 (limit < 0.1) bad: none
+compare        PASS     rows=30/30 max diff>24%=0.24 (limit 1.0) bad: none
+git_clean      PASS     start=0 after_build=0 end=0
+baseline       PASS     vs /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/a9106ea_234105: 30/30 pairs 0 px over the whole picture (08 apart from the known rod-edge pixel, 06/06C/06M/06H/06S from the subtitle-band pixel); differ: none; known pixel levels (limit 1): 06_A_sans:0 06_B_serif:0 08_A_sans:0 08_B_serif:0 06C_A_sans:0 06C_B_serif:0 06M_A_sans:0 06M_B_serif:0 06H_A_sans:0 06H_B_serif:0 06S_A_sans:0 06S_B_serif:0
+RESULT FAIL  PASS 15/16  SKIPPED 0  UNEVALUATED 0   (NOT RUN counts as FAIL)  | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)

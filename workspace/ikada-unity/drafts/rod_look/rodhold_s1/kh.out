@@ -1,0 +1,71 @@
+[lock_guard] ok: session 2 seat seat0 LockedHint=no
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=4194304"
+    "memorysetup-bucket-allocator-block-count=1"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=4194304"
+    "memorysetup-profiler-bucket-allocator-block-count=1"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=4194304"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+[Live] keys 13 steps from /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/rodhold_s1/kh_once.md
+[Live] screen Title fight=False panel=Prep -> 05 t=0.02
+[Live] shot screen=05 -> /home/ken/Documents/ikada-unity-track3/Logs/player/keyday_43beea1_kh_once.md_053805/live_05.png t=0.02
+[Live] shot line screen=05 T=0.000N slack=0.000m sag=0.00000m mid=0.00px fight=False frameH=378px
+[Live] key #1 screen=05 key=Enter hold=0.10 t=2.32
+[Live] screen Prep fight=False panel=Prep -> 07 t=2.45
+[Live] shot screen=07 -> /home/ken/Documents/ikada-unity-track3/Logs/player/keyday_43beea1_kh_once.md_053805/live_07.png t=2.45
+[Live] shot line screen=07 T=0.080N slack=0.000m sag=0.00000m mid=0.00px fight=False frameH=378px
+[Live] key #2 screen=07 key=Enter hold=0.10 t=3.77
+[Live] key #3 screen=07 key=Enter hold=0.10 t=4.68
+[Live] key #4 screen=07 key=Enter hold=0.10 t=5.88
+[Live] screen Fishing fight=False panel=DangoCard -> 06C t=6.03
+[Live] shot screen=06C -> /home/ken/Documents/ikada-unity-track3/Logs/player/keyday_43beea1_kh_once.md_053805/live_06C.png t=6.03
+[Live] shot line screen=06C T=0.080N slack=0.000m sag=0.00000m mid=0.00px fight=False frameH=378px
+[Live] key #5 screen=06C key=Enter hold=0.10 t=9.37
+[Live] screen Fishing fight=False panel=None -> 06 t=9.50
+[Live] shot screen=06 -> /home/ken/Documents/ikada-unity-track3/Logs/player/keyday_43beea1_kh_once.md_053805/live_06.png t=9.50
+[Live] shot line screen=06 T=0.128N slack=0.000m sag=0.00000m mid=0.00px fight=False frameH=378px
+[Live] key #6 screen=06 key=C hold=0.10 t=24.80
+[Live] key #7 screen=06 key=Escape hold=1.70 t=30.20
+[Live] screen Pause fight=False panel=Pause -> P1 t=31.75
+[Live] shot screen=P1 -> /home/ken/Documents/ikada-unity-track3/Logs/player/keyday_43beea1_kh_once.md_053805/live_P1.png t=31.75
+[Live] shot line screen=P1 T=0.080N slack=0.174m sag=0.02127m mid=18.70px fight=False frameH=378px
+[Live] key #8 screen=P1 key=DownArrow hold=0.10 t=32.55
+[Live] key #9 screen=P1 key=DownArrow hold=0.10 t=33.47
+[Live] key #10 screen=P1 key=Enter hold=0.10 t=34.38
+[Live] screen Harbour fight=False panel=None -> 04 t=34.52
+[Live] shot screen=04 -> /home/ken/Documents/ikada-unity-track3/Logs/player/keyday_43beea1_kh_once.md_053805/live_04.png t=34.52
+[Live] shot line screen=04 T=0.080N slack=0.174m sag=0.02144m mid=18.85px fight=False frameH=378px
+[Live] key #11 screen=04 key=Enter hold=0.10 t=36.82
+[Live] key #12 screen=04 key=Enter hold=0.10 t=38.25
+[Live] screen Journal fight=False panel=None -> J t=38.40
+[Live] shot screen=J -> /home/ken/Documents/ikada-unity-track3/Logs/player/keyday_43beea1_kh_once.md_053805/live_J.png t=38.40
+[Live] shot line screen=J T=0.080N slack=0.174m sag=0.02144m mid=18.85px fight=False frameH=378px
+[Live] key #13 screen=J key=Enter hold=0.10 t=40.70
+[Live] keys RESULT steps=13 pressed=13 done=True error=none
+[key_day] rc=0 wall=50.1s ok=True steps=2451 simS=40.9 page=Info screens=05,07,06C,06,P1,04,J rebuilds=3 thumbResets=0 rodMockWrites=0 error=none
+[key_day] exceptions=0 crash=0 pictures=7 glyph_lines=7 missing_chars=0
+[key_day] dir /home/ken/Documents/ikada-unity-track3/Logs/player/keyday_43beea1_kh_once.md_053805
+[key_day] PASS

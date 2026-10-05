@@ -1,0 +1,3 @@
+[rodhold] steps=2451 diff_steps=961 runs=1 unexplained=0 fight_diff=0 | lowHeld frames: rest=0 hand=230 pairs=2450 no-rod=0
+[rodhold]   run TimeS 24.834..40.834 steps=961 KH
+[rodhold] PASS (expect kh) | lowHeld on the rest: 0 frames

@@ -1,0 +1,21 @@
+[rodhold] steps=35579 diff_steps=35201 runs=19 unexplained=19 fight_diff=0 | lowHeld frames: rest=0 hand=0 pairs=119 no-rod=0
+[rodhold]   run TimeS 5.017..92.717 steps=1489 UNEXPLAINED
+[rodhold]   run TimeS 92.751..167.755 steps=1920 UNEXPLAINED
+[rodhold]   run TimeS 167.788..277.785 steps=1784 UNEXPLAINED
+[rodhold]   run TimeS 277.819..352.249 steps=1582 UNEXPLAINED
+[rodhold]   run TimeS 352.282..440.240 steps=1424 UNEXPLAINED
+[rodhold]   run TimeS 440.273..526.863 steps=1534 UNEXPLAINED
+[rodhold]   run TimeS 526.897..641.225 steps=3341 UNEXPLAINED
+[rodhold]   run TimeS 641.258..710.948 steps=1732 UNEXPLAINED
+[rodhold]   run TimeS 710.982..782.442 steps=1633 UNEXPLAINED
+[rodhold]   run TimeS 782.476..855.153 steps=1598 UNEXPLAINED
+[rodhold]   run TimeS 856.186..928.503 steps=1406 UNEXPLAINED
+[rodhold]   run TimeS 928.537..1019.214 steps=1808 UNEXPLAINED
+[rodhold]   run TimeS 1019.247..1091.021 steps=1995 UNEXPLAINED
+[rodhold]   run TimeS 1091.055..1169.265 steps=2200 UNEXPLAINED
+[rodhold]   run TimeS 1169.299..1270.426 steps=2999 UNEXPLAINED
+[rodhold]   run TimeS 1270.460..1343.154 steps=1827 UNEXPLAINED
+[rodhold]   run TimeS 1343.187..1410.274 steps=1565 UNEXPLAINED
+[rodhold]   run TimeS 1410.307..1480.808 steps=1399 UNEXPLAINED
+[rodhold]   run TimeS 1480.841..1556.875 steps=1965 UNEXPLAINED
+[rodhold] PASS (expect unexplained) | lowHeld on the rest: 0 frames

@@ -1,0 +1,146 @@
+[lock_guard] ok: session 2 seat seat0 LockedHint=no
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=4194304"
+    "memorysetup-bucket-allocator-block-count=1"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=4194304"
+    "memorysetup-profiler-bucket-allocator-block-count=1"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=4194304"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+[live_regress] seed 20260925: ok=True steps=540561 simS=9009.5 page=Day screens=05,07,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,08,03,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,0
+[live_regress] seed 20260925 5: A=wired audio_lines=2 result_lines=1 (/home/ken/Documents/ikada-unity-track3/Logs/regress/43beea1_051728/s1/plain/seed_20260925/live.log)
+[live_regress] seed 20260925 5: FAIL 5b: left differs from the baseline: drag_frames 0->1 reel_frames 84->85 wind_frames 147->141
+[live_regress] seed 20260925 5: VERDICT FAIL
+[live_regress] seed 20260925 FAIL 5 (sound)
+[live_regress] seed 20260925 6: R=wired finish_lines=1 (/home/ken/Documents/ikada-unity-track3/Logs/regress/43beea1_051728/s1/plain/seed_20260925/live.log)
+[live_regress] seed 20260925 6: frame_calls=1800 sends=0 nonzero=0 pad=none
+[live_regress] seed 20260925 6: 6 no pad (pad=none): nothing can reach a motor
+[live_regress] seed 20260925 6: VERDICT UNVERIFIED
+[live_regress] seed 20260925 7: frames=2367 wire_mismatch=0 text_mismatch=0 inverted_mismatch=2367 (control: must be 2367) fallback_frames=0
+[live_regress] seed 20260925 7: VERDICT PASS
+[live_regress] seed 20260925 [Speakers] logic names=7 in table=7 missing=[]
+[live_regress] seed 20260925 [Prep07] advice cut lines: 0
+[live_regress] seed 20260925 FAIL 2: logic sequence differs (pictures not compared; steps compared: y)
+  run:      steps=540561 simS=9009.5 page=Day screens=05,07,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,
+  baseline: steps=540682 simS=9011.5 page=Info screens=05,07,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=4194304"
+    "memorysetup-bucket-allocator-block-count=1"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=4194304"
+    "memorysetup-profiler-bucket-allocator-block-count=1"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=4194304"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+[live_regress] seed 1: ok=True steps=539333 simS=8989.1 page=Info screens=05,07,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C
+[live_regress] seed 1 5: A=wired audio_lines=2 result_lines=1 (/home/ken/Documents/ikada-unity-track3/Logs/regress/43beea1_051728/s1/plain/seed_1/live.log)
+[live_regress] seed 1 5: 5b left = baseline (7 fields)
+[live_regress] seed 1 5: 5c right matches left (callbacks=1737 clicks=312 gears=322 creaks=0 snap_samples=0)
+[live_regress] seed 1 5: VERDICT PASS
+[live_regress] seed 1 6: R=wired finish_lines=1 (/home/ken/Documents/ikada-unity-track3/Logs/regress/43beea1_051728/s1/plain/seed_1/live.log)
+[live_regress] seed 1 6: frame_calls=1796 sends=0 nonzero=0 pad=none
+[live_regress] seed 1 6: 6 no pad (pad=none): nothing can reach a motor
+[live_regress] seed 1 6: VERDICT UNVERIFIED
+[live_regress] seed 1 7: frames=2079 wire_mismatch=0 text_mismatch=0 inverted_mismatch=2079 (control: must be 2079) fallback_frames=0
+[live_regress] seed 1 7: VERDICT PASS
+[live_regress] seed 1 [Speakers] logic names=7 in table=7 missing=[]
+[live_regress] seed 1 [Prep07] advice cut lines: 0
+[live_regress] seed 1 logic sequence = baseline (screens 98; steps compared: y)
+[live_regress] seed 1 pictures 7/7 glyph_lines=7 missing_chars=0 unchecked=0
+[live_regress] seed 1 not in the baseline (not judged, counted): 0
+[live_regress] seed 1 journal pages=2 shots=2 pictures run=2 baseline=2
+[live_regress] seed 1 FAIL 4: differ: live_06 live_06C
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=4194304"
+    "memorysetup-bucket-allocator-block-count=1"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=4194304"
+    "memorysetup-profiler-bucket-allocator-block-count=1"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=4194304"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+[live_regress] seed 26: ok=True steps=539212 simS=8987.0 page=Day screens=05,07,06C,06,06C,06,06C,06,06C,06,06C,06,08,03,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,08,03,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,08,03
+[live_regress] seed 26 5: A=wired audio_lines=2 result_lines=1 (/home/ken/Documents/ikada-unity-track3/Logs/regress/43beea1_051728/s1/plain/seed_26/live.log)
+[live_regress] seed 26 5: FAIL 5b: left differs from the baseline: wind_frames 157->156
+[live_regress] seed 26 5: VERDICT FAIL
+[live_regress] seed 26 FAIL 5 (sound)
+[live_regress] seed 26 6: R=wired finish_lines=1 (/home/ken/Documents/ikada-unity-track3/Logs/regress/43beea1_051728/s1/plain/seed_26/live.log)
+[live_regress] seed 26 6: frame_calls=1795 sends=0 nonzero=0 pad=none
+[live_regress] seed 26 6: 6 no pad (pad=none): nothing can reach a motor
+[live_regress] seed 26 6: VERDICT UNVERIFIED
+[live_regress] seed 26 7: frames=2362 wire_mismatch=0 text_mismatch=0 inverted_mismatch=2362 (control: must be 2362) fallback_frames=0
+[live_regress] seed 26 7: VERDICT PASS
+[live_regress] seed 26 [Speakers] logic names=7 in table=7 missing=[]
+[live_regress] seed 26 [Prep07] advice cut lines: 0
+[live_regress] seed 26 logic sequence = baseline (screens 104; steps compared: y)
+[live_regress] seed 26 pictures 8/8 glyph_lines=8 missing_chars=0 unchecked=0
+[live_regress] seed 26 not in the baseline (not judged, counted): 0
+[live_regress] seed 26 journal pages=1 shots=1 pictures run=1 baseline=1
+[live_regress] seed 26 FAIL 4: differ: live_06 live_06C live_08
+[live_regress] 5b control: seed 1 vs seed 20260925 baseline AUDIO.txt differ (the judge sees it)
+[live_regress] control: seed 1 vs seed 20260925 baseline -> logic sequence differs (the judge sees it)
+[live_regress] FAIL (/home/ken/Documents/ikada-unity-track3/Logs/regress/43beea1_051728/s1/plain) | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)
