@@ -369,6 +369,7 @@
     - 種 26: ★並び = 基準★（予測は未確認 → 同じ）、★画 = live_06・live_06C・live_08 が違う★（予測 06C・06・08 どおり）、★音 5b FAIL = wind_frames 157→156★ = ★予測に無かった（外れ: §⑥ は音を書いていない）★。
   - ★wall time★: live 3 種 env なし 166 s・IKADA_ROD_HOLD_STEP_LOG=1 199 s（+33 s, +20 %）。
   - ★数え（rodhold_count.py, 予測 = 訳なし 0・ファイト中 0・受けかつ _lowHeld 0）★ = 3 種とも ★PASS★: 種 20260925 = 540,561 step・違う step 11,366・run 2（K2: 2447.916〜2637.270 の 11,362 step = 長い・3821.876 の 4 step）、種 1 = 539,333 step・run 1（K2 4 step）、種 26 = 539,212 step・run 4（K2 4 step ×3（792.333 = アワセの直前）・6213.091〜6364.311 の 9,074 step = 長い）。訳なし 0・ファイト中の違い 0・受けかつ _lowHeld 0（手かつ _lowHeld = 2 / 0 / 33 frame = 陽性の向き）。上限に届かず。
+  - ★log の場所★: 3 種の step log = ~/Documents/ikada-unity-track3/Logs/regress/43beea1_051728/s1/steplog/seed_*/live.log、env なし = s1/plain、練習の組 NO_LEADIN = s1/noleadin/live.log、★鍵 1 回 = key_day.sh の dir = Logs/player/keyday_43beea1_kh_once.md_053805/live.log（regress の dir の外）★（boss1 05:43 に path を送った）。
   - ★陽性対照★: (i) 鍵 1 回 = ★KH の run 1 つ（TimeS 24.834〜40.834, 961 step）・--expect kh PASS★（予測どおり）。(ii) 練習の組 NO_LEADIN = lead-in の step 172・★訳なしの run 19・--expect unexplained PASS★（予測どおり）。
   - 長い K2 run（20260925 の 2448〜2637 s・26 の 6213〜6364 s）は S2 で 画が替わりうる所 = live の撮りの秒（5.5・792.4・865.4 ほか）は入らない（読み）。
   - FREE 05:4x（Unity・player・VBCS 0, porcelain 0）。apply（基準の差し替え）はしない = PRESIDENT が画を見てから。
