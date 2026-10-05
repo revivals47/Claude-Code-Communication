@@ -354,5 +354,10 @@
 - ★compile の見込み（読みだけ, csc なし）★: (a) RodHold の名が 2 つ（Unity の Ikada.Render.RodHold と logic の Ikada.Game.Render.RodHold）= 名だけで書く file は RodHand.cs・RuntimeRod.Hold.cs・TipJointProbe.cs（namespace Ikada.Render の中 = 自分の名が先に引かれる）と ShotScreenIds.cs（using Ikada.Render だけ）= 曖昧 0 の見込み。(b) 0.25 → 0.26 で消えた public = DayFlow の field RodInHolder（property になった）と Apply の中身だけ = Unity が書く RodInHolder は RenderSnapshot の field（MockSnapshots.cs:114・MockFight.cs:16, RenderContract.cs:348 に在る）= 壊れない見込み。
 - 予測（logic の並び・(b1)(b2)・送りの門・refcheck）は worker2 が書く（boss1 04:36）。
 
+## §7.54 段 (3) S1 の番（boss1 04:42 GO, 木 43beea1 = 138bb9e ＋ refcheck #18）: 走らせ方と 私の足した所の予測（回す前, 動かさない）
+- 予測の本体 = worker2 RODHOLD_SWITCH_W2.md §⑥（refcheck 11/11・mock 30/30 0 px・live は画で FAIL: 06C・06 = 手の揺れの項、08 = FishSide、種 20260925 は並びも、種 26 未確認・数え 訳なし 0・ファイト中の違い 0・受けかつ _lowHeld 0）。
+- run = rodhold_s1/s1_run.sh: ① regress_all.sh ② live 3 種 env なし（wall time）③ live 3 種 IKADA_ROD_HOLD_STEP_LOG=1（wall time）④ rodhold_count.py --expect pass ×3 ⑤ 陽性対照 (i) 鍵 1 回 = key_day.sh で rodhold_s1/kh_once.md（06C で Enter = 投下 → 06 で 15 s 後 = 底の後に C = HolderToggle 1 回 → 上がって終わる）→ --expect kh ⑥ 陽性対照 (ii) 練習の組（set, lead-in が回る）を IKADA_RODHAND_NO_LEADIN=1 で（QuitAfterS 3600）→ --expect unexplained。log は Logs/regress/<id>/s1/ と Logs/player/（drafts に写さない）。
+- ★私の足した所の予測★: ⑤ = KH の run が 1 つ・--expect kh が exit 0（鍵は 06 の待ち = Card でない・ファイトでない時）。外れうる所 = 鍵を押す時に まだ沈み（底が 15 s より後）か 札の頁 = 違いが出ない（R7・R3 が勝つ）→ 外れとして報告。⑥ = lead-in の step > 0・訳なしの run > 0・--expect unexplained が exit 0。外れうる所 = QuitAfterS 3600 の内に 組の投（lead-in）が来ない。③ の wall time > ② の wall time（log の行 約 54 万 × 3 種, 何倍かは予測しない）。
+
 ## 次の番の段取り（控え, 竿の長さの答えの後）
 - ★沈みの構え A を入れる番（依頼者 = A: 沈み待ち 70〜80° 下・穂先は窓で読む、竿の長さの答えの後）の中身に 必ず含める（PRESIDENT 09:9x 控え）★: ★mock の基準に 手・沈みの 2 枚を足す（IKADA_ROD_SHOT_HOLD=hand / sinking の撮り, editor と player の両方）★ = 今の mock の基準 26 枚は 受けとファイトだけ = 手・沈みの見た目が壊れても regress は気づかない（§7.44 の 3.3 cm も regress では見えなかった）。足す時は regress_all.sh の BASE_IDS / player_shots の画面の列（worker2 / boss1 の道具 = 所有者の確認）と 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）を一緒に。MASTER_TASKS の 09:36 の控え（boss1）と同じ件。
