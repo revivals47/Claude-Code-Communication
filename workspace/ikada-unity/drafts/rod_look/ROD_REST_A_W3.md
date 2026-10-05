@@ -247,5 +247,20 @@
   - master への merge（track3/side-shot d95bd5a）は boss1。遊べる版は 遊びの code が替わらない（builder の editor の置き順・撮りと log の道具だけ）= 作らない見込み（PRESIDENT の判断）。
 - ★記録（boss1 / PRESIDENT 09:8x, merge 済 b34cd9c の後）★: mock の撮りは builder の 2 回の ApplyNow を ★通る★ = editor の mock（ShotRunner.cs:25・:77 SceneBuilder.Build(id, …) → 3D の画面は SceneBuilder.cs:55 Backdrop(cam) → :88 BackdropBuilder.Build → BackdropBuilder.cs:107/114/121 BuildRod → ★BackdropBuilderProps.cs:292 rod.ApplyNow → :293 tipLayer.Apply → :295 rod.ApplyNow★（:299 = 直しの tipLayer.Apply））、player の mock も 作りの時に 同じ道で scene を作る（BuildScript.cs:178 SceneBuilder.Build(id, false, true)）＋ 遊びの Update で 毎フレーム 穂先を置き直す（TipBendLayer.cs:84）。通るが ★mock は手ではない = 横 0 = ずれの元が 0★（§7.46 の (a) RodHand.State = Rest → hand = false、(b) 横 SideTarget は hand の時だけ・ほかの centre の元は 1 回目と 2 回目で同じ、(c) 実測 = 直しの前の editor の [TipJoint] で 受け 06・06C ずれ 0.0000、と regress d95bd5a_092436 の mock 26 組 0 px）。
 
+## §7.47 沈みの構え A の下ごしらえ（PRESIDENT 10:0x）: code と予測（撮りの前, 動かさない; Unity なし = 未 compile）
+- code = ikada-unity-track3 ★track3/sink-prep 68507ec★（master b34cd9c ＋ 7 file +60 前後）。道具の側（regress_all.sh の 26 の字 → ids の数・compare の ids・baseline_pin.sh・新しい基準の dir）は 所有者 worker2 の枝 = ★2 つの枝を合わせた木で 1 回の番★（boss1 12:0x）。
+  - ★撮りの id 06H / 06S★（新 ShotScreenIds.cs）: 06H = 画面 06 ＋ 竿は手、06S = 画面 06 ＋ 竿は手（沈み）。ScreenRegistry には足さない（遊びは見せない）。player = ScreenHost.StartScreenArg が 06 に読み替え、Start で RodHand.SetForShot（新、Changes に数えない）。editor = ShootCycle の list の末に 06H 06S（06 を Show してから hold を置き、rod.ApplyNow → tipLayer.Apply(0) → dressing.ApplyNow = builder の順, §7.44）、shoot.sh の Shoot も同じ読み替え。
+  - ★IKADA_ROD_LENGTH_M★（1〜5 m, builder = player は作る時に効く）: 竿尻から同じ向きに 穂先を置き直す。RodScale（太さ・ガイドの大きさ）は 今の式のまま長さに付いてくる（= 長さを 2.7 にすれば 太さも 2.7/1.5 = 1.8 倍 = ★これで良いかは 長さの答えの時に確かめる（未決）★）。
+  - ★IKADA_ROD_SINK_DEG★（0〜89, 水平から下へ度）: 沈みの構えの角 = Hold.cs:61 の HandDipRad の代わり。角だけ（竿尻・上げ・横は不変）。
+  - 未設定 = 2 つの env の道に入らない（builder は if の中、Hold は SinkDipRad = HandDipRad そのもの）= ★既定の画は 0 px の見込み★。
+- ★先に書く気づき（推論, 未検証）★: A（70〜80° 下）を角だけで入れると 竿 3.09 m・竿尻 0.80 m では 穂先が 水面の下（0.80 − 3.09 × sin75° ≈ −2.2 m）= ★依頼者の言う「竿尻を高く」= 竿尻の位置も 構えの引数に要る見込み★。穂先の窓は 竿の角を −0.15〜0.35 rad に clamp（§7.43 の札）= 70° は窓の外 = 「穂先は窓で読む」も 窓の側の手が要る見込み。今回は形だけ（値は入れない）。
+- ★撮りの状態（1 行）★: 06H / 06S = mock の 06（待ちの snapshot）の上で RodHand の状態だけ置く = §7.43 の IKADA_ROD_SHOT_HOLD の画と同じ状態（撮りの道が違うだけ）。
+- ★予測（動かさない）★:
+  - R1 合わせた木の regress_all（道具は worker2 の版）: ★今の 26 組 vs 基準 = 0 px★（既定の道は不変・06H/06S は list の末 = 前の撮りの順は不変）。06H / 06S の 4 組は 基準に無い = 道具の扱い（worker2 の版の表示）に従う。editor_shots / player_shots = 30 枚、exception 0、missing_chars 0。compare（player vs editor）06H / 06S = 06 と同じ程度（max の % は 06 の行 ± 0.1 %, 推論）。live 3 種 0 px（遊びの code は 読み替えの 1 行と env の読みだけ）。
+  - P1 陽性対照（editor, 同じ ShootCycle の道）: IKADA_ROD_SHOT_HOLD=hand で回した cycle の 06 vs 既定の cycle の 06H = ★0 px★、sinking と 06S も ★0 px★（= ApplyHold の置き直しが 組み立て時の状態と同じ）。
+  - N1 陰性対照: 06H vs 06 ≠ 0（竿が戻り・上げ・横 = 竿の所が動く）、06S vs 06H = 穂先が下へ ★(967, 624) → (967, 705) の 81 px★（§7.43 の当たりの値）。
+  - E1 env が効く対照（editor shoot.sh 06S, 各 1 枚）: IKADA_ROD_SINK_DEG=20 → 穂先が 06S より下（画面の外へ出る見込み・log の pitch −20.0 ± 0.2）、IKADA_ROD_LENGTH_M=2.5 → log「[Builder] IKADA_ROD_LENGTH_M 2.500 m (was 3.09x)」・穂先が 竿尻の方へ寄る。
+  - 基準の足し: 予測 → dry（worker2 の道具）→ PRESIDENT の画（06H / 06S × A/B）→ apply。known pixel（字幕帯 (1404,1014)）に 06H|06S を足すかは dry の画で。
+
 ## 次の番の段取り（控え, 竿の長さの答えの後）
 - ★沈みの構え A を入れる番（依頼者 = A: 沈み待ち 70〜80° 下・穂先は窓で読む、竿の長さの答えの後）の中身に 必ず含める（PRESIDENT 09:9x 控え）★: ★mock の基準に 手・沈みの 2 枚を足す（IKADA_ROD_SHOT_HOLD=hand / sinking の撮り, editor と player の両方）★ = 今の mock の基準 26 枚は 受けとファイトだけ = 手・沈みの見た目が壊れても regress は気づかない（§7.44 の 3.3 cm も regress では見えなかった）。足す時は regress_all.sh の BASE_IDS / player_shots の画面の列（worker2 / boss1 の道具 = 所有者の確認）と 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）を一緒に。MASTER_TASKS の 09:36 の控え（boss1）と同じ件。
