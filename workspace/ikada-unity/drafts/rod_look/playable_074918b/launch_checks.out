@@ -1,0 +1,10 @@
+before: folder 922cfb3e9865d3f9dc30d7cd171753868920127b08d9fb6b3d7b0802ea815b63 | players 0 | save 1 line(s)
+4a rc=124 players after 0
+4b rc=0 players after 0
+4c rc=0 players after 0
+4d save dir: SAME (1 line(s))
+4 lines: [Live] start api 0.26.0 | [SessionProbe] RESULT ok=True api=0.26.0 abi=3 screen=Title timeS=10.00 dispose_ms=0 backend=LinuxPlayer Mono error=none | [Live] RESULT ok=True steps=539333 simS=8989.1 page=Info screens=05,07,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06C,06,06
+4 Exception: launch 0 probe 0 day 0
+07:13:34 2 build ok: result=Succeeded errors=0 warnings=46 size=744113935 time=00:00:17.8783420 out=/home/ken/Documents/ikada-unity/Builds/Linux/Ikada.x86_64 (log /home/ken/Documents/ikada-unity/Logs/batch/exec-071113.log)
+07:13:34 CHECK-LINES: steps 2 and 4 pass on these logs
+after: folder 922cfb3e9865d3f9dc30d7cd171753868920127b08d9fb6b3d7b0802ea815b63 SAME | players 0

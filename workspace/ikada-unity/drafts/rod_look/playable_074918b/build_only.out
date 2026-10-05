@@ -1,0 +1,5 @@
+0 ok: master 074918b073c8767e40d80ef04460d4a054722f56, pin #db43865a481439d06d4061245bcc5ba402a80797, /home/ken/Documents/ikada-play/074918b free, no Unity / player
+2 build rc=0 wall 47 s log /home/ken/Documents/ikada-unity/Logs/batch/exec-071113.log
+2 ok: result=Succeeded errors=0 warnings=46 size=744113935 time=00:00:17.8783420 out=/home/ken/Documents/ikada-unity/Builds/Li
+3 /home/ken/Documents/ikada-play/074918b: 176 files, 744113935 bytes, folder sha256 922cfb3e9865d3f9dc30d7cd171753868920127b08d9fb6b3d7b0802ea815b63, Ikada.x86_64 sha256 a9a83136f9f1e9bb13e145b651e13a947bbff6d6a9281f92f0791afc397104cb
+3 vs 0b53e4a: files 176, bytes 744103759

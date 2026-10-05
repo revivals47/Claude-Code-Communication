@@ -1,0 +1,5 @@
+4e rc=0 Exception: 0
+4e folder sha before 922cfb3e9865d3f9dc30d7cd171753868920127b08d9fb6b3d7b0802ea815b63 after 922cfb3e9865d3f9dc30d7cd171753868920127b08d9fb6b3d7b0802ea815b63 SAME
+  tackle_card            diff>0       0   diff>24       0   (outside the band only)
+  subtitle               diff>0       0   diff>24       0   (outside the band only)
+[outside_water] outside the band: diff>0 = 0 px -> OK
