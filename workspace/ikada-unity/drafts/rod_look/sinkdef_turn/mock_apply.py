@@ -27,6 +27,7 @@ def main():
             '- why: the sinking stance by default (the client 02:0x「3.09mのほうが迫力があっていい」, c206 left): the rod 3.09 m turned 25.9 deg about the butt, the butt 1.0 m above the deck (0.65 up / 1.39 forward); the window unchanged',
             f'- source: the player shots of regress f2b113b_021733 ({SRC}), tree track3/sink-stance-default f2b113b, logic pin unchanged = b80715f']
     for n, b, s, old, hb, hs in rows: note.append(f'- {n}: sha256 {hb[:16]} -> {hs[:16]} (= source); old kept as {TAG}_{n}')
+    note.append(f'- ★from {time.strftime("%Y-%m-%d %H:%M")} on, 06S_A / 06S_B here are the sinking stance by default (track3/sink-stance-default f2b113b)★: a regress of a tree before the stance (master 6775ad7 and branches from it, e.g. worker2 backdrop-split) shows 06S_A / 06S_B red against this dir until it is on the merge; the pre-stance 06S = {TAG}_06S_A_sans.png / {TAG}_06S_B_serif.png (boss1 02:57)')
     note.append('- the other 28 pictures untouched (0 px in that regress); PIN: rewritten by tools/baseline_pin.sh after the regress that sees 30/30 0 px')
     open(os.path.join(BASE, 'NOTE_baseline.md'), 'a').write('\n'.join(note) + '\n')
     print('[mock_apply] applied: 2 changed, new = source, pre-stance_ = old, NOTE appended')
