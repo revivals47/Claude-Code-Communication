@@ -384,6 +384,7 @@
 - ★器の確かめ（観測, 今ある出力）★: S1 の同じ build の live 3 回（regress・s1/plain・s1/steplog）= ★3 種の全部の画が 3 回とも sha 同じ★、RESULT・cast の時刻も同じ = 同じ build は 同じ画を描く = 差し替えの後の regress が 0 px になる前提が立つ。既知の点の数え（live_regress.sh:61-63 known_count）は 引数の数を数える物 = 画が替わっても 引数は同じ = 外れない（読み）。
 - script = rodhold_s1/s1_apply.sh（門の内で 1 回）: 木が clean な 43beea1 → ① live_rebase5.py --apply（表と照合）→ ② regress_all.sh → baseline PASS の時だけ ③ baseline_pin.sh。どこで外れても止まる。
 - ★予測（動かさない）★: ① changed 14・added 2・新 = 源・pre-s1_ = 旧・3 つの NOTE。② ★RESULT PASS 16/16・SKIPPED 0★（refcheck は PIN の pin がまだ b80715f ≠ db43865 = 回る → 11/11 PASS）、★baseline 30/30 0 px★、★live 3 種 PASS（並び = 新しい基準・画 0 px・音 5b = 新しい基準）★、ほか（build CS 0・git_clean 0/0/0・player / editor / compare 30/30・試験）PASS。③ ★PIN = pin db43865a481439d06d4061245bcc5ba402a80797 ＋ regress <② の id>★（その後の regress は refcheck が SKIPPED に戻る見込み）。
+- ★条件の答え（boss1 05:48, worker1 S1_DIFF_W1.md）★: 種 20260925 = 8:21 に旧のフグの到着が新に無い・cast 12 の break 40.1 → 40.9（= Unity の tBreak と同じ）、種 26 = 14:27 に新のフグの到着・cast 42 の break 38.7 → 38.3（= Unity の cast 42 と合う）= #17 のフグの窓の直しの分 = PRESIDENT の条件を満たした。★種 26 の音 wind_frames 157 → 156 と cast 42 のずれの結び付きは frame では測っていない = 推論★（PRESIDENT 06:0x, 種 26 の NOTE にも 1 行）。
 - 次: S2 = RodHand.Step を logic の RodHold に切り替え ＋ _lowHeld を消す（PRESIDENT 05:5x: S3 を分けない）。器の穴 2t は 次の小さな番（今回の判定に使わない）。
 
 ## 次の番の段取り（控え, 竿の長さの答えの後）
