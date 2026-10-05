@@ -197,3 +197,17 @@
   - 次の番: side_turn/run2.sh = Roslyn cf22288 → 横の 2 枚だけ（ゲームの画角の 2 枚は 7327e8c の撮りを使う = 直しは横の camera だけ）→ c202。
 - ★撮り直しの結果（boss1 08:56 LOCK, 木 cf22288）★: git diff 7327e8c cf22288 = ★Assets/Editor/ShotRunner.cs の 1 file だけ（+4/−1, 横の env の camera の高さ）= 遊びの code は同じ★ → ゲームの画角の 2 枚は 7327e8c の撮りを使う。Roslyn 0、横の 2 枚 rc 0・exception 0、porcelain 0、FREE 前 Unity・player・VBCS 0（撮り中に出た自分の VBCS 1429226 を kill）。★log の pitch = 手 0.0°・沈み −5.7°（7327e8c と同じ, 当たり）★。★画: 竿が横向きに全長写る（手 = 水平、沈み = 穂先が下がる）★ = 直しの予測どおり。甲板は 板の筋と その間に水（§7.29 と同じ形, 予測の恐れどおり）、竿は画の上の方に小さめ（見下ろし）→ c202 では 竿の帯を切り出して拡大。
 - ★c202 = drafts/user_review/c202_rod_tip_hand_sinking.png★（手に持つ時・沈むのを待つ時 × 左 = 遊ぶ時の画面・中 = 穂先の周り 3 倍・右 = 横から見た図（ゲームの画角ではない）、札 = 今の値）。
+
+## §7.44 依頼者の c202 の答え（PRESIDENT 09:0x）— 穂先のカクン / 左への平行移動 = 不具合として 測る（★code の既定は替えない, log から★）: code と予測（撮りの前, 動かさない）
+- 依頼者: 穂先がカクンと曲がって見える（特に 中 = 3 倍）、穂先が竿に対して 少し左に平行移動している、とも言える。
+- code = track3/side-shot ★dfa2b29★（cf22288 ＋ ShotRunner.cs だけ +29）: 撮りだけ・log だけの env ★IKADA_SHOT_TIP_JOINT=1★ = 撮りの時に [TipJoint] の 1 行 = 竿の本体の 最後の active な piece の両端と軸・穂先の層（TipBendLayer）の 最初の piece の両端と軸・その base の最初の点（中心線の cut）・★ずれ（穂先の始め − 本体の終わり）を 竿の向き / 右 / 上 に分けて m で★・軸の角の差（上下・左右）・太さ 2 つ・画の点。何も動かさない。
+- ★source の読み（推論ではなく行）★: 本体 = RuntimeRod.DrawUpTo(Resample(centre), CutArcM(centre))（RuntimeRod.cs:210, :362-）、穂先の層 = tipLayer.SetBaseFromCentre(centre, entry)（:238 → TipBendLayer.cs の basePoints = 同じ centre の cut から先）＋ Apply で ばねの下げ（pts = basePoints ＋ deflection）。= ★両方とも 同じ centre（手の 戻し・横・上げ・沈みの下げ を入れた後の _butt / _tip から RodBend で作る）を読む★。本体の piece は 区の中で 太さの半分だけ 重ねて延ばす（:381-384 ext）。BlankToCut（BackdropBuilderTip.cs:62）は runtime の竿では作らない（lastPieces == null）。
+- ★この画の撮りの時の状態（log の規律）★: editor の 06 ＋ IKADA_ROD_SHOT_HOLD=hand / sinking（mock の 06, 張力 約 0.2 N）、対照 = 06（受け, env なし）・06C（受け）。
+- ★候補（予測として書くだけ, 決めるのは log）★:
+  - C1 手の横 0.158・上げ 0.05 が 本体にだけ掛かり 穂先の層に掛からない → ずれ side ≈ −0.158 m（左）・up ≈ −0.05、受けでは 0。★source の読みでは 両方 同じ centre = この候補は起きない見込み★。
+  - C2 沈みの下げ（−0.10 rad）が 本体にだけ → 沈みで 穂先の軸が 本体より 約 +5.7° 上、手・受けでは 0。★同じく 起きない見込み★。
+  - C3（★主の予測★）= 両方とも同じ centre → ★ずれ ≈ 本体の延ばし ext の分だけ（along ≈ −dia/2 = 約 −0.003 m, side ≈ 0, up ≈ 0）、軸の角の差 = ばねの下げの分（mock 0.2 N, TipSoft ×2 → 1° 未満 下）★、手・沈み・受けで ほぼ同じ。
+  - C4 ★太さの段★: 本体の最後の piece の太さ（床 1.5 px を 竿に直角で 前に出した位置で焼いた, §7.36 の 1.4 倍）と 穂先の層の最初の piece の太さ（s_tipMinCut = 同じ床だが 別の式で焼く）が 違う → 継ぎ目で 太さが段に替わり 輪・ガイドと重なって カクン / 横ずれに見える。手（竿が手元へ近い）で 段が大きく見え 受け（遠い）で小さい（推論）。log の dia 2 つで分かる。
+  - C5 それ以外（H4）。
+- 撮り（4 枚, 06）: TJ_hand・TJ_sinking（SHOT_HOLD）・TJ_rest06（env なし）・TJ_rest06C（06C）、全部 IKADA_SHOT_TIP_JOINT=1。exception 0・porcelain 0。
+- ★番 4（boss1 09:1x）の段取り★: 番 1 で ずれが見つかり 直しが小さければ 直しを env の後ろ（既定 OFF）に置き、c203（沈み待ちの構え 候補 3 つ × c202 と同じ 3 段, 値は boss1 から）は 直しを ON で撮る。ずれが無ければ そのまま c203。番 4 の env（沈み待ちの構えだけ 試しの値: 竿尻の高さ・角）は 値を受けてから。
