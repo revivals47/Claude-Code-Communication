@@ -259,8 +259,14 @@
   - R1 合わせた木の regress_all（道具は worker2 の版）: ★今の 26 組 vs 基準 = 0 px★（既定の道は不変・06H/06S は list の末 = 前の撮りの順は不変）。06H / 06S の 4 組は 基準に無い = 道具の扱い（worker2 の版の表示）に従う。editor_shots / player_shots = 30 枚、exception 0、missing_chars 0。compare（player vs editor）06H / 06S = 06 と同じ程度（max の % は 06 の行 ± 0.1 %, 推論）。live 3 種 0 px（遊びの code は 読み替えの 1 行と env の読みだけ）。
   - P1 陽性対照（editor, 同じ ShootCycle の道）: IKADA_ROD_SHOT_HOLD=hand で回した cycle の 06 vs 既定の cycle の 06H = ★0 px★、sinking と 06S も ★0 px★（= ApplyHold の置き直しが 組み立て時の状態と同じ）。
   - N1 陰性対照: 06H vs 06 ≠ 0（竿が戻り・上げ・横 = 竿の所が動く）、06S vs 06H = 穂先が下へ ★(967, 624) → (967, 705) の 81 px★（§7.43 の当たりの値）。
-  - E1 env が効く対照（editor shoot.sh 06S, 各 1 枚）: IKADA_ROD_SINK_DEG=20 → 穂先が 06S より下（画面の外へ出る見込み・log の pitch −20.0 ± 0.2）、IKADA_ROD_LENGTH_M=2.5 → log「[Builder] IKADA_ROD_LENGTH_M 2.500 m (was 3.09x)」・穂先が 竿尻の方へ寄る。
+  - E1 env が効く対照（editor shoot.sh 06S, 各 1 枚）: IKADA_ROD_SINK_DEG=20 → 穂先が 06S より下（画面の外へ出る見込み・log の pitch −20.0 ± 0.2）、IKADA_ROD_LENGTH_M=2.5 → log「[Builder] IKADA_ROD_LENGTH_M 2.500 m (was 3.09x)」・穂先が 竿尻の方へ寄る。★足し（PRESIDENT 12:5x）★: IKADA_ROD_SINK_BUTT_UP_M=0.3 → 06S の竿全体が 0.3 m 上（穂先 (967, 705) より上へ、画の px は撮って読む = 向きだけ予測）。
+  - ★足し（PRESIDENT 12:5x）竿尻の env★（b4d5375）: IKADA_ROD_SINK_BUTT_UP_M / IKADA_ROD_SINK_BUTT_FWD_M（−2〜2 m, 今の手の場所からの上げ / 穂先の方へ）= 沈みの時だけ 竿全体を動かす（PlaceTauS で ease）。未設定 = 0 = 道に入らない。窓の clamp は 依頼者の答えまで触らない、太さは 長さの答えの時。
   - 基準の足し: 予測 → dry（worker2 の道具）→ PRESIDENT の画（06H / 06S × A/B）→ apply。known pixel（字幕帯 (1404,1014)）に 06H|06S を足すかは dry の画で。
+
+## §7.48 worker1 の同値の確かめ用の step の log（boss1 12:4x, 欄 = worker1 §6c）: code と予測（撮りの前, 動かさない）
+- code = track3/sink-prep ★b4d5375★: env ★IKADA_ROD_HOLD_STEP_LOG=1★ = LiveHost.cs:348 の RodHand.Step の直後に 毎 step 1 行「[RodHoldStep] frame= step= TimeS= events= panel= leadIn= hold= [snapHold=] inHolder= angle= lowHeld= fight=」（新 RodHoldStepLog.cs、LiveHost は +1 行、RuntimeRod.LowHeld は読みだけ）。s.RodHold は dev-pin の枝でだけ在る = SnapRodHold(s) が今は null（欄を出さない）→ dev-pin で s.RodHold.ToString() の 1 行に替える。200,000 行で切り「cap reached」の 1 行。c9a9358 の毎フレームの log は外した。
+- ★lowHeld の注（source の行）★: _lowHeld は RuntimeRod の 描きのフレームで更新（Hold.cs の Rest）= 1 フレームに step が何本もある速さでは ★前のフレームの値★。同値の比べで lowHeld の欄を使う時は frame の欄でまとめる。
+- ★予測（live 3 種 = 物語 4/20 s0・練習 free・練習の組 winter, 合わせた木の番で）★: 行数 = その run の step の数（cap に届かない見込み, 届けば行で分かる）、hold の欄が替わる step = [RodHand] の替わりの行と 同じ数・同じ TimeS（同じ所の後に読むゆえ）、env なしの run の [RodHoldStep] = 0 行、遊びの画と logic sequence は env の有無で不変（log だけ）。
 
 ## 次の番の段取り（控え, 竿の長さの答えの後）
 - ★沈みの構え A を入れる番（依頼者 = A: 沈み待ち 70〜80° 下・穂先は窓で読む、竿の長さの答えの後）の中身に 必ず含める（PRESIDENT 09:9x 控え）★: ★mock の基準に 手・沈みの 2 枚を足す（IKADA_ROD_SHOT_HOLD=hand / sinking の撮り, editor と player の両方）★ = 今の mock の基準 26 枚は 受けとファイトだけ = 手・沈みの見た目が壊れても regress は気づかない（§7.44 の 3.3 cm も regress では見えなかった）。足す時は regress_all.sh の BASE_IDS / player_shots の画面の列（worker2 / boss1 の道具 = 所有者の確認）と 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）を一緒に。MASTER_TASKS の 09:36 の控え（boss1）と同じ件。
