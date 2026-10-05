@@ -241,3 +241,7 @@
 - ★直しの確かめ（同じ番, editor の [TipJoint]）★: 手・沈み = ★side −0.0333 → 0.0000★、継ぎ目の画の点 本体の終わり = 穂先の始め（今 957.0 → 944.1 の 12.9 px の段が 0 に）。08（ファイト）= 弦の段（up 約 1 mm・角 約 2〜3°）だけ。
 - 番 = tipfix_turn/run.sh（Roslyn d95bd5a → regress 1 回 → editor の 手・沈み・08 の [TipJoint]）。mock の画が動いたら 止めて sheet を 1 枚ずつ（PRESIDENT 09:7x）。
 - ★予測の直し（boss1 09:24, 走らせる前）★: master 13ac877 には refcheck-auto が入っている = pin b80715f が基準の PIN と同じ = ★refcheck は SKIPPED★ → regress の数の予測は ★PASS 15/16・SKIPPED 1★（16/16 とは出ない, worker2 01:13 の訂正と同じ形）。ほか（mock 26・live 0 px、差し替えなし、手・沈みの継ぎ目 0）は そのまま。
+- ★結果（boss1 09:24 LOCK, 木 d95bd5a, 出力 = tipfix_turn/）★: Roslyn 0。★regress d95bd5a_092436 = PASS 15/16・SKIPPED 1（refcheck = auto: pin b80715f = 基準の PIN）★ → 直した予測どおり。★baseline 26/26 組 0 px・live 3 種 画 0 px・logic sequence = baseline・compare max 0.24 %・git_clean 0/0/0 = 差し替えなし★ → 当たり。FREE 前 Unity・player・VBCS 0、porcelain 0。
+  - ★直しの確かめ（editor の [TipJoint]）★: 手 = side 0.0000・up 0.0000・角 0.00°・継ぎ目の画の点 (957.0, 643.9) = 本体の終わり = 穂先の始め、沈み = 同じく 0・(956.6, 721.9) → ★当たり（−0.0333 → 0, 12.9 px の段が 0）★。
+  - 08（ファイト, editor）: side −0.0013・★up +0.0024 m・角 4.29°★・画で 約 1.1 px → 弦の段の形は予測どおりだが ★大きさは外れ（予測 up 約 1 mm・角 2〜3°）★。訳（推論）: mock の 08 の張力 3.8 N（live のファイトの最初の 約 1 N より大きい）= 竿がより曲がる = 弦の段も大きい。置いておく（§7.45 の控え）。
+  - master への merge（track3/side-shot d95bd5a）は boss1。遊べる版は 遊びの code が替わらない（builder の editor の置き順・撮りと log の道具だけ）= 作らない見込み（PRESIDENT の判断）。

@@ -1,0 +1,24 @@
+[tf] 2026-10-05 09:24:36 roslyn: [bundle_compile8] sim rc=0 errors=0 files=175 [bundle_compile8] d95bd5a game rc=0 errors=0 files=133 ikada-refs-from-Library=0 [bundle_compile8] d95bd5a editor rc=0 errors=0 files=20 
+[tf] 2026-10-05 09:33:18 regress rc=0 dir /home/ken/Documents/ikada-unity-track3/Logs/regress/d95bd5a_092436/
+[r] build          PASS     rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-092436.log CS=0 fonts: PASS  species: PASS not_in_table=0 control_drop_fails=True control_old_fails=True
+[r] key_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+[r] pad_test       PASS     rc=0 exc=0 control: control_shifted_fails=True 
+[r] hud_test       PASS     rc=0 exc=0 control: shown_again=True control_fails=True control_fails=True 
+[r] edge_test      PASS     rc=0 exc=0 control: control_pause_still=True control_old_hookset_fails=True 
+[r] tip_size_test  PASS     rc=0 exc=0 control: control_no_key_378=True 
+[r] input_test     PASS     rc=0 checks=91 failures=0 unevaluated=0 control_wrong_expectation_fails=True rumble_control_fails=True chum_control_fails=True map_control_fails=True width_control_fails=True nudge_control_fails=True reveal_control_fails=True page_contr
+[r] atlas          PASS     rc=0 main: test_chars=25 test_missing_before=25 test_missing_after=0 control_chars=11 | control ✥: test_missing_after_list=[✥] | chars: PASS
+[r] refcheck       SKIPPED  (auto: skip pin b80715f = 68f766b_113126's PIN (regress b763128_233732); decide_control_ok=True)
+[r] live           PASS     rc=0 | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)  seed 20260925 logic sequence = baseline;seed 20260925 not in the baseline (not judged, counted): 0;seed 20260925 pictures 0 px (6);seed 1 logic sequence = baseline;seed 1 not in t
+[r] player_shots   PASS     rc=0 shots=26/26 glyph_lines=26/26 missing_chars=0 unchecked=0 Exception=0 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/d95bd5a_092940
+[r] editor_shots   PASS     rc=0 shots=26/26 dir=/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/editor/d95bd5a_092436
+[r] editor_repeat  PASS     waterT=10.0 rows=4/4 max diff>24%=0 (limit < 0.1) bad: none
+[r] compare        PASS     rows=26/26 max diff>24%=0.24 (limit 1.0) bad: none
+[r] git_clean      PASS     start=0 after_build=0 end=0
+[r] baseline       PASS     vs /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player/68f766b_113126: 26/26 pairs 0 px over the whole picture (08 apart from the known rod-edge pixel, 06/06C/06M from the subtitle-band pixel); differ: none;
+[r] RESULT PASS  PASS 15/16  SKIPPED 1 ( refcheck )  UNEVALUATED 0   (NOT RUN counts as FAIL)  | rumble UNVERIFIED (no pad: seed 20260925, 1, 26)
+[tf] 2026-10-05 09:33:34 TF_hand_06 rc=0 | side(+right) 0.0000 up 0.0000 m angle 0.00 px mainB (957.0,643.9) tipA (957.0,643.9) 
+[tf] 2026-10-05 09:33:49 TF_sinking_06 rc=0 | side(+right) 0.0000 up 0.0000 m angle 0.00 px mainB (956.6,721.9) tipA (956.6,721.9) 
+[tf] 2026-10-05 09:34:04 TF_fight_08 rc=0 | side(+right) -0.0013 up 0.0024 m angle 4.29 px mainB (1011.5,254.5) tipA (1010.9,253.6) 
+[tf] 2026-10-05 09:34:05 players left: 0; end porcelain 0 head d95bd5a
+[tf] 2026-10-05 09:34:05 done
