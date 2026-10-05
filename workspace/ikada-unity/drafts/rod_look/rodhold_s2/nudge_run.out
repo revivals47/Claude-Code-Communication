@@ -1,0 +1,5 @@
+== build rc=0 [unity-batch] error CS lines: 0 wall 40 s
+== live rc=1 nudge env seen: 0
+== back on 09330dd porcelain 0
+== shape: px 339 | 1-level 318 | >=2 21 | max 21 | isolated 147 | box x 578..1054 y 562..882
+   in rod box (x550-1050,y550-890): 335

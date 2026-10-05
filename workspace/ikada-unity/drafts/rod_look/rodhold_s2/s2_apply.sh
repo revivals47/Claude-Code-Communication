@@ -9,7 +9,7 @@ export LIVE_BASELINE=perseed LIVE_BASE_20260925=$SH/ae3b5c4_s20260925_231126 LIV
 cd "$T" || exit 1
 [ "$(git rev-parse --short HEAD)" = 09330dd ] && [ "$(git status --porcelain | wc -l)" = 0 ] || { echo "tree is not a clean 09330dd - stop"; exit 1; }
 echo "== 1 live"; python3 "$D/../../stageD/live_rebase5.py" "$T/Logs/regress/09330dd_062303" --tag pre-s2 --project "$T" --table "$D/s2_live_dry_table.md" --apply \
-  --reason "段 (3) S2 = RodHand が logic の RodHold を読む・_lowHeld を消す（PRESIDENT 05:5x / boss1 06:19）: 種 20260925 live_08 = 長い K2 run（2447.9〜2637.3 s, logic の手）で竿が手に在った寄せの残りが 08 の竿に 320 px（最大 21 段）= S2 の狙いの帰結（§7.56 の測り: 2 build で再現・master の build は旧の基準と 0 px）、live.log ×3 = [RodHand] の行の語（at logic 等）" \
+  --reason "段 (3) S2 = RodHand が logic の RodHold を読む・_lowHeld を消す（PRESIDENT 05:5x / 07:0x, boss1 06:19）: ★種 20260925 live_08 = 長い K2 run で竿が手だった事の持ち越し（描きの位置の約 4e-6 m の残りが MSAA の縁で 1〜21 段）★（§7.56: 2 build の state dump で 描きの field の差は 1473 で ≤ 4.3e-6、陽性対照 = S1 の build で竿を −4.29e-6 m ずらすと 339 px・1 段 318・最大 21・孤立 147 = 同じ形）、live.log ×3 = [RodHand] の行の語（at logic 等）" \
   || { echo "live apply FAILED - stop"; exit 1; }
 echo "== 2 regress"; tools/regress_all.sh > "$D/apply_regress.out" 2>&1; echo "   rc=$? $(grep -m1 '^RESULT' "$D/apply_regress.out")"
 RID=$(cd Logs/regress && ls -dt 09330dd_* | head -1); echo "   regress id $RID"; [ "$RID" != 09330dd_062303 ] || { echo "no new regress dir - stop"; exit 1; }
