@@ -338,5 +338,11 @@
   - ★読み★: 仮説 H は ★測りで成り立つ★ = 種 26 live_08 の差は 構えの ease の残り（沈みの約 2 フレームで 9 % 入り、15 ＋ 139 フレームで 2e-4 まで縮んだ所）を speed 300 の写りが止めた物。遊び（speed 1, 早送り無し）では 沈みの終わりから 約 5.4 s 以内のアワセでだけ ファイトの頭の 0.5 s の戻りとして見える（推論, 上の読み）。
   - 推す 1 つ: ★live_08（種 26）も 基準の差し替えに含める★（ease の式は替えない = 前からの _back・_lift・_side と同じ扱い）。PRESIDENT の判断へ。
 
+## §7.52 基準の差し替え（PRESIDENT 03:0x GO, ease の式は替えない）: script と予測（apply の前, 動かさない）
+- ★差し替える物★: mock = shots/player/a9106ea_234105 の 06S_A_sans・06S_B_serif（その場で, 旧 = pre-stance_<名>, 源 = regress f2b113b_021733 の player 撮り f2b113b_022239）、live = 3 種の live_06.png・live.log と 種 26 の live_08.png（live_rebase5.py, dry の表 live_dry_table.md = changed 7 を前の照合に）。札（NOTE と merge の commit 本文）= ★種 26 live_08 は 沈みからアワセへの戻りの ease の残りを含む★（§7.51 の測り）。
+- script = sinkdef_turn/apply_run.sh（門の内で 1 回）: 木が clean な f2b113b か → ① mock_apply.py --apply（sha を mock_apply_want.md と照合, 違えば何も動かさない）→ ② live_rebase5.py --apply（表と照合）→ ③ regress_all.sh → 新しい regress の baseline が PASS の時だけ ④ baseline_pin.sh <mock dir> <その regress> → PIN を表示。どこかで外れたら止まる。
+- ★予測（動かさない）★: ① 2 changed・新 = 源・pre-stance_ = 旧・NOTE に 1 節。② changed 7・新 = 源・pre-stance_ = 旧・3 つの dir の NOTE に行。③ ★RESULT PASS 15/16・SKIPPED 1（refcheck auto: PIN の pin b80715f = 今の pin）★、★baseline 30/30 0 px★（既知の点は今の扱い）、★live 3 種 PASS★（logic sequence = 基準・画 全部 0 px, 種 26 live_08 は 既知の点 (917,563) の 1 段以内）、ほかの段は前と同じ PASS（player_shots 30/30・editor_shots 30/30・compare 30/30・git_clean）。④ PIN = pin b80715f… ＋ regress <③の id>。
+- その後: track3/sink-stance-default の log と diff --stat を boss1 へ → boss1 が master へ --no-ff（前に PRESIDENT へ 1 行）。track3/sink-measure（2ae11c7）は master に入れない（残すだけ）。
+
 ## 次の番の段取り（控え, 竿の長さの答えの後）
 - ★沈みの構え A を入れる番（依頼者 = A: 沈み待ち 70〜80° 下・穂先は窓で読む、竿の長さの答えの後）の中身に 必ず含める（PRESIDENT 09:9x 控え）★: ★mock の基準に 手・沈みの 2 枚を足す（IKADA_ROD_SHOT_HOLD=hand / sinking の撮り, editor と player の両方）★ = 今の mock の基準 26 枚は 受けとファイトだけ = 手・沈みの見た目が壊れても regress は気づかない（§7.44 の 3.3 cm も regress では見えなかった）。足す時は regress_all.sh の BASE_IDS / player_shots の画面の列（worker2 / boss1 の道具 = 所有者の確認）と 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）を一緒に。MASTER_TASKS の 09:36 の控え（boss1）と同じ件。
