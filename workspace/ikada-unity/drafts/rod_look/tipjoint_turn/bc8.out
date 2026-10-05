@@ -1,0 +1,5 @@
+[bundle_compile8] dfa2b29 pin=b80715f96efa90d687296c8e4562e8bb085725f9 sim ApiVersion=ApiVersion = "0.25.0"
+[bundle_compile8] sim rc=0 errors=0 files=175
+[bundle_compile8] dfa2b29 game rc=0 errors=0 files=132 ikada-refs-from-Library=0
+[bundle_compile8] editor refs the fresh game dll: 1
+[bundle_compile8] dfa2b29 editor rc=0 errors=0 files=20
