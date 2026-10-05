@@ -1,0 +1,4 @@
+[audio] A=wired audio_lines=2 result_lines=1 (/home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/measure_turn/M1/seed_26/live.log)
+[audio] 5b left = baseline (7 fields)
+[audio] 5c right matches left (callbacks=1865 clicks=415 gears=320 creaks=0 snap_samples=0)
+[audio] VERDICT PASS

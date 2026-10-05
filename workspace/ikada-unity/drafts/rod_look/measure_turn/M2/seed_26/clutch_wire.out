@@ -1,0 +1,2 @@
+[clutch_wire] frames=2362 wire_mismatch=0 text_mismatch=0 inverted_mismatch=2362 (control: must be 2362) fallback_frames=0
+[clutch_wire] VERDICT PASS

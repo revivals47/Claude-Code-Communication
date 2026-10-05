@@ -1,0 +1,12 @@
+[outside_water] known pixel (1485,1002): diff 0 levels, a=(57, 47, 45) b=(57, 47, 45) (limit 1) -> OK
+[outside_water] known pixel (1450,1060): diff 0 levels, a=(38, 28, 23) b=(38, 28, 23) (limit 2) -> OK
+[outside_water] known pixel (917,563): diff 7 levels, a=(73, 86, 108) b=(80, 92, 110) (limit 1) -> DIFFERS
+[outside_water] /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/shots/player_live/5e50ac7_s26_014332/live_08.png vs /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/measure_turn/M1/seed_26/live_08.png: band rows 0..-1 left out = 0.0 % of the picture
+  above (sky, far view)  diff>0       0   diff>24       0
+  below (raft)           diff>0    6877   diff>24     278
+  place_band             diff>0       0   diff>24       0   (outside the band only)
+  chapter_band           diff>0       0   diff>24       0   (outside the band only)
+  gauge_panel            diff>0       0   diff>24       0   (outside the band only)
+  tackle_card            diff>0      53   diff>24      10   (outside the band only)
+  subtitle               diff>0       0   diff>24       0   (outside the band only)
+[outside_water] outside the band: diff>0 = 6877 px (the known pixels apart) -> DIFFERS
