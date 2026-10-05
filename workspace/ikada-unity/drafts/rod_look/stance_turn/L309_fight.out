@@ -1,0 +1,40 @@
+[lock_guard] ok: session 2 seat seat0 LockedHint=no
+[lock_guard] ok: session 2 seat seat0 LockedHint=no
+[unity-batch] 01:54:03 start exec
+[unity-batch] 01:54:19 end rc=0 log=/home/ken/Documents/ikada-unity-track3/Logs/batch/exec-015403.log
+[unity-batch] error CS lines: 0
+[unity-batch] Exiting batchmode successfully: yes
+[SceneBuilder] dayFrac=0.069 hour=7.09 sun az=97.2 alt=6.5 weights=1.00/0.00/0.00
+[SceneBuilder] sun light fwd=(0.711, -0.114, 0.694) intensity=0.94 color=RGBA(1.000, 0.801, 0.602, 1.000) shadows=Soft
+[SceneBuilder] ambient mode=Trilight probe L0 rgb=(0.224,0.282,0.369) sun=0.94
+[Shot] screen=08 smallFont=sans hud=on texts=25
+[Shot] text Place font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text Weather font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text Chapter font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text Goal font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text TensionLabel font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text TensionValue font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text DragLabel font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text DragWord font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text LineLabel font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text LineValue font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text StaminaLabel font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text StaminaValue font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text WarningText font=SansJP-Medium mat=SansJP-Medium Material
+[Shot] text CalloutText font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text CalloutL font=SansJP-Medium mat=SansJP-Medium Material
+[Shot] text FightCardBaitText font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text FightCardHarisu font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text FightCardDepthLabel font=SansJP-Regular mat=SansJP-Regular Material
+[Shot] text FightCardDepth font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text Subtitle font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text FightTitleText font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text LandingSkipText font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text TipTitle font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text ClutchState font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] text ClutchGlyphs font=SerifJP-Regular mat=SerifJP-Regular Material
+[Shot] camera MainCamera pos=(0.0000, 1.5500, 0.0000) rot=(5.7516, 0.0000, 0.0000) fov=50.0000
+[Shooter] tip close-up TipViewCamera -> TipView 675x540
+[Shooter] cameras: MainCamera(depth 0)
+[Shooter] wrote /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/stance_turn/L309_fight.png gfx=Vulkan NVIDIA GeForce RTX 4070
+[shoot] /home/ken/Documents/Claude-Code-Communication/workspace/ikada-unity/drafts/rod_look/stance_turn/L309_fight.png size=(1920, 1080) distinct_colours=198742
