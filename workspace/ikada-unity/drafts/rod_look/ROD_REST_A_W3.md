@@ -296,5 +296,20 @@
   - ★状態の直し★: 静止の画の窓の張力は ★0 N★（log T 0.00、窓の穂先は撮りでは IKADA_TIP_T が無いと 0）= §7.49 の 1 行「張力 0.2 N」は 3D の竿と HUD だけ。c207 の「静止」= 0 N。
   - 画 = ★c206_rod_length_compare.png（8 枚）・c207_tip_window_compare.png（4 枚, 窓を 1.6 倍）★（drafts/user_review/, ls で c206・c207 は空きと確かめた）。見出し = 依頼者の言葉、札 = 1.5 m は全長と仮定・太さは長さに比例・3.09 m は 26° が手の届く最大・横から見た図は説明の図・構えの窓の曲がりは仮の描き。
 
+## §7.50 沈み待ちの構えを既定に（依頼者 02:0x「3.09mのほうが迫力があっていい…穂先は今の窓のままのほうがわかりやすい」, PRESIDENT 02:0x）: code と予測（撮りの前, 動かさない; 未 compile）
+- 依頼者の答え（要点）: 竿は 3.09 m のまま、窓は今のまま（c207 の構えの窓は採らない）、沈みの竿が受けの上に短く立って見えるのは気にならない（閉じ, boss1 02:1x）。
+- code = ikada-unity-track3 ★track3/sink-stance-default f2b113b★（master 6775ad7 ＋ 2 file +34 −22, env の枝でなく既定の直し）:
+  - 沈みの時: 竿を 竿尻のまわりに ★SinkStanceDeg 25.9°★ 回し、竿尻を ★0.65 m 上・1.39 m 前★（SinkButtUpM / SinkButtFwdM, c206 左の値 = 竿尻 甲板から 1.0 m）。回しは _stanceA を PlaceTauS で ease = 入りも出も滑らか（沈みの終わりで跳ばない）。沈みの間は DisplayRaise の持ち上げと 受けの間隔の角（HeldAngle）を通さない（c206 と同じ描き）。logic の角が 構えより深い分（W / S）だけ 今の道で足す（合計 = min(logic の角, −構え), 前の min(角, −0.10) と同じ形）。
+  - 前の沈みの下げ HandDipRad 0.10 は消した（grep 0, 履歴の 1 行のみ）。env IKADA_ROD_SINK_DEG / _BUTT_UP_M / _BUTT_FWD_M は 撮りで上書き（−2〜2・−4〜4）。
+  - ★窓の構えの撮りの引数（c207 の IKADA_SHOT_TIP_STANCE）は master に持ってこない★ = 枝 track3/stance-shots b7fe54a にだけ残る記録（master の grep stanceView 0 = 遊びに入らない, source で確かめた）。窓は logic の角のまま = 不変。
+  - BackdropBuilderProps.cs（526 行）は この番で触らない = 分けは次に その file を触る番へ（控えのまま）。
+- ★状態（1 行, 撮りの前に）★: mock の 06S = editor / player とも 撮りは即（k2 = 1）= 構えの全量。live の regress の live_06（種 20260925・1・26 の 3 本とも）= ★落とした後・底の前の 沈みの状態★（基準の live.log: [RodHand] hand (sinking) at drop TimeS 5.517 → live_06 の shot → rest at bottom 14.417）、lockstep の待ち 139 frame で 構えは ease の 約 99 % 以上（推論: τ 0.5 s）。種 26 の live_08・live_03 は 沈みの終わり（720.5）から 70 s 以上後 = ease 済み = 不変。
+- ★予測（動かさない）★:
+  - P1 陽性対照（editor shoot.sh 06S, env なし）vs c206 の L309_sink.png（b7fe54a, env で同じ値）= ★0 px★（同じ式・同じ道; 違いは 角の持ち方 _drawnA → _stanceA だけ）。
+  - E1 env が上書きする（IKADA_ROD_SINK_DEG=40）: 06S の竿が P1 より深い（log の shot overrides sinkDeg=40）。
+  - regress（worker2 の regress_all.sh, 合わせない木 = この枝だけ）: ★mock の基準 30 組のうち 06S_A / 06S_B の 2 組だけ差★（竿・糸・甲板の竿の影の所, 箱は y ≥ 440 の中の見込み; 窓・HUD は 0 px の見込み = 窓は logic の角から描き 穂先からの相対で置く・推論）、★残り 28 組 0 px★（06・06C・06M・06H・08・2D: 沈みでない = _stanceA 0 = 前と同じ式）。player の 06S は editor の 06S と同じ形（compare の 06S の行 = 前と同じ程度）。★live = 3 種とも live_06 だけ差★（竿が構えへ）、ほかの live の画 0 px、logic sequence（page・screens）= 基準と同じ。exception 0・error CS 0・missing_chars 0。
+  - 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）: mock 06S_A_sans・06S_B_serif（札 = 3.09 m・26°・竿尻 甲板から 1.0 m、依頼者 02:0x）、live 3 種の live_06.png ＋ live.log・ARGS.txt（live_rebase5.py の表どおり）。apply の後に PIN（baseline_pin.sh）。
+- run = sinkdef_turn/run.sh（P1・E1 の 2 枚 → regress、1 本ずつ）。
+
 ## 次の番の段取り（控え, 竿の長さの答えの後）
 - ★沈みの構え A を入れる番（依頼者 = A: 沈み待ち 70〜80° 下・穂先は窓で読む、竿の長さの答えの後）の中身に 必ず含める（PRESIDENT 09:9x 控え）★: ★mock の基準に 手・沈みの 2 枚を足す（IKADA_ROD_SHOT_HOLD=hand / sinking の撮り, editor と player の両方）★ = 今の mock の基準 26 枚は 受けとファイトだけ = 手・沈みの見た目が壊れても regress は気づかない（§7.44 の 3.3 cm も regress では見えなかった）。足す時は regress_all.sh の BASE_IDS / player_shots の画面の列（worker2 / boss1 の道具 = 所有者の確認）と 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）を一緒に。MASTER_TASKS の 09:36 の控え（boss1）と同じ件。
