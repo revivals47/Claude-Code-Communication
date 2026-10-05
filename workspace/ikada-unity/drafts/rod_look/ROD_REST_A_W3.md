@@ -268,5 +268,7 @@
 - ★lowHeld の注（source の行）★: _lowHeld は RuntimeRod の 描きのフレームで更新（Hold.cs の Rest）= 1 フレームに step が何本もある速さでは ★前のフレームの値★。同値の比べで lowHeld の欄を使う時は frame の欄でまとめる。
 - ★予測（live 3 種 = 物語 4/20 s0・練習 free・練習の組 winter, 合わせた木の番で）★: 行数 = その run の step の数（cap に届かない見込み, 届けば行で分かる）、hold の欄が替わる step = [RodHand] の替わりの行と 同じ数・同じ TimeS（同じ所の後に読むゆえ）、env なしの run の [RodHoldStep] = 0 行、遊びの画と logic sequence は env の有無で不変（log だけ）。
 
+- ★竿受けは閉じ（依頼者, boss1 2026-10-06 00:2x）★: 「c205を見る限り、竿おきはよく再現されています」= 縁の (a)・2 点の V は OK。手元の形は 構え A（§7.47 の引数: 長さ・角・竿尻）と 竿の長さの答えで続く。master 6775ad7。
+
 ## 次の番の段取り（控え, 竿の長さの答えの後）
 - ★沈みの構え A を入れる番（依頼者 = A: 沈み待ち 70〜80° 下・穂先は窓で読む、竿の長さの答えの後）の中身に 必ず含める（PRESIDENT 09:9x 控え）★: ★mock の基準に 手・沈みの 2 枚を足す（IKADA_ROD_SHOT_HOLD=hand / sinking の撮り, editor と player の両方）★ = 今の mock の基準 26 枚は 受けとファイトだけ = 手・沈みの見た目が壊れても regress は気づかない（§7.44 の 3.3 cm も regress では見えなかった）。足す時は regress_all.sh の BASE_IDS / player_shots の画面の列（worker2 / boss1 の道具 = 所有者の確認）と 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）を一緒に。MASTER_TASKS の 09:36 の控え（boss1）と同じ件。
