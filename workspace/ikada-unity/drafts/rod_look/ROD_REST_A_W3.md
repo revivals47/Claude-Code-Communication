@@ -400,5 +400,14 @@
 - ★結果（boss1 06:07 LOCK, 木 9061767）= 予測 全部 当たり★: ★regress 9061767_060852 = RESULT PASS・15/16・SKIPPED 1（refcheck auto: PIN の pin db43865 = 今の pin）★、baseline 30/30 0 px、★live 3 種 PASS（並び = 基準・画 0 px 8/7/8・音 5b = 基準）★、player / editor / compare 30/30・git_clean 0/0/0・build CS 0。★この build は (697,726) を build 2 の値で描いた = 許しが実際に働いた: 種 20260925 live_08 の cmp の行 1 本 "known pixel (697,726): diff 10 levels, a=(37, 43, 54) b=(43, 50, 64) (limit 10) -> OK"★、ほかの点 0 px、幅 10 の 2 つ目 = 無し。PIN 書き直し = ★pin db43865 ＋ regress 9061767_060852（30/30）★。FREE 06:2x（Unity・player・VBCS 0, porcelain 0）。
   - track3/rodhold-s1 の master.. = 138bb9e（pin ＋ step の log の器）・43beea1（refcheck #18）・9061767（既知の点）、diff = 7 file +37 −15（LiveHost.cs・RodHoldStepLog.cs・SessionDriver.cs・manifest.json・packages-lock.json・live_regress.sh・refcheck_probe.sh）。merge は boss1。
 
+## §7.56 段 (3) S2 = RodHand が logic の RodHold を読む ＋ _lowHeld を消す（PRESIDENT 05:5x, boss1 06:19）: code（未 compile）
+- code = ikada-unity-track3 ★track3/rodhold-s2 09330dd★（master 7ba48f3 ＋ 3 file +34 −41）:
+  - RodHand.Step = 毎 step State = (RodHold)(int)s.RodHold（値は同じ, RenderContract.cs:47）。Unity の決まり（Drop / Bottom / Rest / HookSet / StrikeMiss / 札 / lead-in）は消した = logic の DayFlow.Hold が持つ（＋ (b1)(b2)・受けの鍵）。★[RodHand] の替わりの行は書式そのまま★（"rest | hand | hand (sinking) at <why> TimeS="）: why = その step の event で 新しい hold を与える語（drop / bottom / rest / HookSet / StrikeMiss, 後の event が勝つ = 前の規則と同じ）、受けで札の頁なら card・lead-in なら lead-in、★どれでもなければ logic★。撮りの IKADA_ROD_SHOT_HOLD・SetForShot・Reset は残した。
+  - ★IKADA_RODHAND_NO_LEADIN は消した★（Unity の lead-in の規則が無くなった = 効かない env を残さない）。
+  - RuntimeRod.Hold: hand = !fight && hold ≠ Rest（_lowHeld・HeldMinRad・HeldOutRad・LowHeld を消した, 注を直した）。
+  - ★step の log の lowHeld= の欄は消した★（器が無くなった）= worker2 の rodhold_count.py ②-2 は『欄なし = 数えない』に（worker2 §⑧ ③ の案どおり）。
+- worker2 §⑧ と 食い違いなし（読んだ）。足す 2 点: (1) NO_LEADIN の陽性対照は 無くなる（env ごと消した）= 代わりは §⑧ ③ の『S1 の log を同じ script に通して違いを見る』。(2) K2 の run では 前は HookSet の step で『hand at HookSet』、S2 では 竿を上げた step（stick > 0, HookSet の 約 4 step = 0.05 s 前）で『hand at logic』になり HookSet の step では替わりの行が出ない = live.log の [RodHand] の行の語が替わる（live_regress は見ない, §7.51 のような読みは語が替わる事を知っておく）。
+- compile の見込み（読みだけ）: `HookSet or StrikeMiss` の型 pattern = C# 9（Unity 6 で使える見込み, 未確かめ）。
+
 ## 次の番の段取り（控え, 竿の長さの答えの後）
 - ★沈みの構え A を入れる番（依頼者 = A: 沈み待ち 70〜80° 下・穂先は窓で読む、竿の長さの答えの後）の中身に 必ず含める（PRESIDENT 09:9x 控え）★: ★mock の基準に 手・沈みの 2 枚を足す（IKADA_ROD_SHOT_HOLD=hand / sinking の撮り, editor と player の両方）★ = 今の mock の基準 26 枚は 受けとファイトだけ = 手・沈みの見た目が壊れても regress は気づかない（§7.44 の 3.3 cm も regress では見えなかった）。足す時は regress_all.sh の BASE_IDS / player_shots の画面の列（worker2 / boss1 の道具 = 所有者の確認）と 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）を一緒に。MASTER_TASKS の 09:36 の控え（boss1）と同じ件。
