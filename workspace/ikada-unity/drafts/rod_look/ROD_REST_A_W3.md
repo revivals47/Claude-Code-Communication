@@ -310,6 +310,23 @@
   - regress（worker2 の regress_all.sh, 合わせない木 = この枝だけ）: ★mock の基準 30 組のうち 06S_A / 06S_B の 2 組だけ差★（竿・糸・甲板の竿の影の所, 箱は y ≥ 440 の中の見込み; 窓・HUD は 0 px の見込み = 窓は logic の角から描き 穂先からの相対で置く・推論）、★残り 28 組 0 px★（06・06C・06M・06H・08・2D: 沈みでない = _stanceA 0 = 前と同じ式）。player の 06S は editor の 06S と同じ形（compare の 06S の行 = 前と同じ程度）。★live = 3 種とも live_06 だけ差★（竿が構えへ）、ほかの live の画 0 px、logic sequence（page・screens）= 基準と同じ。exception 0・error CS 0・missing_chars 0。
   - 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）: mock 06S_A_sans・06S_B_serif（札 = 3.09 m・26°・竿尻 甲板から 1.0 m、依頼者 02:0x）、live 3 種の live_06.png ＋ live.log・ARGS.txt（live_rebase5.py の表どおり）。apply の後に PIN（baseline_pin.sh）。
 - run = sinkdef_turn/run.sh（P1・E1 の 2 枚 → regress、1 本ずつ）。
+- ★結果（boss1 02:16 LOCK, 木 f2b113b, 出力 = sinkdef_turn/, regress f2b113b_021733）★: editor 2 枚 rc 0・error CS 0。regress = ★PASS 13/16・SKIPPED 1（refcheck auto）・FAIL 2 = baseline と live だけ★（build・tests・atlas・player_shots 30/30・editor_shots 30/30・editor_repeat・compare 30/30 max 0.24 %・git_clean は PASS）。FREE 02:29（Unity・player・VBCS 0, porcelain 0）。
+  - ★mock baseline = 28/30 0 px・差は 06S_A / 06S_B だけ = 当たり★。06S: 差 > 30 = 26,741 px・箱 (726, 455)〜(1636, 1080)（竿・糸・甲板の竿の影, y ≥ 455 = 予測の y ≥ 440 の内）、★窓 0 px★（A・B とも）、既知の点 全 0。
+  - ★live: logic sequence = 3 種とも基準と同じ・live_06 は 3 種とも差 = 当たり★（差 > 30 = 10,622 / 9,342 / 9,366 px、箱 x 725〜986・y 458〜1080 = 竿の所、窓 0 px）。★外れ = 種 26 の live_08 も差★（予測は不変）: 差 > 0 = 4,881 px・> 30 = 101 px・箱 (577, 560)〜(1048, 877)、×8 の差の画で ★竿とリールの輪郭だけ = 竿全体が 1 px 未満ずれた形★（live08_s26_zoom_old_new_diffx8.png）、窓 1 px。live.log の差（06 の shot から 08 の shot まで, frame の数を除く）= [RodHolder] dip の要約の行 5 本だけ（描きの側, logic 0）。
+  - ★P1 の外れ（対照の作りの誤り）★: 既定の 06S vs c206 の L309_sink = 442,004 px 差、★全部 水の帯 y 446〜744 の中★（帯の外 0 px）= shoot.sh は水の時刻を止めない（regress は IKADA_WATER_T 10 で止める）= 2 回の撮りの水が違う。竿の所は 水と重なり 画では切り分け不能 → 竿の log の行（[TipAngle]・[RodHolder]・[TipView] 9 行）は 2 つで ★同じ★（弱い裏付け: 竿尻・穂先の座標は この行に無い）。0 px の予測は外れのまま。次から 水の時刻を揃えた対照にする。
+  - E1（SINK_DEG=40）= 竿が より立ち 穂先が甲板の縁 (約 955, 745) へ = 当たり（向き）。
+  - dry（live_rebase5.py, 動かさない）= changed 7（live_06 ×3・live.log ×3・種 26 live_08）・same 26（RESULT・ARGS・AUDIO は 3 種とも same）= live_dry_table.md・live_dry_sheet.png。mock = mock_06S_sheet.png。apply しない（boss1）。
+
+## §7.51 種 26 live_08 の外れを測る計画（boss1 02:3x, 推論のまま → 次の Unity の番で測る）: 予測を先に（動かさない）
+- ★code を読んだ所（観測, 読むだけ・csc なし）★: ease がファイトに入っても残る道は ★在る★ = ファイトでは hand = false（RuntimeRod.Hold.cs:57）→ sinking = false（:64）→ _stanceA・_sinkUp・_sinkFwd は 0 へ向かうが ★描きのフレームごとに k2 だけ縮む（:60, k2 = 1 − exp(−Time.deltaTime / 0.5) = 実のフレームの時間, logic の時間でない）★ → 1e-5 を超える間は 竿を動かす（:82・:83・:85）→ その後に if (fight) return raise（:95）= ★ファイトの竿は 残りで回った _butt / _tip から作られる★（RuntimeRod.cs:181 Rest → :182 GripRaise）。DisplayRaise を飛ばした事の残り（LastDisplayRaise・LastClamped）は 書くだけで読む所 0（grep）= 道でない。_drawnA の残りは ファイトの道（:95 return raise）で使われない。
+- ★数の枠★: live は speed 300・lockstep の 1 step = 1/60 s（ikada-sim-w3 の ReferenceRun.cs:45 FrameS, Unity の pin の版は未確かめ）= ★1 フレーム ≈ 5 s★。種 26: 沈み 711.981〜720.514（約 8.5 s = 約 2 フレーム）、底 720.514 → アワセ 792.399（71.9 s = ★約 14〜15 フレーム★）、その後 live_08 の shot まで 139 フレームの待ち（歩みは止まるが フレームは進む = ease は進む）。
+- ★仮説 H★: 沈みの約 2 フレームで構えは少しだけ入り（k2 × 2 程度）、底の後 約 15 フレーム ＋ 待ち 139 フレームで縮むが ★shot の時に 1e-5 を超えて残る★ → 竿全体が 1 px 未満ずれる。
+- ★測り（次の番, 木 = track3/sink-stance-default 2ae11c7 = f2b113b ＋ log だけ）★: build → LIVE_SEEDS=26 で live 2 本:
+  - M1 = IKADA_ROD_FRAME_LOG=1（log: 手・ファイト・戻りの毎フレームに stanceA・sinkUp・sinkFwd・butt, 上限 20000 行）。
+  - M2（反実仮想の対照）= M1 ＋ IKADA_ROD_SINK_DEG=0・IKADA_ROD_SINK_BUTT_UP_M=0・IKADA_ROD_SINK_BUTT_FWD_M=0（構えを 0 にする）。
+- ★予測（H が正しければ）★: (1) M1 の live_08 の sha = regress f2b113b_021733 の live_08（log は描きを替えない = 陽性対照）。(2) M1 の log: 720.514〜792.399 の戻りの行 = ★14〜15 フレーム★、沈みの終わりの |stanceA| は 0.452 rad よりずっと小さい（構えは入りきらない）、その後 毎フレーム 同じ比で縮み、★live_08 の shot のフレームで 1e-5 < |stanceA| （かつ sinkUp・sinkFwd > 1e-5）★。(3) ★M2 の live_08 = 基準（5e50ac7_s26_014332）と 0 px・sha 同じ★。(4) M1 と M2 の butt= の行が違う最初のフレーム = 711.98 の沈みの入り、ファイトのフレームでも違いが続き、|stanceA| が 1e-5 を割るフレームで消える。
+- ★H が違えば見える物★: (2) で shot のフレームの 3 つが全部 ≤ 1e-5（回しも動かしも飛ばされる）、または (3) で M2 の live_08 が まだ基準と違う → 原因は構えの残りでない → 次 = M2 と基準の差の所と log の行を 1 行ずつ。
+- 直しの案（測ってから決める, 今は何もしない）: H が正しければ ★これは speed 300 の写りでだけ起きる（遊びの速さ 1 では 底からアワセまで 数千フレーム = 残り 0）= 基準の差し替えに live_08 を含める★ を推す（ease の式を替えると 前からの _lift・_side・_back と違う扱いになる）。
 
 ## 次の番の段取り（控え, 竿の長さの答えの後）
 - ★沈みの構え A を入れる番（依頼者 = A: 沈み待ち 70〜80° 下・穂先は窓で読む、竿の長さの答えの後）の中身に 必ず含める（PRESIDENT 09:9x 控え）★: ★mock の基準に 手・沈みの 2 枚を足す（IKADA_ROD_SHOT_HOLD=hand / sinking の撮り, editor と player の両方）★ = 今の mock の基準 26 枚は 受けとファイトだけ = 手・沈みの見た目が壊れても regress は気づかない（§7.44 の 3.3 cm も regress では見えなかった）。足す時は regress_all.sh の BASE_IDS / player_shots の画面の列（worker2 / boss1 の道具 = 所有者の確認）と 基準の差し替え（予測 → dry → PRESIDENT の画 → apply）を一緒に。MASTER_TASKS の 09:36 の控え（boss1）と同じ件。
