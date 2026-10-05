@@ -1,0 +1,5 @@
+== s1 build rc=0 [unity-batch] error CS lines: 0 wall 45 s
+   s1 live rc=0 state lines 42 shot08 before line 2401
+== s2 build rc=0 [unity-batch] error CS lines: 0 wall 40 s
+   s2 live rc=0 state lines 42 shot08 before line 2402
+== back on 09330dd porcelain 0
